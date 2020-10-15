@@ -9,9 +9,9 @@ using System.Linq;
 using UnityEngine;
 using UnityEditor;
 using UnityEditorInternal;
-using StealthPackMan.Manager;
+using FrontPerson.Manager;
 
-namespace StealthPackMan.Constants
+namespace FrontPerson.Constants
 {
     public class SettingConstantsClassCreator : AssetPostprocessor
     {
@@ -29,7 +29,6 @@ namespace StealthPackMan.Constants
         private const string COMMAND_SORTING_LAYERS = COMMAND_NAME + "/SortingLayer";
         private const string COMMAND_SCENE = COMMAND_NAME + "/Scene";
         private const string COMMAND_INPUT = COMMAND_NAME + "/Input";
-        private const string COMMAND_STAGE = COMMAND_NAME + "/StageData";
 
         // 定数クラスの生成場所
         private const string DIRECTORY_PATH = "Assets/Script/Functions/Constants";
@@ -95,9 +94,6 @@ namespace StealthPackMan.Constants
 
             // シーン
             CreateScene();
-
-            // ステージ
-            CreateStageName();
         }
 
         /// <summary>
@@ -169,21 +165,6 @@ namespace StealthPackMan.Constants
             ConstantsClassCreator.Create("InputName", "インプット名を定数管理するクラス", input_name_dic, DIRECTORY_PATH, NAME_SPACE);
         }
 
-
-        [MenuItem(COMMAND_STAGE)]
-        private static void CreateStageName()
-        {
-            var stage_dic = new Dictionary<string, string>();
-
-            foreach(var stage_data in Resources.LoadAll(StageLoad.filepath))
-            {
-                stage_dic[stage_data.name] = stage_data.name;
-            }
-
-            //定数クラス作成
-            ConstantsClassCreator.Create("StageDataName", "ステージデータを定数管理するクラス", stage_dic, DIRECTORY_PATH, NAME_SPACE);
-        }
-
 #endif
 
         //sortinglayerの名前一覧を取得
@@ -237,7 +218,6 @@ namespace StealthPackMan.Constants
         [MenuItem(COMMAND_SCENE, true)]
         [MenuItem(COMMAND_SORTING_LAYERS, true)]
         [MenuItem(COMMAND_TAG, true)]
-        [MenuItem(COMMAND_STAGE, true)]
         private static bool CanCreate()
         {
             return !EditorApplication.isPlaying && !Application.isPlaying && !EditorApplication.isCompiling;

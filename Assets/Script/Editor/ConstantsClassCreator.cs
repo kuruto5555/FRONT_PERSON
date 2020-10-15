@@ -1,6 +1,6 @@
 ﻿#if UNITY_EDITOR
 
-namespace StealthPackMan.Constants
+namespace FrontPerson.Constants
 {
     using System;
     using System.IO;

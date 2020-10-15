@@ -9,9 +9,9 @@ using UnityEditor;
 using UnityEditorInternal;
 using UnityEngine;
 
-using StealthPackMan.Constants;
+using FrontPerson.Constants;
 
-namespace StealthPackMan.Manager
+namespace FrontPerson.Manager
 {
     /// <summary>
     /// オーディオのファイル名を定数で管理するクラスを作成するスクリプト
