@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿
 using UnityEngine;
 
 public class Player : MonoBehaviour
@@ -11,6 +10,10 @@ public class Player : MonoBehaviour
     [Header("視点感度")]
     [SerializeField, Range(1, 14)]
     int rotationSpeed_ = 7;
+
+    [Header("体力")]
+    [SerializeField, Range(1, 100)]
+    int hp_ = 10;
 
 
     /// <summary>
