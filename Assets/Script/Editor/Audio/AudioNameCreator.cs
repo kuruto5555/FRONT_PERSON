@@ -16,13 +16,15 @@ namespace FrontPerson.Manager
     /// <summary>
     /// オーディオのファイル名を定数で管理するクラスを作成するスクリプト
     /// </summary>
-    public static class SoundNameCreator
+    public static class AudioNameCreator
     {
+        private const string NAME_SPACE = "FrontPerson.Constants";
 
         private const string COMMAND_NAME = "Tools/Create/Audio Name";        // コマンド名
 
         public const string BGM_DIRECTORY_PATH = "Resources/BGM";
         public const string SE_DIRECTORY_PATH = "Resources/SE";
+
         /// <summary>
         /// オーディオのファイル名を定数で管理するクラスを作成します
         /// </summary>
@@ -61,7 +63,7 @@ namespace FrontPerson.Manager
             }
 
             //定数クラス作成
-            ConstantsClassCreator.Create(directory_name + "Path", directory_name + "ファイルへのパスを定数で管理するクラス", audio_path_dict, ConstantsClassCreator.PATH, "StealthPackMan.Constants");
+            ConstantsClassCreator.Create(directory_name + "Path", directory_name + "ファイルへのパスを定数で管理するクラス", audio_path_dict, ConstantsClassCreator.PATH, NAME_SPACE);
 
         }
 
