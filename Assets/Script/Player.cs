@@ -21,6 +21,11 @@ public class Player : MonoBehaviour
     /// </summary>
     Transform cameraTransform_ = null;
 
+    /// <summary>
+    /// 銃
+    /// </summary>
+    Gun gun_ = null;
+
 
     /// <summary>
     /// 座標更新用
@@ -39,6 +44,8 @@ public class Player : MonoBehaviour
     void Start()
     {
         cameraTransform_ = Camera.main.transform;
+        gun_ = GetComponentInChildren<Gun>();
+
         position_ = transform.position;
     }
 
@@ -46,7 +53,8 @@ public class Player : MonoBehaviour
     void Update()
     {
         Move();
-
+        Shot();
+        Reload();
 
         transform.position = position_;
     }
@@ -68,4 +76,20 @@ public class Player : MonoBehaviour
 
         position_ += direction * moveSpeed_ * Time.deltaTime;
     }
+
+
+    void Shot()
+    {
+        if (!Input.GetKey(KeyCode.Mouse0)) return;
+
+        gun_.Shot();
+    }
+
+    void Reload()
+    {
+        if (!Input.GetKeyDown(KeyCode.R)) return;
+
+        gun_.Reload();
+    }
+
 }
