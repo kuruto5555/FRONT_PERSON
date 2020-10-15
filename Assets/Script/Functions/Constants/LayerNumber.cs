@@ -1,4 +1,4 @@
-﻿namespace StealthPackMan.Constants
+﻿namespace FrontPerson.Constants
 {
 /// <summary>
 /// レイヤー番号を定数管理するクラス

@@ -1,4 +1,4 @@
-﻿namespace StealthPackMan.Constants
+﻿namespace FrontPerson.Constants
 {
 /// <summary>
 /// タグ名を定数管理するクラス

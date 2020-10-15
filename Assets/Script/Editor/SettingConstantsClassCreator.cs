@@ -34,7 +34,7 @@ namespace FrontPerson.Constants
         private const string DIRECTORY_PATH = "Assets/Script/Functions/Constants";
 
         // 定数クラス生成時の名前空間
-        private const string NAME_SPACE = "StealthPackMan.Constants";
+        private const string NAME_SPACE = "FrontPerson.Constants";
 
 
 #if !UNITY_CLOUD_BUILD
@@ -65,13 +65,13 @@ namespace FrontPerson.Constants
             }
 
             // Resourcesのサウンド系の情報変更から定数管理のクラスを生成する
-            if(ExistsDirectoryInAssets(assets_list, SoundNameCreator.BGM_DIRECTORY_PATH))
+            if(ExistsDirectoryInAssets(assets_list, AudioNameCreator.BGM_DIRECTORY_PATH))
             {
-                SoundNameCreator.Creator(SoundNameCreator.BGM_DIRECTORY_PATH);
+                AudioNameCreator.Creator(AudioNameCreator.BGM_DIRECTORY_PATH);
             }
-            if (ExistsDirectoryInAssets(assets_list, SoundNameCreator.SE_DIRECTORY_PATH))
+            if (ExistsDirectoryInAssets(assets_list, AudioNameCreator.SE_DIRECTORY_PATH))
             {
-                SoundNameCreator.Creator(SoundNameCreator.SE_DIRECTORY_PATH);
+                AudioNameCreator.Creator(AudioNameCreator.SE_DIRECTORY_PATH);
             }
         }
 

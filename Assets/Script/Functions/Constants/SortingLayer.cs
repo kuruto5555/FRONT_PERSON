@@ -1,4 +1,4 @@
-﻿namespace StealthPackMan.Constants
+﻿namespace FrontPerson.Constants
 {
 /// <summary>
 /// ソーティングレイヤー名を定数管理するクラス
