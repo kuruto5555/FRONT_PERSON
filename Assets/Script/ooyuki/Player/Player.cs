@@ -1,11 +1,11 @@
 ﻿
+using FrontPerson.Vitamin;
+using System.Runtime.InteropServices;
 using UnityEngine;
 
 
 namespace FrontPerson.Character
 {
-
-
     public class Player : MonoBehaviour
     {
         [Header("移動速度")]
@@ -20,6 +20,9 @@ namespace FrontPerson.Character
         [SerializeField, Range(1, 100)]
         int hp_ = 10;
 
+        [Header("所持金")]
+        [SerializeField, Range(0, 10000)]
+        int money_ = 1000;
 
         /// <summary>
         /// カメラのトランスフォーム
@@ -29,7 +32,22 @@ namespace FrontPerson.Character
         /// <summary>
         /// 銃
         /// </summary>
-        FrontPerson.Gun.Gun gun_ = null;
+        Gun.Gun gun_ = null;
+
+        /// <summary>
+        /// ビタミンBの残弾数
+        /// </summary>
+        public int vitaminB_ = 0;
+
+        /// <summary>
+        /// ビタミンCの残弾数
+        /// </summary>
+        public int vitaminC_ = 0;
+
+        /// <summary>
+        /// ビタミンDの残弾数
+        /// </summary>
+        public int vitaminD_ = 0;
 
 
         /// <summary>
@@ -39,7 +57,7 @@ namespace FrontPerson.Character
 
 
         /// <summary>
-        /// 
+        /// プレイヤーのポジション
         /// </summary>
         Vector3 Position { get { return position_; } }
 
@@ -59,7 +77,6 @@ namespace FrontPerson.Character
         {
             Move();
             Shot();
-            Reload();
 
             transform.position = position_;
         }
@@ -90,13 +107,33 @@ namespace FrontPerson.Character
             gun_.Shot();
         }
 
-        void Reload()
+        void Reload(VITAMIN_TYPE vitaminType)
         {
-            if (!Input.GetKeyDown(KeyCode.R)) return;
+            if (!Input.GetKey(KeyCode.R)) return;
 
-            gun_.Reload();
+            switch (vitaminType)
+            {
+                case VITAMIN_TYPE.VITAMIN_B:
+                    vitaminB_++;
+                    break;
+
+                case VITAMIN_TYPE.VITAMIN_C:
+                    vitaminC_++;
+                    break;
+
+                case VITAMIN_TYPE.VITAMIN_D:
+                    vitaminD_++;
+                    break;
+            }
         }
 
+
+        private void OnTriggerStay(Collider other)
+        {
+            if (other.tag != Constants.TagName.RECOVERY_POINT) return;
+
+            Reload(other.GetComponent<VitaminRecoveryPoint>().vitaminType);
+        }
     }
 
 };
