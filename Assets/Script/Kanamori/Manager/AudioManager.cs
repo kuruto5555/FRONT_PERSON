@@ -29,15 +29,12 @@ namespace FrontPerson.Manager
             set
             {
                 volume_ = Mathf.Clamp01(value);
-                bgm_volume_ = bgm_volume_ * volume_;
-                se_volume_  = se_volume_ * volume_;
             }
             get
             {
                 return volume_;
             }
         }
-
         public float BGMVolume
         {
             set
@@ -50,7 +47,6 @@ namespace FrontPerson.Manager
                 return bgm_volume_;
             }
         }
-
         public float SEVolume
         {
             set
