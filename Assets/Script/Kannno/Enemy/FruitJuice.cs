@@ -18,8 +18,7 @@ namespace FrontPerson
             float y = Random.Range(-0.3f, 1.0f);
             float z = Random.Range(-1.0f, 1.0f);
 
-            Vector3 vec = new Vector3(x, y, z);
-            vec = Vector3.Normalize(vec);
+            Vector3 vec = new Vector3(x, y, z).normalized;
 
             _move_vec = vec;
         }
@@ -57,7 +56,7 @@ namespace FrontPerson
         /// 継承者は宣言しないとエラー吐きますよ。
         /// </summary>
         protected abstract void OnStart();
-        protected abstract void OnUpdate();     // Update必要かな？
+        protected abstract void OnUpdate();
 
         /// <summary>
         /// 仮想関数
