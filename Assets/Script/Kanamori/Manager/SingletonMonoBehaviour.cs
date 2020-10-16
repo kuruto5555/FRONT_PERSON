@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-namespace FrontPerson.Manager
+namespace FrontPerson.common
 {
     /// <summary>
     /// シングルトンベース
