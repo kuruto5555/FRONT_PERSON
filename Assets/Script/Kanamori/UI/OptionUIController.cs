@@ -37,7 +37,7 @@ namespace FrontPerson.UI
         }
 
         /// <summary>
-        /// オプションボタンに対応したメニューを開くための設定
+        /// オプションのタブボタンに対応したメニューを開くための設定
         /// </summary>
         private void SelectedOptionButtonSettings()
         {
