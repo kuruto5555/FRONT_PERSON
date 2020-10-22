@@ -15,8 +15,18 @@ public class ApplicationManager : MonoBehaviour
         {
             var am = go.AddComponent<AudioManager>();
             am.Init();
+
+            go.AddComponent<SceneManager>();
+            go.AddComponent<FadeManager>();
         }
 
         DontDestroyOnLoad(go);
+    }
+
+    /// <summary>
+    /// アプリ終了時呼ばれる
+    /// </summary>
+    private void OnApplicationQuit()
+    {
     }
 }
