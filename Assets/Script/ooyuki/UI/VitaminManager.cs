@@ -9,7 +9,7 @@ public class VitaminManager : MonoBehaviour
 {
     [Header("ビタミンのゲージ")]
     [SerializeField]
-    List<Image> vitamins_;
+    List<Image> vitamins_ = null;
 
     [Header("プレイヤー")]
     [SerializeField]
