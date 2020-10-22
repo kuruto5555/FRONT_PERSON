@@ -23,9 +23,6 @@ namespace FrontPerson.Manager
         [SerializeField]
         private Color fade_color_ = Color.white;
 
-        [SerializeField]
-        private Texture texture_ = null;
-
         public void OnGUI()
         {
             if (is_fade_)
@@ -41,11 +38,23 @@ namespace FrontPerson.Manager
         /// </summary>
         /// <param name="scene_name"></param>
         /// <param name="interval_time"></param>
-        public void LoadScene(string scene_name, float interval_time)
+        public void LoadScene(string scene_name, float interval_time, Color fade_color = default)
         {
+            fade_color_ = fade_color;
+            if (fade_color_ == default)
+            {
+                fade_color_ = Color.white;
+            }
+
             StartCoroutine(Fade(scene_name, interval_time));
         }
 
+        /// <summary>
+        /// フェード遷移
+        /// </summary>
+        /// <param name="scene_name"></param>
+        /// <param name="interval_time"></param>
+        /// <returns></returns>
         private IEnumerator Fade(string scene_name, float interval_time)
         {
             // FadeIn
