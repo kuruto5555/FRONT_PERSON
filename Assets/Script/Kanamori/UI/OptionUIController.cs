@@ -45,6 +45,7 @@ namespace FrontPerson.UI
             {
                 current_selected_ui_ = option_ui_[0];
                 current_selected_ui_.menu_ui_.SetActive(true);
+                event_sytem_.SetSelectedGameObject(current_selected_ui_.tab_button_.gameObject);
             }
 
             foreach (var ui in option_ui_)
