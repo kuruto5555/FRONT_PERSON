@@ -6,6 +6,7 @@
 public static class SceneName
 {
 
+	public const string KANAMORI ="Kanamori";
 
 }
 
