@@ -34,6 +34,12 @@ namespace FrontPerson
         [SerializeField]
         protected TextMesh tetxMesh;
 
+        [Header("不足しているビタミンの量")]
+        [SerializeField]
+        protected int insufficiency = 1;
+
+        protected bool isDead { private set; get; } = false;
+
         private void Start()
         {
             Set_LackVitamin();
@@ -45,6 +51,8 @@ namespace FrontPerson
         private void Update()
         {
             OnUpdate();
+
+            Dead();
         }
 
         protected void Set_LackVitamin()
@@ -59,6 +67,24 @@ namespace FrontPerson
         protected void Set_LackVitamin_Text()
         {
             tetxMesh.text = VitaminStrings[(int)lack_vitamins];
+        }
+
+        public void AddVitamins(int cnt)
+        {
+            insufficiency -= cnt;
+        }
+
+        protected void SetDestroy()
+        {
+            isDead = true;
+        }
+
+        private void Dead()
+        {
+            if(true == isDead)
+            {
+                Destroy(gameObject);
+            }
         }
 
         /// <summary>
