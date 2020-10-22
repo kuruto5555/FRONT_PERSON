@@ -13,7 +13,7 @@ public class VitaminManager : MonoBehaviour
 
     [Header("プレイヤー")]
     [SerializeField]
-    Character.Player player_;
+    Character.Player player_ = null;
 
     // Start is called before the first frame update
     void Start()
