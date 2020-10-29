@@ -3,25 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-namespace FrontPerson.Gun
+namespace FrontPerson.Weapon
 {
-
-    public enum BULLET_TYPE
-    {
-        HAND_GUN = 0,
-        MACHINE_GUN,
-        SHOTGUN,
-        ROCKET_LAUNCHER,
-
-        BULLET_TYPE_MAX,
-    }
-
-
     public class Gun : MonoBehaviour
     {
         [Header("弾のプレハブ")]
         [SerializeField]
-        List<GameObject> bullets_ = null;
+        GameObject bullet_ = null;
 
         [Header("銃口")]
         [SerializeField]
@@ -35,11 +23,6 @@ namespace FrontPerson.Gun
         [Range(1, 200)]
         public int MaxAmmo_ = 10;
 
-        /// <summary>
-        /// 現在の銃のタイプ
-        /// </summary>
-        [HideInInspector]
-        public BULLET_TYPE bulletType_ = BULLET_TYPE.HAND_GUN;
 
         /// <summary>
         /// 一発撃ってからの時間
@@ -50,7 +33,7 @@ namespace FrontPerson.Gun
         /// 現在の弾数
         /// </summary>
         int ammo_ = 0;
-
+        public int Ammo { get { return ammo_; } }
 
 
 
@@ -59,7 +42,6 @@ namespace FrontPerson.Gun
         {
             ammo_ = MaxAmmo_;
             shotTime_ = 0.0f;
-            bulletType_ = BULLET_TYPE.HAND_GUN;
         }
 
         // Update is called once per frame
@@ -84,20 +66,13 @@ namespace FrontPerson.Gun
             if (shotTime_ > 0.0f) return;
             if (ammo_ < 1) return;
 
-            Instantiate(bullets_[(int)bulletType_], hole_.transform.position, hole_.transform.rotation, null);
+            Instantiate(bullet_, hole_.transform.position, hole_.transform.rotation, null);
             shotTime_ = rate_;
             ammo_--;
         }
 
         /// <summary>
-        /// 吸い込む
-        /// </summary>
-        public void Inhole()
-        {
-        }
-
-        /// <summary>
-        /// リロード（仕様次第で消すかも）
+        /// リロード
         /// </summary>
         public void Reload()
         {
@@ -107,16 +82,15 @@ namespace FrontPerson.Gun
         }
 
         /// <summary>
-        /// 弾の切り替え
+        /// リロード
         /// </summary>
-        /// <param name="newBulletType">切り替えたい弾の種類</param>
-        public void ChangeBullet(BULLET_TYPE newBulletType)
+        /// <param name="value">補給量</param>
+        public void Reload(int value)
         {
-            if (bulletType_ == newBulletType) return;
+            ammo_ += value;
 
-            bulletType_ = newBulletType;
-
-
+            if(ammo_ > MaxAmmo_)
+                ammo_ = MaxAmmo_;
         }
     }
 

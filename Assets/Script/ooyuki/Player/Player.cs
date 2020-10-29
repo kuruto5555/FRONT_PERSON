@@ -1,4 +1,5 @@
 ﻿
+using FrontPerson.Weapon;
 using FrontPerson.Vitamin;
 using System.Runtime.InteropServices;
 using UnityEngine;
@@ -8,21 +9,28 @@ namespace FrontPerson.Character
 {
     public class Player : MonoBehaviour
     {
-        [Header("移動速度")]
+        [Header("歩き速度")]
         [SerializeField, Range(0.1f, 10.0f)]
-        float moveSpeed_ = 5.0f;
+        float walkSpeed_ = 5.0f;
+
+        [Header("走り速度")]
+        [SerializeField, Range(0.1f, 20.0f)]
+        float runSpeed_ = 8.0f;
+
+        [Header("ジャンプ高度")]
+        [SerializeField, Range(0.1f, 5.0f)]
+        float jumpPower = 2.0f;
 
         [Header("視点感度")]
         [SerializeField, Range(1, 14)]
         int rotationSpeed_ = 7;
 
-        [Header("体力")]
-        [SerializeField, Range(1, 100)]
-        int hp_ = 10;
+        [Header("銃")]
+        [SerializeField]
+        Gun gunR_ = null;
+        [SerializeField]
+        Gun gunL_ = null;
 
-        [Header("所持金")]
-        [SerializeField, Range(0, 10000)]
-        int money_ = 1000;
 
         /// <summary>
         /// カメラのトランスフォーム
@@ -30,36 +38,38 @@ namespace FrontPerson.Character
         Transform cameraTransform_ = null;
 
         /// <summary>
-        /// 銃
+        /// 移動速度
         /// </summary>
-        Gun.Gun gun_ = null;
-
-        /// <summary>
-        /// ビタミンBの残弾数
-        /// </summary>
-        public int vitaminB_ = 0;
-
-        /// <summary>
-        /// ビタミンCの残弾数
-        /// </summary>
-        public int vitaminC_ = 0;
-
-        /// <summary>
-        /// ビタミンDの残弾数
-        /// </summary>
-        public int vitaminD_ = 0;
-
+        float moveSpeed_ = 1.0f;
 
         /// <summary>
         /// 座標更新用
         /// </summary>
         Vector3 position_;
 
+        /// <summary>
+        /// ぴよってるかどうか
+        /// </summary>
+        bool isPiyori_ = false;
 
+
+        /*---- プロパティ ----*/
         /// <summary>
         /// プレイヤーのポジション
         /// </summary>
-        Vector3 Position { get { return position_; } }
+        public Vector3 Position { get { return position_; } }
+
+        /// <summary>
+        /// 左の銃の残弾数
+        /// </summary>
+        public int GunAmmoL { get { return gunL_.Ammo; } }
+
+        /// <summary>
+        /// 右の銃の残弾数
+        /// </summary>
+        public int GunAmmoR { get { return gunR_.Ammo; } }
+
+
 
 
 
@@ -67,7 +77,8 @@ namespace FrontPerson.Character
         void Start()
         {
             cameraTransform_ = Camera.main.transform;
-            gun_ = GetComponentInChildren<FrontPerson.Gun.Gun>();
+            //gunL_ = GetComponentInChildren<Gun>();
+            //gunR_ = GetComponentInChildren<Gun>();
 
             position_ = transform.position;
         }
@@ -75,6 +86,7 @@ namespace FrontPerson.Character
         // Update is called once per frame
         void Update()
         {
+            Dash();
             Move();
             Shot();
 
@@ -99,40 +111,85 @@ namespace FrontPerson.Character
             position_ += direction * moveSpeed_ * Time.deltaTime;
         }
 
-
-        void Shot()
+        /// <summary>
+        /// 左シフトが押されていたら移動速度を走る速度に設定
+        /// 押されていなかったら歩く速度に設定
+        /// </summary>
+        void Dash()
         {
-            if (!Input.GetKey(KeyCode.Mouse0)) return;
-
-            gun_.Shot();
-        }
-
-        void Reload(VITAMIN_TYPE vitaminType)
-        {
-            if (!Input.GetKey(KeyCode.R)) return;
-
-            switch (vitaminType)
+            if (Input.GetKey(KeyCode.LeftShift))
             {
-                case VITAMIN_TYPE.VITAMIN_B:
-                    vitaminB_++;
-                    break;
-
-                case VITAMIN_TYPE.VITAMIN_C:
-                    vitaminC_++;
-                    break;
-
-                case VITAMIN_TYPE.VITAMIN_D:
-                    vitaminD_++;
-                    break;
+                moveSpeed_ = runSpeed_;
+            }
+            else
+            {
+                moveSpeed_ = walkSpeed_;
             }
         }
+
+        /// <summary>
+        /// ジャンプ
+        /// </summary>
+        void Jump()
+        {
+
+        }
+
+        /// <summary>
+        /// 攻撃
+        /// </summary>
+        void Shot()
+        {
+            if (Input.GetKey(KeyCode.Mouse0))
+            {
+                gunL_.Shot();
+            }
+
+            if (Input.GetKey(KeyCode.Mouse1))
+            {
+                gunR_.Shot();
+            }
+        }
+
+        /// <summary>
+        /// 弾の補充（補給所）
+        /// </summary>
+        void Reload()
+        {
+            if (!Input.GetKeyDown(KeyCode.R)) return;
+
+            gunL_.Reload();
+            gunR_.Reload();
+        }
+
+
+        /// <summary>
+        /// 弾の補充（野生のフルーツ）
+        /// </summary>
+        /// <param name="vitaminType">補充するビタミンの種類</param>
+        /// <param name="value">補給量</param>
+        void Reload(VITAMIN_TYPE vitaminType, int value)
+        {
+            if (!Input.GetKeyDown(KeyCode.R)) return;
+
+            if(vitaminType == VITAMIN_TYPE.VITAMIN_C)
+            {
+                gunL_.Reload(value);
+            }
+            else if(vitaminType == VITAMIN_TYPE.VITAMIN_D)
+            {
+                gunR_.Reload(value);
+            }
+        }
+
+
 
 
         private void OnTriggerStay(Collider other)
         {
             if (other.tag != Constants.TagName.RECOVERY_POINT) return;
 
-            Reload(other.GetComponent<VitaminRecoveryPoint>().vitaminType);
+            Reload();
         }
     }
 
