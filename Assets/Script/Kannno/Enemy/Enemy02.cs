@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
+using FrontPerson.Weapon;
+using FrontPerson.Enemy.AI;
+
 namespace FrontPerson.Enemy
 {
     public class Enemy02 : Enemy
@@ -27,6 +30,23 @@ namespace FrontPerson.Enemy
             agent.destination = goal.position;
 
             state_AI.Update();
+        }
+
+        protected override void OnCollisionEnter(Collision collision)
+        {
+            if (FrontPerson.Constants.TagName.BULLET == collision.gameObject.tag)
+            {
+                Bullet bullet = collision.gameObject.GetComponent<Bullet>();
+
+                AddVitamins(bullet.Power);
+
+                Destroy(collision.gameObject);
+
+                if(insufficiency <= 0)
+                {
+                    SetDestroy();
+                }
+            }
         }
     }
 }

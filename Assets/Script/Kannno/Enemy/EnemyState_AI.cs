@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace FrontPerson.Enemy
+namespace FrontPerson.Enemy.AI
 {
     /// <summary>
     /// 敵AIオブジェクトのインターフェースクラス

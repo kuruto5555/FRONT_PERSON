@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace FrontPerson.Enemy
+namespace FrontPerson.Enemy.AI
 {
     public class EnemyState_Close : EnemyState_AI
     {
@@ -14,7 +14,7 @@ namespace FrontPerson.Enemy
 
         protected override void OnStart()
         {
-            enemy01 = (Enemy01)Owner;
+            enemy01 = Owner as Enemy01;
 
             enemy01.SetTarget(enemy01.goal);
         }

@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+using FrontPerson.Enemy.AI;
+
 namespace FrontPerson.Enemy
 {
     // 足りないビタミンの定数
