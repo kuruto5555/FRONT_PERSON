@@ -1,5 +1,4 @@
 ﻿
-using FrontPerson.Weapon;
 using FrontPerson.Vitamin;
 using System.Runtime.InteropServices;
 using UnityEngine;
@@ -27,9 +26,14 @@ namespace FrontPerson.Character
 
         [Header("銃")]
         [SerializeField]
-        Gun gunR_ = null;
+        Weapon.Gun gunR_ = null;
         [SerializeField]
-        Gun gunL_ = null;
+        Weapon.Gun gunL_ = null;
+
+        [Header("サーチエリア")]
+        [SerializeField]
+        Skill.SearchArea searchArea = null;
+
 
 
         /// <summary>
@@ -52,6 +56,12 @@ namespace FrontPerson.Character
         /// </summary>
         bool isPiyori_ = false;
 
+        /// <summary>
+        /// サーチ中かどうか
+        /// </summary>
+        bool isSearch_ = false;
+
+
 
         /*---- プロパティ ----*/
         /// <summary>
@@ -69,8 +79,15 @@ namespace FrontPerson.Character
         /// </summary>
         public int GunAmmoR { get { return gunR_.Ammo; } }
 
+        /// <summary>
+        /// 走っているかどうか
+        /// </summary>
+        public bool IsDash { get { return moveSpeed_ == runSpeed_; } }
 
-
+        /// <summary>
+        /// 
+        /// </summary>
+        public bool IsJump { get { return position_.y > 1f; } }
 
 
         // Start is called before the first frame update
@@ -86,6 +103,7 @@ namespace FrontPerson.Character
         // Update is called once per frame
         void Update()
         {
+            Search();
             Dash();
             Move();
             Shot();
@@ -117,6 +135,8 @@ namespace FrontPerson.Character
         /// </summary>
         void Dash()
         {
+            if (IsJump) return;
+
             if (Input.GetKey(KeyCode.LeftShift))
             {
                 moveSpeed_ = runSpeed_;
@@ -132,7 +152,10 @@ namespace FrontPerson.Character
         /// </summary>
         void Jump()
         {
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
 
+            }
         }
 
         /// <summary>
@@ -140,6 +163,9 @@ namespace FrontPerson.Character
         /// </summary>
         void Shot()
         {
+            if (IsDash) return;
+            if (isSearch_) return;
+
             if (Input.GetKey(KeyCode.Mouse0))
             {
                 gunL_.Shot();
@@ -182,6 +208,27 @@ namespace FrontPerson.Character
             }
         }
 
+
+        /// <summary>
+        /// 敵の不足ビタミンを知るエリアを展開
+        /// </summary>
+        void Search()
+        {
+            if (!Input.GetKeyDown(KeyCode.E)) return;
+                
+            if(isSearch_ == false)
+            {
+                isSearch_ = true;
+                searchArea.Search();
+            }
+            else
+            {
+                isSearch_ = false;
+                searchArea.Stop();
+            }
+
+
+        }
 
 
 
