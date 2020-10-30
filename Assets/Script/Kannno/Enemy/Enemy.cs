@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 using FrontPerson.Enemy.AI;
 
@@ -39,9 +40,29 @@ namespace FrontPerson.Enemy
         [SerializeField]
         protected int insufficiency = 100;
 
-        public EnemyState_AI state_AI { private set; get; } = null;
+        [Header("目的地")]
+        [SerializeField]
+        private Transform goal = null;
+        public Transform Goal { get { return goal; } }
 
+        protected NavMeshAgent agent;
+
+        /// <summary>
+        /// 敵AIのステート(インターフェース)
+        /// </summary>
+        public EnemyState_AI state_AI = null;
+
+        /// <summary>
+        /// 倒れていることを判断するフラグ(true = 死んでいる)
+        /// </summary>
         protected bool isDead { private set; get; } = false;
+
+        private void Awake()
+        {
+            agent = GetComponent<NavMeshAgent>();
+            state_AI = GetComponent<EnemyState_AI>();
+            state_AI.SetOwner(this);
+        }
 
         private void Start()
         {
@@ -60,7 +81,10 @@ namespace FrontPerson.Enemy
             Dead();
         }
 
-        protected void Set_LackVitamin()
+        /// <summary>
+        /// 不足しているビタミンを設定
+        /// </summary>
+        private void Set_LackVitamin()
         {
             int cnt = Random.Range(0, (int)Vitamin.Max);
 
@@ -77,11 +101,18 @@ namespace FrontPerson.Enemy
             tetxMesh.text = VitaminStrings[(int)lack_vitamins] /*+ "\n" + insufficiency.ToString()*/;
         }
 
+        /// <summary>
+        /// 不足しているビタミンを増減させる
+        /// </summary>
+        /// <param name="cnt"></param>
         public void AddVitamins(int cnt)
         {
             insufficiency -= cnt;
         }
 
+        /// <summary>
+        /// 倒れた時に呼ぶ関数
+        /// </summary>
         protected void SetDestroy()
         {
             isDead = true;
@@ -95,9 +126,25 @@ namespace FrontPerson.Enemy
             }
         }
 
+        /// <summary>
+        /// AIのステートを設定
+        /// </summary>
+        /// <param name="state"></param>
         public void SetState(EnemyState_AI state)
         {
             state_AI = state;
+        }
+
+        public void SetTarget(Transform goal)
+        {
+            if (null != goal)
+            {
+                agent.destination = goal.position;
+            }
+            else
+            {
+                agent.destination = transform.position;
+            }
         }
 
         /// <summary>
