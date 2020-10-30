@@ -20,7 +20,6 @@ namespace FrontPerson.Manager
         /// <summary>
         /// フェード遷移の色
         /// </summary>
-        [SerializeField]
         private Color fade_color_ = Color.white;
 
         public void OnGUI()
