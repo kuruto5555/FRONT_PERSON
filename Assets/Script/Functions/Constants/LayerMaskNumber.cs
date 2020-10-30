@@ -8,6 +8,7 @@ public static class LayerMaskNumber
 
 	public const int BULLET           =512;
 	public const int DEFAULT          =1;
+	public const int ENEMY            =2048;
 	public const int PLAYER           =256;
 	public const int RECOVERY_POPINT  =1024;
 	public const int TRANSPARENT_FX   =2;
