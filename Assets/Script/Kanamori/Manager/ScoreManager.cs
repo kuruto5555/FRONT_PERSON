@@ -91,6 +91,12 @@ namespace FrontPerson.Manager
         /// </summary>
         public void LostComboBonus()
         {
+            // コンボボーナスが無かったら返す
+            if(combo_bonus_ == 0)
+            {
+                return;
+            }
+
             combo_bonus_ = 0;
 
             // 途切れた際のコンボ数でボーナススコア加算
