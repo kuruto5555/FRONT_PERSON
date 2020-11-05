@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SocialPlatforms;
 
-namespace FrontPerson.Vitamin
+namespace FrontPerson.Constants
 {
     public class VitaminRecoveryPoint : MonoBehaviour
     {

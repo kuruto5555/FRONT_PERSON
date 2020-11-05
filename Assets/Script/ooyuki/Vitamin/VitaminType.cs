@@ -1,6 +1,8 @@
-﻿
+﻿using System.Collections.Generic;
 
-namespace FrontPerson.Vitamin
+
+
+namespace FrontPerson.Constants
 {
     public enum VITAMIN_TYPE
     {
@@ -10,7 +12,26 @@ namespace FrontPerson.Vitamin
         VITAMIN_D,
         VITAMIN_ALL,
 
-        TYPE_MAX
+        COUNT
     }
-}
 
+
+	public static class Vitamin
+	{
+        public static List<string> Type = new List<string>() 
+        {
+            "VitaminA",
+            "VitaminB",
+            "VitaminC",
+            "VitaminD",
+            "VitaminALL"
+        };
+
+        //public const string VITAMIN_A = "VitaminA";
+        //public const string VITAMIN_B = "VitaminB";
+        //public const string VITAMIN_C = "VitaminC";
+        //public const string VITAMIN_D = "VitaminD";
+        //public const string VITAMIN_ALL = "VitaminALL";
+    }
+
+}

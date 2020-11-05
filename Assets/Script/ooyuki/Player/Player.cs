@@ -1,6 +1,6 @@
 ﻿
 using FrontPerson.Constants;
-using FrontPerson.Vitamin;
+using FrontPerson.Constants;
 using System.Runtime.InteropServices;
 using UnityEngine;
 

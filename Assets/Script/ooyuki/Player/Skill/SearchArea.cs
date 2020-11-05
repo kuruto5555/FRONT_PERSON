@@ -1,9 +1,9 @@
 ﻿using FrontPerson.Constants;
-using Microsoft.Win32.SafeHandles;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using FrontPerson.Enemy;
 
 namespace FrontPerson.Character.Skill
 {
@@ -41,7 +41,6 @@ namespace FrontPerson.Character.Skill
         /// Areaに入ったやつのマテリアル
         /// </summary>
         List<List<Material>> materialsList_;
-
 
 
         // Start is called before the first frame update
@@ -101,6 +100,7 @@ namespace FrontPerson.Character.Skill
                 // エネミーの足りないビタミンの種類によってセットするMaterialを変える
                 foreach(Material material in other.GetComponent<MeshRenderer>().materials)
                 {
+                    //if(enemy.)
                 }
             }
         }
