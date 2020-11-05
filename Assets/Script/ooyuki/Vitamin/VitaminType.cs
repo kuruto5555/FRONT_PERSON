@@ -10,7 +10,7 @@ namespace FrontPerson.Vitamin
         VITAMIN_D,
         VITAMIN_ALL,
 
-        TYPE_MAX
+        COUNT
     }
 }
 
