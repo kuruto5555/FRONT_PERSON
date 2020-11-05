@@ -44,20 +44,23 @@ namespace FrontPerson.Enemy.AI
                 if(Physics.Raycast(ray, out hit, searchArea.radius))
                 {
                     Debug.DrawRay(ray.origin, ray.direction * searchArea.radius, Color.green, 0.1f, false);
+
                     // プレイヤーだったら発見
                     if (hit.transform.tag == TagName.PLAYER)
                     {
                         isFound_ = true;
                         return;
                     }
-                    //// 壁、障害物、ギミックだったら見つけてない
-                    //if (hit.transform.tag == TagName.OBSTACLE
-                    //||  hit.transform.tag == TagName.WALL
-                    //||  hit.transform.tag == TagName.GIMMICK)
-                    //{
-                    //    isFound_ = false;
-                    //    return;
-                    //}
+
+                    // 壁、障害物、ギミックだったら見つけてない
+                    if (hit.transform.tag == TagName.UNTAGGED
+                    //|| hit.transform.tag == TagName.WALL
+                    //|| hit.transform.tag == TagName.GIMMICK
+                    )
+                    {
+                        isFound_ = false;
+                        return;
+                    }
                 }
             }
         }

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-using FrontPerson.Vitamin;
+using FrontPerson.Constants;
 using FrontPerson.Enemy.AI;
 
 namespace FrontPerson.Enemy
@@ -13,15 +13,8 @@ namespace FrontPerson.Enemy
     /// </summary>
     public abstract class Enemy : MonoBehaviour
     {
-        static List<string> VitaminStrings = new List<string>() {
-            { "ビタミンA" },
-            { "ビタミンB" },
-            { "ビタミンC" },
-            { "ビタミンD" },
-        };
-
         // 足りないビタミン
-        protected VITAMIN_TYPE lack_vitamins = VITAMIN_TYPE.TYPE_MAX;
+        protected VITAMIN_TYPE lack_vitamins = VITAMIN_TYPE.COUNT;
 
         [Header("不足しているビタミンの文字列")]
         [SerializeField]
@@ -66,8 +59,6 @@ namespace FrontPerson.Enemy
         {
             OnUpdate();
 
-            Set_LackVitamin_Text();
-
             Dead();
         }
 
@@ -76,7 +67,7 @@ namespace FrontPerson.Enemy
         /// </summary>
         private void Set_LackVitamin()
         {
-            int cnt = Random.Range(0, (int)VITAMIN_TYPE.TYPE_MAX);
+            int cnt = Random.Range(0, (int)VITAMIN_TYPE.COUNT);
 
             List<VITAMIN_TYPE> vitamins = new List<VITAMIN_TYPE>() { VITAMIN_TYPE.VITAMIN_A, VITAMIN_TYPE.VITAMIN_B, VITAMIN_TYPE.VITAMIN_C, VITAMIN_TYPE.VITAMIN_D };
 
@@ -88,7 +79,7 @@ namespace FrontPerson.Enemy
         /// </summary>
         private void Set_LackVitamin_Text()
         {
-            tetxMesh.text = VitaminStrings[(int)lack_vitamins] /*+ "\n" + insufficiency.ToString()*/;
+            tetxMesh.text = Vitamin.Type[(int)lack_vitamins];
         }
 
         /// <summary>
