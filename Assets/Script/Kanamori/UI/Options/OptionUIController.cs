@@ -23,6 +23,9 @@ namespace FrontPerson.UI
     public class OptionUIController : MonoBehaviour
     {
         [SerializeField]
+        private GameObject[] active_menu_;
+
+        [SerializeField]
         private OptionUI[] option_ui_;
 
         private OptionUI current_selected_ui_;
@@ -36,6 +39,17 @@ namespace FrontPerson.UI
             SelectedOptionButtonSettings();
         }
 
+        private void Update()
+        {
+            // メニューを開く
+            if (Input.GetKeyDown(KeyCode.Escape))
+            {
+                foreach (var obj in active_menu_)
+                {
+                    obj.SetActive(!obj.activeSelf);
+                }
+            }
+        }
         /// <summary>
         /// オプションのタブボタンに対応したメニューを開くための設定
         /// </summary>
