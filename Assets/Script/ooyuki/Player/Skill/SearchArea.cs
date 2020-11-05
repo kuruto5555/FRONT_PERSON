@@ -1,4 +1,5 @@
-﻿using Microsoft.Win32.SafeHandles;
+﻿using FrontPerson.Constants;
+using Microsoft.Win32.SafeHandles;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -91,7 +92,7 @@ namespace FrontPerson.Character.Skill
 
         private void OnTriggerEnter(Collider other)
         {
-            if(other.tag == "Enemy")
+            if(other.tag == TagName.ENEMY)
             {
                 Enemy01 enemy = other.GetComponent<Enemy01>();
                 initMaterialsList_.Add(other.GetComponent<MeshRenderer>().materials.ToList());

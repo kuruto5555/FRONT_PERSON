@@ -1,4 +1,5 @@
 ﻿
+using FrontPerson.Constants;
 using FrontPerson.Vitamin;
 using System.Runtime.InteropServices;
 using UnityEngine;
@@ -170,8 +171,7 @@ namespace FrontPerson.Character
             {
                 gunL_.Shot();
             }
-
-            if (Input.GetKey(KeyCode.Mouse1))
+            else if (Input.GetKey(KeyCode.Mouse1))
             {
                 gunR_.Shot();
             }
@@ -182,6 +182,9 @@ namespace FrontPerson.Character
         /// </summary>
         void Reload()
         {
+            if (IsDash) return;
+            if (isSearch_) return;
+
             if (!Input.GetKeyDown(KeyCode.R)) return;
 
             gunL_.Reload();
@@ -234,9 +237,16 @@ namespace FrontPerson.Character
 
         private void OnTriggerStay(Collider other)
         {
-            if (other.tag != Constants.TagName.RECOVERY_POINT) return;
+            switch (other.tag)
+            {
+                case TagName.RECOVERY_POINT:
+                    Reload();
+                    break;
 
-            Reload();
+                case TagName.ENEMY:
+
+                    break;
+            }
         }
     }
 
