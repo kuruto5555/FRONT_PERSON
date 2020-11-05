@@ -11,8 +11,6 @@ namespace FrontPerson.Enemy
     {
         protected override void OnStart()
         {
-            //state_AI = GetComponent<EnemyState_AI>();
-            //state_AI.SetOwner(this);
         }
 
         protected override void OnUpdate()
@@ -27,6 +25,7 @@ namespace FrontPerson.Enemy
 
                 AddVitamins(bullet.Power);
 
+                // 仮
                 Destroy(collision.gameObject);
 
                 if (insufficiency <= 0)

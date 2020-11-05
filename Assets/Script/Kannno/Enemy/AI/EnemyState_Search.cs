@@ -6,8 +6,6 @@ namespace FrontPerson.Enemy.AI
 {
     public class EnemyState_Search : EnemyState_AI
     {
-
-
         protected override void OnStart()
         {
         }

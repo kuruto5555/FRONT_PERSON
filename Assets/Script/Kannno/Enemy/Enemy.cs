@@ -40,12 +40,9 @@ namespace FrontPerson.Enemy
         [SerializeField]
         protected int insufficiency = 100;
 
-        [Header("目的地")]
-        [SerializeField]
-        private Transform goal = null;
-        public Transform Goal { get { return goal; } }
-
         protected NavMeshAgent agent;
+
+        public NavMeshAgent Agent { get { return agent; } }
 
         /// <summary>
         /// 敵AIのステート(インターフェース)

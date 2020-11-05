@@ -6,7 +6,10 @@ namespace FrontPerson.Enemy.AI
 {
     public class EnemyState_Close : EnemyState_AI
     {
-        //private Enemy01 enemy01 = null;
+        [Header("目的地")]
+        [SerializeField]
+        private Transform goal = null;
+        public Transform Goal { set { goal = value; } }
 
         private float time = 0.0f;
 
@@ -14,7 +17,7 @@ namespace FrontPerson.Enemy.AI
 
         protected override void OnStart()
         {
-            Owner.SetTarget(Owner.Goal);
+            Owner.SetTarget(goal);
 
             time = Time.timeSinceLevelLoad;
         }
@@ -22,7 +25,7 @@ namespace FrontPerson.Enemy.AI
         protected override void OnUpdate()
         {
             {
-                if (Mathf.Abs((Owner.transform.position - Owner.Goal.position).magnitude) <= 5.0f)
+                if (Mathf.Abs((Owner.transform.position - goal.position).magnitude) <= 5.0f)
                 {
                     OnChangeState();
                 }
@@ -32,7 +35,7 @@ namespace FrontPerson.Enemy.AI
             {
                 time = Time.timeSinceLevelLoad;
 
-                Owner.SetTarget(Owner.Goal);
+                Owner.SetTarget(goal);
             }
         }
 
@@ -42,7 +45,7 @@ namespace FrontPerson.Enemy.AI
             Owner.state_AI = Owner.gameObject.AddComponent<EnemyState_Wait>();
             Owner.state_AI.SetOwner(Owner);
 
-            Debug.Log("ステートが変わった");
+            Debug.Log("ステートが変わった : EnemyState_Wait");
         }
     }
 }
