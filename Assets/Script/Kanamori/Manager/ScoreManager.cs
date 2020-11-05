@@ -63,21 +63,20 @@ namespace FrontPerson.Manager
             if(on_add_score_ != null)
             {
                 on_add_score_.Invoke(score);
+            }
 
-                AddComboBonus();
+            AddComboBonus();
 
-                // タイマーが動いているかどうか
-                if(combo_bonus_timer_ <= 0)
-                {
-                    // タイマーが動いていないのでコルーチンを開始
-                    StartCoroutine(TimerDuringComboBonus());
-                }
-                else
-                {
-                    // タイマーが動いているので制限時間を再度設定
-                    combo_bonus_timer_ = combo_bonus_time_limit_;
-                }
-
+            // タイマーが動いているかどうか
+            if (combo_bonus_timer_ <= 0)
+            {
+                // タイマーが動いていないのでコルーチンを開始
+                StartCoroutine(TimerDuringComboBonus());
+            }
+            else
+            {
+                // タイマーが動いているので制限時間を再度設定
+                combo_bonus_timer_ = combo_bonus_time_limit_;
             }
         }
 
@@ -96,7 +95,6 @@ namespace FrontPerson.Manager
             {
                 return;
             }
-
             combo_bonus_ = 0;
 
             // 途切れた際のコンボ数でボーナススコア加算
