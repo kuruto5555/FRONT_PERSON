@@ -8,6 +8,7 @@ public static class LayerNumber
 
 	public const int BULLET           =9;
 	public const int DEFAULT          =0;
+	public const int ENEMY            =11;
 	public const int PLAYER           =8;
 	public const int RECOVERY_POPINT  =10;
 	public const int TRANSPARENT_FX   =1;

@@ -8,6 +8,7 @@ public static class TagName
 
 	public const string BULLET          ="Bullet";
 	public const string EDITOR_ONLY     ="EditorOnly";
+	public const string ENEMY           ="Enemy";
 	public const string FINISH          ="Finish";
 	public const string GAME_CONTROLLER ="GameController";
 	public const string GUN             ="Gun";
