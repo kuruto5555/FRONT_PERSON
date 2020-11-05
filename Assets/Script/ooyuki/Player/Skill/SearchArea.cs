@@ -4,14 +4,20 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using FrontPerson.Enemy;
+using FrontPerson.Constants;
+
 
 namespace FrontPerson.Character.Skill
 {
     public class SearchArea : MonoBehaviour
     {
-        [Header("Areaの広がる速度")]
-        [SerializeField, Range(0.1f, 100f)]
+        [Header("エリアの広がる速度")]
+        [SerializeField, Range(0f, 100f)]
         float speed_ = 1f;
+
+        [Header("エリアの広がる最大距離")]
+        [SerializeField, Range(1f, 100f)]
+        float areaSizeMAX_ = 50f;
 
         [Header("足りないビタミンがCの時のマテリアル")]
         [SerializeField]
@@ -35,19 +41,19 @@ namespace FrontPerson.Character.Skill
         /// エリアに入ったやつのマテリアル情報を保存。
         /// Searchをやめたときに戻して、リセットする
         /// </summary>
-        List<List<Material>> initMaterialsList_;
+        List<Material[]> initMaterialsList_;
 
         /// <summary>
         /// Areaに入ったやつのマテリアル
         /// </summary>
-        List<List<Material>> materialsList_;
+        List<Renderer> rendererList_;
 
 
         // Start is called before the first frame update
         void Start()
         {
-            initMaterialsList_ = new List<List<Material>>();
-            materialsList_ = new List<List<Material>>();
+            initMaterialsList_ = new List<Material[]>();
+            rendererList_ = new List<Renderer>();
 
             eria_ = GetComponent<SphereCollider>();
             eria_.enabled = false;
@@ -61,10 +67,17 @@ namespace FrontPerson.Character.Skill
         void Update()
         {
             if (!eria_.enabled) return;
+            if (transform.localScale.x >= areaSizeMAX_) return;
 
             Vector3 scl = Vector3.zero;
             scl.x = scl.y = scl.z = speed_ * Time.deltaTime;
             transform.localScale += scl;
+            if(transform.localScale.x >= areaSizeMAX_)
+            {
+                scl.x = scl.y = scl.z = areaSizeMAX_;
+                transform.localScale = scl;
+            }
+
         }
 
         public void Search()
@@ -82,9 +95,9 @@ namespace FrontPerson.Character.Skill
 
             //マテリアルを戻す
             if (initMaterialsList_.Count == 0) return;
-            for (int i = 0; i > initMaterialsList_.Count; i++)
+            for (int i = 0; i < initMaterialsList_.Count; i++)
             {
-                materialsList_[i] = initMaterialsList_[i];
+                rendererList_[i].materials = initMaterialsList_[i];
             }
         }
 
@@ -94,14 +107,29 @@ namespace FrontPerson.Character.Skill
             if(other.tag == TagName.ENEMY)
             {
                 Enemy01 enemy = other.GetComponent<Enemy01>();
-                initMaterialsList_.Add(other.GetComponent<MeshRenderer>().materials.ToList());
-                materialsList_.Add(other.GetComponent<MeshRenderer>().materials.ToList());
+                initMaterialsList_.Add(other.GetComponent<Renderer>().materials);
+                rendererList_.Add(other.GetComponent<Renderer>());
 
                 // エネミーの足りないビタミンの種類によってセットするMaterialを変える
-                foreach(Material material in other.GetComponent<MeshRenderer>().materials)
+                Renderer renderer = other.GetComponent<Renderer>();
+                Material[] materials = renderer.materials;
+                for (int i=0; i < other.GetComponent<Renderer>().materials.Length; i++)
                 {
-                    //if(enemy.)
+                    // とりあえずビタミンCのいろにしちゃう
+                    materials[i] = vitaminCMat_;
+
+                    /*
+                    if(enemy.足りないビタミン == VITAMIN_TYPE.VITAMIN_C)
+                    {
+                        materiala[i] = vitaminCMat_;
+                    }
+                    else if(enemy.足りないビタミン == VITAMIN_TYPE.VITAMIN_D)
+                    {
+                        materiala[i] = vitaminDMat_;
+                    }
+                    */
                 }
+                renderer.materials = materials;
             }
         }
 

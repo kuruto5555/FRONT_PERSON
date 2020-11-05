@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using FrontPerson.Constants;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -21,11 +22,20 @@ namespace FrontPerson.Weapon
         int power_ = 1;
 
         /// <summary>
+        /// 生成された位置
+        /// </summary>
+        Vector3 initPos_;
+
+        /// <summary>
         /// 弾の威力
         /// </summary>
         public int Power { get { return power_; } }
 
-        // Start is called before the first frame update
+        void Start()
+        {
+            initPos_ = transform.position;
+        }
+
         void Update()
         {
             Move();
@@ -40,10 +50,15 @@ namespace FrontPerson.Weapon
             position += transform.forward * speed_ * Time.deltaTime;
 
             transform.position = position;
+
+            if((initPos_-position).magnitude > 50f)
+            {
+                Destroy(gameObject);
+            }
         }
 
 
-        protected virtual void Hit(Collider other)
+        protected virtual void Hit()
         {
             // 破裂エフェクト生成
 
@@ -51,7 +66,16 @@ namespace FrontPerson.Weapon
             Destroy(gameObject);
         }
 
+        private void OnCollisionEnter(Collision collision)
+        {
+            Hit();
 
+            switch (collision.gameObject.tag)
+            {
+                case TagName.ENEMY:
+                    break;
+            }
+        }
     }
 
 
