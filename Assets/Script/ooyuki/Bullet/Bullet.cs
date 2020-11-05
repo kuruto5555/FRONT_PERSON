@@ -10,7 +10,7 @@ namespace FrontPerson.Weapon
     {
         [Header("弾の種類")]
         [SerializeField]
-        Vitamin.VITAMIN_TYPE bulletType_ = Vitamin.VITAMIN_TYPE.VITAMIN_B;
+        Constants.VITAMIN_TYPE bulletType_ = Constants.VITAMIN_TYPE.VITAMIN_B;
 
         [Header("弾速")]
         [SerializeField, Range(30f, 100f)]
