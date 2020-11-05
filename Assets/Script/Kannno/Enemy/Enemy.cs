@@ -69,7 +69,7 @@ namespace FrontPerson.Enemy
         {
             int cnt = Random.Range(0, (int)VITAMIN_TYPE.COUNT);
 
-            List<VITAMIN_TYPE> vitamins = new List<VITAMIN_TYPE>() { VITAMIN_TYPE.VITAMIN_A, VITAMIN_TYPE.VITAMIN_B, VITAMIN_TYPE.VITAMIN_C, VITAMIN_TYPE.VITAMIN_D };
+            List<VITAMIN_TYPE> vitamins = new List<VITAMIN_TYPE>() { VITAMIN_TYPE.VITAMIN_A, VITAMIN_TYPE.VITAMIN_B, VITAMIN_TYPE.VITAMIN_C, VITAMIN_TYPE.VITAMIN_D, VITAMIN_TYPE.VITAMIN_ALL };
 
             lack_vitamins = vitamins[cnt];
         }

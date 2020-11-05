@@ -15,7 +15,6 @@ GameObject:
   - component: {fileID: 2673478354891116700}
   - component: {fileID: 371716343913895810}
   - component: {fileID: 1409689347560578096}
-  - component: {fileID: 7432624128630976695}
   - component: {fileID: 1714365093239358297}
   m_Layer: 11
   m_Name: Enemy2
@@ -148,21 +147,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tetxMesh: {fileID: 7613980996502420136}
   insufficiency: 100
-  goal: {fileID: 0}
   state_AI: {fileID: 0}
---- !u!114 &7432624128630976695
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2059869559280428493}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 77ac590ecc2a0294393bf3ae338cb549, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  max_time: 1
 --- !u!114 &1714365093239358297
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -189,6 +174,7 @@ GameObject:
   - component: {fileID: 6856738579170169929}
   - component: {fileID: 7545378537405318115}
   - component: {fileID: 7613980996502420136}
+  - component: {fileID: 5624919450053164250}
   m_Layer: 11
   m_Name: Text
   m_TagString: Untagged
@@ -203,13 +189,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7780445311371907995}
-  m_LocalRotation: {x: -0, y: 1, z: -0, w: -0}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 2, z: 0}
   m_LocalScale: {x: 0.19999999, y: 0.19999999, z: 1}
   m_Children: []
   m_Father: {fileID: 1630501616957606417}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!23 &7545378537405318115
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -271,3 +257,16 @@ TextMesh:
   m_Color:
     serializedVersion: 2
     rgba: 4278190335
+--- !u!114 &5624919450053164250
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7780445311371907995}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1690cb6b8e9fea74dbc463f02dbb672b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  targetCamera: {fileID: 0}
