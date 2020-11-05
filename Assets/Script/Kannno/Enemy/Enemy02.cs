@@ -5,11 +5,11 @@ using UnityEngine.AI;
 
 namespace FrontPerson.Enemy
 {
-    public class Enemy01 : Enemy
+    public class Enemy02 : Enemy
     {
         [Header("目的地")]
         [SerializeField]
-        public Transform goal = null;
+        private Transform goal = null;
 
         private NavMeshAgent agent;
 
@@ -24,19 +24,9 @@ namespace FrontPerson.Enemy
 
         protected override void OnUpdate()
         {
-            state_AI.Update();
-        }
+            agent.destination = goal.position;
 
-        public void SetTarget(Transform goal)
-        {
-            if (null != goal)
-            {
-                agent.destination = goal.position;
-            }
-            else
-            {
-                agent.destination = transform.position;
-            }
+            state_AI.Update();
         }
     }
 }

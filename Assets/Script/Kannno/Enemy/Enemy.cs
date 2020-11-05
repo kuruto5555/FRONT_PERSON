@@ -2,24 +2,23 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace FrontPerson
+namespace FrontPerson.Enemy
 {
+    // 足りないビタミンの定数
+    public enum Vitamin
+    {
+        Vitamin_A = 0,
+        Vitamin_B,
+        Vitamin_C,
+        Vitamin_D,
+        Max,
+    }
+
     /// <summary>
     /// 敵オブジェクトのインターフェースクラス
     /// </summary>
-    /// <typeparam name="T">継承先クラス</typeparam>
-    public abstract class Enemy<T> : MonoBehaviour
+    public abstract class Enemy : MonoBehaviour
     {
-        // 足りないビタミンの定数
-        public enum Vitamin
-        {
-            Vitamin_A = 0,
-            Vitamin_B,
-            Vitamin_C,
-            Vitamin_D,
-            Max,
-        }
-
         static List<string> VitaminStrings = new List<string>() {
             { "ビタミンA" },
             { "ビタミンB" },
@@ -36,7 +35,9 @@ namespace FrontPerson
 
         [Header("不足しているビタミンの量")]
         [SerializeField]
-        protected int insufficiency = 1;
+        protected int insufficiency = 100;
+
+        public EnemyState_AI state_AI { private set; get; } = null;
 
         protected bool isDead { private set; get; } = false;
 
@@ -52,6 +53,8 @@ namespace FrontPerson
         {
             OnUpdate();
 
+            Set_LackVitamin_Text();
+
             Dead();
         }
 
@@ -64,9 +67,12 @@ namespace FrontPerson
             lack_vitamins = vitamins[cnt];
         }
 
-        protected void Set_LackVitamin_Text()
+        /// <summary>
+        ///  表示する文字を設定
+        /// </summary>
+        private void Set_LackVitamin_Text()
         {
-            tetxMesh.text = VitaminStrings[(int)lack_vitamins];
+            tetxMesh.text = VitaminStrings[(int)lack_vitamins] /*+ "\n" + insufficiency.ToString()*/;
         }
 
         public void AddVitamins(int cnt)
@@ -85,6 +91,11 @@ namespace FrontPerson
             {
                 Destroy(gameObject);
             }
+        }
+
+        public void SetState(EnemyState_AI state)
+        {
+            state_AI = state;
         }
 
         /// <summary>
