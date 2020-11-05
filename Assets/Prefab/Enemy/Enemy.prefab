@@ -109,7 +109,6 @@ GameObject:
   - component: {fileID: 4447981882620139725}
   - component: {fileID: 1610290237}
   - component: {fileID: 2811532335922510156}
-  - component: {fileID: 7995550829404838905}
   - component: {fileID: 7246221378482317146}
   m_Layer: 11
   m_Name: Enemy
@@ -259,18 +258,6 @@ MonoBehaviour:
   tetxMesh: {fileID: 1075170268}
   insufficiency: 100
   state_AI: {fileID: 0}
---- !u!114 &7995550829404838905
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6058391280694767586}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b33e98afcadcc304882724461d149128, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &7246221378482317146
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -3,20 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
+using FrontPerson.Vitamin;
 using FrontPerson.Enemy.AI;
 
 namespace FrontPerson.Enemy
 {
-    // 足りないビタミンの定数
-    public enum Vitamin
-    {
-        Vitamin_A = 0,
-        Vitamin_B,
-        Vitamin_C,
-        Vitamin_D,
-        Max,
-    }
-
     /// <summary>
     /// 敵オブジェクトのインターフェースクラス
     /// </summary>
@@ -30,7 +21,7 @@ namespace FrontPerson.Enemy
         };
 
         // 足りないビタミン
-        protected Vitamin lack_vitamins = Vitamin.Max;
+        protected VITAMIN_TYPE lack_vitamins = VITAMIN_TYPE.TYPE_MAX;
 
         [Header("不足しているビタミンの文字列")]
         [SerializeField]
@@ -57,7 +48,9 @@ namespace FrontPerson.Enemy
         private void Awake()
         {
             agent = GetComponent<NavMeshAgent>();
-            state_AI = GetComponent<EnemyState_AI>();
+
+            if(null == state_AI) state_AI = GetComponent<EnemyState_AI>();
+
             state_AI.SetOwner(this);
         }
 
@@ -83,9 +76,9 @@ namespace FrontPerson.Enemy
         /// </summary>
         private void Set_LackVitamin()
         {
-            int cnt = Random.Range(0, (int)Vitamin.Max);
+            int cnt = Random.Range(0, (int)VITAMIN_TYPE.TYPE_MAX);
 
-            List<Vitamin> vitamins = new List<Vitamin>() { Vitamin.Vitamin_A, Vitamin.Vitamin_B, Vitamin.Vitamin_C, Vitamin.Vitamin_D };
+            List<VITAMIN_TYPE> vitamins = new List<VITAMIN_TYPE>() { VITAMIN_TYPE.VITAMIN_A, VITAMIN_TYPE.VITAMIN_B, VITAMIN_TYPE.VITAMIN_C, VITAMIN_TYPE.VITAMIN_D };
 
             lack_vitamins = vitamins[cnt];
         }
