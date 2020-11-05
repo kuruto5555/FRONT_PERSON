@@ -10,14 +10,19 @@ namespace FrontPerson.Item
     /// </summary>
     public class EnemyBelongings : MonoBehaviour
     {
-        [Header("出現させるアイテムのプレハブ")]
-        [SerializeField]
-        private GameObject item_prefab_ = null;
+        [Serializable]
+        public class DroppedItemInfo
+        {
+            [Header("出現させるアイテムのプレハブ")]
+            public GameObject item_prefab_ = null;
 
-        [Header("アイテムを落とす確率")]
-        [Range(1, 100)]
+            [Header("アイテムを落とす確率")]
+            [Range(1, 100)]
+            public int probability_of_dropping_item_ = 1;
+        }
+
         [SerializeField]
-        private int probability_of_dropping_item_ = 1;
+        private List<DroppedItemInfo> items_ = new List<DroppedItemInfo>();
 
         /// <summary>
         /// アイテムを落とす
@@ -26,9 +31,12 @@ namespace FrontPerson.Item
         public void DropItem()
         {
             // ランダムでアイテムを落とす
-            if(UnityEngine.Random.Range(1, 100) <= probability_of_dropping_item_)
+            foreach (var item in items_)
             {
-                Instantiate(item_prefab_, transform.position, transform.rotation);
+                if(UnityEngine.Random.Range(1, 100) <= item.probability_of_dropping_item_)
+                {
+                    Instantiate(item.item_prefab_, transform.position, transform.rotation);
+                }
             }
         }
     }
