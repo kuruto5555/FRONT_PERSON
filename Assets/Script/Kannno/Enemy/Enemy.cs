@@ -6,7 +6,7 @@ using UnityEngine.AI;
 using FrontPerson.Constants;
 using FrontPerson.Enemy.AI;
 
-namespace FrontPerson.Enemy
+namespace FrontPerson.Character
 {
     /// <summary>
     /// 敵オブジェクトのインターフェースクラス
