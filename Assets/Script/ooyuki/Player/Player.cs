@@ -1,6 +1,5 @@
 ﻿
 using FrontPerson.Constants;
-using FrontPerson.Constants;
 using System.Runtime.InteropServices;
 using UnityEngine;
 
@@ -76,14 +75,34 @@ namespace FrontPerson.Character
         public int GunAmmoL { get { return gunL_.Ammo; } }
 
         /// <summary>
+        /// 左の銃の最大弾薬数
+        /// </summary>
+        public int GunAmmoMAX_L { get { return gunL_.MaxAmmo_; } }
+
+        /// <summary>
         /// 右の銃の残弾数
         /// </summary>
         public int GunAmmoR { get { return gunR_.Ammo; } }
 
         /// <summary>
+        /// 右の銃の最大弾薬数
+        /// </summary>
+        public int GunAmmoMAX_R { get { return gunR_.MaxAmmo_; } }
+
+        /// <summary>
         /// 走っているかどうか
         /// </summary>
         public bool IsDash { get { return moveSpeed_ == runSpeed_; } }
+
+        /// <summary>
+        /// 歩いているかどうか
+        /// </summary>
+        public bool IsWalk { get { return moveSpeed_ == walkSpeed_; } }
+
+        /// <summary>
+        /// 止まっているかどうか
+        /// </summary>
+        public bool IsStop { get { return moveSpeed_ == 0f; } }
 
         /// <summary>
         /// 
@@ -197,17 +216,24 @@ namespace FrontPerson.Character
         /// </summary>
         /// <param name="vitaminType">補充するビタミンの種類</param>
         /// <param name="value">補給量</param>
-        void Reload(VITAMIN_TYPE vitaminType, int value)
+        void Reload(VitaminRecoveryPoint vrp)
         {
             if (!Input.GetKeyDown(KeyCode.R)) return;
 
-            if(vitaminType == VITAMIN_TYPE.VITAMIN_C)
+            switch (vrp.VitaminType)
             {
-                gunL_.Reload(value);
-            }
-            else if(vitaminType == VITAMIN_TYPE.VITAMIN_D)
-            {
-                gunR_.Reload(value);
+                case VITAMIN_TYPE.VITAMIN_C:
+                    gunL_.Reload(vrp.Charge(GunAmmoMAX_L - GunAmmoL));
+                    break;
+
+                case VITAMIN_TYPE.VITAMIN_D:
+                    gunR_.Reload(vrp.Charge(GunAmmoMAX_R - GunAmmoR));
+                    break;
+
+                case VITAMIN_TYPE.VITAMIN_ALL:
+                    gunL_.Reload();
+                    gunR_.Reload();
+                    break;
             }
         }
 
@@ -217,6 +243,9 @@ namespace FrontPerson.Character
         /// </summary>
         void Search()
         {
+            if (IsJump) return;
+            if (IsDash) return;
+
             if (!Input.GetKeyDown(KeyCode.E)) return;
                 
             if(isSearch_ == false)
@@ -240,7 +269,7 @@ namespace FrontPerson.Character
             switch (other.tag)
             {
                 case TagName.RECOVERY_POINT:
-                    Reload();
+                    Reload(other.GetComponent<VitaminRecoveryPoint>());
                     break;
 
                 case TagName.ENEMY:
