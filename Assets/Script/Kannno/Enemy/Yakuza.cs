@@ -6,7 +6,7 @@ using FrontPerson.Weapon;
 
 namespace FrontPerson.Enemy
 {
-    public class Yakuza : Enemy
+    public class Yakuza : Character.Enemy
     {
         protected override void OnStart()
         {

@@ -10,7 +10,7 @@ namespace FrontPerson.Enemy.AI
     /// </summary>
     public abstract class EnemyState_AI : MonoBehaviour
     {
-        protected Enemy Owner = null;
+        protected Character.Enemy Owner = null;
 
         // Start is called before the first frame update
         public void Start()
@@ -32,7 +32,7 @@ namespace FrontPerson.Enemy.AI
         protected abstract void OnUpdate();
         protected abstract void OnChangeState();
 
-        public void SetOwner(Enemy enemy)
+        public void SetOwner(Character.Enemy enemy)
         {
             Owner = enemy;
         }
