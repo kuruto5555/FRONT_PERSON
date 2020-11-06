@@ -3,11 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 
 using FrontPerson.Weapon;
-using FrontPerson.Enemy.AI;
 
 namespace FrontPerson.Enemy
 {
-    public class OrdinaryPeople : Enemy
+    public class OrdinaryPeople : Character.Enemy
     {
         protected override void OnStart()
         {
