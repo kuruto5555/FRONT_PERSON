@@ -1,41 +1,37 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.AI;
+
+using FrontPerson.Weapon;
+using FrontPerson.Enemy.AI;
 
 namespace FrontPerson.Enemy
 {
     public class Enemy01 : Enemy
     {
-        [Header("目的地")]
-        [SerializeField]
-        public Transform goal = null;
-
-        private NavMeshAgent agent;
-
         protected override void OnStart()
         {
-            agent = GetComponent<NavMeshAgent>();
-
-            SetState(new EnemyState_Wait(this));
-
-            state_AI.Start();
         }
 
         protected override void OnUpdate()
         {
-            state_AI.Update();
         }
 
-        public void SetTarget(Transform goal)
+        protected override void OnCollisionEnter(Collision collision)
         {
-            if (null != goal)
+            if (FrontPerson.Constants.TagName.BULLET == collision.gameObject.tag)
             {
-                agent.destination = goal.position;
-            }
-            else
-            {
-                agent.destination = transform.position;
+                Bullet bullet = collision.gameObject.GetComponent<Bullet>();
+
+                AddVitamins(bullet.Power);
+
+                // 仮
+                Destroy(collision.gameObject);
+
+                if (insufficiency <= 0)
+                {
+                    SetDestroy();
+                }
             }
         }
     }
