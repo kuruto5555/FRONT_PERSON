@@ -67,17 +67,8 @@ namespace FrontPerson.Manager
 
             AddComboBonus();
 
-            // タイマーが動いているかどうか
-            if (combo_bonus_timer_ <= 0)
-            {
                 // タイマーが動いていないのでコルーチンを開始
                 StartCoroutine(TimerDuringComboBonus());
-            }
-            else
-            {
-                // タイマーが動いているので制限時間を再度設定
-                combo_bonus_timer_ = combo_bonus_time_limit_;
-            }
         }
 
         public void AddComboBonus()
@@ -108,23 +99,40 @@ namespace FrontPerson.Manager
         /// <returns></returns>
         private IEnumerator TimerDuringComboBonus()
         {
-            // コンボの制限時間を設定
-            combo_bonus_timer_ = combo_bonus_time_limit_;
-
-            // コンボが続かず制限時間がきれたら抜ける
-            while (0 < combo_bonus_timer_)
+            // タイマーが動いているかどうか
+            if (combo_bonus_timer_ <= 0)
             {
-                yield return null;
+                // コンボの制限時間を設定
+                SetComboBonusTimer();
 
-                // 毎フレームタイマーを減らす
-                combo_bonus_timer_ -= Time.deltaTime;
+                // コンボが続かず制限時間がきれたら抜ける
+                while (0 < combo_bonus_timer_)
+                {
+                    yield return null;
 
-                // コンボ中の時間ボーナスを入れておく
-                time_bonus_ += Time.deltaTime;
+                    // 毎フレームタイマーを減らす
+                    combo_bonus_timer_ -= Time.deltaTime;
+
+                    // コンボ中の時間ボーナスを入れておく
+                    time_bonus_ += Time.deltaTime;
+                }
+
+                // コンボが続かなかったのでコンボボーナスを消す
+                LostComboBonus();
             }
+            else
+            {
+                // タイマーが動いているので制限時間を戻す
+                SetComboBonusTimer();
+            }
+        }
 
-            // コンボが続かなかったのでコンボボーナスを消す
-            LostComboBonus();
+        /// <summary>
+        /// コンボボーナスの時間を設定
+        /// </summary>
+        private void SetComboBonusTimer()
+        {
+            combo_bonus_timer_ = combo_bonus_time_limit_;
         }
     }
 }
