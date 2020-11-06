@@ -141,18 +141,18 @@ namespace FrontPerson.Character.Skill
                 for (int i=0; i < other.GetComponent<Renderer>().materials.Length; i++)
                 {
                     // とりあえずビタミンCのいろにしちゃう
-                    materials[i] = vitaminCMat_;
+                    //materials[i] = vitaminCMat_;
 
-                    /*
-                    if(enemy.足りないビタミン == VITAMIN_TYPE.VITAMIN_C)
+                    
+                    if(enemy.LackVitamins == VITAMIN_TYPE.VITAMIN_C)
                     {
-                        materiala[i] = vitaminCMat_;
+                        materials[i] = vitaminCMat_;
                     }
-                    else if(enemy.足りないビタミン == VITAMIN_TYPE.VITAMIN_D)
+                    else if(enemy.LackVitamins == VITAMIN_TYPE.VITAMIN_D)
                     {
-                        materiala[i] = vitaminDMat_;
+                        materials[i] = vitaminDMat_;
                     }
-                    */
+                    
                 }
                 renderer.materials = materials;
             }
