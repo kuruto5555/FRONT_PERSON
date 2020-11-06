@@ -22,7 +22,7 @@ namespace FrontPerson.Constants
         /// <summary>
         /// 取り扱っているビタミンの種類
         /// </summary>
-        public VITAMIN_TYPE ViteminType { get { return vitaminType; } }
+        public VITAMIN_TYPE VitaminType { get { return vitaminType; } }
 
 
 
@@ -32,6 +32,11 @@ namespace FrontPerson.Constants
         }
 
 
+        /// <summary>
+        /// 弾の補給
+        /// </summary>
+        /// <param name="value">欲しい弾の量</param>
+        /// <returns>もらえる弾の量</returns>
         public int Charge(int value)
         {
             int chargeValue = 0;
