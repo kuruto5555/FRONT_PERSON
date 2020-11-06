@@ -6,7 +6,7 @@ using UnityEngine.AI;
 using FrontPerson.Constants;
 using FrontPerson.Enemy.AI;
 
-namespace FrontPerson.Enemy
+namespace FrontPerson.Character
 {
     /// <summary>
     /// 敵オブジェクトのインターフェースクラス
@@ -135,36 +135,36 @@ namespace FrontPerson.Enemy
         protected abstract void OnStart();
         protected abstract void OnUpdate();
 
-        /// <summary>
-        /// 仮想関数
-        /// 物理的接触が発生した瞬間
-        /// </summary>
-        protected virtual void OnCollisionEnter(Collision collision) { }
-        /// <summary>
-        /// 仮想関数
-        /// 物理的接触が発生している間(１フレームごと)
-        /// </summary>
-        protected virtual void OnCollisionStay(Collision collision) { }
-        /// <summary>
-        /// 仮想関数
-        /// 物体が離れた瞬間
-        /// </summary>
-        protected virtual void OnCollisionExit(Collision collision) { }
+        ///// <summary>
+        ///// 仮想関数
+        ///// 物理的接触が発生した瞬間
+        ///// </summary>
+        //protected virtual void OnCollisionEnter(Collision collision) { }
+        ///// <summary>
+        ///// 仮想関数
+        ///// 物理的接触が発生している間(１フレームごと)
+        ///// </summary>
+        //protected virtual void OnCollisionStay(Collision collision) { }
+        ///// <summary>
+        ///// 仮想関数
+        ///// 物体が離れた瞬間
+        ///// </summary>
+        //protected virtual void OnCollisionExit(Collision collision) { }
 
-        /// <summary>
-        /// 仮想関数
-        /// トリガーに接触した瞬間
-        /// </summary>
-        protected virtual void OnTriggerEnter(Collider collider) { }
-        /// <summary>
-        /// 仮想関数
-        /// トリガーに接触している間(１フレームごと)
-        /// </summary>
-        protected virtual void OnTriggerStay(Collider collider) { }
-        /// <summary>
-        /// 仮想関数
-        /// トリガーから離れた瞬間
-        /// </summary>
-        protected virtual void OnTriggerExit(Collider collider) { }
+        ///// <summary>
+        ///// 仮想関数
+        ///// トリガーに接触した瞬間
+        ///// </summary>
+        //protected virtual void OnTriggerEnter(Collider collider) { }
+        ///// <summary>
+        ///// 仮想関数
+        ///// トリガーに接触している間(１フレームごと)
+        ///// </summary>
+        //protected virtual void OnTriggerStay(Collider collider) { }
+        ///// <summary>
+        ///// 仮想関数
+        ///// トリガーから離れた瞬間
+        ///// </summary>
+        //protected virtual void OnTriggerExit(Collider collider) { }
     }
 }
