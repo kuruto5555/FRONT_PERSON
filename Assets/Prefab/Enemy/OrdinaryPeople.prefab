@@ -124,6 +124,7 @@ GameObject:
   - component: {fileID: 1610290237}
   - component: {fileID: 2811532335922510156}
   - component: {fileID: 7246221378482317146}
+  - component: {fileID: 1515111144}
   m_Layer: 11
   m_Name: OrdinaryPeople
   m_TagString: Enemy
@@ -271,7 +272,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tetxMesh: {fileID: 1075170268}
   insufficiency: 100
-  state_AI: {fileID: 0}
+  state_AI: {fileID: 1515111144}
 --- !u!114 &7246221378482317146
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -287,3 +288,16 @@ MonoBehaviour:
   searchArea: {fileID: 6601087585491879291}
   searchAngle: 80
   AreaDraw: 1
+--- !u!114 &1515111144
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6058391280694767586}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9f38d331ad3c2c14cba4edfe7b5b4bff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MovePoint_List: []
