@@ -41,9 +41,7 @@ namespace FrontPerson.Enemy.AI
 
         protected override void OnChangeState()
         {
-            Destroy(Owner.state_AI);
-            Owner.state_AI = Owner.gameObject.AddComponent<EnemyState_Wait>();
-            Owner.state_AI.SetOwner(Owner);
+            ChangeState<EnemyState_Wait>();
 
             Debug.Log("ステートが変わった : EnemyState_Wait");
         }

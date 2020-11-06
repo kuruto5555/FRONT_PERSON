@@ -2,13 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-
 using FrontPerson.Weapon;
 using FrontPerson.Enemy.AI;
 
 namespace FrontPerson.Enemy
 {
-    public class Enemy02 : Enemy
+    public class OrdinaryPeople : Enemy
     {
         protected override void OnStart()
         {
@@ -18,9 +17,9 @@ namespace FrontPerson.Enemy
         {
         }
 
-        protected override void OnCollisionEnter(Collision collision)
+        void OnCollisionEnter(Collision collision)
         {
-            if (FrontPerson.Constants.TagName.BULLET == collision.gameObject.tag)
+            if (Constants.TagName.BULLET == collision.gameObject.tag)
             {
                 Bullet bullet = collision.gameObject.GetComponent<Bullet>();
 
@@ -29,7 +28,7 @@ namespace FrontPerson.Enemy
                 // 仮
                 Destroy(collision.gameObject);
 
-                if(insufficiency <= 0)
+                if (insufficiency <= 0)
                 {
                     SetDestroy();
                 }
