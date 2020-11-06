@@ -101,12 +101,18 @@ namespace FrontPerson.Character.Skill
             }
         }
 
+        //出てった処理
+        private void OnTriggerExit(Collider other)
+        {
+            
+        }
+
 
         private void OnTriggerEnter(Collider other)
         {
             if(other.tag == TagName.ENEMY)
             {
-                Enemy01 enemy = other.GetComponent<Enemy01>();
+                Enemy enemy = other.GetComponent<Enemy>();
                 initMaterialsList_.Add(other.GetComponent<Renderer>().materials);
                 rendererList_.Add(other.GetComponent<Renderer>());
 
