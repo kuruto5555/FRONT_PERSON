@@ -14,7 +14,9 @@ namespace FrontPerson.Character
     public abstract class Enemy : MonoBehaviour
     {
         // 足りないビタミン
-        protected VITAMIN_TYPE lack_vitamins = VITAMIN_TYPE.COUNT;
+        protected VITAMIN_TYPE lack_vitamins  = VITAMIN_TYPE.COUNT;
+
+        public VITAMIN_TYPE LackVitamins { get { return lack_vitamins; } }
 
         [Header("不足しているビタミンの文字列")]
         [SerializeField]
@@ -36,7 +38,7 @@ namespace FrontPerson.Character
         /// <summary>
         /// 倒れていることを判断するフラグ(true = 死んでいる)
         /// </summary>
-        protected bool isDead { private set; get; } = false;
+        public bool isDead { get; private set; } = false;
 
         private void Awake()
         {
