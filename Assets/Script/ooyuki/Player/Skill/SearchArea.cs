@@ -99,17 +99,36 @@ namespace FrontPerson.Character.Skill
             {
                 rendererList_[i].materials = initMaterialsList_[i];
             }
+
+            rendererList_.Clear();
+            initMaterialsList_.Clear();
         }
 
         //出てった処理
         private void OnTriggerExit(Collider other)
         {
-            
-        }
+            for (int i = 0; i < rendererList_.Count; i++)
+            {
+                // 違ったらコンティニュー
+                if (rendererList_[i].gameObject != other.gameObject)
+                    continue;
 
+                // 一緒だったらマテリアル戻してリストから削除
+                rendererList_[i].materials = initMaterialsList_[i];
+                rendererList_.RemoveAt(i);
+                initMaterialsList_.RemoveAt(i);
+                break;
+            }
+        }
 
         private void OnTriggerEnter(Collider other)
         {
+            //バグ対策
+            foreach (Renderer render in rendererList_)
+            {
+                if(render.gameObject == other.gameObject) return;
+            }
+
             if(other.tag == TagName.ENEMY)
             {
                 Enemy enemy = other.GetComponent<Enemy>();
