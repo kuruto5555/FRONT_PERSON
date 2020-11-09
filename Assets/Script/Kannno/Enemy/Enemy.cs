@@ -8,6 +8,9 @@ using FrontPerson.Enemy.AI;
 
 namespace FrontPerson.Character
 {
+    /// <summary>
+    /// 敵の種類を表す定数
+    /// </summary>
     public enum EnemyType {
         /// <summary>
         /// 一般人
@@ -44,10 +47,16 @@ namespace FrontPerson.Character
         [SerializeField]
         protected int insufficiency = 100;
 
+        /// <summary>
+        /// NavMeshAgent
+        /// </summary>
         protected NavMeshAgent agent;
 
         public NavMeshAgent Agent { get { return agent; } }
 
+        /// <summary>
+        /// 敵の種類
+        /// </summary>
         public EnemyType Type { get; protected set; } = EnemyType.MAX;
 
         /// <summary>
