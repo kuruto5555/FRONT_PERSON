@@ -10,6 +10,7 @@ namespace FrontPerson.Enemy
     {
         protected override void OnStart()
         {
+            Type = Character.EnemyType.OLD_BATTLEAXE;
         }
 
         protected override void OnUpdate()

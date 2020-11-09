@@ -8,6 +8,24 @@ using FrontPerson.Enemy.AI;
 
 namespace FrontPerson.Character
 {
+    public enum EnemyType {
+        /// <summary>
+        /// 一般人
+        /// </summary>
+        ORDINATY_PEOPLE,
+
+        /// <summary>
+        // おばちゃん
+        /// </summary>
+        OLD_BATTLEAXE,
+
+        /// <summary>
+        // ヤクザ
+        /// </summary>
+        YAKUZA,
+        MAX
+    };
+
     /// <summary>
     /// 敵オブジェクトのインターフェースクラス
     /// </summary>
@@ -29,6 +47,8 @@ namespace FrontPerson.Character
         protected NavMeshAgent agent;
 
         public NavMeshAgent Agent { get { return agent; } }
+
+        public EnemyType Type { get; protected set; } = EnemyType.MAX;
 
         /// <summary>
         /// 敵AIのステート(インターフェース)
