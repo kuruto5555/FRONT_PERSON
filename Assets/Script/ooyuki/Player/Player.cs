@@ -17,12 +17,20 @@ namespace FrontPerson.Character
         float runSpeed_ = 8.0f;
 
         [Header("ジャンプ高度")]
-        [SerializeField, Range(0.1f, 5.0f)]
+        [SerializeField, Range(0.1f, 10.0f)]
         float jumpPower = 2.0f;
+
+        [Header("ジャンプでかかる重力")]
+        [SerializeField, Range(1.0f, 50.0f)]
+        float jumpGravity = 5.0f;
 
         [Header("視点感度")]
         [SerializeField, Range(1, 14)]
         int rotationSpeed_ = 7;
+
+        [Header("視点角度制限")]
+        [SerializeField, Range(0.0f, 360.0f)]
+        float limitVerticalAngle = 89.0f;
 
         [Header("銃")]
         [SerializeField]
@@ -61,6 +69,30 @@ namespace FrontPerson.Character
         /// </summary>
         bool isSearch_ = false;
 
+        /// <summary>
+        /// ジャンプしてるかどうか
+        /// </summary>
+        bool _isJump = false;
+
+        /// <summary>
+        /// 空中にいるかどうか
+        /// </summary>
+        bool _isAir = false;
+
+        /// <summary>
+        /// ジャンプの余力
+        /// </summary>
+        float _jumpForce = 0.0f;
+
+        /// <summary>
+        /// プレイヤーの着地する床の高さ
+        /// </summary>
+        float _nowGrandHeigh = 1.0f;
+
+        float _limitQuaternionX = 0.0f;
+
+        //首の縦の動きを反映させるためのvector3
+        private Vector3 mXAxiz;
 
 
         /*---- プロパティ ----*/
@@ -105,9 +137,11 @@ namespace FrontPerson.Character
         public bool IsStop { get { return moveSpeed_ == 0f; } }
 
         /// <summary>
-        /// 
+        /// ジャンプしているかどうか
         /// </summary>
-        public bool IsJump { get { return position_.y > 1f; } }
+        public bool IsJump { get { return _isJump; } }
+
+        public bool IsAir { get { return position_.y > _nowGrandHeigh; } }
 
 
         // Start is called before the first frame update
@@ -118,17 +152,53 @@ namespace FrontPerson.Character
             //gunR_ = GetComponentInChildren<Gun>();
 
             position_ = transform.position;
+
+
+
+            _limitQuaternionX = limitVerticalAngle;
+
+            //初期角度を取得して置く
+            mXAxiz = cameraTransform_.localEulerAngles;
         }
 
         // Update is called once per frame
         void Update()
         {
+            position_ = transform.position;
+
+            ViewPointMove();
             Search();
             Dash();
             Move();
             Shot();
+            Jump();
 
             transform.position = position_;
+        }
+
+        /// <summary>
+        /// 視点移動
+        /// </summary>
+        private void ViewPointMove()
+        {
+            float X_Rotation = Input.GetAxis("Mouse X") * rotationSpeed_ * 30 * Time.deltaTime;
+            float Y_Rotation = Input.GetAxis("Mouse Y") * rotationSpeed_ * 30 * Time.deltaTime;
+
+            Debug.Log(cameraTransform_.rotation);
+            transform.Rotate(0, X_Rotation, 0);
+
+            var x = mXAxiz.x - Y_Rotation;
+
+            //角度検証
+            if (x >= -limitVerticalAngle && x <= limitVerticalAngle)
+            {
+                //問題無ければ反映
+                mXAxiz.x = x;
+                cameraTransform_.localEulerAngles = mXAxiz;
+            }
+
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
         }
 
         private void Move()
@@ -140,11 +210,7 @@ namespace FrontPerson.Character
             if (Input.GetKey(KeyCode.A)) direction -= transform.right;
             if (Input.GetKey(KeyCode.D)) direction += transform.right;
 
-            float X_Rotation = Input.GetAxis("Mouse X") * rotationSpeed_ * 30 * Time.deltaTime;
-            float Y_Rotation = Input.GetAxis("Mouse Y") * rotationSpeed_ * 30 * Time.deltaTime;
-
-            transform.Rotate(0, X_Rotation, 0);
-            cameraTransform_.Rotate(-Y_Rotation, 0, 0);
+            
 
             position_ += direction * moveSpeed_ * Time.deltaTime;
         }
@@ -172,10 +238,63 @@ namespace FrontPerson.Character
         /// </summary>
         void Jump()
         {
+             _nowGrandHeigh = LandingHeight() + 1.0f;
+
             if (Input.GetKeyDown(KeyCode.Space))
             {
-
+                if(!IsJump) //ジャンプが始まる瞬間
+                {
+                    _isJump = true;
+                    _jumpForce = jumpPower;
+                    position_ += transform.up * _jumpForce * Time.deltaTime;
+                }
             }
+
+            //空中にいるとき
+            if (IsAir)
+            {
+                position_ += transform.up * _jumpForce * Time.deltaTime;
+                _jumpForce -= jumpGravity * Time.deltaTime;
+                _isJump = true;
+            }
+
+            //ジャンプしてない時地面にくっつける
+            else
+            {
+                _jumpForce = 0.0f; //着地後力が残ってしまうので初期化
+                Vector3 pos = new Vector3(position_.x, _nowGrandHeigh, position_.z);
+                position_ = pos;
+                _isJump = false;
+            }
+        }
+
+        private float LandingHeight()
+        {
+            RaycastHit hit;
+            Vector3 startPos;
+            Vector3 endPos;
+
+            startPos = transform.position - transform.up * 0.5f;
+            endPos = transform.position + transform.up * 0.5f;
+            int layerMask = ~(1 << 8);
+            //if (Physics.CapsuleCast(startPos, endPos, 0.5f, -transform.up, out hit))
+            //{
+            //    return hit.point.y;
+            //}
+
+            Vector3 size = new Vector3(1.0f, 1.0f, 1.0f);
+
+            if (Physics.Raycast(position_, -transform.up, out hit))
+            {
+                return hit.point.y;
+            }
+
+            //if (Physics.SphereCast(position_, 1.0f, -transform.up, out hit))
+            //{
+            //    return hit.point.y;
+            //}
+
+            return 0;
         }
 
         /// <summary>
@@ -190,7 +309,8 @@ namespace FrontPerson.Character
             {
                 gunL_.Shot();
             }
-            else if (Input.GetKey(KeyCode.Mouse1))
+
+            if (Input.GetKey(KeyCode.Mouse1))
             {
                 gunR_.Shot();
             }
