@@ -16,9 +16,9 @@ GameObject:
   - component: {fileID: 7092531068719793736}
   - component: {fileID: 7092531068719793735}
   - component: {fileID: 7092531068719793733}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Yakuza
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -282,7 +282,7 @@ GameObject:
   - component: {fileID: 5111741002020728465}
   - component: {fileID: 3965412220633590224}
   - component: {fileID: 5466918622726397355}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: SearchArea
   m_TagString: Untagged
   m_Icon: {fileID: 0}

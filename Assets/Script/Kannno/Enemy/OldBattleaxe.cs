@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 using FrontPerson.Weapon;
+using FrontPerson.Enemy.AI;
 
 namespace FrontPerson.Enemy
 {
@@ -22,6 +23,18 @@ namespace FrontPerson.Enemy
             if (Constants.TagName.BULLET == collision.gameObject.tag)
             {
                 Bullet bullet = collision.gameObject.GetComponent<Bullet>();
+
+                //if(lack_vitamins != bullet.bulletType_)
+                //{
+                //    // 弾の種類と足りないビタミンが違う
+
+                //    // 仮
+                //    Destroy(collision.gameObject);
+
+                //    state_AI.ChangeState<EnemyState_Close>();
+                //}
+
+                // 弾の種類と足りないビタミンが同じ
 
                 AddVitamins(bullet.Power);
 
