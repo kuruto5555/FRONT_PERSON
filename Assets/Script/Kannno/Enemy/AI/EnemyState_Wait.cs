@@ -15,7 +15,15 @@ namespace FrontPerson.Enemy.AI
         {
         }
 
-        protected override void OnChangeState()
+        protected override void OnChangeState_OrdinaryPeople()
+        {
+        }
+
+        protected override void OnChangeState_OldBattleaxe()
+        {
+        }
+
+        protected override void OnChangeState_Yakuza()
         {
         }
     }

@@ -35,9 +35,22 @@ namespace FrontPerson.Enemy.AI
             }
         }
 
-        protected override void OnChangeState()
+        protected override void OnChangeState_OrdinaryPeople()
         {
-            Debug.Log("ステートが変わった");
+        }
+
+        protected override void OnChangeState_OldBattleaxe()
+        {
+            OldBattleaxe enemy = Owner as OldBattleaxe;
+
+            if (enemy.isHit)
+            {
+                ChangeState<EnemyState_Close>();
+            }
+        }
+
+        protected override void OnChangeState_Yakuza()
+        {
         }
     }
 }

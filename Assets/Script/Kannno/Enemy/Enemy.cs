@@ -9,6 +9,27 @@ using FrontPerson.Enemy.AI;
 namespace FrontPerson.Character
 {
     /// <summary>
+    /// 敵の種類を表す定数
+    /// </summary>
+    public enum EnemyType {
+        /// <summary>
+        /// 一般人
+        /// </summary>
+        ORDINATY_PEOPLE,
+
+        /// <summary>
+        // おばちゃん
+        /// </summary>
+        OLD_BATTLEAXE,
+
+        /// <summary>
+        // ヤクザ
+        /// </summary>
+        YAKUZA,
+        MAX
+    };
+
+    /// <summary>
     /// 敵オブジェクトのインターフェースクラス
     /// </summary>
     public abstract class Enemy : MonoBehaviour
@@ -26,9 +47,17 @@ namespace FrontPerson.Character
         [SerializeField]
         protected int insufficiency = 100;
 
+        /// <summary>
+        /// NavMeshAgent
+        /// </summary>
         protected NavMeshAgent agent;
 
         public NavMeshAgent Agent { get { return agent; } }
+
+        /// <summary>
+        /// 敵の種類
+        /// </summary>
+        public EnemyType Type { get; protected set; } = EnemyType.MAX;
 
         /// <summary>
         /// 敵AIのステート(インターフェース)

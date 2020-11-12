@@ -10,6 +10,7 @@ namespace FrontPerson.Enemy
     {
         protected override void OnStart()
         {
+            Type = Character.EnemyType.ORDINATY_PEOPLE;
         }
 
         protected override void OnUpdate()
