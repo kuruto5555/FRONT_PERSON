@@ -99,14 +99,39 @@ namespace FrontPerson.Character.Skill
             {
                 rendererList_[i].materials = initMaterialsList_[i];
             }
+
+            rendererList_.Clear();
+            initMaterialsList_.Clear();
         }
 
+        //出てった処理
+        private void OnTriggerExit(Collider other)
+        {
+            for (int i = 0; i < rendererList_.Count; i++)
+            {
+                // 違ったらコンティニュー
+                if (rendererList_[i].gameObject != other.gameObject)
+                    continue;
+
+                // 一緒だったらマテリアル戻してリストから削除
+                rendererList_[i].materials = initMaterialsList_[i];
+                rendererList_.RemoveAt(i);
+                initMaterialsList_.RemoveAt(i);
+                break;
+            }
+        }
 
         private void OnTriggerEnter(Collider other)
         {
+            //バグ対策
+            foreach (Renderer render in rendererList_)
+            {
+                if(render.gameObject == other.gameObject) return;
+            }
+
             if(other.tag == TagName.ENEMY)
             {
-                Enemy01 enemy = other.GetComponent<Enemy01>();
+                Enemy enemy = other.GetComponent<Enemy>();
                 initMaterialsList_.Add(other.GetComponent<Renderer>().materials);
                 rendererList_.Add(other.GetComponent<Renderer>());
 
@@ -116,18 +141,18 @@ namespace FrontPerson.Character.Skill
                 for (int i=0; i < other.GetComponent<Renderer>().materials.Length; i++)
                 {
                     // とりあえずビタミンCのいろにしちゃう
-                    materials[i] = vitaminCMat_;
+                    //materials[i] = vitaminCMat_;
 
-                    /*
-                    if(enemy.足りないビタミン == VITAMIN_TYPE.VITAMIN_C)
+                    
+                    if(enemy.LackVitamins == VITAMIN_TYPE.VITAMIN_C)
                     {
-                        materiala[i] = vitaminCMat_;
+                        materials[i] = vitaminCMat_;
                     }
-                    else if(enemy.足りないビタミン == VITAMIN_TYPE.VITAMIN_D)
+                    else if(enemy.LackVitamins == VITAMIN_TYPE.VITAMIN_D)
                     {
-                        materiala[i] = vitaminDMat_;
+                        materials[i] = vitaminDMat_;
                     }
-                    */
+                    
                 }
                 renderer.materials = materials;
             }

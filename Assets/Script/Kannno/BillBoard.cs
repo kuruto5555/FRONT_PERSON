@@ -6,8 +6,9 @@ namespace FrontPerson
 {
     public class BillBoard : MonoBehaviour
     {
-        [Header("カメラ")]
-        [SerializeField]
+        /// <summary>
+        /// カメラ
+        /// </summary>
         private Camera targetCamera = null;
 
         /// <summary>
@@ -25,7 +26,7 @@ namespace FrontPerson
         {
             if(null == targetCamera)
             {
-                Debug.LogError("カメラが設定されていません");
+                targetCamera = FindObjectOfType<Camera>();
             }
         }
 #endif

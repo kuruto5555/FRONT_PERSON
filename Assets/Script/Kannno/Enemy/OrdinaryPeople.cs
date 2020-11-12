@@ -3,23 +3,23 @@ using System.Collections.Generic;
 using UnityEngine;
 
 using FrontPerson.Weapon;
-using FrontPerson.Enemy.AI;
 
 namespace FrontPerson.Enemy
 {
-    public class Enemy01 : Enemy
+    public class OrdinaryPeople : Character.Enemy
     {
         protected override void OnStart()
         {
+            Type = Character.EnemyType.ORDINATY_PEOPLE;
         }
 
         protected override void OnUpdate()
         {
         }
 
-        protected override void OnCollisionEnter(Collision collision)
+        void OnCollisionEnter(Collision collision)
         {
-            if (FrontPerson.Constants.TagName.BULLET == collision.gameObject.tag)
+            if (Constants.TagName.BULLET == collision.gameObject.tag)
             {
                 Bullet bullet = collision.gameObject.GetComponent<Bullet>();
 

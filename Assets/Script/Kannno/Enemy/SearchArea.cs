@@ -43,7 +43,7 @@ namespace FrontPerson.Enemy.AI
                 RaycastHit hit;
                 if(Physics.Raycast(ray, out hit, searchArea.radius))
                 {
-                    Debug.DrawRay(ray.origin, ray.direction * searchArea.radius, Color.green, 0.1f, false);
+                    Debug.DrawRay(ray.origin, ray.direction * searchArea.radius, Color.green, 0.0f, false);
 
                     // プレイヤーだったら発見
                     if (hit.transform.tag == TagName.PLAYER)

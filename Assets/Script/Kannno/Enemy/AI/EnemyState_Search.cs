@@ -10,7 +10,7 @@ namespace FrontPerson.Enemy.AI
 
         protected override void OnStart()
         {
-            searchArea = GetComponent<SearchArea>();
+            searchArea = GetComponentInChildren<SearchArea>();
             Owner.SetTarget(null);
         }
 
@@ -24,9 +24,7 @@ namespace FrontPerson.Enemy.AI
 
         protected override void OnChangeState()
         {
-            Destroy(Owner.state_AI);
-            Owner.state_AI = Owner.gameObject.AddComponent<EnemyState_Close>();
-            Owner.state_AI.SetOwner(Owner);
+            ChangeState<EnemyState_Close>();
 
             var ai = Owner.state_AI as EnemyState_Close;
 

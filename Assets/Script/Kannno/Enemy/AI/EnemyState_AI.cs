@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -7,9 +8,9 @@ namespace FrontPerson.Enemy.AI
     /// <summary>
     /// 敵AIオブジェクトのインターフェースクラス
     /// </summary>
-    public abstract class  EnemyState_AI : MonoBehaviour
+    public abstract class EnemyState_AI : MonoBehaviour
     {
-        protected Enemy Owner = null;
+        protected Character.Enemy Owner = null;
 
         // Start is called before the first frame update
         public void Start()
@@ -31,9 +32,20 @@ namespace FrontPerson.Enemy.AI
         protected abstract void OnUpdate();
         protected abstract void OnChangeState();
 
-        public void SetOwner(Enemy enemy)
+        public void SetOwner(Character.Enemy enemy)
         {
             Owner = enemy;
+        }
+
+        /// <summary>
+        /// 敵AIのステートをT型に変更する
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        public void ChangeState<T>() where T : EnemyState_AI
+        {
+            Destroy(Owner.state_AI);
+            Owner.state_AI = Owner.gameObject.AddComponent<T>();
+            Owner.state_AI.SetOwner(Owner);
         }
     }
 }
