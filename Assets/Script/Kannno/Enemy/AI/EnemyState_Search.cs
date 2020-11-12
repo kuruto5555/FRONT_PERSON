@@ -24,6 +24,12 @@ namespace FrontPerson.Enemy.AI
 
         protected override void OnChangeState_OldBattleaxe()
         {
+            OldBattleaxe enemy = Owner as OldBattleaxe;
+
+            if (enemy.isHit)
+            {
+                ChangeState<EnemyState_Close>();
+            }
         }
 
         protected override void OnChangeState_Yakuza()
