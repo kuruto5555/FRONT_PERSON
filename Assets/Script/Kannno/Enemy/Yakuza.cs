@@ -10,6 +10,7 @@ namespace FrontPerson.Enemy
     {
         protected override void OnStart()
         {
+            Type = Character.EnemyType.YAKUZA;
         }
 
         protected override void OnUpdate()

@@ -60,7 +60,10 @@ namespace FrontPerson.Manager
             // スコアを更新
             CurrentScore += score;
 
-            if(on_add_score_ != null)
+            // コンボの途中ボーナスを加える
+            CurrentScore += BonusInTheMiddleOfTheCombo();
+
+            if (on_add_score_ != null)
             {
                 on_add_score_.Invoke(score);
             }
@@ -133,6 +136,21 @@ namespace FrontPerson.Manager
         private void SetComboBonusTimer()
         {
             combo_bonus_timer_ = combo_bonus_time_limit_;
+        }
+
+        /// <summary>
+        /// コンボ途中ボーナス
+        /// </summary>
+        /// <returns></returns>
+        private int BonusInTheMiddleOfTheCombo()
+        {
+            if(combo_bonus_ == 0)
+            {
+                return 0;
+            }
+
+            // 計算式：(100 ÷ 前回のコンボ途中ボーナスからかかった時間) × コンボ数
+            return (int)(100 / (combo_bonus_time_limit_ - combo_bonus_timer_) * combo_bonus_);
         }
     }
 }
