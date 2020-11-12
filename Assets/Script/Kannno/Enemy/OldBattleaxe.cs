@@ -24,15 +24,17 @@ namespace FrontPerson.Enemy
             {
                 Bullet bullet = collision.gameObject.GetComponent<Bullet>();
 
-                //if(lack_vitamins != bullet.bulletType_)
-                //{
-                //    // 弾の種類と足りないビタミンが違う
+                if (lack_vitamins != bullet.BulletType)
+                {
+                    // 弾の種類と足りないビタミンが違う
 
-                //    // 仮
-                //    Destroy(collision.gameObject);
+                    // 仮
+                    Destroy(collision.gameObject);
 
-                //    state_AI.ChangeState<EnemyState_Close>();
-                //}
+                    state_AI.ChangeState<EnemyState_Close>();
+
+                    return;
+                }
 
                 // 弾の種類と足りないビタミンが同じ
 
