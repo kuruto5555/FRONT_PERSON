@@ -123,6 +123,8 @@ namespace FrontPerson.Character
         // Update is called once per frame
         void Update()
         {
+            position_ = transform.position;
+
             Search();
             Dash();
             Move();
