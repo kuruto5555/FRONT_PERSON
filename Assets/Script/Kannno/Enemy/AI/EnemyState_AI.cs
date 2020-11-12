@@ -41,7 +41,7 @@ namespace FrontPerson.Enemy.AI
         /// 敵AIのステートをT型に変更する
         /// </summary>
         /// <typeparam name="T"></typeparam>
-        protected void ChangeState<T>() where T : EnemyState_AI
+        public void ChangeState<T>() where T : EnemyState_AI
         {
             Destroy(Owner.state_AI);
             Owner.state_AI = Owner.gameObject.AddComponent<T>();

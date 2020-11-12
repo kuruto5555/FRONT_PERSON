@@ -331,4 +331,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f38d331ad3c2c14cba4edfe7b5b4bff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MovePoint_List: []
+  MovePoint_List:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
