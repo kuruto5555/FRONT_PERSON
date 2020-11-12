@@ -15,8 +15,9 @@ namespace FrontPerson.Constants
         COUNT
     }
 
-
-	public static class Vitamin
+    // ビタミンから栄養素の変わったので変更
+    // Vitamin -> Nutrientsにする
+    public static class Vitamin
 	{
         public static List<string> Type = new List<string>() 
         {
