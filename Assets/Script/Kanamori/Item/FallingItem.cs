@@ -23,15 +23,12 @@ namespace FrontPerson.Item
         /// </summary>
         private readonly float FLUFFY_SPEED = 2f;
 
-        private FallingItemManager falling_item_manager_;
-
         protected Transform transform_;
 
         private void Start()
         {
             // アイテムマネージャーにアイテムを管理させる。
-            falling_item_manager_ = FindObjectOfType<FallingItemManager>();
-            falling_item_manager_.AddItem(this);
+            FallingItemManager.Instance.AddItem(this);
 
             transform_ = transform;
 
@@ -54,7 +51,7 @@ namespace FrontPerson.Item
             OnTakenItem(inventory);
 
             // マネージャーから消去
-            falling_item_manager_.RemoveItem(this);
+            FallingItemManager.Instance.RemoveItem(this);
         }
 
         /// <summary>
