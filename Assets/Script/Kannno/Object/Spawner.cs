@@ -26,7 +26,7 @@ namespace FrontPerson.Enemy
         private float Probability_Yakuza = 0f;
 
         // 確率のリスト(計算用)
-        List<float> ProbabilityList = null;
+        private List<float> ProbabilityList = null;
 
         [Header("生成までのクールタイム")]
         [SerializeField]
@@ -88,7 +88,7 @@ namespace FrontPerson.Enemy
 
                     if (probability == Probability_Yakuza)
                     {
-                        Create_OrdinaryPeople();
+                        Create_Yakuza();
                         return;
                     }
                 }
