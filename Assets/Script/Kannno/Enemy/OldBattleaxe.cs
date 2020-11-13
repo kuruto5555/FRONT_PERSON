@@ -12,7 +12,7 @@ namespace FrontPerson.Enemy
         /// <summary>
         /// 違うビタミンを当てられたかのフラグ(true = 当てられた)
         /// </summary>
-        public bool isHit { get; private set; } = false;
+        public bool isHit { get; set; } = false;
 
         protected override void OnStart()
         {
