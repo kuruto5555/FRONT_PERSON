@@ -19,11 +19,11 @@ namespace FrontPerson.Enemy
 
         [Header("スポーンする敵の確率")]
         [SerializeField, Range(0f, 1f)]
-        private float Probability_OrdinaryPeople;
+        private float Probability_OrdinaryPeople = 0f;
         [SerializeField, Range(0f, 1f)]
-        private float Probability_OldBattleaxe;
+        private float Probability_OldBattleaxe = 0f;
         [SerializeField, Range(0f, 1f)]
-        private float Probability_Yakuza;
+        private float Probability_Yakuza = 0f;
 
         // 確率のリスト(計算用)
         List<float> ProbabilityList = null;
@@ -80,7 +80,7 @@ namespace FrontPerson.Enemy
                         return;
                     }
 
-                    if (probability == Probability_OrdinaryPeople)
+                    if (probability == Probability_OldBattleaxe)
                     {
                         Create_OldBattleaxe();
                         return;
