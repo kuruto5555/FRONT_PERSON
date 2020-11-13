@@ -4,42 +4,64 @@ using System.Collections.Generic;
 using UnityEngine;
 namespace FrontPerson.Item
 {
-    public class PowerUpItem : MonoBehaviour
+    /// <summary>
+    /// パワーアップアイテムの種類
+    /// </summary>
+    public enum PowerUpItemType
     {
-        [SerializeField]
-        private PowerUpItemType item_type_;
+        // 無敵
+        // Aランクアイテム。ヤクザ、敵対したおばちゃんから一定時間内に攻撃をされなくなる。(透明化)
+        Invicible,
 
-        // Start is called before the first frame update
-        private void Start()
+        // コンボ保険
+        // Bランクアイテム。コンボが途切れるのを一回だけ防げる。効果を発動するまでは所持し続ける。重複所持は不可。
+        ComboInsurance,
+
+        // フィーバータイム
+        // Bランクアイテム。アイテムを獲得してから15秒間、スコアを1.5倍にする。
+        FeverTime,
+
+        // コンボ加算
+        // Cランクアイテム。現在のコンボに＋5コンボ加える
+        ComboAddition,
+
+        // 移動速度アップ
+        // Cランクアイテム。プレイヤーの移動速度が上がる。(とりあえずx1.5。)
+        MoovementSpeedUp,
+
+        Max
+    }
+
+    public class PowerUpItem : FallingItem
+    {
+        [Header("アイテムを獲得した際に出るエフェクト")]
+        [SerializeField]
+        private ParticleSystem effect_obtained_items_ = null;
+
+        /// <summary>
+        /// アイテムの種類
+        /// </summary>
+        private PowerUpItemType item_type_ = PowerUpItemType.Max;
+
+        protected override void OnStart()
         {
         }
 
-        /// <summary>
-        /// アイテムを取った
-        /// </summary>
-        public void TakenItem()
+        protected override void OnUpdate()
         {
-            switch (item_type_)
-            {
-                case PowerUpItemType.MOVEMENT_SPEED:
-                    {
-                        break;
-                    }
-                case PowerUpItemType.COMBO_INSURANCE:
-                    {
-                        break;
-                    }
-                case PowerUpItemType.COMBO_ADDITION:
-                    {
-                        break;
-                    }
-                case PowerUpItemType.NO_DAMAGE:
-                    {
-                        break;
-                    }
-            }
+        }
 
-            GameObject.Destroy(this.gameObject);
+        protected override void OnTakenItem(PlayerInventory inventory)
+        {
+            // エフェクトを出す
+            if (effect_obtained_items_)
+            {
+                Instantiate(effect_obtained_items_, transform_.position, transform_.rotation);
+            }
+        }
+
+        protected override void OnDestroyItem()
+        {
         }
     }
 }
