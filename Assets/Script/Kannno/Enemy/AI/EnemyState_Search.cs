@@ -16,19 +16,36 @@ namespace FrontPerson.Enemy.AI
 
         protected override void OnUpdate()
         {
-            if(searchArea.IsFound)
+        }
+
+        protected override void OnChangeState_OrdinaryPeople()
+        {
+        }
+
+        protected override void OnChangeState_OldBattleaxe()
+        {
+            OldBattleaxe enemy = Owner as OldBattleaxe;
+
+            if (enemy.isHit)
             {
-                OnChangeState();
+                ChangeState<EnemyState_Close>();
+
+                var ai = Owner.state_AI as EnemyState_Close;
+
+                ai.Goal = FindObjectOfType<Character.Player>().transform;
             }
         }
 
-        protected override void OnChangeState()
+        protected override void OnChangeState_Yakuza()
         {
-            ChangeState<EnemyState_Close>();
+            if (searchArea.IsFound)
+            {
+                ChangeState<EnemyState_Close>();
 
-            var ai = Owner.state_AI as EnemyState_Close;
+                var ai = Owner.state_AI as EnemyState_Close;
 
-            ai.Goal = FindObjectOfType<Character.Player>().transform;
+                ai.Goal = FindObjectOfType<Character.Player>().transform;
+            }
         }
     }
 }

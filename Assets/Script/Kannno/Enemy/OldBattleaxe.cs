@@ -9,6 +9,11 @@ namespace FrontPerson.Enemy
 {
     public class OldBattleaxe : Character.Enemy
     {
+        /// <summary>
+        /// 違うビタミンを当てられたかのフラグ(true = 当てられた)
+        /// </summary>
+        public bool isHit { get; set; } = false;
+
         protected override void OnStart()
         {
             Type = Character.EnemyType.OLD_BATTLEAXE;
@@ -31,7 +36,7 @@ namespace FrontPerson.Enemy
                     // 仮
                     Destroy(collision.gameObject);
 
-                    state_AI.ChangeState<EnemyState_Close>();
+                    isHit = true;
 
                     return;
                 }
@@ -43,7 +48,9 @@ namespace FrontPerson.Enemy
                 // 仮
                 Destroy(collision.gameObject);
 
-                if(insufficiency <= 0)
+                isHit = false;
+
+                if (insufficiency <= 0)
                 {
                     SetDestroy();
                 }
