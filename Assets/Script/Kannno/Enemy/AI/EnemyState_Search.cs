@@ -29,6 +29,11 @@ namespace FrontPerson.Enemy.AI
             if (enemy.isHit)
             {
                 ChangeState<EnemyState_Close>();
+
+
+                var ai = Owner.state_AI as EnemyState_Close;
+
+                ai.Goal = FindObjectOfType<Character.Player>().transform;
             }
         }
 
