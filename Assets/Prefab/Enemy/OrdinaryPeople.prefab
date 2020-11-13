@@ -106,7 +106,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1690cb6b8e9fea74dbc463f02dbb672b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  targetCamera: {fileID: 0}
 --- !u!1 &3705330301289661269
 GameObject:
   m_ObjectHideFlags: 0
@@ -331,8 +330,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f38d331ad3c2c14cba4edfe7b5b4bff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MovePoint_List:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  MovePoint_List: []
