@@ -25,6 +25,9 @@ namespace FrontPerson.Enemy
         [SerializeField, Range(0f, 1f)]
         private float Probability_Yakuza;
 
+        // 確率のリスト(計算用)
+        List<float> ProbabilityList = null;
+
         [Header("生成までのクールタイム")]
         [SerializeField]
         private float time = 0f;
@@ -34,6 +37,9 @@ namespace FrontPerson.Enemy
         void Start()
         {
             current_time = Time.timeSinceLevelLoad;
+
+            ProbabilityList = new List<float> { Probability_OrdinaryPeople, Probability_OrdinaryPeople, Probability_Yakuza };
+            ProbabilityList.Sort();
 
             Spawn();
         }
@@ -64,22 +70,28 @@ namespace FrontPerson.Enemy
         {
             float rand = Random.value;
 
-            if(Probability_Yakuza <= rand)
+            foreach(var probability in ProbabilityList)
             {
-                Create_Yakuza();
-                return;
-            }
-            
-            if(Probability_OldBattleaxe <= rand)
-            {
-                Create_OldBattleaxe();
-                return;
-            }
+                if(probability <= rand)
+                {
+                    if (probability == Probability_OrdinaryPeople)
+                    {
+                        Create_OrdinaryPeople();
+                        return;
+                    }
 
-            if (Probability_OrdinaryPeople <= rand)
-            {
-                Create_OrdinaryPeople();
-                return;
+                    if (probability == Probability_OrdinaryPeople)
+                    {
+                        Create_OldBattleaxe();
+                        return;
+                    }
+
+                    if (probability == Probability_Yakuza)
+                    {
+                        Create_OrdinaryPeople();
+                        return;
+                    }
+                }
             }
         }
 
