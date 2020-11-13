@@ -302,6 +302,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1075170268, guid: fac17614e55ef2347920bfef4d730f0d, type: 3}
+      propertyPath: m_Text
+      value: "\u6804\u990A\u7D20A"
+      objectReference: {fileID: 0}
     - target: {fileID: 1515111144, guid: fac17614e55ef2347920bfef4d730f0d, type: 3}
       propertyPath: MovePoint_List.Array.size
       value: 1
@@ -1238,6 +1242,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 429424801789043725, guid: d2eba39b6db42a74bb94c1ad6b593b62,
+        type: 3}
+      propertyPath: vitaminType
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 429424801789043726, guid: d2eba39b6db42a74bb94c1ad6b593b62,
         type: 3}
       propertyPath: m_Name
@@ -1324,7 +1333,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1392440820738134381}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1, z: 0}
+  m_LocalPosition: {x: 16.16, y: 12.56, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1392440822381112864}
@@ -1383,6 +1392,8 @@ MonoBehaviour:
   runSpeed_: 8
   jumpPower: 2
   jumpGravity: 5
+  stunTime: 1
+  invincibleTime: 1
   rotationSpeed_: 6
   limitVerticalAngle: 89
   gunR_: {fileID: 1146332829688949345}
@@ -1604,6 +1615,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: SupplyStation
       objectReference: {fileID: 0}
+    - target: {fileID: 1763975586070396321, guid: 11723c6fff067504f8803ddbe9eb62b2,
+        type: 3}
+      propertyPath: vitaminType
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 1763975586070396325, guid: 11723c6fff067504f8803ddbe9eb62b2,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1668,6 +1684,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1800438120285165832, guid: b30697c3c60bee3479fbac3da98fce93,
+        type: 3}
+      propertyPath: vitaminType
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1800438120285165835, guid: b30697c3c60bee3479fbac3da98fce93,
         type: 3}
       propertyPath: m_Name
