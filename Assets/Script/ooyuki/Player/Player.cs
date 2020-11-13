@@ -24,6 +24,14 @@ namespace FrontPerson.Character
         [SerializeField, Range(1.0f, 50.0f)]
         float jumpGravity = 5.0f;
 
+        [Header("スタンの時間")]
+        [SerializeField, Range(0.5f, 5.0f)]
+        float stunTime = 1.0f;
+
+        [Header("無敵時間")]
+        [SerializeField, Range(0.5f, 5.0f)]
+        float invincibleTime = 1.0f;
+
         [Header("視点感度")]
         [SerializeField, Range(1, 14)]
         int rotationSpeed_ = 7;
@@ -41,8 +49,6 @@ namespace FrontPerson.Character
         [Header("サーチエリア")]
         [SerializeField]
         Skill.SearchArea searchArea = null;
-
-
 
         /// <summary>
         /// カメラのトランスフォーム
@@ -62,7 +68,12 @@ namespace FrontPerson.Character
         /// <summary>
         /// ぴよってるかどうか
         /// </summary>
-        bool isPiyori_ = false;
+        bool _isStun = false;
+
+        /// <summary>
+        /// 無敵かどうか
+        /// </summary>
+        bool _isInvincible = false;
 
         /// <summary>
         /// サーチ中かどうか
@@ -93,6 +104,16 @@ namespace FrontPerson.Character
         /// 下のY軸限界値
         /// </summary>
         float _limitUnderHeight = -256.0f;
+
+        /// <summary>
+        /// 今のスタンタイム
+        /// </summary>
+        float _nowStunTime = 0.0f;
+
+        /// <summary>
+        /// 今の無敵時間
+        /// </summary>
+        float _nowInvincibleTime = 0.0f;
 
 
         /*---- プロパティ ----*/
@@ -141,7 +162,20 @@ namespace FrontPerson.Character
         /// </summary>
         public bool IsJump { get { return _isJump; } }
 
+        /// <summary>
+        /// 空中にいるかどうか
+        /// </summary>
         public bool IsAir { get { return position_.y > _nowGrandHeigh; } }
+
+        /// <summary>
+        /// 気絶してるかどうか
+        /// </summary>
+        public bool IsStun { get { return _isStun; } }
+
+        /// <summary>
+        /// 無敵かどうか
+        /// </summary>
+        public bool IsInvincible { get { return _isInvincible; } }
 
 
         // Start is called before the first frame update
@@ -160,8 +194,18 @@ namespace FrontPerson.Character
         // Update is called once per frame
         void Update()
         {
+            if (_isStun)
+            {
+                StunStatus();
+
+                return;
+            }
+
+            if (Input.GetKeyDown(KeyCode.J)) Stun();
+
             position_ = transform.position;
 
+            InvincibleStatus();
             ViewPointMove();
             Search();
             Dash();
@@ -293,7 +337,7 @@ namespace FrontPerson.Character
                 if (pos.y < _limitUnderHeight + 2.0f) return 100.0f;
             }
 
-            return _limitUnderHeight + 1.0f;
+            return _limitUnderHeight + 1.5f;
         }
 
         /// <summary>
@@ -381,7 +425,55 @@ namespace FrontPerson.Character
 
         }
 
+        /// <summary>
+        /// スタン中の処理
+        /// </summary>
+        void StunStatus()
+        {
+            if (!_isStun) return;
 
+            if(stunTime > _nowStunTime)
+            {
+                _nowStunTime += Time.deltaTime;
+            }
+            else
+            {
+                _nowStunTime = 0.0f;
+
+                _isStun = false;
+
+                //無敵開始
+                _isInvincible = true;
+            }
+            
+        }
+
+        /// <summary>
+        /// スタンさせる
+        /// </summary>
+        public void Stun()
+        {
+            _isStun = true;
+            
+        }
+
+        /// <summary>
+        /// 無敵中の処理
+        /// </summary>
+        void InvincibleStatus()
+        {
+            if (!_isInvincible) return;
+
+            if(_nowInvincibleTime < invincibleTime)
+            {
+                _nowInvincibleTime += Time.deltaTime;
+            }
+            else
+            {
+                _nowInvincibleTime = 0.0f;
+                _isInvincible = false;
+            }
+        }
 
         private void OnTriggerStay(Collider other)
         {
