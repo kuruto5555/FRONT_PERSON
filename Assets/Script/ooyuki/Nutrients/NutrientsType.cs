@@ -6,9 +6,9 @@ namespace FrontPerson.Constants
 {
     public enum NUTRIENTS_TYPE
     {
-        NUTRIENTS_A,
-        NUTRIENTS_B,
-        NUTRIENTS_ALL,
+        _A,
+        _B,
+        _ALL,
 
         COUNT
     }
@@ -19,9 +19,9 @@ namespace FrontPerson.Constants
 	{
         public static List<string> Type = new List<string>() 
         {
-            "NutrientsA",
-            "NutrientsB",
-            "NutrientsALL"
+            "栄養素A",
+            "栄養素B",
+            "栄養素ALL"
         };
 
         //public const string NUTRIENTS_A   = "NutrientsA";

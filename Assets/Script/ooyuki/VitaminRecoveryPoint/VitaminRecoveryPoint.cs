@@ -9,7 +9,7 @@ namespace FrontPerson.Constants
     {
         [Header("ビタミンの種類")]
         [SerializeField]
-        private NUTRIENTS_TYPE vitaminType = NUTRIENTS_TYPE.NUTRIENTS_ALL;
+        private NUTRIENTS_TYPE vitaminType = NUTRIENTS_TYPE._ALL;
 
         [Header("在庫　-1：無限")]
         [SerializeField, Range(-1, 1000)]
