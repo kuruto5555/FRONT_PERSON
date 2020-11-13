@@ -42,8 +42,6 @@ namespace FrontPerson.Character
         [SerializeField]
         Skill.SearchArea searchArea = null;
 
-
-
         /// <summary>
         /// カメラのトランスフォーム
         /// </summary>
@@ -62,7 +60,7 @@ namespace FrontPerson.Character
         /// <summary>
         /// ぴよってるかどうか
         /// </summary>
-        bool isPiyori_ = false;
+        bool _isStun = false;
 
         /// <summary>
         /// サーチ中かどうか
@@ -160,6 +158,8 @@ namespace FrontPerson.Character
         // Update is called once per frame
         void Update()
         {
+            if (_isStun) return;
+
             position_ = transform.position;
 
             ViewPointMove();
@@ -293,7 +293,7 @@ namespace FrontPerson.Character
                 if (pos.y < _limitUnderHeight + 2.0f) return 100.0f;
             }
 
-            return _limitUnderHeight + 1.0f;
+            return _limitUnderHeight + 1.5f;
         }
 
         /// <summary>
@@ -381,7 +381,10 @@ namespace FrontPerson.Character
 
         }
 
-
+        void Stun()
+        {
+            _isStun = true;
+        }
 
         private void OnTriggerStay(Collider other)
         {
