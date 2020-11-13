@@ -2,16 +2,21 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+using FrontPerson.Character;
+
 namespace FrontPerson.Enemy.AI
 {
-    public class EnemyState_Search : EnemyState_AI
+    public class EnemyState_Attack : EnemyState_AI
     {
         private SearchArea searchArea = null;
+
+        private Player Player = null;
 
         protected override void OnStart()
         {
             searchArea = GetComponentInChildren<SearchArea>();
-            Owner.SetTarget(null);
+
+            Player = FindObjectOfType<Player>();
         }
 
         protected override void OnUpdate()
@@ -24,28 +29,18 @@ namespace FrontPerson.Enemy.AI
 
         protected override void OnChangeState_OldBattleaxe()
         {
-            OldBattleaxe enemy = Owner as OldBattleaxe;
-
-            if (enemy.isHit)
+            if (!searchArea.IsFound)
             {
-                ChangeState<EnemyState_Close>();
+                ChangeState<EnemyState_Search>();
 
-                var ai = Owner.state_AI as EnemyState_Close;
+                OldBattleaxe enemy = Owner as OldBattleaxe;
 
-                ai.Goal = FindObjectOfType<Character.Player>().transform;
+                enemy.isHit = false;
             }
         }
 
         protected override void OnChangeState_Yakuza()
         {
-            if (searchArea.IsFound)
-            {
-                ChangeState<EnemyState_Close>();
-
-                var ai = Owner.state_AI as EnemyState_Close;
-
-                ai.Goal = FindObjectOfType<Character.Player>().transform;
-            }
         }
     }
 }
