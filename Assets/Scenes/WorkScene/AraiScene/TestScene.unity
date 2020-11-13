@@ -352,7 +352,7 @@ GameObject:
   - component: {fileID: 100087927}
   - component: {fileID: 100087926}
   - component: {fileID: 100087925}
-  m_Layer: 11
+  m_Layer: 12
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -601,7 +601,7 @@ GameObject:
   - component: {fileID: 277563515}
   - component: {fileID: 277563519}
   - component: {fileID: 277563520}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: floor (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -765,9 +765,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ecd009b6e8960f047951eb988e80ff11, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  vitamins_:
-  - {fileID: 1611028893}
-  - {fileID: 661598014}
+  L_BulletNumGauge_: {fileID: 0}
+  R_BulletNumGauge_: {fileID: 0}
   player_: {fileID: 867029066}
 --- !u!1 &432555681
 GameObject:
@@ -1669,7 +1668,7 @@ GameObject:
   - component: {fileID: 1200368842}
   - component: {fileID: 1200368841}
   - component: {fileID: 1200368840}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: floor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1841,7 +1840,7 @@ GameObject:
   - component: {fileID: 1305816804}
   - component: {fileID: 1305816803}
   - component: {fileID: 1305816807}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Sphere
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1951,7 +1950,7 @@ GameObject:
   - component: {fileID: 1333950676}
   - component: {fileID: 1333950675}
   - component: {fileID: 1333950679}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: floor (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
