@@ -24,15 +24,6 @@ namespace FrontPerson.Enemy.AI
 
         protected override void OnUpdate()
         {
-            {
-                if (Mathf.Abs((Owner.transform.position - goal.position).magnitude) <= 3.0f)
-                {
-                    ChangeState<EnemyState_Wait>();
-
-                    return;
-                }
-            }
-
             if(max_time <= (Time.timeSinceLevelLoad - time))
             {
                 time = Time.timeSinceLevelLoad;
@@ -47,6 +38,10 @@ namespace FrontPerson.Enemy.AI
 
         protected override void OnChangeState_OldBattleaxe()
         {
+            if (Mathf.Abs((Owner.transform.position - goal.position).magnitude) <= 3.0f)
+            {
+                ChangeState<EnemyState_Attack>();
+            }
         }
 
         protected override void OnChangeState_Yakuza()
