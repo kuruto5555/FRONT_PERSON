@@ -1354,7 +1354,7 @@ MonoBehaviour:
   walkSpeed_: 5
   runSpeed_: 8
   jumpPower: 8.6
-  jumpGravity: 33.2
+  jumpGravity: 25
   rotationSpeed_: 6
   limitVerticalAngle: 89
   gunR_: {fileID: 813040941}
@@ -1386,8 +1386,8 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: 0.5
-  m_Height: 2
+  m_Radius: 0.26
+  m_Height: 1.39
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &1092525426
@@ -1949,7 +1949,6 @@ GameObject:
   - component: {fileID: 1333950677}
   - component: {fileID: 1333950676}
   - component: {fileID: 1333950675}
-  - component: {fileID: 1333950679}
   m_Layer: 12
   m_Name: floor (1)
   m_TagString: Untagged
@@ -2031,22 +2030,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: -25.49}
---- !u!208 &1333950679
-NavMeshObstacle:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1333950674}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Shape: 1
-  m_Extents: {x: 0.5, y: 0.5, z: 0.5}
-  m_MoveThreshold: 0.1
-  m_Carve: 0
-  m_CarveOnlyStationary: 1
-  m_Center: {x: 0, y: 0, z: 0}
-  m_TimeToStationary: 0.5
 --- !u!1 &1489682340
 GameObject:
   m_ObjectHideFlags: 0
