@@ -35,9 +35,9 @@ namespace FrontPerson.Character
     public abstract class Enemy : MonoBehaviour
     {
         // 足りないビタミン
-        protected VITAMIN_TYPE lack_vitamins  = VITAMIN_TYPE.COUNT;
+        protected NUTRIENTS_TYPE lack_vitamins  = NUTRIENTS_TYPE.COUNT;
 
-        public VITAMIN_TYPE LackVitamins { get { return lack_vitamins; } }
+        public NUTRIENTS_TYPE LackVitamins { get { return lack_vitamins; } }
 
         [Header("不足しているビタミンの文字列")]
         [SerializeField]
@@ -98,9 +98,9 @@ namespace FrontPerson.Character
         /// </summary>
         private void Set_LackVitamin()
         {
-            int cnt = Random.Range(0, (int)VITAMIN_TYPE.COUNT);
+            int cnt = Random.Range(0, (int)NUTRIENTS_TYPE.COUNT);
 
-            List<VITAMIN_TYPE> vitamins = new List<VITAMIN_TYPE>() { VITAMIN_TYPE.VITAMIN_A, VITAMIN_TYPE.VITAMIN_B, VITAMIN_TYPE.VITAMIN_C, VITAMIN_TYPE.VITAMIN_D, VITAMIN_TYPE.VITAMIN_ALL };
+            List<NUTRIENTS_TYPE> vitamins = new List<NUTRIENTS_TYPE>() { NUTRIENTS_TYPE._A, NUTRIENTS_TYPE._B, NUTRIENTS_TYPE._ALL };
 
             lack_vitamins = vitamins[cnt];
         }
@@ -110,7 +110,7 @@ namespace FrontPerson.Character
         /// </summary>
         private void Set_LackVitamin_Text()
         {
-            tetxMesh.text = Vitamin.Type[(int)lack_vitamins];
+            tetxMesh.text = Nutrients.Type[(int)lack_vitamins];
         }
 
         /// <summary>

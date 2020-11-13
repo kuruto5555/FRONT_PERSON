@@ -144,11 +144,11 @@ namespace FrontPerson.Character.Skill
                     //materials[i] = vitaminCMat_;
 
                     
-                    if(enemy.LackVitamins == VITAMIN_TYPE.VITAMIN_C)
+                    if(enemy.LackVitamins == NUTRIENTS_TYPE._A)
                     {
                         materials[i] = vitaminCMat_;
                     }
-                    else if(enemy.LackVitamins == VITAMIN_TYPE.VITAMIN_D)
+                    else if(enemy.LackVitamins == NUTRIENTS_TYPE._B)
                     {
                         materials[i] = vitaminDMat_;
                     }

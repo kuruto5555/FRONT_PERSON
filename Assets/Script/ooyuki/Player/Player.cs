@@ -385,15 +385,15 @@ namespace FrontPerson.Character
 
             switch (vrp.VitaminType)
             {
-                case VITAMIN_TYPE.VITAMIN_C:
+                case NUTRIENTS_TYPE._A:
                     gunL_.Reload(vrp.Charge(GunAmmoMAX_L - GunAmmoL));
                     break;
 
-                case VITAMIN_TYPE.VITAMIN_D:
+                case NUTRIENTS_TYPE._B:
                     gunR_.Reload(vrp.Charge(GunAmmoMAX_R - GunAmmoR));
                     break;
 
-                case VITAMIN_TYPE.VITAMIN_ALL:
+                case NUTRIENTS_TYPE._ALL:
                     gunL_.Reload();
                     gunR_.Reload();
                     break;
