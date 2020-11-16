@@ -2,6 +2,7 @@
 using FrontPerson.Constants;
 using System.Runtime.InteropServices;
 using UnityEngine;
+using FrontPerson.Gimmick;
 
 
 namespace FrontPerson.Character
@@ -379,7 +380,7 @@ namespace FrontPerson.Character
         /// </summary>
         /// <param name="vitaminType">補充するビタミンの種類</param>
         /// <param name="value">補給量</param>
-        void Reload(VitaminRecoveryPoint vrp)
+        void Reload(NutrientsRecoveryPoint vrp)
         {
             if (!Input.GetKeyDown(KeyCode.R)) return;
 
@@ -480,7 +481,7 @@ namespace FrontPerson.Character
             switch (other.tag)
             {
                 case TagName.RECOVERY_POINT:
-                    Reload(other.GetComponent<VitaminRecoveryPoint>());
+                    Reload(other.GetComponent<NutrientsRecoveryPoint>());
                     break;
 
                 case TagName.ENEMY:
