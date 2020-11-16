@@ -157,7 +157,7 @@ MonoBehaviour:
   Yakuza: {fileID: 7092531068719793732, guid: 2d8b76e7ce591474d86d0d2bf8e36e09, type: 3}
   Probability_OrdinaryPeople: 0
   Probability_OldBattleaxe: 1
-  Probability_Yakuza: 1
+  Probability_Yakuza: 0
   time: 0
 --- !u!4 &39720042
 Transform:
@@ -167,7 +167,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 39720040}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 20, y: 0.5, z: -10}
+  m_LocalPosition: {x: -20, y: 0.5, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -785,7 +785,7 @@ MonoBehaviour:
   bullet_: {fileID: 8050350029783306595, guid: 9ca50a722de9a8647a036dc96d8188f1, type: 3}
   hole_: {fileID: 407611193}
   rate_: 0.3
-  MaxAmmo_: 10
+  MaxAmmo_: 15
 --- !u!1 &668547673
 GameObject:
   m_ObjectHideFlags: 0
@@ -1049,6 +1049,8 @@ MonoBehaviour:
   runSpeed_: 8
   jumpPower: 2
   jumpGravity: 5
+  stunTime: 1
+  invincibleTime: 1
   rotationSpeed_: 6
   limitVerticalAngle: 89
   gunR_: {fileID: 499984688}
@@ -1689,7 +1691,7 @@ PrefabInstance:
     - target: {fileID: 3493637037992663751, guid: dfdc46580a7ab7644aca016e950d7bff,
         type: 3}
       propertyPath: m_RootOrder
-      value: 1
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 3493637037992663751, guid: dfdc46580a7ab7644aca016e950d7bff,
         type: 3}
@@ -2109,7 +2111,7 @@ MonoBehaviour:
   bullet_: {fileID: 1171001628440052897, guid: 60fc4f91e0d89c0459e0443e10a1a739, type: 3}
   hole_: {fileID: 1566552452}
   rate_: 0.3
-  MaxAmmo_: 10
+  MaxAmmo_: 15
 --- !u!4 &1613645870
 Transform:
   m_ObjectHideFlags: 0
@@ -2426,7 +2428,7 @@ PrefabInstance:
     - target: {fileID: 3493637037992663751, guid: dfdc46580a7ab7644aca016e950d7bff,
         type: 3}
       propertyPath: m_RootOrder
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 3493637037992663751, guid: dfdc46580a7ab7644aca016e950d7bff,
         type: 3}
@@ -2506,26 +2508,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1515111144, guid: fac17614e55ef2347920bfef4d730f0d, type: 3}
-      propertyPath: MovePoint_List.Array.size
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 1515111144, guid: fac17614e55ef2347920bfef4d730f0d, type: 3}
-      propertyPath: MovePoint_List.Array.data[0]
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 1515111144, guid: fac17614e55ef2347920bfef4d730f0d, type: 3}
-      propertyPath: MovePoint_List.Array.data[1]
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 1515111144, guid: fac17614e55ef2347920bfef4d730f0d, type: 3}
-      propertyPath: MovePoint_List.Array.data[2]
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 1515111144, guid: fac17614e55ef2347920bfef4d730f0d, type: 3}
-      propertyPath: MovePoint_List.Array.data[3]
-      value: 
-      objectReference: {fileID: 0}
     - target: {fileID: 1515111144, guid: fac17614e55ef2347920bfef4d730f0d, type: 3}
       propertyPath: MovePattern
       value: 
@@ -2642,7 +2624,7 @@ PrefabInstance:
     - target: {fileID: 3493637037992663751, guid: dfdc46580a7ab7644aca016e950d7bff,
         type: 3}
       propertyPath: m_RootOrder
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3493637037992663751, guid: dfdc46580a7ab7644aca016e950d7bff,
         type: 3}

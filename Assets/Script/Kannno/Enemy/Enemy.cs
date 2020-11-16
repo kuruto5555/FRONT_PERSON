@@ -4,31 +4,12 @@ using UnityEngine;
 using UnityEngine.AI;
 
 using FrontPerson.Constants;
+using FrontPerson.Enemy;
 using FrontPerson.Enemy.AI;
+using FrontPerson.Manager;
 
 namespace FrontPerson.Character
 {
-    /// <summary>
-    /// 敵の種類を表す定数
-    /// </summary>
-    public enum EnemyType {
-        /// <summary>
-        /// 一般人
-        /// </summary>
-        ORDINATY_PEOPLE,
-
-        /// <summary>
-        // おばちゃん
-        /// </summary>
-        OLD_BATTLEAXE,
-
-        /// <summary>
-        // ヤクザ
-        /// </summary>
-        YAKUZA,
-        MAX
-    };
-
     /// <summary>
     /// 敵オブジェクトのインターフェースクラス
     /// </summary>
@@ -134,6 +115,36 @@ namespace FrontPerson.Character
         {
             if(true == isDead)
             {
+                ScoreManager score_manager = ScoreManager.Instance;
+
+#if UNITY_EDITOR
+                if (null == score_manager)
+                {
+                    Debug.LogError("ScoreManager が存在しません");
+
+                    Destroy(gameObject);
+                    return;
+                }
+#endif
+
+                switch (Type)
+                {
+                    case EnemyType.ORDINATY_PEOPLE:
+                        score_manager.AddScore((int)EnemyScore.ORDINATY_PEOPLE);
+                        break;
+
+                    case EnemyType.OLD_BATTLEAXE:
+                        score_manager.AddScore((int)EnemyScore.OLD_BATTLEAXE);
+                        break;
+
+                    case EnemyType.YAKUZA:
+                        score_manager.AddScore((int)EnemyScore.YAKUZA);
+                        break;
+
+                    default:
+                        break;
+                }
+
                 Destroy(gameObject);
             }
         }
