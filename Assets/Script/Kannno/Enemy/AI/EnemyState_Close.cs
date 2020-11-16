@@ -46,6 +46,10 @@ namespace FrontPerson.Enemy.AI
 
         protected override void OnChangeState_Yakuza()
         {
+            if (Mathf.Abs((Owner.transform.position - goal.position).magnitude) <= 3.0f)
+            {
+                ChangeState<EnemyState_Attack>();
+            }
         }
     }
 }

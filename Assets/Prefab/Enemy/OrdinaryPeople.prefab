@@ -275,7 +275,7 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 0.5
-  m_Speed: 7
+  m_Speed: 3.5
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 120
@@ -330,4 +330,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f38d331ad3c2c14cba4edfe7b5b4bff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MovePoint_List: []
+  MovePattern: {fileID: 0}

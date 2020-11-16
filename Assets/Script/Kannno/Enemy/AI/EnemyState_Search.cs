@@ -32,19 +32,19 @@ namespace FrontPerson.Enemy.AI
 
                 var ai = Owner.state_AI as EnemyState_Close;
 
-                ai.Goal = FindObjectOfType<Character.Player>().transform;
+                ai.Goal = Player.transform;
             }
         }
 
         protected override void OnChangeState_Yakuza()
         {
-            if (searchArea.IsFound)
+            if (searchArea.IsFound && (!Player.IsInvincible && !Player.IsStun) )
             {
                 ChangeState<EnemyState_Close>();
 
                 var ai = Owner.state_AI as EnemyState_Close;
 
-                ai.Goal = FindObjectOfType<Character.Player>().transform;
+                ai.Goal = Player.transform;
             }
         }
     }
