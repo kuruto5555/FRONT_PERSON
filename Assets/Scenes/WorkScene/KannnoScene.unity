@@ -785,7 +785,7 @@ MonoBehaviour:
   bullet_: {fileID: 8050350029783306595, guid: 9ca50a722de9a8647a036dc96d8188f1, type: 3}
   hole_: {fileID: 407611193}
   rate_: 0.3
-  MaxAmmo_: 10
+  MaxAmmo_: 15
 --- !u!1 &668547673
 GameObject:
   m_ObjectHideFlags: 0
@@ -2111,7 +2111,7 @@ MonoBehaviour:
   bullet_: {fileID: 1171001628440052897, guid: 60fc4f91e0d89c0459e0443e10a1a739, type: 3}
   hole_: {fileID: 1566552452}
   rate_: 0.3
-  MaxAmmo_: 10
+  MaxAmmo_: 15
 --- !u!4 &1613645870
 Transform:
   m_ObjectHideFlags: 0
@@ -2508,26 +2508,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1515111144, guid: fac17614e55ef2347920bfef4d730f0d, type: 3}
-      propertyPath: MovePoint_List.Array.size
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 1515111144, guid: fac17614e55ef2347920bfef4d730f0d, type: 3}
-      propertyPath: MovePoint_List.Array.data[0]
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 1515111144, guid: fac17614e55ef2347920bfef4d730f0d, type: 3}
-      propertyPath: MovePoint_List.Array.data[1]
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 1515111144, guid: fac17614e55ef2347920bfef4d730f0d, type: 3}
-      propertyPath: MovePoint_List.Array.data[2]
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 1515111144, guid: fac17614e55ef2347920bfef4d730f0d, type: 3}
-      propertyPath: MovePoint_List.Array.data[3]
-      value: 
-      objectReference: {fileID: 0}
     - target: {fileID: 1515111144, guid: fac17614e55ef2347920bfef4d730f0d, type: 3}
       propertyPath: MovePattern
       value: 

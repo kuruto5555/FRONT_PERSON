@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 using FrontPerson.Weapon;
+using FrontPerson.Enemy;
 using FrontPerson.Enemy.AI;
 
 namespace FrontPerson.Enemy
@@ -16,7 +17,7 @@ namespace FrontPerson.Enemy
 
         protected override void OnStart()
         {
-            Type = Character.EnemyType.OLD_BATTLEAXE;
+            Type = EnemyType.OLD_BATTLEAXE;
         }
 
         protected override void OnUpdate()
@@ -33,20 +34,13 @@ namespace FrontPerson.Enemy
                 {
                     // 弾の種類と足りないビタミンが違う
 
-                    // 仮
-                    Destroy(collision.gameObject);
-
                     isHit = true;
 
                     return;
                 }
 
                 // 弾の種類と足りないビタミンが同じ
-
                 AddVitamins(bullet.Power);
-
-                // 仮
-                Destroy(collision.gameObject);
 
                 isHit = false;
 
