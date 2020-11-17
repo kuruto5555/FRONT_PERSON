@@ -21,8 +21,6 @@ namespace FrontPerson.Bounty
         /// </summary>
         private int _missionCnt = 0;
 
-        private int _randNum = 0;
-
         private int _missionNum = 0;
 
         public List<Bounty> GetBountyList { get { return MissionList; } }
@@ -33,6 +31,7 @@ namespace FrontPerson.Bounty
         void Start()
         {
             _missionNum = MissionPrefabList.Count;
+            _missionCnt = 0;
         }
 
         // Update is called once per frame
@@ -43,6 +42,8 @@ namespace FrontPerson.Bounty
                 int i = 0; 
                 if (it.IsFinish)
                 {
+                    if (it.IsCrear) _missionCnt++;
+                    if(_missionCnt == 3) //武器を出す
                     MissionList[i].ImDie();
                     MissionList[i] = Instantiate(MissionPrefabList[Random.Range(0, _missionNum)]).GetComponent<Bounty>();
                     
