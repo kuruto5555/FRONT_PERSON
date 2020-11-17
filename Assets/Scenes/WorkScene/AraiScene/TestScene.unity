@@ -1160,10 +1160,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26eaf277f9f01184a87a57938c8bdabe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  LimitTime: 1
-  Score: 0
+  LimitTime: 60
+  Score: 500
   MissionName: "\u4EBA\u5012\u305B"
-  KillMax: 1
+  KillMax: 5
 --- !u!114 &702584987
 MonoBehaviour:
   m_ObjectHideFlags: 0
