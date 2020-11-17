@@ -25,6 +25,8 @@ namespace FrontPerson.Bounty
             
             _killCnt = 0;
             _text = GetComponent<Text>();
+
+            _progressString = _killCnt.ToString();
         }
 
         // Update is called once per frame
