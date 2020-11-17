@@ -148,7 +148,7 @@ namespace FrontPerson.Manager
             }
 
             // 計算式：(100 ÷ 前回のコンボ途中ボーナスからかかった時間) × コンボ数
-            return (int)(100 / (combo_bonus_time_limit_ - combo_bonus_timer_) * combo_bonus_);
+            return (int)(100 / (combo_bonus_time_limit_ - combo_bonus_timer_) / 60 * combo_bonus_);
         }
 
         /// <summary>
