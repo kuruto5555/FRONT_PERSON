@@ -5,8 +5,11 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
 
-namespace FrontPerson.State
+namespace FrontPerson.Score
 {
+    /// <summary>
+    /// スコアが変動した際のスコアの動作を操作する
+    /// </summary>
     public class ScoreController : MonoBehaviour
     {
         private ScoreManager score_manager_;
@@ -14,6 +17,10 @@ namespace FrontPerson.State
         [Header("スコアを表示するためのUIのテキスト")]
         [SerializeField]
         private Text score_text_ = null;
+
+        [Header("加算、減算分のスコアを表示するプレハブ")]
+        [SerializeField]
+        private GameObject add_score_text_prefab_ = null;
 
         private void Start()
         {
@@ -29,8 +36,38 @@ namespace FrontPerson.State
         {
             if(score_text_ != null)
             {
-                StartCoroutine(ScoreAnimation(score_manager_.CurrentScore - score, score_manager_.CurrentScore, 1f));
+                // 増加、加算のスコアを表示するオブジェクトを生成
+                AddScoreMotion motion = GameObject.Instantiate(add_score_text_prefab_, score_text_.transform.parent).GetComponent<AddScoreMotion>();
+
+                if(motion != null)
+                {
+                    // 増減をテキストで表示する
+                    Text score_text = motion.GetComponent<Text>();
+
+                    // スコアに符号を付けてわかりやすくする
+                    if (0 <= score)
+                    {
+                        score_text.text = "+" + score.ToString();
+                    }
+                    else
+                    {
+                        score_text.text = "-" + score.ToString();
+                    }
+
+                    // 増減のスコアの動作が終わったらスコアの
+                    motion.end_motion_ += StartScoreAnimation;
+                }
+                
             }
+        }
+
+        /// <summary>
+        /// スコア増減のアニメーションを開始する
+        /// </summary>
+        /// <param name="score"></param>
+        private void StartScoreAnimation(int score)
+        {
+            StartCoroutine(ScoreAnimation(score_manager_.CurrentScore - score, score_manager_.CurrentScore, 1f));
         }
 
         /// <summary>
