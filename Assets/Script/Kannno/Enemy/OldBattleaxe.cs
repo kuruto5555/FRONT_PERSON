@@ -3,15 +3,21 @@ using System.Collections.Generic;
 using UnityEngine;
 
 using FrontPerson.Weapon;
+using FrontPerson.Enemy;
 using FrontPerson.Enemy.AI;
 
 namespace FrontPerson.Enemy
 {
     public class OldBattleaxe : Character.Enemy
     {
+        /// <summary>
+        /// 違うビタミンを当てられたかのフラグ(true = 当てられた)
+        /// </summary>
+        public bool isHit { get; set; } = false;
+
         protected override void OnStart()
         {
-            Type = Character.EnemyType.OLD_BATTLEAXE;
+            Type = EnemyType.OLD_BATTLEAXE;
         }
 
         protected override void OnUpdate()
@@ -28,22 +34,17 @@ namespace FrontPerson.Enemy
                 {
                     // 弾の種類と足りないビタミンが違う
 
-                    // 仮
-                    Destroy(collision.gameObject);
-
-                    state_AI.ChangeState<EnemyState_Close>();
+                    isHit = true;
 
                     return;
                 }
 
                 // 弾の種類と足りないビタミンが同じ
-
                 AddVitamins(bullet.Power);
 
-                // 仮
-                Destroy(collision.gameObject);
+                isHit = false;
 
-                if(insufficiency <= 0)
+                if (insufficiency <= 0)
                 {
                     SetDestroy();
                 }

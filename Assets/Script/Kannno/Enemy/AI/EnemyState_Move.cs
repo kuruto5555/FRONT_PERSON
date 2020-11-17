@@ -7,19 +7,39 @@ namespace FrontPerson.Enemy.AI
 {
     public class EnemyState_Move : EnemyState_AI
     {
+        [Header("移動ルート")]
+        [SerializeField]
+        private MovePattern MovePattern = null;
+
+        public void Set_MovePattern(MovePattern move_pattern)
+        {
+            MovePattern = move_pattern;
+        }
+
         /// <summary>
         /// 移動先の一覧
         /// </summary>
-        [SerializeField]
         private List<Transform> MovePoint_List = new List<Transform>();
 
+        /// <summary>
+        /// 現在のMovePointのインデックス
+        /// </summary>
         private int MovePointIndex = 0;
 
         protected override void OnStart()
         {
-            MovePointIndex = 0;
+            if (MovePattern)
+            {
+                Set_MovePoint();
 
-            Owner.SetTarget(MovePoint_List.First());
+                Owner.SetTarget(MovePoint_List.First());
+            }
+#if UNITY_EDITOR
+            else
+            {
+                Debug.LogError("MovePattern が設定されていません");
+            }
+#endif
         }
 
         protected override void OnUpdate()
@@ -35,9 +55,43 @@ namespace FrontPerson.Enemy.AI
             }
         }
 
-        protected override void OnChangeState()
+        protected override void OnChangeState_OrdinaryPeople()
         {
-            Debug.Log("ステートが変わった");
+        }
+
+        protected override void OnChangeState_OldBattleaxe()
+        {
+            OldBattleaxe enemy = Owner as OldBattleaxe;
+
+            if (enemy.isHit)
+            {
+                ChangeState<EnemyState_Close>();
+            }
+        }
+
+        protected override void OnChangeState_Yakuza()
+        {
+        }
+
+        /// <summary>
+        /// MovePoint の設定する関数
+        /// </summary>
+        private void Set_MovePoint()
+        {
+            var list = new List<MovePoint>();
+
+            list.AddRange(MovePattern.GetComponentsInChildren<MovePoint>());
+
+            if (null == list)
+            {
+                Debug.LogError("MovePoint が存在しません");
+                return;
+            }
+
+            foreach (var obj in list)
+            {
+                MovePoint_List.Add(obj.transform);
+            }
         }
     }
 }

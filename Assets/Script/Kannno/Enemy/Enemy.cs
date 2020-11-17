@@ -4,40 +4,21 @@ using UnityEngine;
 using UnityEngine.AI;
 
 using FrontPerson.Constants;
+using FrontPerson.Enemy;
 using FrontPerson.Enemy.AI;
+using FrontPerson.Manager;
 
 namespace FrontPerson.Character
 {
-    /// <summary>
-    /// 敵の種類を表す定数
-    /// </summary>
-    public enum EnemyType {
-        /// <summary>
-        /// 一般人
-        /// </summary>
-        ORDINATY_PEOPLE,
-
-        /// <summary>
-        // おばちゃん
-        /// </summary>
-        OLD_BATTLEAXE,
-
-        /// <summary>
-        // ヤクザ
-        /// </summary>
-        YAKUZA,
-        MAX
-    };
-
     /// <summary>
     /// 敵オブジェクトのインターフェースクラス
     /// </summary>
     public abstract class Enemy : MonoBehaviour
     {
         // 足りないビタミン
-        protected VITAMIN_TYPE lack_vitamins  = VITAMIN_TYPE.COUNT;
+        protected NUTRIENTS_TYPE lack_vitamins  = NUTRIENTS_TYPE.COUNT;
 
-        public VITAMIN_TYPE LackVitamins { get { return lack_vitamins; } }
+        public NUTRIENTS_TYPE LackVitamins { get { return lack_vitamins; } }
 
         [Header("不足しているビタミンの文字列")]
         [SerializeField]
@@ -98,9 +79,9 @@ namespace FrontPerson.Character
         /// </summary>
         private void Set_LackVitamin()
         {
-            int cnt = Random.Range(0, (int)VITAMIN_TYPE.COUNT);
+            int cnt = Random.Range(0, (int)NUTRIENTS_TYPE.COUNT);
 
-            List<VITAMIN_TYPE> vitamins = new List<VITAMIN_TYPE>() { VITAMIN_TYPE.VITAMIN_A, VITAMIN_TYPE.VITAMIN_B, VITAMIN_TYPE.VITAMIN_C, VITAMIN_TYPE.VITAMIN_D, VITAMIN_TYPE.VITAMIN_ALL };
+            List<NUTRIENTS_TYPE> vitamins = new List<NUTRIENTS_TYPE>() { NUTRIENTS_TYPE._A, NUTRIENTS_TYPE._B, NUTRIENTS_TYPE._ALL };
 
             lack_vitamins = vitamins[cnt];
         }
@@ -110,7 +91,7 @@ namespace FrontPerson.Character
         /// </summary>
         private void Set_LackVitamin_Text()
         {
-            tetxMesh.text = Vitamin.Type[(int)lack_vitamins];
+            tetxMesh.text = Nutrients.Type[(int)lack_vitamins];
         }
 
         /// <summary>
@@ -134,6 +115,36 @@ namespace FrontPerson.Character
         {
             if(true == isDead)
             {
+                ScoreManager score_manager = ScoreManager.Instance;
+
+#if UNITY_EDITOR
+                if (null == score_manager)
+                {
+                    Debug.LogError("ScoreManager が存在しません");
+
+                    Destroy(gameObject);
+                    return;
+                }
+#endif
+
+                switch (Type)
+                {
+                    case EnemyType.ORDINATY_PEOPLE:
+                        score_manager.AddScore((int)EnemyScore.ORDINATY_PEOPLE);
+                        break;
+
+                    case EnemyType.OLD_BATTLEAXE:
+                        score_manager.AddScore((int)EnemyScore.OLD_BATTLEAXE);
+                        break;
+
+                    case EnemyType.YAKUZA:
+                        score_manager.AddScore((int)EnemyScore.YAKUZA);
+                        break;
+
+                    default:
+                        break;
+                }
+
                 Destroy(gameObject);
             }
         }

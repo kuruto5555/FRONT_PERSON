@@ -24,13 +24,6 @@ namespace FrontPerson.Enemy.AI
 
         protected override void OnUpdate()
         {
-            {
-                if (Mathf.Abs((Owner.transform.position - goal.position).magnitude) <= 5.0f)
-                {
-                    OnChangeState();
-                }
-            }
-
             if(max_time <= (Time.timeSinceLevelLoad - time))
             {
                 time = Time.timeSinceLevelLoad;
@@ -39,11 +32,24 @@ namespace FrontPerson.Enemy.AI
             }
         }
 
-        protected override void OnChangeState()
+        protected override void OnChangeState_OrdinaryPeople()
         {
-            ChangeState<EnemyState_Wait>();
+        }
 
-            Debug.Log("ステートが変わった : EnemyState_Wait");
+        protected override void OnChangeState_OldBattleaxe()
+        {
+            if (Mathf.Abs((Owner.transform.position - goal.position).magnitude) <= 3.0f)
+            {
+                ChangeState<EnemyState_Attack>();
+            }
+        }
+
+        protected override void OnChangeState_Yakuza()
+        {
+            if (Mathf.Abs((Owner.transform.position - goal.position).magnitude) <= 3.0f)
+            {
+                ChangeState<EnemyState_Attack>();
+            }
         }
     }
 }

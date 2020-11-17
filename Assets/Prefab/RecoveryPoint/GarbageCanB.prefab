@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 429424801789044210}
   - component: {fileID: 429424801789044211}
   - component: {fileID: 429424801789043724}
-  - component: {fileID: 429424801789043725}
+  - component: {fileID: 4518628222628608624}
   m_Layer: 10
   m_Name: GarbageCanB
   m_TagString: RecoveryPoint
@@ -28,7 +28,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 429424801789043726}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -5.39, y: 0.5, z: -6.273941}
+  m_LocalPosition: {x: 0, y: 0.5, z: 0}
   m_LocalScale: {x: 1, y: 0.5, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -93,8 +93,8 @@ BoxCollider:
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 1.0000001, y: 2, z: 1.0000002}
-  m_Center: {x: 0.000000059604645, y: 0, z: -0.00000008940697}
---- !u!114 &429424801789043725
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &4518628222628608624
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -103,8 +103,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 429424801789043726}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7f600fda6eeeb2143a5ab474354a7de7, type: 3}
+  m_Script: {fileID: 11500000, guid: adea4cce2d2fbb04ca969ed3d03421e9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  vitaminType: 3
-  stock_MAX: 100
+  nutrientsType_: 1
+  recoveryValue_: 10
