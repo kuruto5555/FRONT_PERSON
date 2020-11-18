@@ -1,5 +1,4 @@
 ﻿using FrontPerson.common;
-using FrontPerson.State;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEditorInternal;
@@ -57,21 +56,20 @@ namespace FrontPerson.Manager
         /// <param name="score"></param>
         public void AddScore(int score)
         {
-            // スコアを更新
-            CurrentScore += score;
+            int add_score = score + BonusInTheMiddleOfTheCombo();
 
-            // コンボの途中ボーナスを加える
-            CurrentScore += BonusInTheMiddleOfTheCombo();
+            // スコアを更新
+            CurrentScore += add_score;
 
             if (on_add_score_ != null)
             {
-                on_add_score_.Invoke(score);
+                on_add_score_.Invoke(add_score);
             }
 
             AddComboBonus();
 
-                // タイマーが動いていないのでコルーチンを開始
-                StartCoroutine(TimerDuringComboBonus());
+            // タイマーが動いていないのでコルーチンを開始
+            StartCoroutine(TimerDuringComboBonus());
         }
 
         public void AddComboBonus()
@@ -150,7 +148,18 @@ namespace FrontPerson.Manager
             }
 
             // 計算式：(100 ÷ 前回のコンボ途中ボーナスからかかった時間) × コンボ数
-            return (int)(100 / (combo_bonus_time_limit_ - combo_bonus_timer_) * combo_bonus_);
+            return (int)(100 / (combo_bonus_time_limit_ - combo_bonus_timer_) / 60 * combo_bonus_);
         }
+
+        /// <summary>
+        /// コンボ途切れボーナス
+        /// </summary>
+        /// <returns></returns>
+//        private int ComboBreakBonus()
+//        {
+//            return 50 * combo_bonus_ * ((2 - 一般市民の出現確率) * コンボ中に健康にした一般市民の数)
+//                * ((2 - ヤクザの出現確率) * コンボ中に健康にしたヤクザの数)
+//                * ((2 - おばちゃんの出現確率) * コンボ中に健康にしたおばちゃんの数);
+//        }
     }
 }

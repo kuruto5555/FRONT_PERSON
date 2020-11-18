@@ -359,7 +359,6 @@ GameObject:
   - component: {fileID: 109719586}
   - component: {fileID: 109719585}
   - component: {fileID: 109719588}
-  - component: {fileID: 109719589}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -536,18 +535,6 @@ MonoBehaviour:
       data1: 0
       data2: 0
   defaultFrameSettings: 0
---- !u!114 &109719589
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 109719584}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8cb3c8cc61f54384a88da10c8686d5d5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &211020245
 GameObject:
   m_ObjectHideFlags: 0
@@ -1940,6 +1927,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1375607889}
+  - component: {fileID: 1375607891}
+  - component: {fileID: 1375607890}
+  - component: {fileID: 1375607892}
   m_Layer: 0
   m_Name: GameObject
   m_TagString: Untagged
@@ -1961,6 +1951,46 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1375607890
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1375607888}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f1c9b1d6c3fed0d43acd00aa310a566a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  score_text_: {fileID: 1272112497}
+  add_score_text_prefab_: {fileID: 4193645968713280983, guid: 19f53149dadf32c42868f3944e2b7c86,
+    type: 3}
+--- !u!114 &1375607891
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1375607888}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9e16f40e4bb1154fa307b2595525067, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  combo_bonus_time_limit_: 2
+--- !u!114 &1375607892
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1375607888}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d38c3070f287ff54e85bca74058bfd9c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1377073222
 GameObject:
   m_ObjectHideFlags: 0

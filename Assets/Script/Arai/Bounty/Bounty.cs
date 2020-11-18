@@ -22,20 +22,55 @@ namespace FrontPerson.Bounty
         [SerializeField]
         protected string MissionName;
 
-        /// <summary>
-        /// バウンティマネージャー参照
-        /// </summary>
-        protected BountyManager _Bmanager = null;
+        
 
         /// <summary>
         /// スコア取得
         /// </summary>
-        protected uint GetScore { get { return Score; } }
+        public uint GetScore { get { return Score; } }
 
         /// <summary>
         /// ミッション経過時間取得
         /// </summary>
         public float GetNowTime { get { return _nowTime; } }
+       
+
+        /// <summary>
+        /// 制限時間取得
+        /// </summary>
+        public float GetLimitTime { get { return LimitTime; } }
+
+        
+
+        /// <summary>
+        /// クリアしてるかどうか取得
+        /// </summary>
+        public bool IsCrear { get { return _isClear; } }
+
+        
+
+        /// <summary>
+        /// 終わってるかどうか取得
+        /// </summary>
+        public bool IsFinish { get { return _isFinish; } }
+
+        /// <summary>
+        /// ミッションの文言取得
+        /// </summary>
+        public Text GetText { get { return _text; } }
+        
+
+        /// <summary>
+        /// 進捗状況文字列取得
+        /// </summary>
+        public string GetProgressString { get { return _progressString; } }
+        protected string _progressString;
+
+
+        /// <summary>
+        /// バウンティマネージャー参照
+        /// </summary>
+        protected BountyManager _Bmanager = null;
 
         /// <summary>
         /// 今の経過時間
@@ -48,31 +83,21 @@ namespace FrontPerson.Bounty
         protected bool _isClear = false;
 
         /// <summary>
-        /// クリアしてるかどうか取得
-        /// </summary>
-        public bool IsCrear { get { return _isClear; } }
-
-        /// <summary>
         /// 終わってるかどうか
         /// </summary>
         protected bool _isFinish = false;
 
         /// <summary>
-        /// 終わってるかどうか取得
+        /// ミッションの文言
         /// </summary>
-        public bool IsFinish { get { return _isFinish; } }
-
-        /// <summary>
-        /// テキストコンポーネント取得
-        /// </summary>
-        public Text GetText { get { return _text; } }
-        protected Text _text;
+        protected Text _text = null;
 
         // Start is called before the first frame update
         public void Start()
         {
             _Bmanager = transform.parent.GetComponent<BountyManager>();
             _nowTime = LimitTime;
+            _text = GetComponent<Text>();
             _text.text = MissionName;
         }
 
