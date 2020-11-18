@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using FrontPerson.Bounty;
 
 namespace FrontPerson.UI
 {
@@ -60,15 +61,15 @@ namespace FrontPerson.UI
 
         void SetText()
         {
-            //mission1NameText_.text = bountyManager_.;
+            mission1NameText_.text = bountyManager_.GetBountyList[0].GetText.text;
             //mission1ProgressText_.text = bountyManager_.;
-            //mission1Timer_. = bountyManager_.;
+            mission1Timer_.fillAmount = bountyManager_.GetBountyList[0].GetNowTime / 30;// bountyManager_.GetBountyList[0].;
 
-            //mission2NameText_.text = bountyManager_.;
+            //mission2NameText_.text = bountyManager_.GetBountyList[1].GetText.text;
             //mission2ProgressText_.text = bountyManager_.;
             //mission2Timer_. = bountyManager_.;
 
-            //mission3NameText_.text = bountyManager_.;
+            //mission3NameText_.text = bountyManager_.GetBountyList[2].GetText.text;
             //mission3ProgressText_.text = bountyManager_.;
             //mission3Timer_. = bountyManager_.;
         }
