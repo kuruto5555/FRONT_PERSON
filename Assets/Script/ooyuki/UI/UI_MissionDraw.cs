@@ -59,19 +59,39 @@ namespace FrontPerson.UI
             SetText();
         }
 
+        float a = 1f;
         void SetText()
         {
-            mission1NameText_.text = bountyManager_.GetBountyList[0].GetText.text;
-            //mission1ProgressText_.text = bountyManager_.;
-            mission1Timer_.fillAmount = bountyManager_.GetBountyList[0].GetNowTime / 30;// bountyManager_.GetBountyList[0].;
+            // テスト
+            a -= Time.deltaTime;
+            mission1Timer_.fillAmount = a / 1f;
+            if (a <= 0) a = 1f;
 
-            //mission2NameText_.text = bountyManager_.GetBountyList[1].GetText.text;
-            //mission2ProgressText_.text = bountyManager_.;
-            //mission2Timer_. = bountyManager_.;
 
-            //mission3NameText_.text = bountyManager_.GetBountyList[2].GetText.text;
-            //mission3ProgressText_.text = bountyManager_.;
-            //mission3Timer_. = bountyManager_.;
+            Bounty.Bounty bounty1 = bountyManager_.GetBountyList[0];
+            Bounty.Bounty bounty2 = bountyManager_.GetBountyList[1];
+            Bounty.Bounty bounty3 = bountyManager_.GetBountyList[2];
+
+            if (bounty1 != null)
+            {
+                mission1NameText_.text = bounty1.GetText.text;
+                mission1ProgressText_.text = bounty1.GetProgressString;
+                mission1Timer_.fillAmount = bounty1.GetNowTime / bounty1.GetLimitTime;
+            }
+
+            if (bounty2 != null)
+            {
+                mission2NameText_.text = bounty2.GetText.text;
+                mission2ProgressText_.text = bounty2.GetProgressString;
+                mission2Timer_.fillAmount = bounty2.GetNowTime / bounty2.GetLimitTime;
+            }
+
+            if (bounty3 != null)
+            {
+                mission3NameText_.text = bounty3.GetText.text;
+                mission3ProgressText_.text = bounty3.GetProgressString;
+                mission3Timer_.fillAmount = bounty3.GetNowTime / bounty3.GetLimitTime;
+            }
         }
     }
 }
