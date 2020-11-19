@@ -329,8 +329,8 @@ namespace FrontPerson.Character
 
             startPos = pos - transform.up * 0.5f;
             endPos = pos + transform.up * 0.5f;
-
-            if (Physics.Raycast(pos, Vector3.down, out hit, 10.0f))
+            int layerMask = 1 << 12;
+            if (Physics.Raycast(pos, Vector3.down, out hit, 10.0f, layerMask))
             {
                 if (LayerNumber.ENEMY != hit.collider.gameObject.layer)
                     return hit.point.y + 1.0f;
