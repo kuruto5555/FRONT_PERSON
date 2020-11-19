@@ -6,8 +6,10 @@ using FrontPerson.Bounty;
 
 namespace FrontPerson.Manager
 {
-    public class BountyManager : SingletonMonoBehaviour<BountyManager>
+    public class BountyManager : MonoBehaviour
     {
+        public static BountyManager _instance { get; private set;}
+
         public List<Bounty.Bounty> MissionList {
             get;
             private set;
@@ -56,6 +58,11 @@ namespace FrontPerson.Manager
         public List<Bounty.Bounty> GetBountyList { get { return MissionList; } }
 
         //private List <GameObject> 
+
+        private void Awake()
+        {
+            if(_instance == null) _instance = this;
+        }
 
         // Start is called before the first frame update
         void Start()
