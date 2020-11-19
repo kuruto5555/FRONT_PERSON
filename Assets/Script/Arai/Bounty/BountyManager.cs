@@ -7,7 +7,10 @@ namespace FrontPerson.Manager
 {
     public class BountyManager : MonoBehaviour
     {
-        public List<Bounty.Bounty> MissionList;
+        public List<Bounty.Bounty> MissionList {
+            get;
+            private set;
+        }
 
         [SerializeField] List<GameObject> MissionPrefabList;
 
