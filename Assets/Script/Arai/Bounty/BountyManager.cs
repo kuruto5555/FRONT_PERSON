@@ -64,6 +64,7 @@ namespace FrontPerson.Manager
             _nowCombo = 0;
             _fireCount = 0;
             _isPlayerDamage = false;
+            MissionList = new List<Bounty.Bounty>();
 
             for (int i = 0; i < ACTIV_MISSION; i++)
             {
