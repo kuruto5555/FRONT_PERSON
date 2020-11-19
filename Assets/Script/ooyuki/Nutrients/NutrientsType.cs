@@ -21,7 +21,7 @@ namespace FrontPerson.Constants
         {
             "栄養素A",
             "栄養素B",
-            "栄養素ALL"
+            ""
         };
 
         //public const string NUTRIENTS_A   = "NutrientsA";
