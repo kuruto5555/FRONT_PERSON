@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using FrontPerson.Manager;
 
 namespace FrontPerson.Weapon
 {
@@ -23,6 +23,11 @@ namespace FrontPerson.Weapon
         [Range(1, 200)]
         public int MaxAmmo_ = 10;
 
+        /// <summary>
+        /// ヒエラルキーのBountyManagerを入れておく
+        /// </summary>
+        private BountyManager _bountyManager = null;
+
 
         /// <summary>
         /// 一発撃ってからの時間
@@ -42,6 +47,7 @@ namespace FrontPerson.Weapon
         {
             ammo_ = MaxAmmo_;
             shotTime_ = 0.0f;
+            _bountyManager = GameObject.FindGameObjectWithTag("BountyManager").GetComponent<BountyManager>();
         }
 
         // Update is called once per frame
@@ -69,6 +75,7 @@ namespace FrontPerson.Weapon
             Instantiate(bullet_, hole_.transform.position, hole_.transform.rotation, null);
             shotTime_ = rate_;
             ammo_--;
+            _bountyManager.FireCount();
         }
 
         /// <summary>
