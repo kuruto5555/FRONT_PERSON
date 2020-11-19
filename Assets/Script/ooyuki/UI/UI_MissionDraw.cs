@@ -63,9 +63,9 @@ namespace FrontPerson.UI
         void SetText()
         {
             // テスト
-            a -= Time.deltaTime;
-            mission1Timer_.fillAmount = a / 1f;
-            if (a <= 0) a = 1f;
+            //a -= Time.deltaTime;
+            //mission1Timer_.fillAmount = a / 1f;
+            //if (a <= 0) a = 1f;
 
 
             Bounty.Bounty bounty1 = bountyManager_.GetBountyList[0];
