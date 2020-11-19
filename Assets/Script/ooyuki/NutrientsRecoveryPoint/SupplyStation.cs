@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SocialPlatforms;
+using FrontPerson.Manager;
 
 namespace FrontPerson.Gimmick
 {
@@ -10,7 +11,6 @@ namespace FrontPerson.Gimmick
         [Header("一度補給してから次補給できるまでの時間")]
         [SerializeField, Range(0f, 60f)]
         private float interval_ = 0f;
-
 
         /// <summary>
         /// チャージできるかどうか
@@ -24,6 +24,16 @@ namespace FrontPerson.Gimmick
         /// </summary>
         float time_ = 0f;
 
+        /// <summary>
+        /// バウンティーマネージャー
+        /// </summary>
+        BountyManager bountyManager_ = null;
+
+
+        private void Start()
+        {
+            bountyManager_ = BountyManager._instance;
+        }
 
         private void Update()
         {
@@ -43,6 +53,7 @@ namespace FrontPerson.Gimmick
         {
             if (IsCharge) return 0;
 
+            bountyManager_.NutritionCharge();
             time_ = interval_;
             return value;
         }

@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using FrontPerson.Constants;
+using FrontPerson.Manager;
 
 namespace FrontPerson.Gimmick
 {
@@ -19,6 +19,18 @@ namespace FrontPerson.Gimmick
 
 
         /// <summary>
+        /// バウンティマネージャー
+        /// </summary>
+        BountyManager bountyManager_ = null;
+
+
+        private void Start()
+        {
+            bountyManager_ = BountyManager._instance;
+        }
+
+
+        /// <summary>
         /// 弾の補給
         /// </summary>
         /// <param name="value">欲しい弾の量</param>
@@ -27,6 +39,7 @@ namespace FrontPerson.Gimmick
         {
             if (IsUse) return 0;
 
+            bountyManager_.NutritionCharge();
             IsUse = true;
             return value <= recoveryValue_ ? value : recoveryValue_;
         }

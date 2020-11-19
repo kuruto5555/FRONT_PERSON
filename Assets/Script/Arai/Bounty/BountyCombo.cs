@@ -21,7 +21,7 @@ namespace FrontPerson.Bounty
             _progressString = _Bmanager.GetNowCombo().ToString();
 
             //_isStart = false;
-            //_text.text = ComboMax + MissionName;
+            MissionName = ComboMax + MissionName;
         }
 
         // Update is called once per frame

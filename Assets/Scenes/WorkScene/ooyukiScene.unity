@@ -652,7 +652,7 @@ GameObject:
   - component: {fileID: 1574101687}
   - component: {fileID: 1574101686}
   - component: {fileID: 1574101685}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: floor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -922,7 +922,7 @@ PrefabInstance:
     - target: {fileID: 1320749166092626204, guid: ad254301988cda34d802bd0a165ee76d,
         type: 3}
       propertyPath: m_Name
-      value: BountyManager (1)
+      value: BountyManager
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ad254301988cda34d802bd0a165ee76d, type: 3}
