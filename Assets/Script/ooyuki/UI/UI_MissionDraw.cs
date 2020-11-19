@@ -8,10 +8,6 @@ namespace FrontPerson.UI
 {
     public class UI_MissionDraw : MonoBehaviour
     {
-        [Header("バウンティーマネージャー")]
-        [SerializeField]
-        BountyManager bountyManager_ = null;
-
         /// <summary>
         /// ミッション名
         /// </summary>
@@ -47,9 +43,16 @@ namespace FrontPerson.UI
         [SerializeField]
         Image mission3Timer_ = null;
 
+        /// <summary>
+        /// バウンティマネージャー
+        /// </summary>
+        BountyManager bountyManager_ = null;
+
+
 
         void Start()
         {
+            bountyManager_ = BountyManager.Instance;
             SetText();
         }
 
