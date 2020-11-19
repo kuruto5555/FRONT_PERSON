@@ -17,7 +17,8 @@ namespace FrontPerson.Bounty
             base.Start();
 
             _isComboStart = false;
-            //_text.text = LimitTime + MissionName;
+
+            _missionName = string.Format(MissionNames, LimitTime);
         }
 
         // Update is called once per frame

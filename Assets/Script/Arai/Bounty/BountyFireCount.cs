@@ -20,7 +20,7 @@ namespace FrontPerson.Bounty
 
             _progressString = _nowFireCount.ToString();
 
-
+            _missionName = string.Format(MissionNames, FireMax);
         }
 
         // Update is called once per frame
@@ -33,7 +33,7 @@ namespace FrontPerson.Bounty
             _progressString = _nowFireCount.ToString();
 
             //クリア条件
-            if (FireMax < _nowFireCount)
+            if (FireMax <= _nowFireCount)
             {
                 MissionClear();
             }

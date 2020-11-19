@@ -137,7 +137,7 @@ namespace FrontPerson.Manager
             {
                 _numEnemyDeathA++;
             }
-            else
+            if (type == 1)
             {
                 _numEnemyDeathB++;
             }

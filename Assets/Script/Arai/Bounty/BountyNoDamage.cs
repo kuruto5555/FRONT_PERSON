@@ -13,7 +13,7 @@ namespace FrontPerson.Bounty
         {
             base.Start();
 
-            //_text.text = LimitTime + MissionName;
+            _missionName = string.Format(MissionNames, LimitTime);
         }
 
         // Update is called once per frame
