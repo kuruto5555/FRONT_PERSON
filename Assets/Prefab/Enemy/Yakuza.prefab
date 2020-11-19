@@ -150,7 +150,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tetxMesh: {fileID: 7092531069040916785}
-  insufficiency: 100
+  insufficiency: 120
   state_AI: {fileID: 7092531068719793733}
 --- !u!114 &7092531068719793733
 MonoBehaviour:

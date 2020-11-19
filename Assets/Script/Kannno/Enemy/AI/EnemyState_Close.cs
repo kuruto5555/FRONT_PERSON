@@ -41,6 +41,17 @@ namespace FrontPerson.Enemy.AI
             if (Mathf.Abs((Owner.transform.position - goal.position).magnitude) <= 3.0f)
             {
                 ChangeState<EnemyState_Attack>();
+
+                return;
+            }
+
+            if(Player.IsStun || Player.IsInvincible)
+            {
+                ChangeState<EnemyState_Move>();
+
+                //Owner.state_AI.Load_MovePoint(MoveIndex, MovetList);
+
+                return;
             }
         }
 
@@ -49,6 +60,17 @@ namespace FrontPerson.Enemy.AI
             if (Mathf.Abs((Owner.transform.position - goal.position).magnitude) <= 3.0f)
             {
                 ChangeState<EnemyState_Attack>();
+
+                return;
+            }
+
+            if (Player.IsStun || Player.IsInvincible)
+            {
+                ChangeState<EnemyState_Search>();
+
+                //Owner.state_AI.Load_MovePoint(MoveIndex, MovetList);
+
+                return;
             }
         }
     }

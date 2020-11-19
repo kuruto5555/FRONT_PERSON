@@ -30,23 +30,21 @@ namespace FrontPerson.Enemy
             {
                 Bullet bullet = collision.gameObject.GetComponent<Bullet>();
 
-                if (lack_vitamins != bullet.BulletType)
-                {
-                    // 弾の種類と足りないビタミンが違う
-
-                    isHit = true;
-
-                    return;
-                }
-
-                // 弾の種類と足りないビタミンが同じ
                 AddVitamins(bullet.Power);
-
-                isHit = false;
 
                 if (insufficiency <= 0)
                 {
                     SetDestroy();
+                }
+
+                if (lack_vitamins != bullet.BulletType)
+                {
+                    // 弾の種類と足りないビタミンが違う
+                    isHit = true;
+                }
+                else
+                {
+                    isHit = false;
                 }
             }
         }
