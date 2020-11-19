@@ -4,6 +4,7 @@ using UnityEngine;
 
 using FrontPerson.Enemy;
 using FrontPerson.Weapon;
+using FrontPerson.Manager;
 
 namespace FrontPerson.Enemy
 {
@@ -31,6 +32,10 @@ namespace FrontPerson.Enemy
                     if (insufficiency <= 0)
                     {
                         SetDestroy();
+
+                        var manager = FindObjectOfType<BountyManager>();
+
+                        manager.EnemyDeath((int)lack_vitamins);
                     }
                 }
             }
