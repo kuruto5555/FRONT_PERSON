@@ -49,7 +49,7 @@ namespace FrontPerson.UI
             minute_secondText_.text =
                 Minute.ToString("00") + ":" +
                 Mathf.Floor(Second).ToString("00");
-            millisecondText_.text = "\"" + ((Second - (int)Second) * 100).ToString("00");
+            millisecondText_.text = "\'" + ((Second - (int)Second) * 100).ToString("00");
         }
 
         // Update is called once per frame
