@@ -1,11 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using FrontPerson.common;
 using FrontPerson.Bounty;
 
 namespace FrontPerson.Manager
 {
-    public class BountyManager : MonoBehaviour
+    public class BountyManager : SingletonMonoBehaviour<BountyManager>
     {
         public List<Bounty.Bounty> MissionList {
             get;

@@ -1,5 +1,4 @@
-﻿
-using FrontPerson.Constants;
+﻿using FrontPerson.Constants;
 using System.Runtime.InteropServices;
 using UnityEngine;
 using FrontPerson.Gimmick;
