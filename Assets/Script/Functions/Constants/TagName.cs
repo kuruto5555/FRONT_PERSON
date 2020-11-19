@@ -6,6 +6,7 @@
 public static class TagName
 {
 
+	public const string BOUNTY_MANAGER  ="BountyManager";
 	public const string BULLET          ="Bullet";
 	public const string EDITOR_ONLY     ="EditorOnly";
 	public const string ENEMY           ="Enemy";
