@@ -12,7 +12,7 @@ namespace FrontPerson.Item
         /// <summary>
         /// 取得したアイテムの総数
         /// </summary>
-        private int[] acquired_item_total_count_ = new int[(int)PowerUpItemType.MAX];
+        private int[] acquired_item_total_count_ = new int[(int)PowerUpItemType.Max];
 
         /// <summary>
         /// 取ることが可能なアイテム
