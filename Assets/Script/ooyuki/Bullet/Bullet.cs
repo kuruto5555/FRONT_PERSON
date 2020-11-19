@@ -11,7 +11,7 @@ namespace FrontPerson.Weapon
     {
         [Header("弾の種類")]
         [SerializeField]
-        VITAMIN_TYPE bulletType_ = VITAMIN_TYPE.VITAMIN_B;
+        NUTRIENTS_TYPE bulletType_ = NUTRIENTS_TYPE._ALL;
 
         [Header("弾速")]
         [SerializeField, Range(30f, 100f)]
@@ -34,7 +34,7 @@ namespace FrontPerson.Weapon
         /// <summary>
         /// 弾の種類
         /// </summary>
-        public VITAMIN_TYPE BulletType { get{return bulletType_;} }
+        public NUTRIENTS_TYPE BulletType { get{return bulletType_;} }
 
         void Start()
         {

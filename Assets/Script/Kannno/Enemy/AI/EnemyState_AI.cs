@@ -3,6 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+using FrontPerson.Character;
+
 namespace FrontPerson.Enemy.AI
 {
     /// <summary>
@@ -12,10 +14,14 @@ namespace FrontPerson.Enemy.AI
     {
         protected Character.Enemy Owner = null;
 
+        protected Player Player = null;
+
         // Start is called before the first frame update
         public void Start()
         {
             OnStart();
+
+            Player = FindObjectOfType<Player>();
         }
 
         // Update is called once per frame
@@ -87,15 +93,15 @@ namespace FrontPerson.Enemy.AI
         {
             switch (Owner.Type)
             {
-                case Character.EnemyType.ORDINATY_PEOPLE:
+                case EnemyType.ORDINATY_PEOPLE:
                     OnChangeState_OrdinaryPeople();
                     break;
 
-                case Character.EnemyType.OLD_BATTLEAXE:
+                case EnemyType.OLD_BATTLEAXE:
                     OnChangeState_OldBattleaxe();
                     break;
 
-                case Character.EnemyType.YAKUZA:
+                case EnemyType.YAKUZA:
                     OnChangeState_Yakuza();
                     break;
 

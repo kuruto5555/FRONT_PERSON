@@ -2,6 +2,7 @@
 using FrontPerson.Constants;
 using System.Runtime.InteropServices;
 using UnityEngine;
+using FrontPerson.Gimmick;
 
 
 namespace FrontPerson.Character
@@ -379,21 +380,21 @@ namespace FrontPerson.Character
         /// </summary>
         /// <param name="vitaminType">補充するビタミンの種類</param>
         /// <param name="value">補給量</param>
-        void Reload(VitaminRecoveryPoint vrp)
+        void Reload(NutrientsRecoveryPoint vrp)
         {
             if (!Input.GetKeyDown(KeyCode.R)) return;
 
             switch (vrp.VitaminType)
             {
-                case VITAMIN_TYPE.VITAMIN_C:
+                case NUTRIENTS_TYPE._A:
                     gunL_.Reload(vrp.Charge(GunAmmoMAX_L - GunAmmoL));
                     break;
 
-                case VITAMIN_TYPE.VITAMIN_D:
+                case NUTRIENTS_TYPE._B:
                     gunR_.Reload(vrp.Charge(GunAmmoMAX_R - GunAmmoR));
                     break;
 
-                case VITAMIN_TYPE.VITAMIN_ALL:
+                case NUTRIENTS_TYPE._ALL:
                     gunL_.Reload();
                     gunR_.Reload();
                     break;
@@ -480,7 +481,7 @@ namespace FrontPerson.Character
             switch (other.tag)
             {
                 case TagName.RECOVERY_POINT:
-                    Reload(other.GetComponent<VitaminRecoveryPoint>());
+                    Reload(other.GetComponent<NutrientsRecoveryPoint>());
                     break;
 
                 case TagName.ENEMY:
