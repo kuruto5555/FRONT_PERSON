@@ -32,7 +32,7 @@ namespace FrontPerson.Bounty
 
             _progressString = _killCnt.ToString();
 
-            //_text.text = Nutrients.Type[(int)rand] + MissionName;
+            MissionName = Nutrients.Type[(int)rand] + MissionName;
         }
 
         // Update is called once per frame
