@@ -1,0 +1,62 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1320749166092626204
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1320749166092626203}
+  - component: {fileID: 1320749166092626202}
+  m_Layer: 5
+  m_Name: BountyManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1320749166092626203
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1320749166092626204}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -248.38, y: 40.21}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1320749166092626202
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1320749166092626204}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fca437eaf9c5c1f4f8715027ba430916, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MissionList: []
+  MissionPrefabList:
+  - {fileID: 7152460719995171007, guid: 7d406e590fa93d5488cc9cc83ab2dc06, type: 3}
+  - {fileID: 9011910422994990176, guid: 21338d146c05e5c4f94e882c0bb29000, type: 3}
+  - {fileID: 7610999355592709465, guid: b8c5e82c044c25b40925dec4147c179f, type: 3}
+  - {fileID: 2429126974047594970, guid: 88133b26e5b8eca40a0d61de66152f94, type: 3}
+  - {fileID: 4646178514019155445, guid: 855a9a4edc7db4f4ca3bbbf359938cbd, type: 3}
+  - {fileID: 506457082887024265, guid: b4ab2f30dd86b344ca1e013762da09ea, type: 3}
+  - {fileID: 5858580786497838508, guid: 82b138741025fe54293d1f53062af6a1, type: 3}
+  - {fileID: 1194486133635037157, guid: f9e5e9277ca70db439bdda70abcc33fc, type: 3}
+  - {fileID: 3949934640569500591, guid: 6f35c827bf95a5449aaa850e901cd7ed, type: 3}
+  - {fileID: 669452373402229478, guid: 5bedc5b2084012d4c988c0f74ee60cf5, type: 3}
