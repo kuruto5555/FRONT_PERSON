@@ -24,7 +24,7 @@ namespace FrontPerson.Enemy
         /// </summary>
         YAKUZA,
 
-        MAX
+        NONE
     };
 
     /// <summary>

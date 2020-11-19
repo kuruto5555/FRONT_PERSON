@@ -12,6 +12,9 @@ namespace FrontPerson.Enemy
         protected override void OnStart()
         {
             Type = EnemyType.YAKUZA;
+
+            Set_LackVitamin();
+            Set_LackVitamin_Text();
         }
 
         protected override void OnUpdate()
@@ -24,14 +27,11 @@ namespace FrontPerson.Enemy
             {
                 Bullet bullet = collision.gameObject.GetComponent<Bullet>();
 
-                if (lack_vitamins == bullet.BulletType)
-                {
-                    AddVitamins(bullet.Power);
+                AddVitamins(bullet.Power);
 
-                    if (insufficiency <= 0)
-                    {
-                        SetDestroy();
-                    }
+                if (insufficiency <= 0)
+                {
+                    SetDestroy();
                 }
             }
         }

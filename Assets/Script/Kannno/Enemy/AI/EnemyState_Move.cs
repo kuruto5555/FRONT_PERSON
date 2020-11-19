@@ -28,6 +28,15 @@ namespace FrontPerson.Enemy.AI
 
         protected override void OnStart()
         {
+            if (0 == MoveIndex)
+            {
+                MovePointIndex = 0;
+            }
+            else
+            {
+                MovePointIndex = MoveIndex;
+            }
+
             if (MovePattern)
             {
                 Set_MovePoint();
@@ -40,37 +49,6 @@ namespace FrontPerson.Enemy.AI
                 Debug.LogError("MovePattern が設定されていません");
             }
 #endif
-        }
-
-        protected override void OnUpdate()
-        {
-            // 目的地についていたら次の目的地の方に行く
-            if (Owner.Agent.remainingDistance <= 0.1f)
-            {
-                Vector3 destination = MovePoint_List[(MovePointIndex + 1) % MovePoint_List.Count].position;
-
-                Owner.Agent.SetDestination(destination);
-
-                MovePointIndex = (MovePointIndex + 1) % MovePoint_List.Count;
-            }
-        }
-
-        protected override void OnChangeState_OrdinaryPeople()
-        {
-        }
-
-        protected override void OnChangeState_OldBattleaxe()
-        {
-            OldBattleaxe enemy = Owner as OldBattleaxe;
-
-            if (enemy.isHit)
-            {
-                ChangeState<EnemyState_Close>();
-            }
-        }
-
-        protected override void OnChangeState_Yakuza()
-        {
         }
 
         /// <summary>
@@ -92,6 +70,53 @@ namespace FrontPerson.Enemy.AI
             {
                 MovePoint_List.Add(obj.transform);
             }
+        }
+
+        /// <summary>
+        /// MovePointIndexをステートが変わっても保存する
+        /// </summary>
+        private void Save_MovePointIndex()
+        {
+            MoveIndex = MovePointIndex;
+        }
+
+        protected override void OnUpdate()
+        {
+            // 目的地についていたら次の目的地の方に行く
+            if (Owner.Agent.remainingDistance <= 0.1f)
+            {
+                Vector3 destination = MovePoint_List[(MovePointIndex + 1) % MovePoint_List.Count].position;
+
+                Owner.Agent.SetDestination(destination);
+
+                MovePointIndex = (MovePointIndex + 1) % MovePoint_List.Count;
+            }
+        }
+
+        protected override void OnChangeState_OrdinaryPeople()
+        {
+            Save_MovePointIndex();
+
+
+        }
+
+        protected override void OnChangeState_OldBattleaxe()
+        {
+            Save_MovePointIndex();
+
+            OldBattleaxe enemy = Owner as OldBattleaxe;
+
+            if (enemy.isHit)
+            {
+                ChangeState<EnemyState_Close>();
+            }
+        }
+
+        protected override void OnChangeState_Yakuza()
+        {
+            Save_MovePointIndex();
+
+
         }
     }
 }

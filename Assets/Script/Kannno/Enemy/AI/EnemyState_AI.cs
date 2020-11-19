@@ -16,7 +16,9 @@ namespace FrontPerson.Enemy.AI
 
         protected Player Player = null;
 
-        // Start is called before the first frame update
+        // MovePointIndexをステートが変わっても保存する為の変数
+        protected int MoveIndex = 0;
+
         public void Start()
         {
             OnStart();
@@ -24,7 +26,6 @@ namespace FrontPerson.Enemy.AI
             Player = FindObjectOfType<Player>();
         }
 
-        // Update is called once per frame
         public void Update()
         {
             OnUpdate();
