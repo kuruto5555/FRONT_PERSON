@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 4646178514019155441}
   - component: {fileID: 4646178514019155447}
   m_Layer: 5
-  m_Name: KillTask
+  m_Name: KillTask5
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -59,5 +59,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   LimitTime: 30
   Score: 500
-  MissionName: "\u30675\u4EBA\u5065\u5EB7\u306B\u3057\u308D"
+  MissionNames: "{0}\u8272\u306E{1}\u3067{2}\u4EBA\u5143\u6C17\u306B\u3057\u3066\u3042\u3052\u3088\u3046!"
   KillMax: 5

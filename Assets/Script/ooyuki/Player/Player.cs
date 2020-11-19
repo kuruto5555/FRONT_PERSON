@@ -329,13 +329,12 @@ namespace FrontPerson.Character
 
             startPos = pos - transform.up * 0.5f;
             endPos = pos + transform.up * 0.5f;
-            //int layerMask = ~(1 << 8); 
 
-            if (Physics.Raycast(pos, -transform.up, out hit, Hitlayer))
+            if (Physics.Raycast(pos, Vector3.down, out hit, 10.0f))
             {
-                return hit.point.y + 1.0f;
+                if (LayerNumber.ENEMY != hit.collider.gameObject.layer)
+                    return hit.point.y + 1.0f;
             }
-
             else
             {
                 //もし下にすり抜けて落ちたら上空に沸く
