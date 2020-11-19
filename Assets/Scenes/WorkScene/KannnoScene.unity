@@ -929,7 +929,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e4591b91a4f0db34a930c3decb6aba0b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bullet_: {fileID: 8050350029783306595, guid: 9ca50a722de9a8647a036dc96d8188f1, type: 3}
+  bullet_: {fileID: 1551079489250813037, guid: 94afe778bd787474884a62020e529c7a, type: 3}
   hole_: {fileID: 407611193}
   rate_: 0.3
   MaxAmmo_: 15
