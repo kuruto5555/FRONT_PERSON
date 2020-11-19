@@ -3,6 +3,7 @@ using FrontPerson.Constants;
 using System.Runtime.InteropServices;
 using UnityEngine;
 using FrontPerson.Gimmick;
+using FrontPerson.Manager;
 
 
 namespace FrontPerson.Character
@@ -116,6 +117,8 @@ namespace FrontPerson.Character
         /// </summary>
         float _nowInvincibleTime = 0.0f;
 
+        private BountyManager _bountyManager = null;
+
 
         /*---- プロパティ ----*/
         /// <summary>
@@ -190,6 +193,8 @@ namespace FrontPerson.Character
 
             //初期角度を取得して置く
             _xAxiz = cameraTransform_.localEulerAngles;
+
+            _bountyManager = GameObject.FindGameObjectWithTag("BountyManager").GetComponent<BountyManager>();
         }
 
         // Update is called once per frame
@@ -455,7 +460,7 @@ namespace FrontPerson.Character
         public void Stun()
         {
             _isStun = true;
-            
+            _bountyManager.PlayerDamage();
         }
 
         /// <summary>
