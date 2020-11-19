@@ -8,6 +8,7 @@ TagManager:
   - Gun
   - RecoveryPoint
   - Enemy
+  - BountyManager
   layers:
   - Default
   - TransparentFX
