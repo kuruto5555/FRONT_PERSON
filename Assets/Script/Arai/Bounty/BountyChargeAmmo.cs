@@ -4,7 +4,6 @@ using UnityEngine;
 
 namespace FrontPerson.Bounty
 {
-
     public class BountyChargeAmmo : Bounty
     {
         [Header("補充回数")]
@@ -18,7 +17,9 @@ namespace FrontPerson.Bounty
         {
             base.Start();
 
+            _numCharge = 0;
             _progressString = _numCharge.ToString();
+            _missionName = string.Format(MissionNames, MaxCharge);
         }
 
         // Update is called once per frame
@@ -29,7 +30,7 @@ namespace FrontPerson.Bounty
             _numCharge += _Bmanager.GetNumNutritionCharge();
             _progressString = _numCharge.ToString();
 
-            if (_numCharge > MaxCharge ) MissionClear();
+            if (_numCharge >= MaxCharge ) MissionClear();
         }
     }
 }

@@ -20,7 +20,9 @@ namespace FrontPerson.Bounty
 
         [Header("表示したい文言")]
         [SerializeField]
-        protected string MissionName;
+        protected string MissionNames;
+
+        protected string _missionName;
 
         
 
@@ -59,7 +61,7 @@ namespace FrontPerson.Bounty
         /// </summary>
         //public Text GetText { get { return _text; } }
         
-        public string GetMissionName { get{ return MissionName; } }
+        public string GetMissionName { get{ return _missionName; } }
 
         /// <summary>
         /// 進捗状況文字列取得

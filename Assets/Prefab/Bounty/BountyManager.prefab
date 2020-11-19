@@ -48,7 +48,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fca437eaf9c5c1f4f8715027ba430916, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MissionList: []
   MissionPrefabList:
   - {fileID: 7152460719995171007, guid: 7d406e590fa93d5488cc9cc83ab2dc06, type: 3}
   - {fileID: 9011910422994990176, guid: 21338d146c05e5c4f94e882c0bb29000, type: 3}
@@ -60,3 +59,4 @@ MonoBehaviour:
   - {fileID: 1194486133635037157, guid: f9e5e9277ca70db439bdda70abcc33fc, type: 3}
   - {fileID: 3949934640569500591, guid: 6f35c827bf95a5449aaa850e901cd7ed, type: 3}
   - {fileID: 669452373402229478, guid: 5bedc5b2084012d4c988c0f74ee60cf5, type: 3}
+  - {fileID: 7511613019739664733, guid: f0cc415043a1fa2439011ad925e8d94e, type: 3}

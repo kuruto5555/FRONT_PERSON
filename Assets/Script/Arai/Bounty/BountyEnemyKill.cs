@@ -16,10 +16,12 @@ namespace FrontPerson.Bounty
         /// </summary>
         private int _killCnt = 0;
 
+        /// <summary>
+        /// 乱数
+        /// </summary>
         private int rand = 0;
 
         public int GetKillCnt { get { return _killCnt; } }
-
 
         // Start is called before the first frame update
         void Start()
@@ -32,7 +34,7 @@ namespace FrontPerson.Bounty
 
             _progressString = _killCnt.ToString();
 
-            MissionName = Nutrients.Type[(int)rand] + MissionName;
+            _missionName = string.Format(MissionNames, NutrientsColor.Type[(int)rand], Nutrients.Type[(int)rand], KillMax);
         }
 
         // Update is called once per frame
@@ -53,15 +55,10 @@ namespace FrontPerson.Bounty
             _progressString = _killCnt.ToString();
 
             //クリア条件
-            if (_killCnt > KillMax)
+            if (_killCnt >= KillMax)
             {
-                _isClear = _isFinish = true;
-            }
-
-            if (_nowTime < 0)
-            {
-                _isFinish = true;
-            }
+                MissionClear();
+            }     
         }
     }
 }
