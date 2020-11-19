@@ -19,6 +19,8 @@ namespace FrontPerson.Bounty
             _nowFireCount = 0;
 
             _progressString = _nowFireCount.ToString();
+
+
         }
 
         // Update is called once per frame

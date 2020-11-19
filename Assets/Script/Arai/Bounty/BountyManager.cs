@@ -75,9 +75,10 @@ namespace FrontPerson.Manager
         // Update is called once per frame
         void Update()
         {
-            foreach(var it in MissionList)
+            int i = 0;
+            foreach (var it in MissionList)
             {
-                int i = 0; 
+                
                 if (it.IsFinish)
                 {
                     if (it.IsCrear) 
