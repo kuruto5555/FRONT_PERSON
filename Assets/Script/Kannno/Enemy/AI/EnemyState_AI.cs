@@ -16,14 +16,25 @@ namespace FrontPerson.Enemy.AI
 
         protected Player Player = null;
 
-        // MovePointIndexをステートが変わっても保存する為の変数
+        protected SearchArea SearchArea = null;
+
+        /// <summary>
+        /// MovePointIndexをステートが変わっても保存する為の変数
+        //// </summary>
         protected int MoveIndex = 0;
+
+        /// <summary>
+        /// 移動先の一覧をステートが変わっても保存する為の変数
+        /// </summary>
+        protected List<Transform> MovetList = new List<Transform>();
 
         public void Start()
         {
             OnStart();
 
             Player = FindObjectOfType<Player>();
+
+            SearchArea = GetComponentInChildren<SearchArea>();
         }
 
         public void Update()
@@ -76,6 +87,13 @@ namespace FrontPerson.Enemy.AI
             Owner.state_AI = Owner.gameObject.AddComponent<T>();
             Owner.state_AI.SetOwner(Owner);
 
+            Owner.state_AI.Save_MovePoint(MoveIndex, MovetList);
+
+            if(null != Owner.state_AI as EnemyState_Move)
+            {
+                Owner.state_AI.Load_MovePoint(MoveIndex, MovetList);
+            }
+
 #if UNITY_EDITOR
 
             string name = Owner.name;
@@ -110,6 +128,25 @@ namespace FrontPerson.Enemy.AI
                     Debug.LogError("Owner.Type : 不正な値です");
                     break;
             }
+        }
+
+        /// <summary>
+        /// MovePointをステートが変わっても保存する
+        /// </summary>
+        private void Save_MovePoint(int MovePointIndex, List<Transform> MovePoint_List)
+        {
+            MoveIndex = MovePointIndex;
+
+            MovetList = MovePoint_List;
+        }
+
+        public void Load_MovePoint(int MovePointIndex, List<Transform> MovePoint_List)
+        {
+            EnemyState_Move ai = this as EnemyState_Move;
+
+            ai.MoveIndex = MovePointIndex;
+
+            ai.MovetList = MovePoint_List;
         }
     }
 }

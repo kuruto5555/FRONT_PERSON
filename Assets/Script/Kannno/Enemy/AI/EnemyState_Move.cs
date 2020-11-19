@@ -9,7 +9,7 @@ namespace FrontPerson.Enemy.AI
     {
         [Header("移動ルート")]
         [SerializeField]
-        private MovePattern MovePattern = null;
+        private MovePattern MovePattern  = null;
 
         public void Set_MovePattern(MovePattern move_pattern)
         {
@@ -43,12 +43,21 @@ namespace FrontPerson.Enemy.AI
 
                 Owner.SetTarget(MovePoint_List.First());
             }
-#if UNITY_EDITOR
             else
             {
-                Debug.LogError("MovePattern が設定されていません");
-            }
+                if (0 != MovetList.Count)
+                {
+                    MovePoint_List = MovetList;
+
+                    Owner.SetTarget(MovePoint_List[MovePointIndex]);
+                }
+#if UNITY_EDITOR
+                else
+                {
+                    Debug.LogError("MovePattern が設定されていません");
+                }
 #endif
+            }
         }
 
         /// <summary>
@@ -72,12 +81,11 @@ namespace FrontPerson.Enemy.AI
             }
         }
 
-        /// <summary>
-        /// MovePointIndexをステートが変わっても保存する
-        /// </summary>
-        private void Save_MovePointIndex()
+        private void SetMovePoint()
         {
             MoveIndex = MovePointIndex;
+
+            MovetList = MovePoint_List;
         }
 
         protected override void OnUpdate()
@@ -95,28 +103,39 @@ namespace FrontPerson.Enemy.AI
 
         protected override void OnChangeState_OrdinaryPeople()
         {
-            Save_MovePointIndex();
+            //SetMovePoint();
 
 
         }
 
         protected override void OnChangeState_OldBattleaxe()
         {
-            Save_MovePointIndex();
-
             OldBattleaxe enemy = Owner as OldBattleaxe;
 
             if (enemy.isHit)
             {
+                SetMovePoint();
+
                 ChangeState<EnemyState_Close>();
+
+                var ai = Owner.state_AI as EnemyState_Close;
+
+                ai.Goal = Player.transform;
             }
         }
 
         protected override void OnChangeState_Yakuza()
         {
-            Save_MovePointIndex();
+            if (SearchArea.IsFound)
+            {
+                SetMovePoint();
 
+                ChangeState<EnemyState_Close>();
 
+                var ai = Owner.state_AI as EnemyState_Close;
+
+                ai.Goal = Player.transform;
+            }
         }
     }
 }

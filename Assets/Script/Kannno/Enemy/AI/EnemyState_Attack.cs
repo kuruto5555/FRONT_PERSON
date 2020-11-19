@@ -25,7 +25,9 @@ namespace FrontPerson.Enemy.AI
         {
             if (!searchArea.IsFound || Player.IsStun)
             {
-                ChangeState<EnemyState_Search>();
+                ChangeState<EnemyState_Move>();
+
+                //Owner.state_AI.Load_MovePoint(MoveIndex, MovetList);
 
                 OldBattleaxe enemy = Owner as OldBattleaxe;
 
@@ -39,7 +41,10 @@ namespace FrontPerson.Enemy.AI
         {
             if (!searchArea.IsFound || Player.IsStun)
             {
+                //ChangeState<EnemyState_Move>();
                 ChangeState<EnemyState_Search>();
+
+                //Owner.state_AI.Load_MovePoint(MoveIndex, MovetList);
             }
 
             Player.Stun();

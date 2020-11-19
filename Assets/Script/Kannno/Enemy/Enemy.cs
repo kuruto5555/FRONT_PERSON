@@ -85,9 +85,9 @@ namespace FrontPerson.Character
                 return;
             }
 
-            int cnt = Random.Range(0, (int)NUTRIENTS_TYPE.COUNT);
+            int cnt = Random.Range(0, (int)NUTRIENTS_TYPE._ALL);
 
-            List<NUTRIENTS_TYPE> vitamins = new List<NUTRIENTS_TYPE>() { NUTRIENTS_TYPE._A, NUTRIENTS_TYPE._B, NUTRIENTS_TYPE._ALL };
+            List<NUTRIENTS_TYPE> vitamins = new List<NUTRIENTS_TYPE>() { NUTRIENTS_TYPE._A, NUTRIENTS_TYPE._B };
 
             lack_vitamins = vitamins[cnt];
 
