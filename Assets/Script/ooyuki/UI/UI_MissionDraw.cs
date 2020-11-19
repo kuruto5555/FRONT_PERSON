@@ -52,7 +52,7 @@ namespace FrontPerson.UI
 
         void Start()
         {
-            bountyManager_ = BountyManager.Instance;
+            bountyManager_ = BountyManager._instance;
             SetText();
         }
 
@@ -62,7 +62,7 @@ namespace FrontPerson.UI
             SetText();
         }
 
-        float a = 1f;
+
         void SetText()
         {
             // テスト

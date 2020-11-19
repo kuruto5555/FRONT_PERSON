@@ -32,7 +32,7 @@ namespace FrontPerson.Gimmick
 
         private void Start()
         {
-            bountyManager_ = BountyManager.Instance;
+            bountyManager_ = BountyManager._instance;
         }
 
         private void Update()
