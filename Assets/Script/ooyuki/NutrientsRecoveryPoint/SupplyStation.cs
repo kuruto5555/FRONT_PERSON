@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SocialPlatforms;
+using FrontPerson.Manager;
 
 namespace FrontPerson.Gimmick
 {
@@ -43,6 +44,7 @@ namespace FrontPerson.Gimmick
         {
             if (IsCharge) return 0;
 
+            BountyManager.Instance.NutritionCharge();
             time_ = interval_;
             return value;
         }
