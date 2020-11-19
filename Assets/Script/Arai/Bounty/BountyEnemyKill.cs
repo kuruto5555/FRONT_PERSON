@@ -38,6 +38,8 @@ namespace FrontPerson.Bounty
         // Update is called once per frame
         void Update()
         {
+            base.Update();
+
             if(rand == 0)
             {
                 _killCnt += _Bmanager.GetNumEnemyDeath().x; //今のフレーム死んだ数を数える
@@ -54,7 +56,12 @@ namespace FrontPerson.Bounty
             if (_killCnt > KillMax)
             {
                 _isClear = _isFinish = true;
-            }  
+            }
+
+            if (_nowTime < 0)
+            {
+                _isFinish = true;
+            }
         }
     }
 }
