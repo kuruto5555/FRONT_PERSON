@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 2143714426675731729}
   - component: {fileID: 5261672650194158745}
   - component: {fileID: 149971600214031710}
-  - component: {fileID: 8535680563967570264}
+  - component: {fileID: 9171798799484225291}
   - component: {fileID: 4090730394767691828}
   m_Layer: 9
   m_Name: Bullet_NutrientA
@@ -97,20 +97,20 @@ Rigidbody:
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 126
-  m_CollisionDetection: 0
---- !u!135 &8535680563967570264
-SphereCollider:
+  m_CollisionDetection: 2
+--- !u!65 &9171798799484225291
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1171001628440052897}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.5
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 1, y: 1, z: 20}
+  m_Center: {x: 0, y: 0, z: -10}
 --- !u!114 &4090730394767691828
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -126,3 +126,5 @@ MonoBehaviour:
   bulletType_: 0
   speed_: 50
   power_: 10
+  splashParticle_: {fileID: 3852552796251308893, guid: 31d755d3786964c4c952a950d6842d9b,
+    type: 3}
