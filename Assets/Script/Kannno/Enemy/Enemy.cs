@@ -38,7 +38,7 @@ namespace FrontPerson.Character
         /// <summary>
         /// 敵の種類
         /// </summary>
-        public EnemyType Type { get; protected set; } = EnemyType.MAX;
+        public EnemyType Type { get; protected set; } = EnemyType.NONE;
 
         /// <summary>
         /// 敵AIのステート(インターフェース)
@@ -77,19 +77,26 @@ namespace FrontPerson.Character
         /// <summary>
         /// 不足しているビタミンを設定
         /// </summary>
-        private void Set_LackVitamin()
+        protected void Set_LackVitamin()
         {
-            int cnt = Random.Range(0, (int)NUTRIENTS_TYPE.COUNT);
+            if (EnemyType.YAKUZA == Type)
+            {
+                lack_vitamins = NUTRIENTS_TYPE._ALL;
+                return;
+            }
 
-            List<NUTRIENTS_TYPE> vitamins = new List<NUTRIENTS_TYPE>() { NUTRIENTS_TYPE._A, NUTRIENTS_TYPE._B, NUTRIENTS_TYPE._ALL };
+            int cnt = Random.Range(0, (int)NUTRIENTS_TYPE._ALL);
+
+            List<NUTRIENTS_TYPE> vitamins = new List<NUTRIENTS_TYPE>() { NUTRIENTS_TYPE._A, NUTRIENTS_TYPE._B };
 
             lack_vitamins = vitamins[cnt];
+
         }
 
         /// <summary>
         ///  表示する文字を設定
         /// </summary>
-        private void Set_LackVitamin_Text()
+        protected void Set_LackVitamin_Text()
         {
             tetxMesh.text = Nutrients.Type[(int)lack_vitamins];
         }
