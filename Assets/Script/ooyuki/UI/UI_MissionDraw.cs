@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using FrontPerson.Bounty;
+using FrontPerson.Manager;
 
 namespace FrontPerson.UI
 {
@@ -74,21 +74,21 @@ namespace FrontPerson.UI
 
             if (bounty1 != null)
             {
-                mission1NameText_.text = bounty1.GetText.text;
+                mission1NameText_.text = bounty1.GetMissionName;
                 mission1ProgressText_.text = bounty1.GetProgressString;
                 mission1Timer_.fillAmount = bounty1.GetNowTime / bounty1.GetLimitTime;
             }
 
             if (bounty2 != null)
             {
-                mission2NameText_.text = bounty2.GetText.text;
+                mission2NameText_.text = bounty2.GetMissionName;
                 mission2ProgressText_.text = bounty2.GetProgressString;
                 mission2Timer_.fillAmount = bounty2.GetNowTime / bounty2.GetLimitTime;
             }
 
             if (bounty3 != null)
             {
-                mission3NameText_.text = bounty3.GetText.text;
+                mission3NameText_.text = bounty3.GetMissionName;
                 mission3ProgressText_.text = bounty3.GetProgressString;
                 mission3Timer_.fillAmount = bounty3.GetNowTime / bounty3.GetLimitTime;
             }
