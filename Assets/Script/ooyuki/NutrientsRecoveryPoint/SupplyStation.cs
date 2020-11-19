@@ -12,7 +12,6 @@ namespace FrontPerson.Gimmick
         [SerializeField, Range(0f, 60f)]
         private float interval_ = 0f;
 
-
         /// <summary>
         /// チャージできるかどうか
         /// true  -> チャージできる
@@ -25,6 +24,16 @@ namespace FrontPerson.Gimmick
         /// </summary>
         float time_ = 0f;
 
+        /// <summary>
+        /// バウンティーマネージャー
+        /// </summary>
+        BountyManager bountyManager_ = null;
+
+
+        private void Start()
+        {
+            bountyManager_ = BountyManager._instance;
+        }
 
         private void Update()
         {
@@ -44,7 +53,7 @@ namespace FrontPerson.Gimmick
         {
             if (IsCharge) return 0;
 
-            BountyManager.Instance.NutritionCharge();
+            bountyManager_.NutritionCharge();
             time_ = interval_;
             return value;
         }

@@ -13,14 +13,16 @@ namespace FrontPerson.UI {
         [SerializeField]
         Image R_BulletNumGauge_ = null;
     
-        [Header("プレイヤー")]
-        [SerializeField]
+        /// <summary>
+        /// プレイヤー
+        /// </summary>
         Character.Player player_ = null;
 
 
         // Start is called before the first frame update
         void Start()
         {
+            player_ = FindObjectOfType<Character.Player>();
             SetParameter();
         }
     
