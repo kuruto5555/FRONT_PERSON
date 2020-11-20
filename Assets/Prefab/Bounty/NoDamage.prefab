@@ -50,4 +50,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   LimitTime: 30
   Score: 2000
-  MissionNames: "\u30E4\u30AF\u30B6\u3001\u304A\u3070\u3061\u3083\u3093\u304B\u3089{0}\u79D2\u9593\u653B\u6483\u3092\u53D7\u3051\u308B\u306A\uFF01"
+  MissionNames: "{0}\u79D2\u9593\u653B\u6483\u3092\u53D7\u3051\u308B\u306A\uFF01"
