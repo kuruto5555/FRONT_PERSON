@@ -62,7 +62,6 @@ namespace FrontPerson.Manager
         private void Awake()
         {
             if(_instance == null) _instance = this;
-            MissionList = new List<Bounty.Bounty>();
 
             for (int i = 0; i < ACTIV_MISSION; i++)
             {
@@ -73,17 +72,32 @@ namespace FrontPerson.Manager
         // Start is called before the first frame update
         void Start()
         {
+            _isPlayerDamage = false;
             _missionNum = MissionPrefabList.Count;
             _missionCnt = 0;
             _nowCombo = 0;
             _fireCount = 0;
-            _isPlayerDamage = false;
+            MissionList = new List<Bounty.Bounty>();
+
         }
 
         // Update is called once per frame
         void Update()
         {
             int i = 0;
+            _isPlayerDamage = false;
+
+            //デバッグ用ミッション全てClear
+            if (Input.GetKeyDown(KeyCode.K))
+            {
+
+                for (int debug = 0; debug < ACTIV_MISSION; debug++)
+                {
+                    MissionList[debug].ImDie();
+                    MissionList[debug] = Instantiate(MissionPrefabList[Random.Range(0, _missionNum)], transform).GetComponent<Bounty.Bounty>();
+                }
+            }
+
             foreach (var it in MissionList)
             {
                 
@@ -114,7 +128,6 @@ namespace FrontPerson.Manager
             _numEnemyDeathA = 0;
             _numEnemyDeathB = 0;
             _fireCount = 0;
-            _isPlayerDamage = false;
             _numNutritionCharge = 0;
         }
 

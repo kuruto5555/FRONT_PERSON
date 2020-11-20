@@ -6,6 +6,15 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.Rendering;
 
+namespace FrontPerson.Score
+{
+    public enum ReasonForAddition
+    {
+        Nomal,
+        Bounty,
+
+    }
+}
 namespace FrontPerson.Manager
 {
     public class ScoreManager : SingletonMonoBehaviour<ScoreManager>
@@ -80,9 +89,25 @@ namespace FrontPerson.Manager
         /// スコアを加算、減算
         /// </summary>
         /// <param name="score"></param>
-        public void AddScore(int score)
+        public void AddScore(int score, Score.ReasonForAddition reason)
         {
-            int add_score = score + BonusInTheMiddleOfTheCombo();
+            int add_score = score;
+
+            switch (reason)
+            {
+                // 通常の加算
+                case Score.ReasonForAddition.Nomal:
+                    {
+                        add_score += BonusInTheMiddleOfTheCombo();
+                        break;
+                    }
+
+                // バウンティによる加算
+                case Score.ReasonForAddition.Bounty:
+                    {
+                        break;
+                    }
+            }
 
             // スコアを更新
             CurrentScore += add_score;
@@ -152,12 +177,16 @@ namespace FrontPerson.Manager
                 // コンボ保険発動中か確認
                 if (ComboInsuranceIsInEffect())
                 {
+                    // タイマー再設定
+                    SetComboBonusTimer();
+                    // もう一度
                     StartCoroutine(TimerDuringComboBonus());
                 }
                 else
                 {
                     // コンボが続かなかったのでコンボボーナスを消す
                     LostComboBonus();
+                    ComboBonusTimer = 0;
                 }
             }
             else
@@ -187,7 +216,7 @@ namespace FrontPerson.Manager
             }
 
             // 計算式：(100 ÷ 前回のコンボ途中ボーナスからかかった時間) × コンボ数
-            return (int)(100 / (combo_bonus_effect_time_ - ComboBonusTimer) / 60 * ComboBonus);
+            return (int)(100 / (combo_bonus_effect_time_ - ComboBonusTimer) * ComboBonus);
         }
 
         /// <summary>
