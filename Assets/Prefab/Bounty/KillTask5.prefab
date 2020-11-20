@@ -59,5 +59,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   LimitTime: 30
   Score: 500
-  MissionNames: "{0}\u8272\u306E{1}\u3067{2}\u4EBA\u5143\u6C17\u306B\u3057\u3066\u3042\u3052\u3088\u3046!"
+  MissionNames: "{0}\u8272\u306E\u6804\u990A\u7D20\u3067\u5143\u6C17\u306B\u3055\u305B\u3088\u3046!"
   KillMax: 5

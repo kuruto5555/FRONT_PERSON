@@ -19,10 +19,10 @@ namespace FrontPerson.Bounty
         {
             base.Start();
 
-            _progressString = _Bmanager.GetNowCombo().ToString();
+            _progressString = _Bmanager.GetNowCombo().ToString() + " / " + ComboMax.ToString();
 
             //_isStart = false;
-            _missionName = string.Format(MissionNames, ComboMax);
+            _missionName = MissionNames;
         }
 
         // Update is called once per frame
@@ -32,9 +32,9 @@ namespace FrontPerson.Bounty
 
             int nowCombo = _Bmanager.GetNowCombo();
 
-            _progressString = nowCombo.ToString();
+            _progressString = _Bmanager.GetNowCombo().ToString() + " / " + ComboMax.ToString();
 
-            if(nowCombo >= ComboMax)
+            if (nowCombo >= ComboMax)
             {
                 MissionClear();
             }

@@ -18,7 +18,9 @@ namespace FrontPerson.Bounty
 
             _isComboStart = false;
 
-            _missionName = string.Format(MissionNames, LimitTime);
+            _progressString = "残り " + LimitTime.ToString("00") + "秒";
+
+            _missionName = MissionNames;
         }
 
         // Update is called once per frame
@@ -36,6 +38,7 @@ namespace FrontPerson.Bounty
             }
             else //コンボがスタートしてる間
             {
+                _progressString = "残り " + _nowTime.ToString("00") + "秒";
 
                 if (GetLimitTime < GetNowTime) MissionClear();
 

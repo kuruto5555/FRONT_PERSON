@@ -32,9 +32,9 @@ namespace FrontPerson.Bounty
 
             rand = Random.Range(0, 2);
 
-            _progressString = _killCnt.ToString();
+            _progressString = _killCnt.ToString() + " / " + KillMax.ToString();
 
-            _missionName = string.Format(MissionNames, NutrientsColor.Type[(int)rand], Nutrients.Type[(int)rand], KillMax);
+            _missionName = string.Format(MissionNames, NutrientsColor.Type[(int)rand]);
         }
 
         // Update is called once per frame
@@ -52,7 +52,7 @@ namespace FrontPerson.Bounty
                 _killCnt += _Bmanager.GetNumEnemyDeath().y; //今のフレーム死んだ数を数える
             }
 
-            _progressString = _killCnt.ToString();
+            _progressString = _killCnt.ToString() + " / " + KillMax.ToString();
 
             //クリア条件
             if (_killCnt >= KillMax)

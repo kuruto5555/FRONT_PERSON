@@ -18,8 +18,8 @@ namespace FrontPerson.Bounty
             base.Start();
 
             _numCharge = 0;
-            _progressString = _numCharge.ToString();
-            _missionName = string.Format(MissionNames, MaxCharge);
+            _progressString = _numCharge.ToString() + " / " + MaxCharge.ToString();
+            _missionName = MissionNames;
         }
 
         // Update is called once per frame
@@ -28,7 +28,7 @@ namespace FrontPerson.Bounty
             base.Update();
 
             _numCharge += _Bmanager.GetNumNutritionCharge();
-            _progressString = _numCharge.ToString();
+            _progressString = _numCharge.ToString() + " / " + MaxCharge.ToString();
 
             if (_numCharge >= MaxCharge ) MissionClear();
         }
