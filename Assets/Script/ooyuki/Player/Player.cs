@@ -87,6 +87,11 @@ namespace FrontPerson.Character
         bool _isJump = false;
 
         /// <summary>
+        /// スペシャルウェポンを持っているか
+        /// </summary>
+        bool _isSpecialWeapon = false;
+
+        /// <summary>
         /// ジャンプの余力
         /// </summary>
         float _jumpForce = 0.0f;
@@ -116,6 +121,9 @@ namespace FrontPerson.Character
         /// </summary>
         float _nowInvincibleTime = 0.0f;
 
+        /// <summary>
+        /// バウンティマネージャー
+        /// </summary>
         private BountyManager _bountyManager = null;
 
 
@@ -179,6 +187,8 @@ namespace FrontPerson.Character
         /// 無敵かどうか
         /// </summary>
         public bool IsInvincible { get { return _isInvincible; } }
+
+        public bool IsSpecialWeapon { get { return _isSpecialWeapon; } }
 
 
         // Start is called before the first frame update
@@ -466,17 +476,28 @@ namespace FrontPerson.Character
         /// </summary>
         void InvincibleStatus()
         {
+            //無敵ではなかったら終わり
             if (!_isInvincible) return;
 
+            //無敵タイム中
             if(_nowInvincibleTime < invincibleTime)
             {
                 _nowInvincibleTime += Time.deltaTime;
             }
-            else
+            else //無敵終了
             {
                 _nowInvincibleTime = 0.0f;
                 _isInvincible = false;
             }
+        }
+
+        /// <summary>
+        /// 無敵にする時呼ぶ
+        /// </summary>
+        /// <param name="time"></param>
+        public void SetInvincible(float time)
+        {
+            _isInvincible = true;
         }
 
         private void OnTriggerStay(Collider other)

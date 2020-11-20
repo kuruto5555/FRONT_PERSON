@@ -17,11 +17,12 @@ namespace FrontPerson.Bounty
         }
 
         // Update is called once per frame
-        void Update()
+        void LateUpdate()
         {
             base.Update();
 
-            if (_Bmanager.GetIsPlayerDamage()) MissionFailed();
+            if (_Bmanager.GetIsPlayerDamage()) 
+                MissionFailed();
 
             if (_nowTime < 0) MissionClear();
         }
