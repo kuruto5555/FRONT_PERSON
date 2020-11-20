@@ -281,7 +281,7 @@ GameObject:
   - component: {fileID: 1736608254621992783}
   - component: {fileID: 5546046395936659434}
   - component: {fileID: 7873967972405553412}
-  m_Layer: 11
+  m_Layer: 2
   m_Name: SearchArea
   m_TagString: Untagged
   m_Icon: {fileID: 0}

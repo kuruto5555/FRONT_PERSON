@@ -21,18 +21,28 @@ namespace FrontPerson.Enemy
         {
         }
 
-        void OnCollisionEnter(Collision collision)
+        //void OnTriggerEnter(Collider collider)
+        //{
+        //    if (Constants.TagName.BULLET == collider.tag)
+        //    {
+        //        Bullet bullet = collider.gameObject.GetComponent<Bullet>();
+
+        //        AddVitamins(bullet.Power);
+
+        //        if (insufficiency <= 0)
+        //        {
+        //            SetDestroy();
+        //        }
+        //    }
+        //}
+
+        public override void HitBullet(Bullet bullet)
         {
-            if (Constants.TagName.BULLET == collision.gameObject.tag)
+            AddVitamins(bullet.Power);
+
+            if (insufficiency <= 0)
             {
-                Bullet bullet = collision.gameObject.GetComponent<Bullet>();
-
-                AddVitamins(bullet.Power);
-
-                if (insufficiency <= 0)
-                {
-                    SetDestroy();
-                }
+                SetDestroy();
             }
         }
     }

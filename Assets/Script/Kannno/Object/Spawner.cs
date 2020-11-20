@@ -12,11 +12,11 @@ namespace FrontPerson.Enemy
     {
         [Header("スポーンする敵オブジェクト")]
         [SerializeField]
-        private GameObject OrdinaryPeople;
+        private GameObject OrdinaryPeople = null;
         [SerializeField]
-        private GameObject OldBattleaxe;
+        private GameObject OldBattleaxe = null;
         [SerializeField]
-        private GameObject Yakuza;
+        private GameObject Yakuza = null;
 
         [Header("スポーンする敵の確率")]
         [SerializeField, Range(0f, 1f)]
