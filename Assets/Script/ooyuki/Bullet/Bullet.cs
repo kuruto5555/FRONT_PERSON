@@ -1,4 +1,5 @@
-﻿using FrontPerson.Constants;
+﻿using FrontPerson.Character;
+using FrontPerson.Constants;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,7 +7,6 @@ using UnityEngine;
 
 namespace FrontPerson.Weapon
 {
-
     public class Bullet : MonoBehaviour
     {
         [Header("弾の種類")]
@@ -72,7 +72,7 @@ namespace FrontPerson.Weapon
         }
 
 
-        protected virtual void Hit()
+        protected virtual void HitEnemy(Character.Enemy enemy)
         {
             // 破裂エフェクト生成
             Vector3 start = transform.position - transform.forward * 2f;
@@ -87,6 +87,7 @@ namespace FrontPerson.Weapon
                 1 << LayerNumber.ENEMY))
             {
                 Instantiate(splashParticle_, hit.point, Quaternion.identity);
+                enemy.HitBullet(this);
                 Destroy(gameObject);
                 /* デバック */
                 Debug.DrawLine(start, end, Color.red, 1000f);
@@ -99,11 +100,11 @@ namespace FrontPerson.Weapon
 
         private void OnTriggerEnter(Collider other)
         {
-            Hit();
 
             switch (other.gameObject.tag)
             {
                 case TagName.ENEMY:
+                HitEnemy(other.GetComponent<Character.Enemy>());
                     break;
             }
         }
