@@ -106,6 +106,7 @@ namespace FrontPerson.Manager
                     if (it.IsCrear) 
                     {
                         //スコア加算(it.GetScore();)
+                        ScoreManager.Instance.AddScore((int)it.GetScore, FrontPerson.Score.ReasonForAddition.Bounty);
 
                         _missionCnt++;
                         if (_missionCnt == 3)

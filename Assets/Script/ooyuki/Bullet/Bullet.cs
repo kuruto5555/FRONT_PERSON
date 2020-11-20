@@ -72,28 +72,45 @@ namespace FrontPerson.Weapon
         }
 
 
-        protected virtual void HitEnemy(Character.Enemy enemy)
+        private bool HitCheck(out RaycastHit hit)
         {
-            // 破裂エフェクト生成
             Vector3 start = transform.position - transform.forward * 2f;
             Vector3 end = transform.position;
-            RaycastHit hit;
             if (Physics.SphereCast(
-                start, 
-                transform.localScale.x * 0.5f, 
-                transform.forward, 
-                out hit, 
-                (end - start).magnitude, 
-                1 << LayerNumber.ENEMY))
+                start,
+                transform.localScale.x * 0.5f,
+                transform.forward,
+                out hit,
+                (end - start).magnitude,
+                1 << LayerNumber.ENEMY | 1 << LayerNumber.FIELD_OBJECT))
+            {
+                /* デバック */
+                Debug.DrawLine(start, end, Color.red, 1000f);
+                return true;
+            }
+
+            return false;
+        }
+
+        void HitUntagged()
+        {
+            RaycastHit hit;
+            if (HitCheck(out hit))
+            {
+                Instantiate(splashParticle_, hit.point, Quaternion.identity);
+                Destroy(gameObject);
+            }
+        }
+
+        protected virtual void HitEnemy(Character.Enemy enemy)
+        {
+            RaycastHit hit;
+            if (HitCheck(out hit))
             {
                 Instantiate(splashParticle_, hit.point, Quaternion.identity);
                 enemy.HitBullet(this);
                 Destroy(gameObject);
-                /* デバック */
-                Debug.DrawLine(start, end, Color.red, 1000f);
             }
-
-
         }
 
 
@@ -105,6 +122,10 @@ namespace FrontPerson.Weapon
             {
                 case TagName.ENEMY:
                 HitEnemy(other.GetComponent<Character.Enemy>());
+                    break;
+
+                case TagName.UNTAGGED:
+                    HitUntagged();
                     break;
             }
         }
