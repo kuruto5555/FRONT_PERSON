@@ -18,7 +18,7 @@ namespace FrontPerson.Item
             pickup_.onPick += OnPicked;
         }
 
-        private void OnPicked(PlayerInventory inventory)
+        private void OnPicked(GameObject obj)
         {
             pickup_.PlayPickupFeedback();
         }

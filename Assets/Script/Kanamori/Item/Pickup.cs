@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using FrontPerson.Character;
 
 namespace FrontPerson.Item
 {
@@ -27,7 +28,7 @@ namespace FrontPerson.Item
         /// <summary>
         /// 拾った際のイベント
         /// </summary>
-        public UnityAction<PlayerInventory> onPick;
+        public UnityAction<GameObject> onPick;
 
         private Transform transform_;
 
@@ -52,13 +53,13 @@ namespace FrontPerson.Item
 
         private void OnTriggerEnter(Collider other)
         {
-            PlayerInventory inventory = other.GetComponent<PlayerInventory>();
+            GameObject obj = other.gameObject;
 
-            if (inventory != null)
+            if (obj != null)
             {
                 if(onPick != null)
                 {
-                    onPick.Invoke(inventory);
+                    onPick.Invoke(obj);
 
                     Destroyed();
                 }
