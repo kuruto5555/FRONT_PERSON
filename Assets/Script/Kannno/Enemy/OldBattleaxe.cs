@@ -24,28 +24,48 @@ namespace FrontPerson.Enemy
         {
         }
 
-        void OnCollisionEnter(Collision collision)
+        //void OnTriggerEnter(Collider collider)
+        //{
+        //    if (Constants.TagName.BULLET == collider.tag)
+        //    {
+        //        Bullet bullet = collider.gameObject.GetComponent<Bullet>();
+
+        //        AddVitamins(bullet.Power);
+
+        //        if (insufficiency <= 0)
+        //        {
+        //            SetDestroy();
+        //        }
+
+        //        if (lack_vitamins != bullet.BulletType)
+        //        {
+        //            // 弾の種類と足りないビタミンが違う
+        //            isHit = true;
+        //        }
+        //        else
+        //        {
+        //            isHit = false;
+        //        }
+        //    }
+        //}
+
+        public override void HitBullet(Bullet bullet)
         {
-            if (Constants.TagName.BULLET == collision.gameObject.tag)
+            AddVitamins(bullet.Power);
+
+            if (insufficiency <= 0)
             {
-                Bullet bullet = collision.gameObject.GetComponent<Bullet>();
+                SetDestroy();
+            }
 
-                AddVitamins(bullet.Power);
-
-                if (insufficiency <= 0)
-                {
-                    SetDestroy();
-                }
-
-                if (lack_vitamins != bullet.BulletType)
-                {
-                    // 弾の種類と足りないビタミンが違う
-                    isHit = true;
-                }
-                else
-                {
-                    isHit = false;
-                }
+            if (lack_vitamins != bullet.BulletType)
+            {
+                // 弾の種類と足りないビタミンが違う
+                isHit = true;
+            }
+            else
+            {
+                isHit = false;
             }
         }
     }
