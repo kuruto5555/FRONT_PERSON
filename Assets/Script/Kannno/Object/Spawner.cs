@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEditor;
 
@@ -27,6 +28,10 @@ namespace FrontPerson.Enemy
 
         // 確率のリスト(計算用)
         private List<float> ProbabilityList = null;
+
+        [Header("MovePatternのリスト")]
+        [SerializeField]
+        private List<MovePattern> MovePatternLIst = new List<MovePattern>();
 
         [Header("生成までのクールタイム")]
         [SerializeField]
@@ -104,7 +109,7 @@ namespace FrontPerson.Enemy
 
             EnemyState_Move ai = enemy.state_AI as EnemyState_Move;
 
-            ai.Set_MovePattern(FindObjectOfType<MovePattern>());
+            ai.Set_MovePattern(MovePatternLIst.First());
         }
 
         /// <summary>

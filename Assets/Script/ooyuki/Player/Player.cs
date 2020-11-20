@@ -1,8 +1,8 @@
-﻿
-using FrontPerson.Constants;
+﻿using FrontPerson.Constants;
 using System.Runtime.InteropServices;
 using UnityEngine;
 using FrontPerson.Gimmick;
+using FrontPerson.Manager;
 
 
 namespace FrontPerson.Character
@@ -116,6 +116,8 @@ namespace FrontPerson.Character
         /// </summary>
         float _nowInvincibleTime = 0.0f;
 
+        private BountyManager _bountyManager = null;
+
 
         /*---- プロパティ ----*/
         /// <summary>
@@ -190,6 +192,8 @@ namespace FrontPerson.Character
 
             //初期角度を取得して置く
             _xAxiz = cameraTransform_.localEulerAngles;
+
+            _bountyManager = GameObject.FindGameObjectWithTag("BountyManager").GetComponent<BountyManager>();
         }
 
         // Update is called once per frame
@@ -325,13 +329,12 @@ namespace FrontPerson.Character
 
             startPos = pos - transform.up * 0.5f;
             endPos = pos + transform.up * 0.5f;
-            //int layerMask = ~(1 << 8); 
-
-            if (Physics.Raycast(pos, -transform.up, out hit, Hitlayer))
+            int layerMask = 1 << 12;
+            if (Physics.Raycast(pos, Vector3.down, out hit, 10.0f, layerMask))
             {
-                return hit.point.y + 1.0f;
+                if (LayerNumber.ENEMY != hit.collider.gameObject.layer)
+                    return hit.point.y + 1.0f;
             }
-
             else
             {
                 //もし下にすり抜けて落ちたら上空に沸く
@@ -455,7 +458,7 @@ namespace FrontPerson.Character
         public void Stun()
         {
             _isStun = true;
-            
+            _bountyManager.PlayerDamage();
         }
 
         /// <summary>

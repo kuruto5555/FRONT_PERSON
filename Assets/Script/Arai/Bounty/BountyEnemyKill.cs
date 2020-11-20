@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using FrontPerson.Constants;
 
 namespace FrontPerson.Bounty
 {
@@ -15,45 +16,49 @@ namespace FrontPerson.Bounty
         /// </summary>
         private int _killCnt = 0;
 
-        public int KillCnt { get { return _killCnt; } }
+        /// <summary>
+        /// 乱数
+        /// </summary>
+        private int rand = 0;
+
+        public int GetKillCnt { get { return _killCnt; } }
 
         // Start is called before the first frame update
         void Start()
         {
             base.Start();
-
-            
+   
             _killCnt = 0;
-            _text = GetComponent<Text>();
+
+            rand = Random.Range(0, 2);
 
             _progressString = _killCnt.ToString();
+
+            _missionName = string.Format(MissionNames, NutrientsColor.Type[(int)rand], Nutrients.Type[(int)rand], KillMax);
         }
 
         // Update is called once per frame
         void Update()
         {
-            _killCnt += _Bmanager.GetNumEnemyDeath(); //今のフレーム死んだ数を数える
+            base.Update();
 
-            LimitTime -= Time.deltaTime;
-
-            //終わったら
-            if (_killCnt > KillMax)
+            if(rand == 0)
             {
-                _isClear = _isFinish = true;
+                _killCnt += _Bmanager.GetNumEnemyDeath().x; //今のフレーム死んだ数を数える
             }
 
-            //制限時間が来たら
-            if(_nowTime < 0)
+            if (rand == 1)
             {
-                _isFinish = true;
+                _killCnt += _Bmanager.GetNumEnemyDeath().y; //今のフレーム死んだ数を数える
             }
-        }
 
-        void Plus()
-        {
-            _killCnt++;
-        }
+            _progressString = _killCnt.ToString();
 
-        
+            //クリア条件
+            if (_killCnt >= KillMax)
+            {
+                MissionClear();
+            }     
+        }
     }
 }

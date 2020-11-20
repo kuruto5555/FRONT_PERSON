@@ -6,11 +6,8 @@ namespace FrontPerson.Enemy.AI
 {
     public class EnemyState_Search : EnemyState_AI
     {
-        private SearchArea searchArea = null;
-
         protected override void OnStart()
         {
-            searchArea = GetComponentInChildren<SearchArea>();
             Owner.SetTarget(null);
         }
 
@@ -38,7 +35,7 @@ namespace FrontPerson.Enemy.AI
 
         protected override void OnChangeState_Yakuza()
         {
-            if (searchArea.IsFound && (!Player.IsInvincible && !Player.IsStun) )
+            if (SearchArea.IsFound && (!Player.IsInvincible && !Player.IsStun) )
             {
                 ChangeState<EnemyState_Close>();
 

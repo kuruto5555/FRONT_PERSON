@@ -21,10 +21,19 @@ namespace FrontPerson.Weapon
         [SerializeField, Range(1, 1000)]
         int power_ = 1;
 
+        [Header("ぶしゃーパーティクル")]
+        [SerializeField]
+        GameObject splashParticle_ = null;
+
         /// <summary>
         /// 生成された位置
         /// </summary>
         Vector3 initPos_;
+
+        /// <summary>
+        /// 前フレームの位置
+        /// </summary>
+        Vector3 prevPos_;
 
         /// <summary>
         /// 弾の威力
@@ -38,7 +47,7 @@ namespace FrontPerson.Weapon
 
         void Start()
         {
-            initPos_ = transform.position;
+            prevPos_ = initPos_ = transform.position;
         }
 
         void Update()
@@ -50,7 +59,7 @@ namespace FrontPerson.Weapon
 
         protected void Move()
         {
-            Vector3 position = transform.position;
+            Vector3 position = prevPos_ = transform.position;
 
             position += transform.forward * speed_ * Time.deltaTime;
 
@@ -66,23 +75,57 @@ namespace FrontPerson.Weapon
         protected virtual void Hit()
         {
             // 破裂エフェクト生成
+            Vector3 start = transform.position - transform.forward * 2f;
+            Vector3 end = transform.position;
+            RaycastHit hit;
+            if (Physics.SphereCast(
+                start, 
+                transform.localScale.x * 0.5f, 
+                transform.forward, 
+                out hit, 
+                (end - start).magnitude, 
+                1 << LayerNumber.ENEMY))
+            {
+                Instantiate(splashParticle_, hit.point, Quaternion.identity);
+                Destroy(gameObject);
+                /* デバック */
+                Debug.DrawLine(start, end, Color.red, 1000f);
+            }
 
 
-            Destroy(gameObject);
         }
 
-        private void OnCollisionEnter(Collision collision)
+
+
+        private void OnTriggerEnter(Collider other)
         {
             Hit();
 
-            switch (collision.gameObject.tag)
+            switch (other.gameObject.tag)
             {
                 case TagName.ENEMY:
                     break;
             }
         }
+
+
+        private void OnDrawGizmos()
+        {
+            Vector3 start = transform.position - transform.forward * 2f;
+            Vector3 end = transform.position;
+            RaycastHit hit;
+            if (Physics.SphereCast(
+                start,
+                transform.localScale.x * 0.5f,
+                transform.forward,
+                out hit,
+                (end - start).magnitude,
+                1 << LayerNumber.ENEMY))
+            {
+                Gizmos.DrawWireSphere(hit.point, transform.localScale.x * 0.5f);
+            }
+            Gizmos.DrawLine(start, end);
+        }
     }
-
-
 };
 

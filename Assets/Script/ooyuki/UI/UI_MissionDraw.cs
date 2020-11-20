@@ -2,16 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using FrontPerson.Bounty;
+using FrontPerson.Manager;
 
 namespace FrontPerson.UI
 {
     public class UI_MissionDraw : MonoBehaviour
     {
-        [Header("バウンティーマネージャー")]
-        [SerializeField]
-        BountyManager bountyManager_ = null;
-
         /// <summary>
         /// ミッション名
         /// </summary>
@@ -47,9 +43,16 @@ namespace FrontPerson.UI
         [SerializeField]
         Image mission3Timer_ = null;
 
+        /// <summary>
+        /// バウンティマネージャー
+        /// </summary>
+        BountyManager bountyManager_ = null;
+
+
 
         void Start()
         {
+            bountyManager_ = BountyManager._instance;
             SetText();
         }
 
@@ -59,13 +62,13 @@ namespace FrontPerson.UI
             SetText();
         }
 
-        float a = 1f;
+
         void SetText()
         {
             // テスト
-            a -= Time.deltaTime;
-            mission1Timer_.fillAmount = a / 1f;
-            if (a <= 0) a = 1f;
+            //a -= Time.deltaTime;
+            //mission1Timer_.fillAmount = a / 1f;
+            //if (a <= 0) a = 1f;
 
 
             Bounty.Bounty bounty1 = bountyManager_.GetBountyList[0];
@@ -74,21 +77,21 @@ namespace FrontPerson.UI
 
             if (bounty1 != null)
             {
-                mission1NameText_.text = bounty1.GetText.text;
+                mission1NameText_.text = bounty1.GetMissionName;
                 mission1ProgressText_.text = bounty1.GetProgressString;
                 mission1Timer_.fillAmount = bounty1.GetNowTime / bounty1.GetLimitTime;
             }
 
             if (bounty2 != null)
             {
-                mission2NameText_.text = bounty2.GetText.text;
+                mission2NameText_.text = bounty2.GetMissionName;
                 mission2ProgressText_.text = bounty2.GetProgressString;
                 mission2Timer_.fillAmount = bounty2.GetNowTime / bounty2.GetLimitTime;
             }
 
             if (bounty3 != null)
             {
-                mission3NameText_.text = bounty3.GetText.text;
+                mission3NameText_.text = bounty3.GetMissionName;
                 mission3ProgressText_.text = bounty3.GetProgressString;
                 mission3Timer_.fillAmount = bounty3.GetNowTime / bounty3.GetLimitTime;
             }

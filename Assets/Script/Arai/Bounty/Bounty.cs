@@ -20,7 +20,9 @@ namespace FrontPerson.Bounty
 
         [Header("表示したい文言")]
         [SerializeField]
-        protected string MissionName;
+        protected string MissionNames;
+
+        protected string _missionName;
 
         
 
@@ -57,20 +59,25 @@ namespace FrontPerson.Bounty
         /// <summary>
         /// ミッションの文言取得
         /// </summary>
-        public Text GetText { get { return _text; } }
+        //public Text GetText { get { return _text; } }
         
+        public string GetMissionName { get{ return _missionName; } }
 
         /// <summary>
         /// 進捗状況文字列取得
         /// </summary>
         public string GetProgressString { get { return _progressString; } }
+
+        /// <summary>
+        /// 進捗状況文字列
+        /// </summary>
         protected string _progressString;
 
 
         /// <summary>
         /// バウンティマネージャー参照
         /// </summary>
-        protected BountyManager _Bmanager = null;
+        protected Manager.BountyManager _Bmanager = null;
 
         /// <summary>
         /// 今の経過時間
@@ -90,26 +97,43 @@ namespace FrontPerson.Bounty
         /// <summary>
         /// ミッションの文言
         /// </summary>
-        protected Text _text = null;
+        //protected Text _text = null;
 
         // Start is called before the first frame update
-        public void Start()
+        protected void Start()
         {
-            _Bmanager = transform.parent.GetComponent<BountyManager>();
+            _Bmanager = transform.parent.GetComponent<Manager.BountyManager>();
             _nowTime = LimitTime;
-            _text = GetComponent<Text>();
-            _text.text = MissionName;
+            //_text = GetComponent<Text>();
+            //_text.text = MissionName;
+            _isClear = _isFinish = false;
         }
 
         // Update is called once per frame
-        void Update()
+        protected void Update()
         {
+            _nowTime -= Time.deltaTime;
 
+            if (_nowTime < 0)
+            {
+                _isFinish = true;
+            }
         }
 
         public void ImDie()
         {
             Destroy(gameObject);
+        }
+
+        protected void MissionClear()
+        {
+            _isClear = _isFinish = true;
+        }
+
+        protected void MissionFailed()
+        {
+            _isClear = false;
+            _isFinish = true;
         }
     }
 }
