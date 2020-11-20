@@ -7,7 +7,7 @@ using FrontPerson.Character;
 namespace FrontPerson.Item
 {
     // コンボ加算アイテム
-    public class ComboAdditionPcikup : MonoBehaviour
+    public class ComboAdditionPickup : MonoBehaviour
     {
         private Pickup pickup_;
 
@@ -22,7 +22,7 @@ namespace FrontPerson.Item
         {
             pickup_.PlayPickupFeedback();
 
-            // コンボ追加
+            // コンボ追加(５追加)
             ScoreManager.Instance.AddComboBonus(5);
         }
     }
