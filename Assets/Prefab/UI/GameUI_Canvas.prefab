@@ -239,6 +239,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 3538857796950533616}
     m_Modifications:
+    - target: {fileID: 1203919612602200919, guid: 41e96f7e4ce681d46be613118529502f,
+        type: 3}
+      propertyPath: m_FontData.m_FontSize
+      value: 80
+      objectReference: {fileID: 0}
     - target: {fileID: 1203919612667063604, guid: 41e96f7e4ce681d46be613118529502f,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -364,6 +369,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 3538857796950533616}
     m_Modifications:
+    - target: {fileID: 8894383626665446925, guid: 1a65dd8a8b6781946b1865bfa30d9c68,
+        type: 3}
+      propertyPath: m_FillClockwise
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8894383626681893876, guid: 1a65dd8a8b6781946b1865bfa30d9c68,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -478,6 +488,16 @@ PrefabInstance:
         type: 3}
       propertyPath: bountyManager_
       value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 8894383626807988050, guid: 1a65dd8a8b6781946b1865bfa30d9c68,
+        type: 3}
+      propertyPath: m_FillClockwise
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8894383627214221384, guid: 1a65dd8a8b6781946b1865bfa30d9c68,
+        type: 3}
+      propertyPath: m_FillClockwise
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1a65dd8a8b6781946b1865bfa30d9c68, type: 3}
