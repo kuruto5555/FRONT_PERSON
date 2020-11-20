@@ -98,7 +98,11 @@ namespace FrontPerson.Manager
                 // 通常の加算
                 case Score.ReasonForAddition.Nomal:
                     {
+                        // 加算スコアにコンボボーナスを追加する
                         add_score += BonusInTheMiddleOfTheCombo();
+
+                        // コンボを1増やす
+                        AddComboBonus(1);
                         break;
                     }
 
@@ -117,10 +121,7 @@ namespace FrontPerson.Manager
                 on_add_score_.Invoke(add_score);
             }
 
-            // コンボを1増やす
-            AddComboBonus(1);
-
-            // タイマーが動いていないのでコルーチンを開始
+            // コンボ持続タイマー開始
             StartCoroutine(TimerDuringComboBonus());
         }
 
@@ -199,7 +200,7 @@ namespace FrontPerson.Manager
         /// <summary>
         /// コンボボーナスの時間を設定
         /// </summary>
-        private void SetComboBonusTimer()
+        public void SetComboBonusTimer()
         {
             ComboBonusTimer = combo_bonus_effect_time_;
         }
