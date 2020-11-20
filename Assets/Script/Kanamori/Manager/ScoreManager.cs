@@ -177,6 +177,9 @@ namespace FrontPerson.Manager
                 // コンボ保険発動中か確認
                 if (ComboInsuranceIsInEffect())
                 {
+                    // タイマー再設定
+                    SetComboBonusTimer();
+                    // もう一度
                     StartCoroutine(TimerDuringComboBonus());
                 }
                 else

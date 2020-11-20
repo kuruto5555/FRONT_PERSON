@@ -2,11 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 using FrontPerson.Manager;
+using FrontPerson.Character;
 
 namespace FrontPerson.Item
 {
     // コンボ加算アイテム
-    public class ComboAdditionPcikup : MonoBehaviour
+    public class ComboAdditionPickup : MonoBehaviour
     {
         private Pickup pickup_;
 
@@ -17,11 +18,11 @@ namespace FrontPerson.Item
             pickup_.onPick += OnPicked;
         }
 
-        private void OnPicked(PlayerInventory inventory)
+        private void OnPicked(Player player)
         {
             pickup_.PlayPickupFeedback();
 
-            // コンボ追加
+            // コンボ追加(５追加)
             ScoreManager.Instance.AddComboBonus(5);
         }
     }
