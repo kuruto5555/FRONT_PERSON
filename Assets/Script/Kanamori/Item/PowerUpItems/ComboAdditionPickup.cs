@@ -24,6 +24,8 @@ namespace FrontPerson.Item
 
             // コンボ追加(５追加)
             ScoreManager.Instance.AddComboBonus(5);
+            // コンボのタイマー再設定
+            ScoreManager.Instance.SetComboBonusTimer();
         }
     }
 }
