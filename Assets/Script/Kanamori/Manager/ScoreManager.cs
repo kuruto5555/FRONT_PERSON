@@ -24,36 +24,57 @@ namespace FrontPerson.Manager
         /// </summary>
         public UnityAction<int> on_add_score_;
 
-        [Tooltip("コンボボーナスの制限時間の設定値")]
+        [Tooltip("コンボボーナスの効果時間")]
         [SerializeField]
-        private float combo_bonus_time_limit_ = 0f;
+        private float combo_bonus_effect_time_ = 5f;
 
-        private float combo_bonus_timer_ = 0f;
+        [Tooltip("フィーバータイムの効果時間")]
+        [SerializeField]
+        private float fever_effect_time_ = 15f;
+
+        [SerializeField]
+        private BountyManager bounty_manager_ = null;
+
         /// <summary>
         /// コンボボーナスの制限時間
         /// </summary>
-        public float ComboBonusTimer
-        {
-            get { return combo_bonus_timer_; }
-        }
+        public float ComboBonusTimer { get; private set; } = 0f;
 
-        // コンボボーナスと時間ボーナスは仕様が分からないので、決まってから作ります。
-        // コンボ数いくつからどれだけの倍率なのか？
-        // 時間ボーナスについてはクリア時間なのか、それ以外なのか, 倍率はどうなのか
         /// <summary>
         /// コンボボーナス
         /// </summary>
-        private int combo_bonus_ = 0;
-
-        /// <summary>
-        /// 時間ボーナス
-        /// </summary>
-        private float time_bonus_ = 0f;
+        public int ComboBonus { get; private set; } = 0;
 
         /// <summary>
         /// コンボ保険中かどうか
         /// </summary>
-        public bool is_combo_insurance_ = false;
+        public bool IsComboInsurance { get; private set; } = false;
+        /// <summary>
+        /// コンボ保険を発動する
+        /// </summary>
+        public void ActiveComboInsurance() => IsComboInsurance = true;
+
+        /// <summary>
+        /// フィーバー中かどうか
+        /// </summary>
+        public bool IsFever { get; private set; }
+        /// <summary>
+        /// フィーバー中のタイマー
+        /// </summary>
+        public float FeverTimer { get; private set; }
+        /// <summary>
+        /// フィーバータイムを発動する
+        /// </summary>
+        public void ActiveFeverTime() => StartCoroutine(FeverTime());
+
+        private void Update()
+        {
+            if(bounty_manager_ != null)
+            {
+                // バウンティマネージャーに現在のコンボ数を伝える
+                bounty_manager_.SetNowCombo(ComboBonus);
+            }
+        }
 
         /// <summary>
         /// スコアを加算、減算
@@ -80,7 +101,7 @@ namespace FrontPerson.Manager
 
         public void AddComboBonus(int combo)
         {
-            combo_bonus_ += combo;
+            ComboBonus += combo;
         }
 
         /// <summary>
@@ -89,7 +110,7 @@ namespace FrontPerson.Manager
         public void LostComboBonus()
         {
             // コンボボーナスが無かったら返す
-            if(combo_bonus_ == 0)
+            if(ComboBonus == 0)
             {
                 return;
             }
@@ -103,7 +124,7 @@ namespace FrontPerson.Manager
             // 途切れた際のコンボ数でボーナススコア加算
 //            ComboBreakBonus();
 
-            combo_bonus_ = 0;
+            ComboBonus = 0;
         }
 
         /// <summary>
@@ -114,24 +135,30 @@ namespace FrontPerson.Manager
         private IEnumerator TimerDuringComboBonus()
         {
             // タイマーが動いているかどうか
-            if (combo_bonus_timer_ <= 0)
+            if (ComboBonusTimer <= 0)
             {
                 // コンボの制限時間を設定
                 SetComboBonusTimer();
 
                 // コンボが続かず制限時間がきれたら抜ける
-                while (0 < combo_bonus_timer_)
+                while (0 < ComboBonusTimer)
                 {
                     yield return null;
 
                     // 毎フレームタイマーを減らす
-                    combo_bonus_timer_ -= Time.deltaTime;
-
-                    // コンボ中の時間ボーナスを入れておく
-                    time_bonus_ += Time.deltaTime;
+                    ComboBonusTimer -= Time.deltaTime;
                 }
-                // コンボが続かなかったのでコンボボーナスを消す
-                LostComboBonus();
+
+                // コンボ保険発動中か確認
+                if (ComboInsuranceIsInEffect())
+                {
+                    StartCoroutine(TimerDuringComboBonus());
+                }
+                else
+                {
+                    // コンボが続かなかったのでコンボボーナスを消す
+                    LostComboBonus();
+                }
             }
             else
             {
@@ -145,7 +172,7 @@ namespace FrontPerson.Manager
         /// </summary>
         private void SetComboBonusTimer()
         {
-            combo_bonus_timer_ = combo_bonus_time_limit_;
+            ComboBonusTimer = combo_bonus_effect_time_;
         }
 
         /// <summary>
@@ -154,13 +181,13 @@ namespace FrontPerson.Manager
         /// <returns></returns>
         private int BonusInTheMiddleOfTheCombo()
         {
-            if(combo_bonus_ == 0)
+            if(ComboBonus == 0)
             {
                 return 0;
             }
 
             // 計算式：(100 ÷ 前回のコンボ途中ボーナスからかかった時間) × コンボ数
-            return (int)(100 / (combo_bonus_time_limit_ - combo_bonus_timer_) / 60 * combo_bonus_);
+            return (int)(100 / (combo_bonus_effect_time_ - ComboBonusTimer) / 60 * ComboBonus);
         }
 
         /// <summary>
@@ -181,13 +208,45 @@ namespace FrontPerson.Manager
         /// <returns></returns>
         private bool ComboInsuranceIsInEffect()
         {
-            if (is_combo_insurance_)
+            // 保険発動中は保険を使ってコンボを持続
+            if (IsComboInsurance)
             {
-                is_combo_insurance_ = false;
+                IsComboInsurance = false;
                 return true;
             }
 
             return false;
         }
+
+        /// <summary>
+        /// フィーバータイム発動
+        /// </summary>
+        /// <returns></returns>
+        private IEnumerator FeverTime()
+        {
+            // フィーバー中かどうか
+            if (FeverTimer <= 0)
+            {
+                // フィーバーの時間を設定する
+                FeverTimer = fever_effect_time_;
+
+                // フィーバーが終了するまで更新する
+                while(0 < FeverTimer)
+                {
+                    yield return null;
+
+                    FeverTimer -= Time.deltaTime;
+                }
+                // フィーバーを終了する
+                IsFever = false;
+
+            }
+            else
+            {
+                // フィーバー中なので時間を更新する
+                FeverTimer = fever_effect_time_;
+            }
+        }
+
     }
 }
