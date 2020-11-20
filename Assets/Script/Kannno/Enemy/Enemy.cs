@@ -138,15 +138,15 @@ namespace FrontPerson.Character
                 switch (Type)
                 {
                     case EnemyType.ORDINATY_PEOPLE:
-                        score_manager.AddScore((int)EnemyScore.ORDINATY_PEOPLE);
+                        score_manager.AddScore((int)EnemyScore.ORDINATY_PEOPLE, Score.ReasonForAddition.Nomal);
                         break;
 
                     case EnemyType.OLD_BATTLEAXE:
-                        score_manager.AddScore((int)EnemyScore.OLD_BATTLEAXE);
+                        score_manager.AddScore((int)EnemyScore.OLD_BATTLEAXE, Score.ReasonForAddition.Nomal);
                         break;
 
                     case EnemyType.YAKUZA:
-                        score_manager.AddScore((int)EnemyScore.YAKUZA);
+                        score_manager.AddScore((int)EnemyScore.YAKUZA, Score.ReasonForAddition.Nomal);
                         break;
 
                     default:
