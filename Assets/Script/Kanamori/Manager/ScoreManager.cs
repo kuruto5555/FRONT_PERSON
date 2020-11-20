@@ -51,6 +51,11 @@ namespace FrontPerson.Manager
         private float time_bonus_ = 0f;
 
         /// <summary>
+        /// コンボ保険中かどうか
+        /// </summary>
+        public bool is_combo_insurance_ = false;
+
+        /// <summary>
         /// スコアを加算、減算
         /// </summary>
         /// <param name="score"></param>
@@ -66,15 +71,16 @@ namespace FrontPerson.Manager
                 on_add_score_.Invoke(add_score);
             }
 
-            AddComboBonus();
+            // コンボを1増やす
+            AddComboBonus(1);
 
             // タイマーが動いていないのでコルーチンを開始
             StartCoroutine(TimerDuringComboBonus());
         }
 
-        public void AddComboBonus()
+        public void AddComboBonus(int combo)
         {
-            combo_bonus_++;
+            combo_bonus_ += combo;
         }
 
         /// <summary>
@@ -87,10 +93,17 @@ namespace FrontPerson.Manager
             {
                 return;
             }
-            combo_bonus_ = 0;
+
+            // コンボ保険中だったら返す
+            if (ComboInsuranceIsInEffect())
+            {
+                return;
+            }
 
             // 途切れた際のコンボ数でボーナススコア加算
-            
+//            ComboBreakBonus();
+
+            combo_bonus_ = 0;
         }
 
         /// <summary>
@@ -117,7 +130,6 @@ namespace FrontPerson.Manager
                     // コンボ中の時間ボーナスを入れておく
                     time_bonus_ += Time.deltaTime;
                 }
-
                 // コンボが続かなかったのでコンボボーナスを消す
                 LostComboBonus();
             }
@@ -155,11 +167,27 @@ namespace FrontPerson.Manager
         /// コンボ途切れボーナス
         /// </summary>
         /// <returns></returns>
-//        private int ComboBreakBonus()
-//        {
-//            return 50 * combo_bonus_ * ((2 - 一般市民の出現確率) * コンボ中に健康にした一般市民の数)
-//                * ((2 - ヤクザの出現確率) * コンボ中に健康にしたヤクザの数)
-//                * ((2 - おばちゃんの出現確率) * コンボ中に健康にしたおばちゃんの数);
-//        }
+        //        private int ComboBreakBonus()
+        //        {
+        //            return 50 * combo_bonus_ * ((2 - 一般市民の出現確率) * コンボ中に健康にした一般市民の数)
+        //                * ((2 - ヤクザの出現確率) * コンボ中に健康にしたヤクザの数)
+        //                * ((2 - おばちゃんの出現確率) * コンボ中に健康にしたおばちゃんの数);
+        //        }
+
+
+        /// <summary>
+        /// コンボ保険発動中かどうか
+        /// </summary>
+        /// <returns></returns>
+        private bool ComboInsuranceIsInEffect()
+        {
+            if (is_combo_insurance_)
+            {
+                is_combo_insurance_ = false;
+                return true;
+            }
+
+            return false;
+        }
     }
 }
