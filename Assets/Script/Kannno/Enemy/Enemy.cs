@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
+using FrontPerson.Weapon;
 using FrontPerson.Constants;
 using FrontPerson.Enemy;
 using FrontPerson.Enemy.AI;
@@ -183,6 +184,8 @@ namespace FrontPerson.Character
         /// </summary>
         protected abstract void OnStart();
         protected abstract void OnUpdate();
+
+        public abstract void HitBullet(Bullet bullet);
 
         ///// <summary>
         ///// 仮想関数

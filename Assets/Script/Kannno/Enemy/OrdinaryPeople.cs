@@ -19,24 +19,41 @@ namespace FrontPerson.Enemy
         {
         }
 
-        void OnCollisionEnter(Collision collision)
+        //void OnTriggerEnter(Collider collider)
+        //{
+        //    if (Constants.TagName.BULLET == collider.tag)
+        //    {
+        //        Bullet bullet = collider.gameObject.GetComponent<Bullet>();
+
+        //        if (lack_vitamins == bullet.BulletType)
+        //        {
+        //            AddVitamins(bullet.Power);
+
+        //            if (insufficiency <= 0)
+        //            {
+        //                SetDestroy();
+
+        //                var manager = GameObject.FindGameObjectWithTag(Constants.TagName.BOUNTY_MANAGER).GetComponent<BountyManager>();
+
+        //                manager.EnemyDeath((int)lack_vitamins);
+        //            }
+        //        }
+        //    }
+        //}
+
+        public override void HitBullet(Bullet bullet)
         {
-            if (Constants.TagName.BULLET == collision.gameObject.tag)
+            if (lack_vitamins == bullet.BulletType)
             {
-                Bullet bullet = collision.gameObject.GetComponent<Bullet>();
+                AddVitamins(bullet.Power);
 
-                if (lack_vitamins == bullet.BulletType)
+                if (insufficiency <= 0)
                 {
-                    AddVitamins(bullet.Power);
+                    SetDestroy();
 
-                    if (insufficiency <= 0)
-                    {
-                        SetDestroy();
+                    var manager = GameObject.FindGameObjectWithTag(Constants.TagName.BOUNTY_MANAGER).GetComponent<BountyManager>();
 
-                        var manager = GameObject.FindGameObjectWithTag(Constants.TagName.BOUNTY_MANAGER).GetComponent<BountyManager>();
-
-                        manager.EnemyDeath((int)lack_vitamins);
-                    }
+                    manager.EnemyDeath((int)lack_vitamins);
                 }
             }
         }

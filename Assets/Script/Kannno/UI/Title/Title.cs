@@ -21,16 +21,21 @@ namespace FrontPerson
         [SerializeField]
         private Button ExitButton = null;
 
+        [Header("フェイドの時間")]
+        [SerializeField]
+        private float FadeTime = 0f;
+
         void Start()
         {
 #if UNITY_EDITOR
             if (null == StartButton || null == OptionButton || null == ExitButton)
             {
                 Debug.LogError("Buttonオブジェクトが設定されていません");
+                return;
             }
 #endif
 
-            StartButton.onClick.AddListener( () => { SceneManager.Instance.SceneChange("GameScene", 1.0f); });
+            StartButton.onClick.AddListener( () => { SceneManager.Instance.SceneChange("GameScene", FadeTime); });
 
             OptionButton.onClick.AddListener(() => { return; });
 
