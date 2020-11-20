@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using FrontPerson.Manager;
+using FrontPerson.Character;
 
 namespace FrontPerson.Item
 {
@@ -17,7 +18,7 @@ namespace FrontPerson.Item
             pickup_.onPick += OnPicked;
         }
 
-        private void OnPicked(GameObject obj)
+        private void OnPicked(Player player)
         {
             pickup_.PlayPickupFeedback();
 

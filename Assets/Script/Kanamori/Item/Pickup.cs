@@ -28,7 +28,7 @@ namespace FrontPerson.Item
         /// <summary>
         /// 拾った際のイベント
         /// </summary>
-        public UnityAction<GameObject> onPick;
+        public UnityAction<Player> onPick;
 
         private Transform transform_;
 
@@ -53,13 +53,13 @@ namespace FrontPerson.Item
 
         private void OnTriggerEnter(Collider other)
         {
-            GameObject obj = other.gameObject;
+            Player player = other.GetComponent<Player>();
 
-            if (obj != null)
+            if (player != null)
             {
                 if(onPick != null)
                 {
-                    onPick.Invoke(obj);
+                    onPick.Invoke(player);
 
                     Destroyed();
                 }
