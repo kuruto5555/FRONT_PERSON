@@ -35,7 +35,8 @@ namespace FrontPerson.Item
             {
                 if(UnityEngine.Random.Range(1, 100) <= item.probability_of_dropping_item_)
                 {
-                    Instantiate(item.item_prefab_, transform.position, transform.rotation);
+                    var obj = Instantiate(item.item_prefab_, transform.position, transform.rotation);
+                    obj.AddComponent<PickupDeadline>();
                 }
             }
         }
