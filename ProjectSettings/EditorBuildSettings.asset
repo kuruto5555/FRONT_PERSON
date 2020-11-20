@@ -8,4 +8,13 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/WorkScene/Kanamori/Kanamori.unity
     guid: b5ad2d25c85843a4c8d380e335f34978
+  - enabled: 1
+    path: Assets/Scenes/TitleScene.unity
+    guid: f381d4763321d1342bbaeef0ea17e0c6
+  - enabled: 1
+    path: Assets/Scenes/ResultScene.unity
+    guid: e5573fb056909aa499ada7f81d53dc39
+  - enabled: 1
+    path: Assets/Scenes/GameScene.unity
+    guid: 2669d16751e43a9408fa08a9053b55be
   m_configObjects: {}

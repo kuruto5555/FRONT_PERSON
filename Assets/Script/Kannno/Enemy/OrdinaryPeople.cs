@@ -33,7 +33,7 @@ namespace FrontPerson.Enemy
                     {
                         SetDestroy();
 
-                        var manager = FindObjectOfType<BountyManager>();
+                        var manager = GameObject.FindGameObjectWithTag(Constants.TagName.BOUNTY_MANAGER).GetComponent<BountyManager>();
 
                         manager.EnemyDeath((int)lack_vitamins);
                     }

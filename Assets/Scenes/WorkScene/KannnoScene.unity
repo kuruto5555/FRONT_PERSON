@@ -724,7 +724,7 @@ GameObject:
   - component: {fileID: 407041447}
   - component: {fileID: 407041446}
   - component: {fileID: 407041445}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Plane
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -929,7 +929,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e4591b91a4f0db34a930c3decb6aba0b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bullet_: {fileID: 1551079489250813037, guid: 94afe778bd787474884a62020e529c7a, type: 3}
+  bullet_: {fileID: 8050350029783306595, guid: 9ca50a722de9a8647a036dc96d8188f1, type: 3}
   hole_: {fileID: 407611193}
   rate_: 0.3
   MaxAmmo_: 15
@@ -1066,6 +1066,11 @@ PrefabInstance:
     - target: {fileID: 1320749166092626204, guid: ad254301988cda34d802bd0a165ee76d,
         type: 3}
       propertyPath: m_Name
+      value: BountyManager
+      objectReference: {fileID: 0}
+    - target: {fileID: 1320749166092626204, guid: ad254301988cda34d802bd0a165ee76d,
+        type: 3}
+      propertyPath: m_TagString
       value: BountyManager
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -3010,7 +3015,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   L_BulletNumGauge_: {fileID: 689127292}
   R_BulletNumGauge_: {fileID: 277440772}
-  player_: {fileID: 1161988900}
 --- !u!1001 &1844036441
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3452,6 +3456,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8015493918751984734, guid: 2d8b76e7ce591474d86d0d2bf8e36e09,
+        type: 3}
+      propertyPath: m_Layer
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2d8b76e7ce591474d86d0d2bf8e36e09, type: 3}
