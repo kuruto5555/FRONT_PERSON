@@ -22,7 +22,7 @@ namespace FrontPerson.Item
         {
             pickup_.PlayPickupFeedback();
 
-            Manager.ScoreManager.Instance.is_combo_insurance_ = true;
+            Manager.ScoreManager.Instance.ActiveComboInsurance();
         }
     }
 }
