@@ -32,7 +32,7 @@ namespace FrontPerson.Bounty
 
             if (!_isComboStart)
             {
-                if (nowCombo > 1) _isComboStart = true;
+                if (nowCombo >= 1) _isComboStart = true;
                 //if(GetLimitTime < GetNowTime) _isClear = _isFinish = true;
                 _nowTime = LimitTime; //コンボが始まるまでカウントダウンを止めておく
             }
@@ -40,10 +40,12 @@ namespace FrontPerson.Bounty
             {
                 _progressString = "残り " + _nowTime.ToString("00") + "秒";
 
-                if (GetLimitTime < GetNowTime) MissionClear();
+                if (0 > GetNowTime) 
+                    MissionClear();
 
                 //コンボが初期化されたら失敗
-                if (nowCombo == 0) MissionFailed(); ;
+                if (nowCombo == 0) 
+                    MissionFailed();
                 
             }
         }
