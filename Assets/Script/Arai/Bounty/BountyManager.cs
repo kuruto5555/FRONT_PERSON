@@ -64,6 +64,7 @@ namespace FrontPerson.Manager
             if(_instance == null) _instance = this;
 
             MissionList = new List<Bounty.Bounty>();
+            _missionNum = MissionPrefabList.Count;
             for (int i = 0; i < ACTIV_MISSION; i++)
             {
                 MissionList.Add(Instantiate(MissionPrefabList[Random.Range(0, _missionNum)].GetComponent<Bounty.Bounty>(), transform)) ;
@@ -74,7 +75,7 @@ namespace FrontPerson.Manager
         void Start()
         {
             _isPlayerDamage = false;
-            _missionNum = MissionPrefabList.Count;
+            
             _missionCnt = 0;
             _nowCombo = 0;
             _fireCount = 0;
