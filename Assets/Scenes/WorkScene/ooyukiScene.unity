@@ -4703,13 +4703,33 @@ PrefabInstance:
     - target: {fileID: 3538857796950533620, guid: 4ac8071099f43f6428587e37f24d8295,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3538857796950533623, guid: 4ac8071099f43f6428587e37f24d8295,
         type: 3}
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 1392440822381112865}
+    - target: {fileID: 3538857798238175368, guid: 4ac8071099f43f6428587e37f24d8295,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 3538857798238175368, guid: 4ac8071099f43f6428587e37f24d8295,
+        type: 3}
+      propertyPath: m_Type
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 3538857798238175368, guid: 4ac8071099f43f6428587e37f24d8295,
+        type: 3}
+      propertyPath: m_FillAmount
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3538857798238175368, guid: 4ac8071099f43f6428587e37f24d8295,
+        type: 3}
+      propertyPath: m_FillMethod
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7186785357300204005, guid: 4ac8071099f43f6428587e37f24d8295,
         type: 3}
       propertyPath: m_RootOrder
@@ -4796,7 +4816,12 @@ PrefabInstance:
     - target: {fileID: 8538347892801639596, guid: d6230c432fce9334c83ab85b8cff9c24,
         type: 3}
       propertyPath: m_Name
-      value: ResultUICanvas
+      value: ResultUI_Canvas
+      objectReference: {fileID: 0}
+    - target: {fileID: 8538347892801639596, guid: d6230c432fce9334c83ab85b8cff9c24,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8538347892801639600, guid: d6230c432fce9334c83ab85b8cff9c24,
         type: 3}
