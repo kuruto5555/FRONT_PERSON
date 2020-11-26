@@ -233,6 +233,9 @@ MonoBehaviour:
   - {fileID: 623765245}
   Yakuza_MovePatternList:
   - {fileID: 1677415358}
+  MaxCnt_OrdinaryPeople: 0
+  MaxCnt_OldBattleaxe: 0
+  MaxCnt_Yakuza: 0
   time: 2
 --- !u!4 &39720042
 Transform:
@@ -970,6 +973,86 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MovePattern: {fileID: 623765245}
+--- !u!1001 &1062460068
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 1339486384741249159, guid: 3be85688237ca0c489cc6b224031e13d,
+        type: 3}
+      propertyPath: WeaponPrefabList.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1339486384741249159, guid: 3be85688237ca0c489cc6b224031e13d,
+        type: 3}
+      propertyPath: WeaponPrefabList.Array.data[1]
+      value: 
+      objectReference: {fileID: 7642996295017587265, guid: a7be1da14e9555c4a8ab3895262aced6,
+        type: 3}
+    - target: {fileID: 1339486384741249176, guid: 3be85688237ca0c489cc6b224031e13d,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 450.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1339486384741249176, guid: 3be85688237ca0c489cc6b224031e13d,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 37.54168
+      objectReference: {fileID: 0}
+    - target: {fileID: 1339486384741249176, guid: 3be85688237ca0c489cc6b224031e13d,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1339486384741249176, guid: 3be85688237ca0c489cc6b224031e13d,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1339486384741249176, guid: 3be85688237ca0c489cc6b224031e13d,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1339486384741249176, guid: 3be85688237ca0c489cc6b224031e13d,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1339486384741249176, guid: 3be85688237ca0c489cc6b224031e13d,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1339486384741249176, guid: 3be85688237ca0c489cc6b224031e13d,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 1339486384741249176, guid: 3be85688237ca0c489cc6b224031e13d,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1339486384741249176, guid: 3be85688237ca0c489cc6b224031e13d,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1339486384741249176, guid: 3be85688237ca0c489cc6b224031e13d,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1339486384741249177, guid: 3be85688237ca0c489cc6b224031e13d,
+        type: 3}
+      propertyPath: m_Name
+      value: WeaponManager
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 3be85688237ca0c489cc6b224031e13d, type: 3}
 --- !u!1001 &1125169420
 PrefabInstance:
   m_ObjectHideFlags: 0
