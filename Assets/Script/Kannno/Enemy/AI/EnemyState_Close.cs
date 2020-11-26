@@ -49,8 +49,6 @@ namespace FrontPerson.Enemy.AI
             {
                 ChangeState<EnemyState_Move>();
 
-                //Owner.state_AI.Load_MovePoint(MoveIndex, MovetList);
-
                 return;
             }
         }
@@ -67,8 +65,6 @@ namespace FrontPerson.Enemy.AI
             if (Player.IsStun || Player.IsInvincible)
             {
                 ChangeState<EnemyState_Search>();
-
-                //Owner.state_AI.Load_MovePoint(MoveIndex, MovetList);
 
                 return;
             }
