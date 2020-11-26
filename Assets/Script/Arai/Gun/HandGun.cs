@@ -11,6 +11,7 @@ namespace FrontPerson.Weapon
         void Start()
         {
             base.Start();
+            _type = Constants.WEAPON_TYPE.HANDGUN;
         }
 
         // Update is called once per frame

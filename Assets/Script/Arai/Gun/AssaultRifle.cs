@@ -10,6 +10,7 @@ namespace FrontPerson.Weapon
         void Start()
         {
             base.Start();
+            _type = Constants.WEAPON_TYPE.ASSAULT_RIFLE;
         }
 
         // Update is called once per frame
