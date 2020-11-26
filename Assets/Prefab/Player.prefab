@@ -1,5 +1,35 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &2029824461233148823
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2029824461233148822}
+  m_Layer: 0
+  m_Name: Hole
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2029824461233148822
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2029824461233148823}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0.4}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4960959425155860063}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &3400952845557951419
 GameObject:
   m_ObjectHideFlags: 0
@@ -85,8 +115,8 @@ MonoBehaviour:
   invincibleTime: 1
   rotationSpeed_: 6
   limitVerticalAngle: 89
-  gunR_: {fileID: 4960959426141221362}
-  gunL_: {fileID: 4960959425155860062}
+  gunR_: {fileID: 6806695792446760015}
+  gunL_: {fileID: 6806695794470986069}
   searchArea: {fileID: 4960959426141481895}
 --- !u!1 &3400952847268517105
 GameObject:
@@ -278,36 +308,6 @@ MonoBehaviour:
       data1: 0
       data2: 0
   defaultFrameSettings: 0
---- !u!1 &4782083200112248717
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 4782083200112248716}
-  m_Layer: 0
-  m_Name: Hole
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &4782083200112248716
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4782083200112248717}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0.4}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 4960959425155860063}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &4960959425155860060
 GameObject:
   m_ObjectHideFlags: 0
@@ -319,7 +319,7 @@ GameObject:
   - component: {fileID: 4960959425155860063}
   - component: {fileID: 4960959425155860048}
   - component: {fileID: 4960959425155860049}
-  - component: {fileID: 4960959425155860062}
+  - component: {fileID: 6806695794470986069}
   m_Layer: 0
   m_Name: GunL
   m_TagString: Gun
@@ -338,7 +338,7 @@ Transform:
   m_LocalPosition: {x: -0.5, y: -0.5, z: 0.5}
   m_LocalScale: {x: 0.2, y: 0.2, z: 1}
   m_Children:
-  - {fileID: 4782083200112248716}
+  - {fileID: 2029824461233148822}
   m_Father: {fileID: 3400952847268517110}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -389,7 +389,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!114 &4960959425155860062
+--- !u!114 &6806695794470986069
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -398,13 +398,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 4960959425155860060}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e4591b91a4f0db34a930c3decb6aba0b, type: 3}
+  m_Script: {fileID: 11500000, guid: e317135de390d3d4ebc32cc546b1f323, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   bullet_: {fileID: 1171001628440052897, guid: 60fc4f91e0d89c0459e0443e10a1a739, type: 3}
-  hole_: {fileID: 4782083200112248717}
-  rate_: 0.3
-  MaxAmmo_: 10
+  hole_: {fileID: 2029824461233148823}
+  rate_: 0.1
+  MaxAmmo_: 200
 --- !u!1 &4960959426141221360
 GameObject:
   m_ObjectHideFlags: 0
@@ -416,7 +416,7 @@ GameObject:
   - component: {fileID: 4960959426141221363}
   - component: {fileID: 4960959426141221364}
   - component: {fileID: 4960959426141221365}
-  - component: {fileID: 4960959426141221362}
+  - component: {fileID: 6806695792446760015}
   m_Layer: 0
   m_Name: GunR
   m_TagString: Gun
@@ -486,7 +486,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!114 &4960959426141221362
+--- !u!114 &6806695792446760015
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -495,13 +495,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 4960959426141221360}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e4591b91a4f0db34a930c3decb6aba0b, type: 3}
+  m_Script: {fileID: 11500000, guid: e317135de390d3d4ebc32cc546b1f323, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   bullet_: {fileID: 8050350029783306595, guid: 9ca50a722de9a8647a036dc96d8188f1, type: 3}
   hole_: {fileID: 5622099365905741376}
-  rate_: 0.3
-  MaxAmmo_: 10
+  rate_: 0.1
+  MaxAmmo_: 200
 --- !u!1 &4960959426141481893
 GameObject:
   m_ObjectHideFlags: 0
