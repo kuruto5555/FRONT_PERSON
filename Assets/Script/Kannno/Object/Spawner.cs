@@ -52,7 +52,7 @@ namespace FrontPerson.Enemy
             current_time = Time.timeSinceLevelLoad;
 
             ProbabilityList = new List<float> { Probability_OrdinaryPeople, Probability_OldBattleaxe, Probability_Yakuza };
-            ProbabilityList.Sort();
+            ProbabilityList.Sort((a, b) => a.CompareTo(b));
 
             Spawn();
         }
@@ -83,27 +83,69 @@ namespace FrontPerson.Enemy
         {
             float rand = Random.value;
 
-            foreach(var probability in ProbabilityList)
+            float probability_min = ProbabilityList[0];
+            float probability_middle = ProbabilityList[1];
+            float probability_max = ProbabilityList[2];
+
+            if (probability_min >= rand)
             {
-                if(probability >= rand)
+                if (probability_min == Probability_OrdinaryPeople)
                 {
-                    if (probability == Probability_OrdinaryPeople)
-                    {
-                        Create_OrdinaryPeople();
-                        return;
-                    }
+                    Create_OrdinaryPeople();
+                    return;
+                }
 
-                    if (probability == Probability_OldBattleaxe)
-                    {
-                        Create_OldBattleaxe();
-                        return;
-                    }
+                if (probability_min == Probability_OldBattleaxe)
+                {
+                    Create_OldBattleaxe();
+                    return;
+                }
 
-                    if (probability == Probability_Yakuza)
-                    {
-                        Create_Yakuza();
-                        return;
-                    }
+                if (probability_min == Probability_Yakuza)
+                {
+                    Create_Yakuza();
+                    return;
+                }
+            }
+
+            if (probability_middle >= rand)
+            {
+                if (probability_middle == Probability_OrdinaryPeople)
+                {
+                    Create_OrdinaryPeople();
+                    return;
+                }
+
+                if (probability_middle == Probability_OldBattleaxe)
+                {
+                    Create_OldBattleaxe();
+                    return;
+                }
+
+                if (probability_middle == Probability_Yakuza)
+                {
+                    Create_Yakuza();
+                    return;
+                }
+            }
+
+            {
+                if (probability_max == Probability_OrdinaryPeople)
+                {
+                    Create_OrdinaryPeople();
+                    return;
+                }
+
+                if (probability_max == Probability_OldBattleaxe)
+                {
+                    Create_OldBattleaxe();
+                    return;
+                }
+
+                if (probability_max == Probability_Yakuza)
+                {
+                    Create_Yakuza();
+                    return;
                 }
             }
         }
