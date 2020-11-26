@@ -695,6 +695,12 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 210541439}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &215815998 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5622099365905741376, guid: 34dc7089d86a38047a11c22287ec03bc,
+    type: 3}
+  m_PrefabInstance: {fileID: 4782083199122450783}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &272990604
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1441,6 +1447,12 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 575331666}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &611198318 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2029824461233148823, guid: 34dc7089d86a38047a11c22287ec03bc,
+    type: 3}
+  m_PrefabInstance: {fileID: 4782083199122450783}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &648891418 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1763975586070396325, guid: 11723c6fff067504f8803ddbe9eb62b2,
@@ -4838,6 +4850,36 @@ PrefabInstance:
         type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6806695792446760015, guid: 34dc7089d86a38047a11c22287ec03bc,
+        type: 3}
+      propertyPath: Muzzle
+      value: 
+      objectReference: {fileID: 215815998}
+    - target: {fileID: 6806695792446760015, guid: 34dc7089d86a38047a11c22287ec03bc,
+        type: 3}
+      propertyPath: rate_
+      value: 1.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6806695792446760015, guid: 34dc7089d86a38047a11c22287ec03bc,
+        type: 3}
+      propertyPath: MaxAmmo_
+      value: 25
+      objectReference: {fileID: 0}
+    - target: {fileID: 6806695794470986069, guid: 34dc7089d86a38047a11c22287ec03bc,
+        type: 3}
+      propertyPath: Muzzle
+      value: 
+      objectReference: {fileID: 611198318}
+    - target: {fileID: 6806695794470986069, guid: 34dc7089d86a38047a11c22287ec03bc,
+        type: 3}
+      propertyPath: rate_
+      value: 1.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6806695794470986069, guid: 34dc7089d86a38047a11c22287ec03bc,
+        type: 3}
+      propertyPath: MaxAmmo_
+      value: 25
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 34dc7089d86a38047a11c22287ec03bc, type: 3}
