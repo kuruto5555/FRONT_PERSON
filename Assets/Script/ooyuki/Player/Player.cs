@@ -9,6 +9,8 @@ namespace FrontPerson.Character
 {
     public class Player : MonoBehaviour
     {
+        [SerializeField] GameObject DebugWepon = null;
+
         [Header("歩き速度")]
         [SerializeField, Range(0.1f, 10.0f)]
         float walkSpeed_ = 5.0f;
@@ -52,6 +54,11 @@ namespace FrontPerson.Character
         Skill.SearchArea searchArea = null;
 
         /// <summary>
+        /// スペシャル武器
+        /// </summary>
+        Weapon.Gun Weapon = null;
+
+        /// <summary>
         /// カメラのトランスフォーム
         /// </summary>
         Transform cameraTransform_ = null;
@@ -89,7 +96,17 @@ namespace FrontPerson.Character
         /// <summary>
         /// スペシャルウェポンを持っているか
         /// </summary>
-        bool _isSpecialWeapon = false;
+        //bool _isSpecialWeapon = false;
+
+        /// <summary>
+        /// 右指トリガー
+        /// </summary>
+        bool _isFireRHand = false;
+
+        /// <summary>
+        /// 左指トリガー
+        /// </summary>
+        bool _isFireLHand = false;
 
         /// <summary>
         /// ジャンプの余力
@@ -125,6 +142,8 @@ namespace FrontPerson.Character
         /// バウンティマネージャー
         /// </summary>
         private BountyManager _bountyManager = null;
+
+        private SpecialWeaponManager _weponManager = null;
 
 
         /*---- プロパティ ----*/
@@ -188,8 +207,14 @@ namespace FrontPerson.Character
         /// </summary>
         public bool IsInvincible { get { return _isInvincible; } }
 
-        public bool IsSpecialWeapon { get { return _isSpecialWeapon; } }
+        /// <summary>
+        /// スペシャル武器を持っているかどうか
+        /// </summary>
+        public bool IsSpecialWeapon { get { return Weapon != null; } }
 
+        public bool IsLeftTrigger { get { return _isFireLHand; } }
+
+        public bool IsRightTrigger { get { return _isFireRHand; } }
 
         // Start is called before the first frame update
         void Start()
@@ -203,12 +228,16 @@ namespace FrontPerson.Character
             //初期角度を取得して置く
             _xAxiz = cameraTransform_.localEulerAngles;
 
-            _bountyManager = GameObject.FindGameObjectWithTag("BountyManager").GetComponent<BountyManager>();
+            _bountyManager = BountyManager._instance;
+
+            _weponManager = SpecialWeaponManager._instance;
         }
 
         // Update is called once per frame
         void Update()
         {
+            _isFireLHand = _isFireRHand = false;
+
             if (_isStun)
             {
                 StunStatus();
@@ -216,7 +245,7 @@ namespace FrontPerson.Character
                 return;
             }
 
-            if (Input.GetKeyDown(KeyCode.J)) Stun();
+            if (Input.GetKeyDown(KeyCode.J)) Stun(); //デバッグ
 
             position_ = transform.position;
 
@@ -227,6 +256,7 @@ namespace FrontPerson.Character
             Move();
             Shot();
             Jump();
+            
 
             transform.position = position_;
         }
@@ -364,12 +394,32 @@ namespace FrontPerson.Character
 
             if (Input.GetKey(KeyCode.Mouse0))
             {
-                gunL_.Shot();
+                if (IsSpecialWeapon)
+                {
+                    _isFireLHand = true;
+                }
+                else
+                {
+                    gunL_.Shot();
+                }
             }
 
             if (Input.GetKey(KeyCode.Mouse1))
             {
-                gunR_.Shot();
+                if (IsSpecialWeapon)
+                {
+                    _isFireRHand = true;
+                }
+                else
+                {
+                    gunR_.Shot();
+                }            
+            }
+
+            //二重でshotを呼ばない為にフラグを使う
+            if (_isFireLHand || _isFireRHand)
+            {
+                Weapon.Shot();
             }
         }
 
@@ -396,6 +446,7 @@ namespace FrontPerson.Character
         void Reload(NutrientsRecoveryPoint vrp)
         {
             if (!Input.GetKeyDown(KeyCode.R)) return;
+            if (IsSpecialWeapon) return;
 
             switch (vrp.VitaminType)
             {
@@ -512,6 +563,25 @@ namespace FrontPerson.Character
 
                     break;
             }
+        }
+
+        /// <summary>
+        /// 武器を入手する時に呼ぶ
+        /// WeaponManagerの引数番目を生成して持たせる
+        /// </summary>
+        /// <param name="type">乱数</param>
+        public void WeaponUpgrade(int type)
+        {
+            gunL_.Reload();
+            gunR_.Reload();
+
+            if (IsSpecialWeapon)
+            {
+                Destroy(Weapon.gameObject);
+            }
+
+            Weapon = Instantiate(_weponManager.WeaponPrefabList[type], cameraTransform_).GetComponent<Weapon.Gun>();
+
         }
     }
 

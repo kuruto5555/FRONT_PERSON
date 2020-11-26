@@ -5,18 +5,18 @@ using FrontPerson.Manager;
 
 namespace FrontPerson.Weapon
 {
-    public class Gun : MonoBehaviour
+    public abstract class Gun : MonoBehaviour
     {
         [Header("弾のプレハブ")]
         [SerializeField]
-        GameObject bullet_ = null;
+        protected GameObject bullet_ = null;
 
         [Header("銃口")]
         [SerializeField]
-        GameObject hole_ = null;
+        protected GameObject Muzzle = null;
 
-        [Header("発射間隔s")]
-        [Range(0.1f, 2.0f)]
+        [Header("発射間隔(秒間何発)")]
+        [Range(1f, 60.0f)]
         public float rate_ = 1f;
 
         [Header("マガジンの最大弾数")]
@@ -26,24 +26,24 @@ namespace FrontPerson.Weapon
         /// <summary>
         /// ヒエラルキーのBountyManagerを入れておく
         /// </summary>
-        private BountyManager _bountyManager = null;
+        protected BountyManager _bountyManager = null;
 
 
         /// <summary>
         /// 一発撃ってからの時間
         /// </summary>
-        float shotTime_ = 0.0f;
+        protected float shotTime_ = 0.0f;
 
         /// <summary>
         /// 現在の弾数
         /// </summary>
-        int ammo_ = 0;
+        private int ammo_ = 0;
         public int Ammo { get { return ammo_; } }
 
 
 
         // Start is called before the first frame update
-        void Start()
+        protected void Start()
         {
             ammo_ = MaxAmmo_;
             shotTime_ = 0.0f;
@@ -51,14 +51,14 @@ namespace FrontPerson.Weapon
         }
 
         // Update is called once per frame
-        void Update()
+        protected void Update()
         {
             UpdateShotTime();
 
 
         }
 
-        void UpdateShotTime()
+        private void UpdateShotTime()
         {
             if (shotTime_ > 0.0f) shotTime_ -= Time.deltaTime;
         }
@@ -71,9 +71,9 @@ namespace FrontPerson.Weapon
         {
             if (shotTime_ > 0.0f) return;
             if (ammo_ < 1) return;
-
-            Instantiate(bullet_, hole_.transform.position, hole_.transform.rotation, null);
-            shotTime_ = rate_;
+           
+            Instantiate(bullet_, Muzzle.transform.position, Muzzle.transform.rotation, null);
+            shotTime_ = 1.0f / rate_;
             ammo_--;
             _bountyManager.FireCount();
         }
@@ -96,8 +96,9 @@ namespace FrontPerson.Weapon
         {
             ammo_ += value;
 
-            if(ammo_ > MaxAmmo_)
-                ammo_ = MaxAmmo_;
+            if (ammo_ > MaxAmmo_) return;
+
+            ammo_ = MaxAmmo_;
         }
     }
 

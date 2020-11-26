@@ -55,6 +55,8 @@ namespace FrontPerson.Manager
         /// </summary>
         private int _numNutritionCharge = 0;
 
+        private Character.Player _player = null;
+
         public List<Bounty.Bounty> GetBountyList { get { return MissionList; } }
 
         //private List <GameObject> 
@@ -79,6 +81,8 @@ namespace FrontPerson.Manager
             _missionCnt = 0;
             _nowCombo = 0;
             _fireCount = 0;
+
+            _player = GameObject.FindGameObjectWithTag("Player").GetComponent<Character.Player>();
 
         }
 
@@ -106,13 +110,14 @@ namespace FrontPerson.Manager
                 {
                     if (it.IsCrear) 
                     {
-                        //スコア加算(it.GetScore();)
+                        //スコア加算
                         ScoreManager.Instance.AddScore((int)it.GetScore, FrontPerson.Score.ReasonForAddition.Bounty);
 
                         _missionCnt++;
-                        if (_missionCnt == 3)
+                        if (_missionCnt >= 3)
                         {
                             //武器を出す
+                            _player.WeaponUpgrade(Random.Range(0, SpecialWeaponManager._instance._weaponNum + 1));
                         }
                     }
                     
