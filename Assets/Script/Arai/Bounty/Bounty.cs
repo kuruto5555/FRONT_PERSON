@@ -129,7 +129,7 @@ namespace FrontPerson.Bounty
             Destroy(gameObject);
         }
 
-        protected void MissionClear()
+        public void MissionClear()
         {
             _isClear = _isFinish = true;
         }

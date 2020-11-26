@@ -37,12 +37,12 @@ namespace FrontPerson.Weapon
         /// <summary>
         /// 現在の弾数
         /// </summary>
-        private int ammo_ = 0;
+        protected int ammo_ = 0;
 
         /// <summary>
         /// 今の残弾数
         /// </summary>
-        public int Ammo { get { return ammo_; } }
+        public int Ammo {  get { return ammo_; }}
 
         // Start is called before the first frame update
         protected void Start()
@@ -69,7 +69,7 @@ namespace FrontPerson.Weapon
         /// <summary>
         /// 撃つ
         /// </summary>
-        public void Shot()
+        public virtual void Shot()
         {
             if (shotTime_ > 0.0f) return;
             if (ammo_ < 1) return;

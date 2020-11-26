@@ -204,8 +204,7 @@ namespace FrontPerson.Manager
 
                 for (int debug = 0; debug < ACTIV_MISSION; debug++)
                 {
-                    MissionList[debug].ImDie();
-                    MissionList[debug] = Instantiate(MissionPrefabList[Random.Range(0, _missionNum)], transform).GetComponent<Bounty.Bounty>();
+                    MissionList[debug].MissionClear();
                 }
             }
         }

@@ -444,6 +444,8 @@ namespace FrontPerson.Character
         void Reload(NutrientsRecoveryPoint vrp)
         {
             if (!Input.GetKeyDown(KeyCode.R)) return;
+            if (IsDash) return;
+            if (isSearch_) return;
             if (IsSpecialWeapon) return;
 
             switch (vrp.VitaminType)
