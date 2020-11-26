@@ -38,16 +38,18 @@ namespace FrontPerson.Weapon
         /// 現在の弾数
         /// </summary>
         private int ammo_ = 0;
+
+        /// <summary>
+        /// 今の残弾数
+        /// </summary>
         public int Ammo { get { return ammo_; } }
-
-
 
         // Start is called before the first frame update
         protected void Start()
         {
             ammo_ = MaxAmmo_;
             shotTime_ = 0.0f;
-            _bountyManager = GameObject.FindGameObjectWithTag("BountyManager").GetComponent<BountyManager>();
+            _bountyManager = BountyManager._instance;
         }
 
         // Update is called once per frame

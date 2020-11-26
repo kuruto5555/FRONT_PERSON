@@ -121,6 +121,9 @@ namespace FrontPerson.Bounty
             }
         }
 
+        /// <summary>
+        /// ミッション破棄
+        /// </summary>
         public void ImDie()
         {
             Destroy(gameObject);

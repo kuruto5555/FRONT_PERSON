@@ -9,8 +9,6 @@ namespace FrontPerson.Character
 {
     public class Player : MonoBehaviour
     {
-        [SerializeField] GameObject DebugWepon = null;
-
         [Header("歩き速度")]
         [SerializeField, Range(0.1f, 10.0f)]
         float walkSpeed_ = 5.0f;
@@ -94,11 +92,6 @@ namespace FrontPerson.Character
         bool _isJump = false;
 
         /// <summary>
-        /// スペシャルウェポンを持っているか
-        /// </summary>
-        //bool _isSpecialWeapon = false;
-
-        /// <summary>
         /// 右指トリガー
         /// </summary>
         bool _isFireRHand = false;
@@ -143,6 +136,9 @@ namespace FrontPerson.Character
         /// </summary>
         private BountyManager _bountyManager = null;
 
+        /// <summary>
+        /// ウェポンマネージャー
+        /// </summary>
         private SpecialWeaponManager _weponManager = null;
 
 
@@ -392,6 +388,7 @@ namespace FrontPerson.Character
             if (IsDash) return;
             if (isSearch_) return;
 
+            //左クリック
             if (Input.GetKey(KeyCode.Mouse0))
             {
                 if (IsSpecialWeapon)
@@ -404,6 +401,7 @@ namespace FrontPerson.Character
                 }
             }
 
+            //右クリック
             if (Input.GetKey(KeyCode.Mouse1))
             {
                 if (IsSpecialWeapon)
@@ -497,6 +495,7 @@ namespace FrontPerson.Character
         {
             if (!_isStun) return;
 
+            //スタン中だったら
             if(stunTime > _nowStunTime)
             {
                 _nowStunTime += Time.deltaTime;
