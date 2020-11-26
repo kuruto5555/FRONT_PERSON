@@ -3,6 +3,8 @@ using System.Runtime.InteropServices;
 using UnityEngine;
 using FrontPerson.Gimmick;
 using FrontPerson.Manager;
+using FrontPerson.Weapon;
+using System.Collections.Generic;
 
 
 namespace FrontPerson.Character
@@ -212,6 +214,17 @@ namespace FrontPerson.Character
 
         public bool IsRightTrigger { get { return _isFireRHand; } }
 
+        /// <summary>
+        /// 所持してる武器一覧
+        /// </summary>
+        private List<Gun> _weaponList;
+
+        /// <summary>
+        /// 所持してる武器のList
+        /// 1左拳銃,2右拳銃,3持ってれば特殊武器
+        /// </summary>
+        public List<Gun> GetWeaponList { get { return _weaponList; } }
+
         // Start is called before the first frame update
         void Start()
         {
@@ -227,6 +240,11 @@ namespace FrontPerson.Character
             _bountyManager = BountyManager._instance;
 
             _weponManager = SpecialWeaponManager._instance;
+
+            _weaponList = new List<Gun>();
+
+            _weaponList.Add(gunL_);
+            _weaponList.Add(gunR_);
         }
 
         // Update is called once per frame
@@ -252,7 +270,7 @@ namespace FrontPerson.Character
             Move();
             Shot();
             Jump();
-            
+            WeaponCheck();
 
             transform.position = position_;
         }
@@ -285,7 +303,8 @@ namespace FrontPerson.Character
         {
             Vector3 direction = Vector3.zero;
 
-            if (Input.GetKey(KeyCode.W)) direction += transform.forward;
+            if (Input.GetKey(KeyCode.W)) 
+                direction += transform.forward;
             if (Input.GetKey(KeyCode.S)) direction -= transform.forward;
             if (Input.GetKey(KeyCode.A)) direction -= transform.right;
             if (Input.GetKey(KeyCode.D)) direction += transform.right;
@@ -582,7 +601,16 @@ namespace FrontPerson.Character
             }
 
             Weapon = Instantiate(_weponManager.WeaponPrefabList[type], cameraTransform_).GetComponent<Weapon.Gun>();
+            _weaponList.Add(Weapon);
+        }
 
+        private void WeaponCheck()
+        {
+            if (!IsSpecialWeapon)
+            {
+                if(_weaponList.Count >= 3) 
+                    _weaponList.RemoveAt(2);
+            }
         }
     }
 
