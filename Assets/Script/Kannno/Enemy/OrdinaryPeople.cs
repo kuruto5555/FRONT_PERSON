@@ -21,7 +21,7 @@ namespace FrontPerson.Enemy
 
         public override void HitBullet(Bullet bullet)
         {
-            if (lack_vitamins == bullet.BulletType)
+            if (lack_vitamins == bullet.BulletType || Constants.NUTRIENTS_TYPE._ALL == bullet.BulletType)
             {
                 AddVitamins(bullet.Power);
 
