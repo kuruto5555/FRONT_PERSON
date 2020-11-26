@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using FrontPerson.Constants;
 using FrontPerson.Manager;
 
 namespace FrontPerson.Weapon
@@ -28,6 +29,9 @@ namespace FrontPerson.Weapon
         /// </summary>
         protected BountyManager _bountyManager = null;
 
+        protected WEAPON_TYPE _type;
+
+        public WEAPON_TYPE GetWeaponType { get { return _type; } }
 
         /// <summary>
         /// 一発撃ってからの時間
