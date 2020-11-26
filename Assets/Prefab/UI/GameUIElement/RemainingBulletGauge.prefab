@@ -285,6 +285,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   L_BulletNumGauge_: {fileID: 3463604697497329572}
   R_BulletNumGauge_: {fileID: 3463604697610524529}
+  SpecialBulletNumGauge_: {fileID: 4365380785804635016}
+  defualt_: {fileID: 3463604698068348150}
+  machineGun_: {fileID: 9147714319712365428}
+  shotgun_: {fileID: 1106752269356694133}
+  homingLauncher_: {fileID: 1634028286069486612}
 --- !u!1 &3463604697497329562
 GameObject:
   m_ObjectHideFlags: 0
