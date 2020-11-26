@@ -41,14 +41,62 @@ namespace FrontPerson.Enemy
         [SerializeField]
         private List<MovePattern> Yakuza_MovePatternList = new List<MovePattern>();
 
+        [Header("スポーンする敵の最大数")]
+        [SerializeField, Range(0, 1000)]
+        private int MaxCnt_OrdinaryPeople = 0;
+        [SerializeField, Range(0, 1000)]
+        private int MaxCnt_OldBattleaxe = 0;
+        [SerializeField, Range(0, 1000)]
+        private int MaxCnt_Yakuza = 0;
+
+        static private int Max_OrdinaryPeople = 0;
+        static private int Max_OldBattleaxe = 0;
+        static private int Max_Yakuza = 0;
+
+        // ステージ上にいる敵の数
+        static private int Sum_OrdinaryPeople = 0;
+        static private int Sum_OldBattleaxe = 0;
+        static private int Sum_Yakuza = 0;
+
         [Header("生成までのクールタイム")]
         [SerializeField]
         private float time = 0f;
 
         private float current_time = 0f;
 
+        /// <summary>
+        /// 一般人の数を1つ減らす
+        /// </summary>
+        static public void Sub_OrdinaryPeople()
+        {
+            Sum_OrdinaryPeople--;
+        }
+
+        /// <summary>
+        /// おばちゃんの数を1つ減らす
+        /// </summary>
+        static public void Sub_OldBattleaxe()
+        {
+            Sum_OldBattleaxe--;
+        }
+
+        /// <summary>
+        /// ヤクザの数を1つ減らす
+        /// </summary>
+        static public void Sub_Yakuza()
+        {
+            Sum_Yakuza--;
+        }
+
         void Start()
         {
+            if(0 == Max_OrdinaryPeople && 0 == Sum_OldBattleaxe && 0 == Max_Yakuza)
+            {
+                Max_OrdinaryPeople = MaxCnt_OrdinaryPeople;
+                Max_OldBattleaxe = MaxCnt_OldBattleaxe;
+                Max_Yakuza = MaxCnt_Yakuza;
+            }
+
             current_time = Time.timeSinceLevelLoad;
 
             ProbabilityList = new List<float> { Probability_OrdinaryPeople, Probability_OldBattleaxe, Probability_Yakuza };
@@ -79,8 +127,10 @@ namespace FrontPerson.Enemy
         /// <summary>
         /// 敵生成関数
         /// </summary>
-        void Spawn()
+        private void Spawn()
         {
+            // rand と ProbabilityListを昇順で比較して、その確率の敵を生成する
+
             float rand = Random.value;
 
             float probability_min = ProbabilityList[0];
@@ -89,19 +139,19 @@ namespace FrontPerson.Enemy
 
             if (probability_min >= rand)
             {
-                if (probability_min == Probability_OrdinaryPeople)
+                if (probability_min == Probability_OrdinaryPeople && Sum_OrdinaryPeople < Max_OrdinaryPeople)
                 {
                     Create_OrdinaryPeople();
                     return;
                 }
 
-                if (probability_min == Probability_OldBattleaxe)
+                if (probability_min == Probability_OldBattleaxe && Sum_OldBattleaxe < Max_OldBattleaxe)
                 {
                     Create_OldBattleaxe();
                     return;
                 }
 
-                if (probability_min == Probability_Yakuza)
+                if (probability_min == Probability_Yakuza && Sum_Yakuza < Max_Yakuza)
                 {
                     Create_Yakuza();
                     return;
@@ -110,19 +160,19 @@ namespace FrontPerson.Enemy
 
             if (probability_middle >= rand)
             {
-                if (probability_middle == Probability_OrdinaryPeople)
+                if (probability_middle == Probability_OrdinaryPeople && Sum_OrdinaryPeople < Max_OrdinaryPeople)
                 {
                     Create_OrdinaryPeople();
                     return;
                 }
 
-                if (probability_middle == Probability_OldBattleaxe)
+                if (probability_middle == Probability_OldBattleaxe && Sum_OldBattleaxe < Max_OldBattleaxe)
                 {
                     Create_OldBattleaxe();
                     return;
                 }
 
-                if (probability_middle == Probability_Yakuza)
+                if (probability_middle == Probability_Yakuza && Sum_Yakuza <= Max_Yakuza)
                 {
                     Create_Yakuza();
                     return;
@@ -130,19 +180,19 @@ namespace FrontPerson.Enemy
             }
 
             {
-                if (probability_max == Probability_OrdinaryPeople)
+                if (probability_max == Probability_OrdinaryPeople && Sum_OrdinaryPeople < Max_OrdinaryPeople)
                 {
                     Create_OrdinaryPeople();
                     return;
                 }
 
-                if (probability_max == Probability_OldBattleaxe)
+                if (probability_max == Probability_OldBattleaxe && Sum_OldBattleaxe < Max_OldBattleaxe)
                 {
                     Create_OldBattleaxe();
                     return;
                 }
 
-                if (probability_max == Probability_Yakuza)
+                if (probability_max == Probability_Yakuza && Sum_Yakuza < Max_Yakuza)
                 {
                     Create_Yakuza();
                     return;
@@ -153,9 +203,11 @@ namespace FrontPerson.Enemy
         /// <summary>
         /// 一般人の生成
         /// </summary>
-        void Create_OrdinaryPeople()
+        private void Create_OrdinaryPeople()
         {
             OrdinaryPeople enemy = Instantiate(OrdinaryPeople, transform.position, Quaternion.identity).GetComponent<OrdinaryPeople>();
+
+            Sum_OrdinaryPeople++;
 
             // 移動パターンの設定
             int cnt = Random.Range(0, OrdinaryPeople_MovePatternList.Count);
@@ -170,9 +222,11 @@ namespace FrontPerson.Enemy
         /// <summary>
         /// おばちゃんの生成
         /// </summary>
-        void Create_OldBattleaxe()
+        private void Create_OldBattleaxe()
         {
             OldBattleaxe enemy = Instantiate(OldBattleaxe, transform.position, Quaternion.identity).GetComponent<OldBattleaxe>();
+
+            Sum_OldBattleaxe++;
 
             // 移動パターンの設定
             int cnt = Random.Range(0, OldBattleaxe_MovePatternList.Count);
@@ -187,9 +241,11 @@ namespace FrontPerson.Enemy
         /// <summary>
         /// ヤクザの生成
         /// </summary>
-        void Create_Yakuza()
+        private void Create_Yakuza()
         {
             Yakuza enemy = Instantiate(Yakuza, transform.position, Quaternion.identity).GetComponent<Yakuza>();
+
+            Sum_Yakuza++;
 
             // 移動パターンの設定
             int cnt = Random.Range(0, Yakuza_MovePatternList.Count);
