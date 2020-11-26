@@ -19,28 +19,6 @@ namespace FrontPerson.Enemy
         {
         }
 
-        //void OnTriggerEnter(Collider collider)
-        //{
-        //    if (Constants.TagName.BULLET == collider.tag)
-        //    {
-        //        Bullet bullet = collider.gameObject.GetComponent<Bullet>();
-
-        //        if (lack_vitamins == bullet.BulletType)
-        //        {
-        //            AddVitamins(bullet.Power);
-
-        //            if (insufficiency <= 0)
-        //            {
-        //                SetDestroy();
-
-        //                var manager = GameObject.FindGameObjectWithTag(Constants.TagName.BOUNTY_MANAGER).GetComponent<BountyManager>();
-
-        //                manager.EnemyDeath((int)lack_vitamins);
-        //            }
-        //        }
-        //    }
-        //}
-
         public override void HitBullet(Bullet bullet)
         {
             if (lack_vitamins == bullet.BulletType)

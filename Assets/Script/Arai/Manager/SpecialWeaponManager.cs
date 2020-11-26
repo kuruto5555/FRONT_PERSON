@@ -7,12 +7,15 @@ namespace FrontPerson.Manager
 {
     public class SpecialWeaponManager : MonoBehaviour
     {
+        [Header("スペシャル武器を入れる")]
         [SerializeField] public List<GameObject> WeaponPrefabList;
 
-        //public List<SpecialWeapon> WeaponList = null;
 
         public static SpecialWeaponManager _instance { get; private set; }
 
+        /// <summary>
+        /// 武器種の数
+        /// </summary>
         public int _weaponNum 
         { 
             get;
@@ -22,19 +25,12 @@ namespace FrontPerson.Manager
         private void Awake()
         {
             if (_instance == null) _instance = this;
-            //if (WeaponList == null) WeaponList = new List<SpecialWeapon>();
         }
 
         // Start is called before the first frame update
         void Start()
         {
             _weaponNum = WeaponPrefabList.Count;
-            int cnt = 0;
-            foreach(var i in WeaponPrefabList)
-            {
-                //WeaponList.Add(WeaponPrefabList[cnt].GetComponent<SpecialWeapon>());
-                cnt++;
-            }
         }
 
         // Update is called once per frame

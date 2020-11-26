@@ -103,9 +103,6 @@ namespace FrontPerson.Enemy.AI
 
         protected override void OnChangeState_OrdinaryPeople()
         {
-            //SetMovePoint();
-
-
         }
 
         protected override void OnChangeState_OldBattleaxe()
