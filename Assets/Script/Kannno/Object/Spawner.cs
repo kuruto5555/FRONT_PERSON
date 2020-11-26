@@ -29,9 +29,17 @@ namespace FrontPerson.Enemy
         // 確率のリスト(計算用)
         private List<float> ProbabilityList = null;
 
-        [Header("MovePatternのリスト")]
+        [Header("一般人のMovePatternのリスト")]
         [SerializeField]
-        private List<MovePattern> MovePatternLIst = new List<MovePattern>();
+        private List<MovePattern> OrdinaryPeople_MovePatternList = new List<MovePattern>();
+
+        [Header("おばちゃんのMovePatternのリスト")]
+        [SerializeField]
+        private List<MovePattern> OldBattleaxe_MovePatternList = new List<MovePattern>();
+
+        [Header("ヤクザのMovePatternのリスト")]
+        [SerializeField]
+        private List<MovePattern> Yakuza_MovePatternList = new List<MovePattern>();
 
         [Header("生成までのクールタイム")]
         [SerializeField]
@@ -43,7 +51,7 @@ namespace FrontPerson.Enemy
         {
             current_time = Time.timeSinceLevelLoad;
 
-            ProbabilityList = new List<float> { Probability_OrdinaryPeople, Probability_OrdinaryPeople, Probability_Yakuza };
+            ProbabilityList = new List<float> { Probability_OrdinaryPeople, Probability_OldBattleaxe, Probability_Yakuza };
             ProbabilityList.Sort();
 
             Spawn();
@@ -51,12 +59,12 @@ namespace FrontPerson.Enemy
 
         void Update()
         {
-            //if (time <= (Time.timeSinceLevelLoad - current_time))
-            //{
-            //    current_time = Time.timeSinceLevelLoad;
+            if (time <= (Time.timeSinceLevelLoad - current_time))
+            {
+                current_time = Time.timeSinceLevelLoad;
 
-            //    Spawn();
-            //}
+                Spawn();
+            }
         }
 
 #if UNITY_EDITOR
@@ -77,7 +85,7 @@ namespace FrontPerson.Enemy
 
             foreach(var probability in ProbabilityList)
             {
-                if(probability <= rand)
+                if(probability >= rand)
                 {
                     if (probability == Probability_OrdinaryPeople)
                     {
@@ -107,9 +115,14 @@ namespace FrontPerson.Enemy
         {
             OrdinaryPeople enemy = Instantiate(OrdinaryPeople, transform.position, Quaternion.identity).GetComponent<OrdinaryPeople>();
 
+            // 移動パターンの設定
+            int cnt = Random.Range(0, OrdinaryPeople_MovePatternList.Count);
+
             EnemyState_Move ai = enemy.state_AI as EnemyState_Move;
 
-            ai.Set_MovePattern(MovePatternLIst.First());
+            ai.Set_MovePattern(OrdinaryPeople_MovePatternList[cnt]);
+
+            Debug.Log("一般人の生成");
         }
 
         /// <summary>
@@ -117,7 +130,16 @@ namespace FrontPerson.Enemy
         /// </summary>
         void Create_OldBattleaxe()
         {
-            Instantiate(OldBattleaxe, transform.position, Quaternion.identity);
+            OldBattleaxe enemy = Instantiate(OldBattleaxe, transform.position, Quaternion.identity).GetComponent<OldBattleaxe>();
+
+            // 移動パターンの設定
+            int cnt = Random.Range(0, OldBattleaxe_MovePatternList.Count);
+
+            EnemyState_Move ai = enemy.state_AI as EnemyState_Move;
+
+            ai.Set_MovePattern(OldBattleaxe_MovePatternList[cnt]);
+
+            Debug.Log("おばちゃんの生成");
         }
 
         /// <summary>
@@ -125,7 +147,16 @@ namespace FrontPerson.Enemy
         /// </summary>
         void Create_Yakuza()
         {
-            Instantiate(Yakuza, transform.position, Quaternion.identity);
+            Yakuza enemy = Instantiate(Yakuza, transform.position, Quaternion.identity).GetComponent<Yakuza>();
+
+            // 移動パターンの設定
+            int cnt = Random.Range(0, Yakuza_MovePatternList.Count);
+
+            EnemyState_Move ai = enemy.state_AI as EnemyState_Move;
+
+            ai.Set_MovePattern(Yakuza_MovePatternList[cnt]);
+
+            Debug.Log("ヤクザの生成");
         }
     }
 }

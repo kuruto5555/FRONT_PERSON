@@ -12,10 +12,19 @@ namespace FrontPerson.Enemy.AI
     /// </summary>
     public abstract class EnemyState_AI : MonoBehaviour
     {
+        /// <summary>
+        /// AIを持つ敵のスクリプト
+        /// </summary>
         protected Character.Enemy Owner = null;
 
+        /// <summary>
+        /// プレイヤー
+        /// </summary>
         protected Player Player = null;
 
+        /// <summary>
+        /// サーチエリア
+        /// </summary>
         protected SearchArea SearchArea = null;
 
         /// <summary>
@@ -76,6 +85,7 @@ namespace FrontPerson.Enemy.AI
         /// <typeparam name="T"></typeparam>
         public void ChangeState<T>() where T : EnemyState_AI
         {
+//デバッグ用
 #if UNITY_EDITOR
             string B_State = Owner.state_AI.ToString();
             int pos = B_State.LastIndexOf(".");
@@ -91,9 +101,11 @@ namespace FrontPerson.Enemy.AI
 
             if(null != Owner.state_AI as EnemyState_Move)
             {
+                // EnemyState_Move なら MovetList を復元する
                 Owner.state_AI.Load_MovePoint(MoveIndex, MovetList);
             }
 
+//デバッグ用
 #if UNITY_EDITOR
 
             string name = Owner.name;

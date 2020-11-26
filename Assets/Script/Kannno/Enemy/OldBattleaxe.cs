@@ -24,31 +24,6 @@ namespace FrontPerson.Enemy
         {
         }
 
-        //void OnTriggerEnter(Collider collider)
-        //{
-        //    if (Constants.TagName.BULLET == collider.tag)
-        //    {
-        //        Bullet bullet = collider.gameObject.GetComponent<Bullet>();
-
-        //        AddVitamins(bullet.Power);
-
-        //        if (insufficiency <= 0)
-        //        {
-        //            SetDestroy();
-        //        }
-
-        //        if (lack_vitamins != bullet.BulletType)
-        //        {
-        //            // 弾の種類と足りないビタミンが違う
-        //            isHit = true;
-        //        }
-        //        else
-        //        {
-        //            isHit = false;
-        //        }
-        //    }
-        //}
-
         public override void HitBullet(Bullet bullet)
         {
             AddVitamins(bullet.Power);

@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 2121316418250302138}
   - component: {fileID: 371716343913895810}
   - component: {fileID: 1409689347560578096}
-  - component: {fileID: 327558770}
+  - component: {fileID: 8566340662139561610}
   m_Layer: 11
   m_Name: OldBattleaxe
   m_TagString: Enemy
@@ -151,8 +151,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tetxMesh: {fileID: 7613980996502420136}
   insufficiency: 100
-  state_AI: {fileID: 327558770}
---- !u!114 &327558770
+  state_AI: {fileID: 8566340662139561610}
+--- !u!114 &8566340662139561610
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -161,9 +161,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 2059869559280428493}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 25e0c7ff430a27e4886b0ccb3e0c9d8e, type: 3}
+  m_Script: {fileID: 11500000, guid: 9f38d331ad3c2c14cba4edfe7b5b4bff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  MovePattern: {fileID: 0}
 --- !u!1 &7780445311371907995
 GameObject:
   m_ObjectHideFlags: 0
