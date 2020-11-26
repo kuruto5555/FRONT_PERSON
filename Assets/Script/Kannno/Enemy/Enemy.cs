@@ -139,14 +139,17 @@ namespace FrontPerson.Character
                 {
                     case EnemyType.ORDINATY_PEOPLE:
                         score_manager.AddScore((int)EnemyScore.ORDINATY_PEOPLE, Score.ReasonForAddition.Nomal);
+                        Spawner.Sub_OrdinaryPeople();
                         break;
 
                     case EnemyType.OLD_BATTLEAXE:
                         score_manager.AddScore((int)EnemyScore.OLD_BATTLEAXE, Score.ReasonForAddition.Nomal);
+                        Spawner.Sub_OldBattleaxe();
                         break;
 
                     case EnemyType.YAKUZA:
                         score_manager.AddScore((int)EnemyScore.YAKUZA, Score.ReasonForAddition.Nomal);
+                        Spawner.Sub_Yakuza();
                         break;
 
                     default:

@@ -224,9 +224,9 @@ MonoBehaviour:
   OldBattleaxe: {fileID: 2059869559280428493, guid: 3cb22b0dcae36544980f8628d54fc7f7,
     type: 3}
   Yakuza: {fileID: 7092531068719793732, guid: 2d8b76e7ce591474d86d0d2bf8e36e09, type: 3}
-  Probability_OrdinaryPeople: 0.6
-  Probability_OldBattleaxe: 0.25
-  Probability_Yakuza: 0
+  Probability_OrdinaryPeople: 0.5
+  Probability_OldBattleaxe: 0.3
+  Probability_Yakuza: 0.2
   OrdinaryPeople_MovePatternList:
   - {fileID: 1769703140601125052}
   OldBattleaxe_MovePatternList:
@@ -477,7 +477,7 @@ Transform:
   m_LocalScale: {x: 2, y: 1, z: 5}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &327558768
 PrefabInstance:
@@ -529,7 +529,7 @@ PrefabInstance:
     - target: {fileID: 1630501616957606417, guid: 3cb22b0dcae36544980f8628d54fc7f7,
         type: 3}
       propertyPath: m_RootOrder
-      value: 5
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 1630501616957606417, guid: 3cb22b0dcae36544980f8628d54fc7f7,
         type: 3}
@@ -657,7 +657,7 @@ Transform:
   m_LocalScale: {x: 15, y: 1, z: 15}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &623765245 stripped
 MonoBehaviour:
@@ -1015,7 +1015,7 @@ PrefabInstance:
     - target: {fileID: 3400952845557951418, guid: 34dc7089d86a38047a11c22287ec03bc,
         type: 3}
       propertyPath: m_RootOrder
-      value: 3
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 3400952845557951418, guid: 34dc7089d86a38047a11c22287ec03bc,
         type: 3}
@@ -1405,15 +1405,30 @@ PrefabInstance:
       propertyPath: m_Name
       value: GameUI_Canvas
       objectReference: {fileID: 0}
+    - target: {fileID: 3538857796950533620, guid: 4ac8071099f43f6428587e37f24d8295,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3538857796950533623, guid: 4ac8071099f43f6428587e37f24d8295,
         type: 3}
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 3538857798285472956, guid: 4ac8071099f43f6428587e37f24d8295,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7186785357300204005, guid: 4ac8071099f43f6428587e37f24d8295,
         type: 3}
       propertyPath: m_RootOrder
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7576221858271163774, guid: 4ac8071099f43f6428587e37f24d8295,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4ac8071099f43f6428587e37f24d8295, type: 3}
@@ -1611,7 +1626,7 @@ PrefabInstance:
     - target: {fileID: 1763975586070396325, guid: 11723c6fff067504f8803ddbe9eb62b2,
         type: 3}
       propertyPath: m_RootOrder
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1763975586070396325, guid: 11723c6fff067504f8803ddbe9eb62b2,
         type: 3}
@@ -1808,7 +1823,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
 --- !u!114 &1731061406
 MonoBehaviour:
@@ -2114,7 +2129,7 @@ PrefabInstance:
     - target: {fileID: 1429017529824395082, guid: fac17614e55ef2347920bfef4d730f0d,
         type: 3}
       propertyPath: m_RootOrder
-      value: 4
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 1429017529824395082, guid: fac17614e55ef2347920bfef4d730f0d,
         type: 3}
@@ -2417,7 +2432,7 @@ PrefabInstance:
     - target: {fileID: 7092531068719793742, guid: 2d8b76e7ce591474d86d0d2bf8e36e09,
         type: 3}
       propertyPath: m_RootOrder
-      value: 6
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 7092531068719793742, guid: 2d8b76e7ce591474d86d0d2bf8e36e09,
         type: 3}
