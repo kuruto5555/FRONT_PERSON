@@ -89,44 +89,11 @@ namespace FrontPerson.Manager
         // Update is called once per frame
         void Update()
         {
-            int i = 0;
             _isPlayerDamage = false;
 
-            //デバッグ用ミッション全てClear
-            if (Input.GetKeyDown(KeyCode.K))
-            {
+            AllMissionChange();
 
-                for (int debug = 0; debug < ACTIV_MISSION; debug++)
-                {
-                    MissionList[debug].ImDie();
-                    MissionList[debug] = Instantiate(MissionPrefabList[Random.Range(0, _missionNum)], transform).GetComponent<Bounty.Bounty>();
-                }
-            }
-
-            foreach (var it in MissionList)
-            {
-                
-                if (it.IsFinish)
-                {
-                    if (it.IsCrear) 
-                    {
-                        //スコア加算
-                        ScoreManager.Instance.AddScore((int)it.GetScore, FrontPerson.Score.ReasonForAddition.Bounty);
-
-                        _missionCnt++;
-                        if (_missionCnt >= 3)
-                        {
-                            //武器を出す
-                            _player.WeaponUpgrade(Random.Range(0, SpecialWeaponManager._instance._weaponNum + 1));
-                        }
-                    }
-                    
-                    MissionList[i].ImDie();
-                    MissionList[i] = Instantiate(MissionPrefabList[Random.Range(0, _missionNum)], transform).GetComponent<Bounty.Bounty>();
-                    
-                }
-                i++;
-            }
+            MissionMonitoring();
         }
 
         private void LateUpdate()
@@ -227,6 +194,52 @@ namespace FrontPerson.Manager
         public int GetNumNutritionCharge()
         {
             return _numNutritionCharge;
+        }
+
+        private void AllMissionChange()
+        {
+            //デバッグ用ミッション全て変更
+            if (Input.GetKeyDown(KeyCode.K))
+            {
+
+                for (int debug = 0; debug < ACTIV_MISSION; debug++)
+                {
+                    MissionList[debug].MissionClear();
+                }
+            }
+        }
+
+        /// <summary>
+        /// ミッションを監視してる
+        /// </summary>
+        private void MissionMonitoring()
+        {
+            int i = 0;
+
+            foreach (var it in MissionList)
+            {
+                if (it.IsFinish)
+                {
+                    if (it.IsCrear)
+                    {
+                        //スコア加算
+                        ScoreManager.Instance.AddScore((int)it.GetScore, FrontPerson.Score.ReasonForAddition.Bounty);
+
+                        _missionCnt++;
+
+                        //ミッションクリア数が３つになったら
+                        if (_missionCnt >= 3)
+                        {
+                            //武器を出す
+                            _player.WeaponUpgrade(Random.Range(0, SpecialWeaponManager._instance._weaponNum));
+                            _missionCnt = 0;
+                        }
+                    }
+                    MissionList[i].ImDie();
+                    MissionList[i] = Instantiate(MissionPrefabList[Random.Range(0, _missionNum)], transform).GetComponent<Bounty.Bounty>();
+                }
+                i++;
+            }
         }
     }
 }

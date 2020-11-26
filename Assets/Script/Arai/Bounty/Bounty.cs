@@ -121,12 +121,15 @@ namespace FrontPerson.Bounty
             }
         }
 
+        /// <summary>
+        /// ミッション破棄
+        /// </summary>
         public void ImDie()
         {
             Destroy(gameObject);
         }
 
-        protected void MissionClear()
+        public void MissionClear()
         {
             _isClear = _isFinish = true;
         }
