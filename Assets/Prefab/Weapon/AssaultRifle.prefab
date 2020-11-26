@@ -95,8 +95,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bullet_: {fileID: 8451000934618016727, guid: c8c20fb63c695bc4e9418732c4288731, type: 3}
   Muzzle: {fileID: 4391293750179688789}
-  rate_: 60
-  MaxAmmo_: 200
+  rate_: 10
+  MaxAmmo_: 50
 --- !u!1 &4391293750179688789
 GameObject:
   m_ObjectHideFlags: 0

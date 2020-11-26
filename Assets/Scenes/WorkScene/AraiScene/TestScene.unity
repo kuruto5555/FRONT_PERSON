@@ -5113,17 +5113,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1339486384741249159, guid: 3be85688237ca0c489cc6b224031e13d,
-        type: 3}
-      propertyPath: WeaponPrefabList.Array.size
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 1339486384741249159, guid: 3be85688237ca0c489cc6b224031e13d,
-        type: 3}
-      propertyPath: WeaponPrefabList.Array.data[1]
-      value: 
-      objectReference: {fileID: 7642996295017587265, guid: a7be1da14e9555c4a8ab3895262aced6,
-        type: 3}
     - target: {fileID: 1339486384741249176, guid: 3be85688237ca0c489cc6b224031e13d,
         type: 3}
       propertyPath: m_LocalPosition.x

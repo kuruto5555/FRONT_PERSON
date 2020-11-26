@@ -64,9 +64,9 @@ namespace FrontPerson.UI {
         /// </summary>
         void ChangeGaugeUI()
         {
-            //if(gunType_ != player_.GunType)
-            //{
-            //    gunType_ = player_.GunType;
+            if (player_.IsSpecialWeapon)
+            {
+                gunType_ = player_.GetWeaponList[2].GetWeaponType;
                 switch (gunType_)
                 {
                     case WEAPON_TYPE.ASSAULT_RIFLE:
@@ -78,7 +78,7 @@ namespace FrontPerson.UI {
                         R_BulletNumGauge_.enabled = false;
                         SpecialBulletNumGauge_.enabled = true;
                         break;
-            
+
                     case WEAPON_TYPE.SHOT_GUN:
                         defualt_.SetActive(false);
                         machineGun_.SetActive(false);
@@ -88,7 +88,7 @@ namespace FrontPerson.UI {
                         R_BulletNumGauge_.enabled = false;
                         SpecialBulletNumGauge_.enabled = true;
                         break;
-            
+
                     case WEAPON_TYPE.MISSILE:
                         defualt_.SetActive(false);
                         machineGun_.SetActive(false);
@@ -98,18 +98,19 @@ namespace FrontPerson.UI {
                         R_BulletNumGauge_.enabled = false;
                         SpecialBulletNumGauge_.enabled = true;
                         break;
-            
-                    case WEAPON_TYPE.HANDGUN:
-                        defualt_.SetActive(true);
-                        machineGun_.SetActive(false);
-                        shotgun_.SetActive(false);
-                        homingLauncher_.SetActive(false);
-                        L_BulletNumGauge_.enabled = true;
-                        R_BulletNumGauge_.enabled = true;
-                        SpecialBulletNumGauge_.enabled = false;
-                        break;
                 }
-            //}
+            }
+
+            else {
+                gunType_ = WEAPON_TYPE.HANDGUN;
+                defualt_.SetActive(true);
+                machineGun_.SetActive(false);
+                shotgun_.SetActive(false);
+                homingLauncher_.SetActive(false);
+                L_BulletNumGauge_.enabled = true;
+                R_BulletNumGauge_.enabled = true;
+                SpecialBulletNumGauge_.enabled = false;
+            }
         }
 
 
@@ -118,18 +119,9 @@ namespace FrontPerson.UI {
         /// </summary>
         void SetParameter()
         {
-            switch (gunType_)
-            {
-                case WEAPON_TYPE.HANDGUN:
-                    L_BulletNumGauge_.rectTransform.localScale = new Vector2((float)player_.GunAmmoL / player_.GunAmmoMAX_L, 1.0f);
-                    R_BulletNumGauge_.rectTransform.localScale = new Vector2((float)player_.GunAmmoR / player_.GunAmmoMAX_R, 1.0f);
-                    break;
-                
-                default:
-                    //SpecialBulletNumGauge_.rectTransform.localScale = new Vector2((float)player_.SpecialWeaponAmmo / player_.SpecialWeaponAmmoMAX);
-                    break;
-            
-            }
+            L_BulletNumGauge_.rectTransform.localScale = new Vector2((float)player_.GunAmmoL / player_.GunAmmoMAX_L, 1.0f);
+            R_BulletNumGauge_.rectTransform.localScale = new Vector2((float)player_.GunAmmoR / player_.GunAmmoMAX_R, 1.0f);
+            SpecialBulletNumGauge_.rectTransform.localScale = new Vector2((float)player_.GetWeaponList[2].Ammo / player_.GetWeaponList[2].MaxAmmo_, 1.0f);
         }
     }
 

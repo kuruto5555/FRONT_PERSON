@@ -198,6 +198,7 @@ namespace FrontPerson.Manager
 
         private void AllMissionChange()
         {
+#if UNITY_EDITOR
             //デバッグ用ミッション全て変更
             if (Input.GetKeyDown(KeyCode.K))
             {
@@ -207,6 +208,7 @@ namespace FrontPerson.Manager
                     MissionList[debug].MissionClear();
                 }
             }
+#endif
         }
 
         /// <summary>
