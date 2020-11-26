@@ -245,6 +245,7 @@ namespace FrontPerson.Character
 
             _weaponList.Add(gunL_);
             _weaponList.Add(gunR_);
+            _weaponList.Add(null);
         }
 
         // Update is called once per frame
@@ -270,7 +271,7 @@ namespace FrontPerson.Character
             Move();
             Shot();
             Jump();
-            WeaponCheck();
+            
 
             transform.position = position_;
         }
@@ -601,16 +602,7 @@ namespace FrontPerson.Character
             }
 
             Weapon = Instantiate(_weponManager.WeaponPrefabList[type], cameraTransform_).GetComponent<Weapon.Gun>();
-            _weaponList.Add(Weapon);
-        }
-
-        private void WeaponCheck()
-        {
-            if (!IsSpecialWeapon)
-            {
-                if(_weaponList.Count >= 3) 
-                    _weaponList.RemoveAt(2);
-            }
+            _weaponList[2] = Weapon;
         }
     }
 
