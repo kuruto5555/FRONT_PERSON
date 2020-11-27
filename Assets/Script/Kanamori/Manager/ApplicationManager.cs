@@ -15,7 +15,7 @@ namespace FrontPerson.Manager
         /// <summary>
         /// 今回のコンボ数
         /// </summary>
-        public int ConboNum = 0;
+        public int ComboNum = 0;
 
         /// <summary>
         /// 今回のクリアしたミッション数
