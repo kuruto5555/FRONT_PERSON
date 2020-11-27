@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: 7092531068719793736}
   - component: {fileID: 7092531068719793735}
   - component: {fileID: 152926480471274944}
+  - component: {fileID: 3554444228269727892}
   m_Layer: 11
   m_Name: Yakuza
   m_TagString: Enemy
@@ -165,6 +166,25 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MovePattern: {fileID: 0}
+--- !u!114 &3554444228269727892
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7092531068719793732}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 042d90be3c8c0ab44a804c8ce79bea71, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  probability_of_dropping_item_: 40
+  item_prefabs_:
+  - {fileID: 3241205557239290086, guid: b9802c49964af174d841cef81db7bdf4, type: 3}
+  - {fileID: 3918829133971384722, guid: 5d7b239b4bd0a5b488b7519fbe3a7bf6, type: 3}
+  - {fileID: 2341508035650415074, guid: 708a8fdb3109c324f8c61f0c9375379a, type: 3}
+  - {fileID: 103971587206499312, guid: e734d8fa19be9c84eae7e6a1af845f33, type: 3}
+  - {fileID: 4914802207936867299, guid: b13b089595972a140b3a12aa386abf74, type: 3}
 --- !u!1 &7092531069040916814
 GameObject:
   m_ObjectHideFlags: 0
