@@ -59,6 +59,12 @@ namespace FrontPerson.UI
 
             // 秒
             Second -= Time.deltaTime;
+#if UNITY_EDITOR
+            if (Input.GetKey(KeyCode.T))
+            {
+                Second -= Time.deltaTime * 10f;
+            }
+#endif
 
             UpdateTimer();
         }
