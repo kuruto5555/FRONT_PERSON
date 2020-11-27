@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using FrontPerson.UI;
+using UnityEditorInternal;
+using FrontPerson.Constants;
 
 namespace FrontPerson.Manager
 {
@@ -13,7 +15,9 @@ namespace FrontPerson.Manager
             START_COUNT_DOWN,
             PLAY,
             TIME_UP,
-            TRANSITION
+            TRANSITION,
+
+            FINISH
         }
         GAME_SCENE_STATE state_ = GAME_SCENE_STATE.TUTORIAL;
 
@@ -82,27 +86,30 @@ namespace FrontPerson.Manager
 
         void StasrtCountDownUpdate()
         {
-
+            state_ = GAME_SCENE_STATE.PLAY;
         }
 
         void PlayUpdate()
         {
             if (timer_.IsTimeOver)
             {
-                Time.timeScale = 0.0f;
+                Time.timeScale = 0;
                 applicationManager_.Score = 10000;
                 applicationManager_.ComboNum = 10;
                 applicationManager_.ClearMissionNum = 0;
+                state_ = GAME_SCENE_STATE.TIME_UP;
             }
         }
 
         void TimeUpUpdate()
         {
-
+            state_ = GAME_SCENE_STATE.TRANSITION;
         }
 
         void TransitionUpdate()
         {
+            state_ = GAME_SCENE_STATE.FINISH;
+            SceneManager.Instance.SceneChange(SceneName.RESULT_SCENE, 1.0f, Color.black);
 
         }
     }

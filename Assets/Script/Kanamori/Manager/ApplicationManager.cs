@@ -22,6 +22,11 @@ namespace FrontPerson.Manager
         /// </summary>
         public int ClearMissionNum = 0;
 
+        /// <summary>
+        /// 入力を受け付けるかどうか
+        /// </summary>
+        public bool IsInput = true;
+
 
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
         static void RuntimeInit()

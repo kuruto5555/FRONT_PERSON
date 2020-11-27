@@ -62,7 +62,7 @@ namespace FrontPerson.Manager
             while(time <= interval_time)
             {
                 fade_alpha_ = Mathf.Lerp(0f, 1f, time / interval_time);
-                time += Time.deltaTime;
+                time += Time.unscaledDeltaTime;
                 yield return 0;
             }
 
@@ -74,7 +74,7 @@ namespace FrontPerson.Manager
             while(time <= interval_time)
             {
                 fade_alpha_ = Mathf.Lerp(1f, 0f, time / interval_time);
-                time += Time.deltaTime;
+                time += Time.unscaledDeltaTime;
                 yield return 0;
             }
 
