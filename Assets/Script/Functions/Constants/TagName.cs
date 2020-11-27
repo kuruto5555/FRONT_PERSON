@@ -14,6 +14,7 @@ public static class TagName
 	public const string GAME_CONTROLLER ="GameController";
 	public const string GUN             ="Gun";
 	public const string MAIN_CAMERA     ="MainCamera";
+	public const string MANAGER         ="Manager";
 	public const string PLAYER          ="Player";
 	public const string RECOVERY_POINT  ="RecoveryPoint";
 	public const string RESPAWN         ="Respawn";
