@@ -3,6 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+using FrontPerson.Data;
+
 namespace FrontPerson.Manager
 {
     public class ApplicationManager : MonoBehaviour
@@ -22,11 +24,18 @@ namespace FrontPerson.Manager
         /// </summary>
         public int ClearMissionNum = 0;
 
+        // <summary>
+        /// セーブデータ
+        /// </summary>
+        public SaveDatas save_data_;
+
 
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
         static void RuntimeInit()
         {
             var go = new GameObject("ApplicationManager", typeof(ApplicationManager));
+
+            go.tag = FrontPerson.Constants.TagName.MANAGER;
 
             // オーディオマネージャーを追加
             {
@@ -38,6 +47,8 @@ namespace FrontPerson.Manager
             }
 
             DontDestroyOnLoad(go);
+
+            go.GetComponent<ApplicationManager>().Load();
         }
 
         /// <summary>
@@ -45,6 +56,39 @@ namespace FrontPerson.Manager
         /// </summary>
         private void OnApplicationQuit()
         {
+        }
+
+        /// <summary>
+        /// データをセーブする
+        /// </summary>
+        public void Save()
+        {
+#if !UNITY_EDITOR
+            //save_data_.sound_data_ = SoundManagerSetting.Instance.GetSoundVolumeData();
+		    DataManager.Save(save_data_, SaveDatas.SAVE_DATA_NAME);
+#endif
+        }
+
+        /// <summary>
+        /// データをロードする
+        /// </summary>
+        private void Load()
+        {
+            try
+            {
+                // ２回目以降のプレイ
+                save_data_ = DataManager.Load<SaveDatas>(SaveDatas.SAVE_DATA_NAME);
+
+                //SoundManagerSetting.Instance.ValueSetting(save_data_.sound_data_);
+            }
+            catch (System.Exception)
+            {
+                // 初プレイ時はロードするデータが無いため生成
+                save_data_ = new SaveDatas();
+
+                //save_data_.sound_data_ = new SoundVolumeData();
+                //SoundManagerSetting.Instance.ValueSetting(save_data_.sound_data_);
+            }
         }
     }
 }
