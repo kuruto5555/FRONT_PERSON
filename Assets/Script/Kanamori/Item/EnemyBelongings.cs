@@ -35,9 +35,5 @@ namespace FrontPerson.Item
             }
         }
 
-        private void OnDestroy()
-        {
-            DropItem();
-        }
     }
 }

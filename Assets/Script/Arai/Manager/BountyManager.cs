@@ -3,11 +3,16 @@ using System.Collections.Generic;
 using UnityEngine;
 using FrontPerson.common;
 using FrontPerson.Bounty;
+using System.Security.Cryptography;
 
 namespace FrontPerson.Manager
 {
     public class BountyManager : MonoBehaviour
     {
+        [Header("武器がもらえるミッション数")]
+        [SerializeField,Range(1, 10)]
+        int GET_WEAPON_MISSON_NUM = 3;
+
         public static BountyManager _instance { get; private set;}
 
         public List<Bounty.Bounty> MissionList {
@@ -22,7 +27,7 @@ namespace FrontPerson.Manager
         /// <summary>
         /// 3ミッションずつ武器を出すため
         /// </summary>
-        private int _missionCnt = 0;
+        public int _missionCnt { get; private set; } = 0;
 
         /// <summary>
         /// ミッションの総数
@@ -216,8 +221,34 @@ namespace FrontPerson.Manager
         /// </summary>
         private void MissionMonitoring()
         {
-            int i = 0;
+            //*
+            for(int i = 0 ; i<MissionList.Count; i++ )
+            {
+                var mission = MissionList[i];
+                if (!mission.IsFinish) continue;
 
+                if (mission.IsCrear)
+                {
+                    //スコア加算
+                    ScoreManager.Instance.AddScore((int)mission.GetScore, FrontPerson.Score.ReasonForAddition.Bounty);
+
+                    _missionCnt++;
+
+                    //ミッションクリア数が３つになったら
+                    if (_missionCnt % GET_WEAPON_MISSON_NUM > 0)
+                    {
+                        //武器を出す
+                        _player.WeaponUpgrade(Random.Range(0, SpecialWeaponManager._instance._weaponNum));
+                    }
+                }
+
+                // クリアしたミッションのところに新しいミッションを作成
+                MissionList[i] = Instantiate(MissionPrefabList[Random.Range(0, _missionNum)], transform).GetComponent<Bounty.Bounty>();
+                // クリアしたほうは消す
+                mission.ImDie();
+            }
+            /*/
+            int i = 0;
             foreach (var it in MissionList)
             {
                 if (it.IsFinish)
@@ -237,11 +268,13 @@ namespace FrontPerson.Manager
                             _missionCnt = 0;
                         }
                     }
-                    MissionList[i].ImDie();
+                    var mission = MissionList[i];
                     MissionList[i] = Instantiate(MissionPrefabList[Random.Range(0, _missionNum)], transform).GetComponent<Bounty.Bounty>();
+                    Destroy(mission);
                 }
                 i++;
             }
+            //*/
         }
     }
 }

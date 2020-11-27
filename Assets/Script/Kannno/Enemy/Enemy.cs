@@ -8,6 +8,7 @@ using FrontPerson.Constants;
 using FrontPerson.Enemy;
 using FrontPerson.Enemy.AI;
 using FrontPerson.Manager;
+using FrontPerson.Item;
 
 namespace FrontPerson.Character
 {
@@ -129,7 +130,8 @@ namespace FrontPerson.Character
                 if (null == score_manager)
                 {
                     Debug.LogError("ScoreManager が存在しません");
-
+                    
+                    GetComponent<EnemyBelongings>().DropItem();
                     Destroy(gameObject);
                     return;
                 }
@@ -156,6 +158,7 @@ namespace FrontPerson.Character
                         break;
                 }
 
+                GetComponent<EnemyBelongings>().DropItem();
                 Destroy(gameObject);
             }
         }

@@ -2,14 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 using FrontPerson.UI;
-using UnityEditorInternal;
 using FrontPerson.Constants;
 
 namespace FrontPerson.Manager
 {
     public class GameSceneController : MonoBehaviour
     {
-        enum GAME_SCENE_STATE
+        public enum GAME_SCENE_STATE
         {
             TUTORIAL = 0,
             START_COUNT_DOWN,
@@ -19,7 +18,11 @@ namespace FrontPerson.Manager
 
             FINISH
         }
-        GAME_SCENE_STATE state_ = GAME_SCENE_STATE.TUTORIAL;
+        public GAME_SCENE_STATE state_
+        { 
+            get; 
+            private set; 
+        } = GAME_SCENE_STATE.TUTORIAL;
 
         
 
@@ -31,6 +34,21 @@ namespace FrontPerson.Manager
         [SerializeField]
         Timer timer_ = null;
 
+        [Header("カウントダウン")]
+        [SerializeField]
+        Countdown countdown_ = null;
+
+        [Header("バウンティマネージャー")]
+        [SerializeField]
+        BountyManager bountyManager_ = null;
+
+        
+
+
+
+        /// <summary>
+        /// アプリケーションマネージャー
+        /// </summary>
         ApplicationManager applicationManager_;
 
 
@@ -39,11 +57,15 @@ namespace FrontPerson.Manager
         void Start()
         {
             state_ = GAME_SCENE_STATE.TUTORIAL;
-            Time.timeScale = 0f;
             tutorial_.transform.root.gameObject.SetActive(true);
+            countdown_.transform.root.gameObject.SetActive(false);
+            bountyManager_.transform.root.gameObject.SetActive(false);
             timer_.transform.root.gameObject.SetActive(false);
+            timer_.TimerStop();
+
 
             applicationManager_ = FindObjectOfType<ApplicationManager>();
+            applicationManager_.IsInput = false;
         }
 
         // Update is called once per frame
@@ -56,7 +78,7 @@ namespace FrontPerson.Manager
                     break;
 
                 case GAME_SCENE_STATE.START_COUNT_DOWN:
-                    StasrtCountDownUpdate();
+                    CountDownUpdate();
                     break;
 
                 case GAME_SCENE_STATE.PLAY:
@@ -77,16 +99,22 @@ namespace FrontPerson.Manager
         {
             if (tutorial_.IsFinish)
             {
-                Time.timeScale = 1.0f;
                 tutorial_.transform.root.gameObject.SetActive(false);
+                countdown_.transform.gameObject.SetActive(true);
                 timer_.transform.root.gameObject.SetActive(true);
                 state_ = GAME_SCENE_STATE.START_COUNT_DOWN;
             }
         }
 
-        void StasrtCountDownUpdate()
+        void CountDownUpdate()
         {
-            state_ = GAME_SCENE_STATE.PLAY;
+            if (countdown_.IsCountdownFinish)
+            {
+                state_ = GAME_SCENE_STATE.PLAY;
+                applicationManager_.IsInput = true;
+                bountyManager_.transform.root.gameObject.SetActive(true);
+                timer_.TimerStart();
+            }
         }
 
         void PlayUpdate()
@@ -98,19 +126,24 @@ namespace FrontPerson.Manager
                 applicationManager_.ComboNum = 10;
                 applicationManager_.ClearMissionNum = 0;
                 state_ = GAME_SCENE_STATE.TIME_UP;
+                applicationManager_.IsInput = false;
             }
         }
 
         void TimeUpUpdate()
         {
             state_ = GAME_SCENE_STATE.TRANSITION;
+
+            //applicationManager_.Score = ScoreManager.Instance.;
+            //applicationManager_.ComboNum = ScoreManager.Instance.;
+            applicationManager_.ClearMissionNum = bountyManager_._missionCnt;
+            SceneManager.Instance.SceneChange(SceneName.RESULT_SCENE, 1.0f, Color.black);
         }
 
         void TransitionUpdate()
         {
+            applicationManager_.IsInput = true;
             state_ = GAME_SCENE_STATE.FINISH;
-            SceneManager.Instance.SceneChange(SceneName.RESULT_SCENE, 1.0f, Color.black);
-
         }
     }
 }

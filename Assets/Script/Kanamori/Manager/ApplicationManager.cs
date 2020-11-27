@@ -27,7 +27,13 @@ namespace FrontPerson.Manager
         // <summary>
         /// セーブデータ
         /// </summary>
-        public SaveDatas save_data_;
+        public SaveDatas save_data_= null;
+
+        /// <summary>
+        /// 入力を受け付けるかどうか
+        /// </summary>
+        public bool IsInput = true;
+
 
 
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
