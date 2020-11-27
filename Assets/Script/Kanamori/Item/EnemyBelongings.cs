@@ -34,5 +34,10 @@ namespace FrontPerson.Item
                 item.AddComponent<PickupDeadline>();
             }
         }
+
+        private void OnDestroy()
+        {
+            DropItem();
+        }
     }
 }
