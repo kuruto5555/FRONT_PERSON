@@ -10,6 +10,9 @@ namespace FrontPerson.Item
     /// </summary>
     public class InviciblePickup : MonoBehaviour
     {
+        [SerializeField]
+        private float invicible_time_ = 15f;
+
         private Pickup pickup_;
 
         // Start is called before the first frame update
@@ -24,6 +27,7 @@ namespace FrontPerson.Item
             pickup_.PlayPickupFeedback();
 
             // 無敵化
+            player.SetInvincible(invicible_time_);
         }
     }
 }

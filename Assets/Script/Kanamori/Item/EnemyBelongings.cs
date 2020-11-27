@@ -10,19 +10,14 @@ namespace FrontPerson.Item
     /// </summary>
     public class EnemyBelongings : MonoBehaviour
     {
-        [Serializable]
-        public class DroppedItemInfo
-        {
-            [Header("出現させるアイテムのプレハブ")]
-            public GameObject item_prefab_ = null;
-
-            [Header("アイテムを落とす確率")]
-            [Range(1, 100)]
-            public int probability_of_dropping_item_ = 1;
-        }
-
+        [Header("アイテムを落とす確率")]
+        [Range(1, 100)]
         [SerializeField]
-        private List<DroppedItemInfo> items_ = new List<DroppedItemInfo>();
+        private int probability_of_dropping_item_ = 40;
+
+        [Header("出現させるアイテムのプレハブ")]
+        [SerializeField]
+        private List<GameObject> item_prefabs_ = new List<GameObject>();
 
         /// <summary>
         /// アイテムを落とす
@@ -30,15 +25,19 @@ namespace FrontPerson.Item
         /// <returns>アイテムのプレハブ</returns>
         public void DropItem()
         {
-            // ランダムでアイテムを落とす
-            foreach (var item in items_)
+            // アイテムを確率で落とす
+            if (UnityEngine.Random.Range(1, 100) <= probability_of_dropping_item_)
             {
-                if(UnityEngine.Random.Range(1, 100) <= item.probability_of_dropping_item_)
-                {
-                    var obj = Instantiate(item.item_prefab_, transform.position, transform.rotation);
-                    obj.AddComponent<PickupDeadline>();
-                }
+                // ランダムでアイテムを落とす
+                int pickup_item_num = UnityEngine.Random.Range(0, item_prefabs_.Count);
+                var item = Instantiate(item_prefabs_[pickup_item_num], transform.position, transform.rotation);
+                item.AddComponent<PickupDeadline>();
             }
+        }
+
+        private void OnDestroy()
+        {
+            DropItem();
         }
     }
 }

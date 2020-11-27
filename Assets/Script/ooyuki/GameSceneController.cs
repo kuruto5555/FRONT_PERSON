@@ -17,6 +17,7 @@ namespace FrontPerson.Manager
         }
         GAME_SCENE_STATE state_ = GAME_SCENE_STATE.TUTORIAL;
 
+        
 
         [Header("チュートリアルUI")]
         [SerializeField]
@@ -25,6 +26,8 @@ namespace FrontPerson.Manager
         [Header("タイマー")]
         [SerializeField]
         Timer timer_ = null;
+
+        ApplicationManager applicationManager_;
 
 
 
@@ -35,6 +38,8 @@ namespace FrontPerson.Manager
             Time.timeScale = 0f;
             tutorial_.transform.root.gameObject.SetActive(true);
             timer_.transform.root.gameObject.SetActive(false);
+
+            applicationManager_ = FindObjectOfType<ApplicationManager>();
         }
 
         // Update is called once per frame
@@ -71,6 +76,7 @@ namespace FrontPerson.Manager
                 Time.timeScale = 1.0f;
                 tutorial_.transform.root.gameObject.SetActive(false);
                 timer_.transform.root.gameObject.SetActive(true);
+                state_ = GAME_SCENE_STATE.START_COUNT_DOWN;
             }
         }
 
@@ -81,7 +87,13 @@ namespace FrontPerson.Manager
 
         void PlayUpdate()
         {
-
+            if (timer_.IsTimeOver)
+            {
+                Time.timeScale = 0.0f;
+                applicationManager_.Score = 10000;
+                applicationManager_.ComboNum = 10;
+                applicationManager_.ClearMissionNum = 0;
+            }
         }
 
         void TimeUpUpdate()
