@@ -9,6 +9,7 @@ TagManager:
   - RecoveryPoint
   - Enemy
   - BountyManager
+  - Manager
   layers:
   - Default
   - TransparentFX
