@@ -26,6 +26,8 @@ namespace FrontPerson.Manager
         [SerializeField]
         Timer timer_ = null;
 
+        ApplicationManager applicationManager_;
+
 
 
         // Start is called before the first frame update
@@ -35,6 +37,8 @@ namespace FrontPerson.Manager
             Time.timeScale = 0f;
             tutorial_.transform.root.gameObject.SetActive(true);
             timer_.transform.root.gameObject.SetActive(false);
+
+            applicationManager_ = FindObjectOfType<ApplicationManager>();
         }
 
         // Update is called once per frame

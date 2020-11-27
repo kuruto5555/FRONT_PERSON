@@ -1,32 +1,50 @@
 ﻿using FrontPerson.common;
-using FrontPerson.Manager;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ApplicationManager : MonoBehaviour
+namespace FrontPerson.Manager
 {
-    [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
-    static void RuntimeInit()
+    public class ApplicationManager : MonoBehaviour
     {
-        var go = new GameObject("ApplicationManager", typeof(ApplicationManager));
+        /// <summary>
+        /// 今回のスコア
+        /// </summary>
+        public int Score = 0;
 
-        // オーディオマネージャーを追加
+        /// <summary>
+        /// 今回のコンボ数
+        /// </summary>
+        public int ConboNum = 0;
+
+        /// <summary>
+        /// 今回のクリアしたミッション数
+        /// </summary>
+        public int ClearMissionNum = 0;
+
+
+        [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
+        static void RuntimeInit()
         {
-            var am = go.AddComponent<AudioManager>();
-            am.Init();
+            var go = new GameObject("ApplicationManager", typeof(ApplicationManager));
 
-            go.AddComponent<SceneManager>();
-            go.AddComponent<FadeManager>();
+            // オーディオマネージャーを追加
+            {
+                var am = go.AddComponent<AudioManager>();
+                am.Init();
+
+                go.AddComponent<SceneManager>();
+                go.AddComponent<FadeManager>();
+            }
+
+            DontDestroyOnLoad(go);
         }
 
-        DontDestroyOnLoad(go);
-    }
-
-    /// <summary>
-    /// アプリ終了時呼ばれる
-    /// </summary>
-    private void OnApplicationQuit()
-    {
+        /// <summary>
+        /// アプリ終了時呼ばれる
+        /// </summary>
+        private void OnApplicationQuit()
+        {
+        }
     }
 }
