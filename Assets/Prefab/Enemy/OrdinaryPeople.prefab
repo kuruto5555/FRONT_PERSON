@@ -182,6 +182,7 @@ GameObject:
   - component: {fileID: 1610290237}
   - component: {fileID: 2811532335922510156}
   - component: {fileID: 1515111144}
+  - component: {fileID: -2711565887294258485}
   m_Layer: 11
   m_Name: OrdinaryPeople
   m_TagString: Enemy
@@ -331,3 +332,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MovePattern: {fileID: 0}
+--- !u!114 &-2711565887294258485
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6058391280694767586}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 042d90be3c8c0ab44a804c8ce79bea71, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  probability_of_dropping_item_: 40
+  item_prefabs_:
+  - {fileID: 3241205557239290086, guid: b9802c49964af174d841cef81db7bdf4, type: 3}
+  - {fileID: 103971587206499312, guid: e734d8fa19be9c84eae7e6a1af845f33, type: 3}
