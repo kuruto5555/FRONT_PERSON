@@ -35,7 +35,7 @@ namespace FrontPerson.Enemy.AI
         /// <summary>
         /// 移動先の一覧をステートが変わっても保存する為の変数
         /// </summary>
-        protected List<Transform> MovetList = new List<Transform>();
+        protected List<Vector3> MovetList = new List<Vector3>();
 
         public void Start()
         {
@@ -145,14 +145,14 @@ namespace FrontPerson.Enemy.AI
         /// <summary>
         /// MovePointをステートが変わっても保存する
         /// </summary>
-        private void Save_MovePoint(int MovePointIndex, List<Transform> MovePoint_List)
+        private void Save_MovePoint(int MovePointIndex, List<Vector3> MovePoint_List)
         {
             MoveIndex = MovePointIndex;
 
             MovetList = MovePoint_List;
         }
 
-        public void Load_MovePoint(int MovePointIndex, List<Transform> MovePoint_List)
+        public void Load_MovePoint(int MovePointIndex, List<Vector3> MovePoint_List)
         {
             EnemyState_Move ai = this as EnemyState_Move;
 

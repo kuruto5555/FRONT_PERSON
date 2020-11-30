@@ -18,6 +18,7 @@ public static class TagName
 	public const string PLAYER          ="Player";
 	public const string RECOVERY_POINT  ="RecoveryPoint";
 	public const string RESPAWN         ="Respawn";
+	public const string SPAWNER         ="Spawner";
 	public const string UNTAGGED        ="Untagged";
 
 }
