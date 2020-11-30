@@ -34,6 +34,10 @@ namespace FrontPerson.Manager
         /// </summary>
         public bool IsInput = true;
 
+        /// <summary>
+        /// ゲーム開始フラグ
+        /// </summary>
+        public bool IsGamePlay = false;
 
 
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
