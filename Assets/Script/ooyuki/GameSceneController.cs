@@ -47,9 +47,9 @@ namespace FrontPerson.Manager
         [SerializeField]
         BountyManager bountyManager_ = null;
 
-        //[Header("タイムアップ")]
-        //[SerializeField]
-
+        [Header("タイムアップ")]
+        [SerializeField]
+        TimeUp timeUp_ = null;
 
 
 
@@ -63,18 +63,26 @@ namespace FrontPerson.Manager
         // Start is called before the first frame update
         void Start()
         {
-            state_ = GAME_SCENE_STATE.TUTORIAL1;
+            // 最初は操作説明のみ出す
             tutorial1_.transform.root.gameObject.SetActive(true);
+
+            // 他はいったん非表示
             tutorial2_.transform.root.gameObject.SetActive(false);
             countdown_.transform.root.gameObject.SetActive(false);
+            timeUp_.transform.root.gameObject.SetActive(false);
             bountyManager_.transform.root.gameObject.SetActive(false);
             timer_.transform.root.gameObject.SetActive(false);
+            
+            // タイマーを止めていく
             timer_.TimerStop();
 
-
+            // アプリケーションマネージャーに現在の状態を保存
             applicationManager_ = FindObjectOfType<ApplicationManager>();
             applicationManager_.IsInput = true;
             applicationManager_.IsGamePlay = false;
+
+            // ステートを操作説明にする
+            state_ = GAME_SCENE_STATE.TUTORIAL1;
         }
 
         // Update is called once per frame
@@ -126,7 +134,6 @@ namespace FrontPerson.Manager
                 countdown_.transform.root.gameObject.SetActive(true);
                 timer_.transform.root.gameObject.SetActive(true);
                 applicationManager_.IsInput = false;
-
                 state_ = GAME_SCENE_STATE.START_COUNT_DOWN;
             }
         }
@@ -139,7 +146,6 @@ namespace FrontPerson.Manager
                 timer_.TimerStart();
                 applicationManager_.IsInput = true;
                 applicationManager_.IsGamePlay = true;
-
                 state_ = GAME_SCENE_STATE.PLAY;
             }
         }
@@ -148,25 +154,25 @@ namespace FrontPerson.Manager
         {
             if (timer_.IsTimeOver)
             {
-                Time.timeScale = 0;
-                applicationManager_.Score = 10000;
-                applicationManager_.ComboNum = 10;
-                applicationManager_.ClearMissionNum = 0;
+                timer_.TimerStop();
+                timeUp_.transform.root.gameObject.SetActive(true);
                 applicationManager_.IsInput = false;
                 applicationManager_.IsGamePlay = false;
-
                 state_ = GAME_SCENE_STATE.TIME_UP;
             }
         }
 
         void TimeUpUpdate()
         {
-            state_ = GAME_SCENE_STATE.TRANSITION;
-
-            //applicationManager_.Score = ScoreManager.Instance.;
-            //applicationManager_.ComboNum = ScoreManager.Instance.;
-            applicationManager_.ClearMissionNum = bountyManager_._missionCnt;
-            SceneManager.Instance.SceneChange(SceneName.RESULT_SCENE, 1.0f, Color.black);
+            if (timeUp_.IsFinissh)
+            {
+                // スコア等を保存
+                applicationManager_.ClearMissionNum = bountyManager_._missionCnt;
+                applicationManager_.Score = 10000;
+                applicationManager_.ComboNum = 10;
+                state_ = GAME_SCENE_STATE.TRANSITION;
+                SceneManager.Instance.SceneChange(SceneName.RESULT_SCENE, 1.0f, Color.black);
+            }
         }
 
         void TransitionUpdate()
