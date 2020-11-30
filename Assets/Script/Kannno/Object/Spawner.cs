@@ -49,11 +49,16 @@ namespace FrontPerson.Enemy
         [SerializeField, Range(0, 1000)]
         private int MaxCnt_Yakuza = 0;
 
+        /// <summary>
+        /// スポーンする敵の最大数
+        /// </summary>
         static private int Max_OrdinaryPeople = 0;
         static private int Max_OldBattleaxe = 0;
         static private int Max_Yakuza = 0;
 
+        /// <summary>
         // ステージ上にいる敵の数
+        /// </summary>
         static private int Sum_OrdinaryPeople = 0;
         static private int Sum_OldBattleaxe = 0;
         static private int Sum_Yakuza = 0;
@@ -95,6 +100,8 @@ namespace FrontPerson.Enemy
                 Max_OrdinaryPeople = MaxCnt_OrdinaryPeople;
                 Max_OldBattleaxe = MaxCnt_OldBattleaxe;
                 Max_Yakuza = MaxCnt_Yakuza;
+
+                SumEnemy();
             }
 
             current_time = Time.timeSinceLevelLoad;
@@ -123,6 +130,43 @@ namespace FrontPerson.Enemy
             Handles.DrawSolidArc(transform.position, Vector3.up, Quaternion.Euler(0f, 0f, 0f) * transform.forward, 360f, 0.5f);
         }
 #endif
+
+        /// <summary>
+        /// スポーンする敵の最大数に既に存在する敵の数を加算する
+        /// </summary>
+        private void SumEnemy()
+        {
+            var enemys = GameObject.FindGameObjectsWithTag(Constants.TagName.ENEMY);
+
+            Character.Enemy enemy = null;
+
+            for (int i = 0; i < enemys.Length; i++)
+            {
+                enemy = enemys[i].GetComponent<Character.Enemy>();
+
+                switch (enemy.Type)
+                {
+                    case EnemyType.ORDINATY_PEOPLE:
+                        Max_OrdinaryPeople++;
+                        Sum_OrdinaryPeople++;
+                        break;
+
+                    case EnemyType.OLD_BATTLEAXE:
+                        Max_OldBattleaxe++;
+                        Sum_OldBattleaxe++;
+                        break;
+
+                    case EnemyType.YAKUZA:
+                        Max_Yakuza++;
+                        Sum_Yakuza++;
+                        break;
+
+                    default:
+                        Debug.LogError("エネミーの Type の値が不正です");
+                        break;
+                }
+            }
+        }
 
         /// <summary>
         /// 敵生成関数
