@@ -91,7 +91,7 @@ namespace FrontPerson.Enemy.AI
         protected override void OnUpdate()
         {
             // 目的地についていたら次の目的地の方に行く
-            if (Owner.Agent.remainingDistance <= 0.1f)
+            if (Owner.Agent.remainingDistance <= 1f)
             {
                 Vector3 destination = MovePoint_List[(MovePointIndex + 1) % MovePoint_List.Count];
 
