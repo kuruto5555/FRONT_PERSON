@@ -12,30 +12,27 @@ namespace FrontPerson.UI {
 
         [Header("デフォルト銃の弾のゲージ")]
         [SerializeField]
-        Image L_BulletNumGauge_ = null;
+        Image handGunBulletGaugeL_ = null;
         [SerializeField]
-        Image R_BulletNumGauge_ = null;
+        Image handGunBulletGaugeR_ = null;
 
         [Header("スペシャル銃の弾のゲージ")]
         [SerializeField]
-        Image SpecialBulletNumGauge_ = null;
-
-        /// <summary>
-        /// アニメーター
-        /// </summary>
-        Animator animator_ = null;
-
-        /// <summary>
-        /// スペシャル武器のアイコン
-        /// </summary>
-        [Header("スペシャル武器のアイコン")]
+        Image shotgunBulletGauge_ = null;
         [SerializeField]
-        GameObject shotgunIcon_ = null;
+        Image machineGunBulletGauge_ = null;
         [SerializeField]
-        GameObject machineGunIcon_ = null;
-        [SerializeField]
-        GameObject missileIcon_ = null;
+        Image MissileBulletGauge_ = null;
 
+        [Header("アニメーター")]
+        [SerializeField]
+        Animator handGunBulletGaugeAnimator_ = null;
+        [SerializeField]
+        Animator shotgunBulletGaugeAnimator_ = null;
+        [SerializeField]
+        Animator machineGunBulletGaugeAnimator_ = null;
+        [SerializeField]
+        Animator MissileBulletGaugeAnimator_ = null;
 
         /// <summary>
         /// プレイヤー
@@ -62,10 +59,13 @@ namespace FrontPerson.UI {
         void Start()
         {
             player_ = FindObjectOfType<Character.Player>();
-            //gunType_ = player_.GunType;
-            animator_ = GetComponent<Animator>();
 
+            handGunBulletGaugeAnimator_.gameObject.SetActive(true);
+            machineGunBulletGaugeAnimator_.gameObject.SetActive(false);
+            shotgunBulletGaugeAnimator_.gameObject.SetActive(false);
+            MissileBulletGaugeAnimator_.gameObject.SetActive(false);
 
+            GetWeaponType();
             ChangeGaugeUI();
             SetParameter();
         }
@@ -95,66 +95,47 @@ namespace FrontPerson.UI {
                     {
                         //ここには来ない（下のそれ以外でスペシャル武器以外来ないようにするため）
                         case WEAPON_TYPE.HANDGUN:
-                            break;
-
-                        //ここに起きてはいけない
-                        case WEAPON_TYPE.NONE:
-                            Debug.LogError("武器のタイプが設定されていません");
-                            break;
-
-                        //スペシャル武器になったとき
-                        default:
-                            // アイコンセット
-                            SetSPWeaponIcon();
-                            // アニメーション再生
-                            animator_.Play("ChangeHandGun");
-                            break;
-                    }
-                    break;
-
-                // ここに来てはいけない
-                case WEAPON_TYPE.NONE:
-                    Debug.LogError("武器のタイプが設定されていません");
-                    break;
-                    
-                // 前の武器がスペシャル武器で
-                default:
-                    switch (weaponType_)
-                    {
-                        // ハンドガンに変わったとき
-                        case WEAPON_TYPE.HANDGUN:
-                            // アニメーション再生
-                            animator_.Play("ChangeSPWeapon");
+                            Debug.LogError("ハンドガンからハンドガンに武器が変わるという、仕様にない動き");
                             break;
 
                         case WEAPON_TYPE.ASSAULT_RIFLE:
-                            machineGunIcon_.SetActive(true);
-                            shotgunIcon_.SetActive(false);
-                            missileIcon_.SetActive(false);
+                            ChangeWeapon_SpecialWeapon_from_HandGun(machineGunBulletGaugeAnimator_);
                             break;
 
                         case WEAPON_TYPE.SHOT_GUN:
-                            shotgunIcon_.SetActive(true);
-                            machineGunIcon_.SetActive(false);
-                            missileIcon_.SetActive(false);
+                            ChangeWeapon_SpecialWeapon_from_HandGun(shotgunBulletGaugeAnimator_);
                             break;
 
                         case WEAPON_TYPE.MISSILE:
-                            missileIcon_.SetActive(true);
-                            machineGunIcon_.SetActive(false);
-                            shotgunIcon_.SetActive(false);
+                            ChangeWeapon_SpecialWeapon_from_HandGun(MissileBulletGaugeAnimator_);
                             break;
 
-                        // ここに来てはいけない
-                        case WEAPON_TYPE.NONE:
+                        // 予期しない値
+                        default:
                             Debug.LogError("武器のタイプが設定されていません");
                             break;
-
-                        default:
-                            //アイコンセット
-                            SetSPWeaponIcon();
-                            break;
                     }
+                    break;
+
+                // 前の武器がマシンガン
+                case WEAPON_TYPE.ASSAULT_RIFLE:
+                    ChangeWeapon_from_SpecialWeapon(machineGunBulletGaugeAnimator_);
+                    break;
+
+                // 前の武器がショットガン
+                case WEAPON_TYPE.SHOT_GUN:
+                    ChangeWeapon_from_SpecialWeapon(shotgunBulletGaugeAnimator_);
+                    break;
+
+                // 前の武器がミサイル
+                case WEAPON_TYPE.MISSILE:
+                    ChangeWeapon_from_SpecialWeapon(MissileBulletGaugeAnimator_);
+                    break;
+
+
+                // ここに来てはいけない
+                default:
+                    Debug.LogError("武器のタイプが設定されていません");
                     break;
             }
         }
@@ -165,16 +146,31 @@ namespace FrontPerson.UI {
         /// </summary>
         void SetParameter()
         {
-            L_BulletNumGauge_.rectTransform.localScale = new Vector2((float)player_.GunAmmoL / player_.GunAmmoMAX_L, 1.0f);
-            R_BulletNumGauge_.rectTransform.localScale = new Vector2((float)player_.GunAmmoR / player_.GunAmmoMAX_R, 1.0f);
+            handGunBulletGaugeL_.rectTransform.localScale = new Vector2((float)player_.GunAmmoL / player_.GunAmmoMAX_L, 1.0f);
+            handGunBulletGaugeR_.rectTransform.localScale = new Vector2((float)player_.GunAmmoR / player_.GunAmmoMAX_R, 1.0f);
 
             if (player_.IsSpecialWeapon)
             {
-                SpecialBulletNumGauge_.rectTransform.localScale = new Vector2((float)player_.GetWeaponList[2].Ammo / player_.GetWeaponList[2].MaxAmmo_, 1.0f);
+                switch (player_.GetWeaponList[2].GetWeaponType)
+                {
+                    case WEAPON_TYPE.ASSAULT_RIFLE:
+                        machineGunBulletGauge_.rectTransform.localScale = new Vector2((float)player_.GetWeaponList[2].Ammo / player_.GetWeaponList[2].MaxAmmo_, 1.0f);
+                        break;
+
+                    case WEAPON_TYPE.SHOT_GUN:
+                        shotgunBulletGauge_.rectTransform.localScale = new Vector2((float)player_.GetWeaponList[2].Ammo / player_.GetWeaponList[2].MaxAmmo_, 1.0f);
+                        break;
+
+                    case WEAPON_TYPE.MISSILE:
+                        MissileBulletGauge_.rectTransform.localScale = new Vector2((float)player_.GetWeaponList[2].Ammo / player_.GetWeaponList[2].MaxAmmo_, 1.0f);
+                        break;
+                }
             }
         }
 
-
+        /// <summary>
+        /// 現在の武器の種類の取得
+        /// </summary>
         void GetWeaponType()
         {
             // 前フレームの銃の種類を保存
@@ -190,28 +186,80 @@ namespace FrontPerson.UI {
             }
         }
 
-        void SetSPWeaponIcon()
+
+        /// <summary>
+        /// ハンドガンからスペシャル武器に変わった時
+        /// </summary>
+        /// <param name="spWeaponAnimator">切り替わったSP武器のアニメーター</param>
+        void ChangeWeapon_SpecialWeapon_from_HandGun(Animator spWeaponAnimator)
+        {
+            // ハンドガンを後ろにするアニメーション再生
+            handGunBulletGaugeAnimator_.Play("HandGunBulletGaugeOff");
+            // SP武器を出すアニメーション
+            spWeaponAnimator.gameObject.SetActive(true);
+            spWeaponAnimator.Play("SpecialWeaponBulletGaugeIn");
+        }
+
+
+        /// <summary>
+        /// スペシャル武器から変わったとき
+        /// </summary>
+        /// <param name="oldSPWeaponAnimator">切り替わる前のSP武器のアニメーター</param>
+        void ChangeWeapon_from_SpecialWeapon(Animator oldSPWeaponAnimator)
         {
             switch (weaponType_)
             {
+                // ハンドガンに変わったとき
+                case WEAPON_TYPE.HANDGUN:
+                    // SP武器を無くすアニメーション
+                    oldSPWeaponAnimator.Play("SpecialWeaponBulletGaugeOut");
+                    // ハンドガンを手前にするアニメーション再生
+                    handGunBulletGaugeAnimator_.Play("HandGunBulletGaugeOn");
+                    break;
+
                 case WEAPON_TYPE.ASSAULT_RIFLE:
-                    machineGunIcon_.SetActive(true);
-                    shotgunIcon_.SetActive(false);
-                    missileIcon_.SetActive(false);
+                    ChangeWeapon_SpecialWeapon_from_SpecialWeapon(
+                        machineGunBulletGaugeAnimator_,
+                        oldSPWeaponAnimator);
                     break;
 
                 case WEAPON_TYPE.SHOT_GUN:
-                    shotgunIcon_.SetActive(true);
-                    machineGunIcon_.SetActive(false);
-                    missileIcon_.SetActive(false);
+                    ChangeWeapon_SpecialWeapon_from_SpecialWeapon(
+                        shotgunBulletGaugeAnimator_,
+                        oldSPWeaponAnimator);
                     break;
 
                 case WEAPON_TYPE.MISSILE:
-                    missileIcon_.SetActive(true);
-                    machineGunIcon_.SetActive(false);
-                    shotgunIcon_.SetActive(false);
+                    ChangeWeapon_SpecialWeapon_from_SpecialWeapon(
+                        MissileBulletGaugeAnimator_,
+                        oldSPWeaponAnimator);
+                    break;
+
+                default:
+                    Debug.LogError("武器のタイプが設定されていません");
                     break;
             }
+
+        }
+
+
+        /// <summary>
+        /// SP武器からSP武器に切り替わったとき
+        /// </summary>
+        /// <param name="newSPWeaponAnimator">切り替わったSP武器のアニメーター</param>
+        /// <param name="oldSPWeaponAnimator">切り替わる前のSP武器のアニメーター</param>
+        void ChangeWeapon_SpecialWeapon_from_SpecialWeapon(Animator newSPWeaponAnimator, Animator oldSPWeaponAnimator)
+        {
+            // 前のSP武器を無くすアニメーション
+            oldSPWeaponAnimator.Play("SpecialWeaponBulletGaugeOut");
+            // 新しいSP武器を出すアニメーション
+            newSPWeaponAnimator.gameObject.SetActive(true);
+            newSPWeaponAnimator.Play("SpecialWeaponBulletGaugeIn");
+        }
+
+        public void SetActive(GameObject gameObject, bool value)
+        {
+            gameObject.SetActive(value);
         }
     }
 
