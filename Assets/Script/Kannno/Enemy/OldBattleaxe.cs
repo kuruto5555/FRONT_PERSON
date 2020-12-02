@@ -35,7 +35,7 @@ namespace FrontPerson.Enemy
                 SetDown();
             }
 
-            if (lack_vitamins != bullet.BulletType)
+            if (lack_vitamins != bullet.BulletType && Constants.NUTRIENTS_TYPE._ALL != bullet.BulletType)
             {
                 // 弾の種類と足りないビタミンが違う
                 isHit = true;
