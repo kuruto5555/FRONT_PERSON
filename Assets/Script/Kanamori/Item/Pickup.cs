@@ -45,7 +45,7 @@ namespace FrontPerson.Item
         {
             // ふわふわ浮かせる
 //          transform_.position = new Vector3(transform_.position.x, Mathf.PingPong(Time.time / fluffy_speed_, fluffy_movement_), transform_.position.z);
-            transform_.position = Vector3.up * Mathf.PingPong(Time.time * fluffy_speed_, fluffy_movement_);
+            //transform_.position = Vector3.up * Mathf.PingPong(Time.time * fluffy_speed_, fluffy_movement_);
 
             // 回転
             transform_.Rotate(Vector3.up, rotation_speed_ * Time.deltaTime, Space.Self);

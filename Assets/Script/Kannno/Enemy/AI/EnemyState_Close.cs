@@ -17,7 +17,7 @@ namespace FrontPerson.Enemy.AI
 
         protected override void OnStart()
         {
-            Owner.SetTarget(goal);
+            Owner.SetTarget(goal.position);
 
             time = Time.timeSinceLevelLoad;
         }
@@ -28,7 +28,7 @@ namespace FrontPerson.Enemy.AI
             {
                 time = Time.timeSinceLevelLoad;
 
-                Owner.SetTarget(goal);
+                Owner.SetTarget(goal.position);
             }
         }
 

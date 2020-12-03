@@ -8,7 +8,7 @@ namespace FrontPerson.Enemy.AI
     {
         protected override void OnStart()
         {
-            Owner.SetTarget(null);
+            Owner.SetTarget(Owner.transform.position);
         }
 
         protected override void OnUpdate()

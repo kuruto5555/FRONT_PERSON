@@ -26,14 +26,16 @@ namespace FrontPerson.Enemy
 
         public override void HitBullet(Bullet bullet)
         {
+            if (isDown) return;
+
             AddVitamins(bullet.Power);
 
             if (insufficiency <= 0)
             {
-                SetDestroy();
+                SetDown();
             }
 
-            if (lack_vitamins != bullet.BulletType)
+            if (lack_vitamins != bullet.BulletType && Constants.NUTRIENTS_TYPE._ALL != bullet.BulletType)
             {
                 // 弾の種類と足りないビタミンが違う
                 isHit = true;
