@@ -51,7 +51,7 @@ namespace FrontPerson.UI
         private void Update()
         {
             // メニューを開く
-            if (Input.GetKeyDown(Constants.InputName.PAUSE))
+            if (Input.GetButtonDown(Constants.InputName.PAUSE))
             {
                 foreach (var obj in active_menu_)
                 {
