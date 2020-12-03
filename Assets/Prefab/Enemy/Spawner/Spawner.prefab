@@ -57,7 +57,7 @@ MonoBehaviour:
   - {fileID: 0}
   Yakuza_MovePatternList:
   - {fileID: 0}
-  MaxCnt_OrdinaryPeople: 10
-  MaxCnt_OldBattleaxe: 5
-  MaxCnt_Yakuza: 3
+  Max_OrdinaryPeople: 10
+  Max_OldBattleaxe: 3
+  Max_Yakuza: 2
   time: 2
