@@ -16,6 +16,7 @@ namespace FrontPerson.Manager
         /// フェード遷移中かどうか
         /// </summary>
         private bool is_fade_ = false;
+        public bool IsFade { get { return is_fade_; } }
 
         /// <summary>
         /// フェード遷移の色
