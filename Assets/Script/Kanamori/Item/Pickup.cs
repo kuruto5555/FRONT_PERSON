@@ -25,6 +25,8 @@ namespace FrontPerson.Item
         [SerializeField]
         private ParticleSystem particle_ = null;
 
+        private Vector3 create_position_;
+
         /// <summary>
         /// 拾った際のイベント
         /// </summary>
@@ -38,6 +40,8 @@ namespace FrontPerson.Item
             transform_ = transform;
             GetComponent<Rigidbody>().isKinematic = true;
             GetComponent<Collider>().isTrigger = true;
+
+            create_position_ = transform_.position;
         }
 
         // Update is called once per frame
@@ -45,7 +49,7 @@ namespace FrontPerson.Item
         {
             // ふわふわ浮かせる
 //          transform_.position = new Vector3(transform_.position.x, Mathf.PingPong(Time.time / fluffy_speed_, fluffy_movement_), transform_.position.z);
-            transform_.position = Vector3.up * Mathf.PingPong(Time.time * fluffy_speed_, fluffy_movement_);
+            transform_.position = create_position_ + Vector3.up * Mathf.PingPong(Time.time * fluffy_speed_, fluffy_movement_);
 
             // 回転
             transform_.Rotate(Vector3.up, rotation_speed_ * Time.deltaTime, Space.Self);
@@ -57,7 +61,7 @@ namespace FrontPerson.Item
 
             if (player != null)
             {
-                if(onPick != null)
+                if (onPick != null)
                 {
                     onPick.Invoke(player);
 
