@@ -43,21 +43,25 @@ namespace FrontPerson.Manager
         [SerializeField]
         Countdown countdown_ = null;
 
-        [Header("バウンティマネージャー")]
-        [SerializeField]
-        BountyManager bountyManager_ = null;
-
         [Header("タイムアップ")]
         [SerializeField]
         TimeUp timeUp_ = null;
 
+        [Header("マネージャー")]
+        [SerializeField]
+        BountyManager bountyManager_ = null;
 
+        /// <summary>
+        /// スコアマネージャ―
+        /// </summary>
+        ScoreManager scoreManager_ = null;
 
         /// <summary>
         /// アプリケーションマネージャー
         /// </summary>
-        ApplicationManager applicationManager_;
+        ApplicationManager applicationManager_ = null;
 
+        int comboMax_ = 0;
 
 
         // Start is called before the first frame update
@@ -80,6 +84,9 @@ namespace FrontPerson.Manager
             applicationManager_ = FindObjectOfType<ApplicationManager>();
             applicationManager_.IsInput = true;
             applicationManager_.IsGamePlay = false;
+
+            // スコアマネージャ―取得
+            scoreManager_ = ScoreManager.Instance;
 
             // ステートを操作説明にする
             state_ = GAME_SCENE_STATE.TUTORIAL1;
@@ -152,6 +159,10 @@ namespace FrontPerson.Manager
 
         void PlayUpdate()
         {
+            //現在のコンボ数が最大コンボ数より大きくなったら更新する
+            if (comboMax_ < scoreManager_.ComboBonus) comboMax_ = scoreManager_.ComboBonus;
+
+            //ゲームが終了したとき
             if (timer_.IsTimeOver)
             {
                 timer_.TimerStop();
@@ -168,8 +179,8 @@ namespace FrontPerson.Manager
             {
                 // スコア等を保存
                 applicationManager_.ClearMissionNum = bountyManager_._missionCnt;
-                applicationManager_.Score = 10000;
-                applicationManager_.ComboNum = 10;
+                applicationManager_.Score = scoreManager_.CurrentScore;
+                applicationManager_.ComboNum = comboMax_;
                 state_ = GAME_SCENE_STATE.TRANSITION;
                 SceneManager.Instance.SceneChange(SceneName.RESULT_SCENE, 1.0f, Color.black);
             }
