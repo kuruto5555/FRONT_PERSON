@@ -18,6 +18,7 @@ public static class InputName
 	public const string SCAN                       ="Scan";
 	public const string SUBMIT                     ="Submit";
 	public const string VERTICAL                   ="Vertical";
+	public const string VERTICAL2                  ="Vertical2";
 
 }
 
