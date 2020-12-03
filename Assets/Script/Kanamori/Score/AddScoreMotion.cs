@@ -36,7 +36,7 @@ namespace FrontPerson.Score
                 if (end_motion_!= null)
                 {
                     // アニメーションが終了したのでイベントを呼ぶ
-                    int score = int.Parse(GetComponent<Text>().text.ToString());
+                    int score = int.Parse(GetComponent<Text>().text);
                     end_motion_.Invoke(score);
                 }
             }
