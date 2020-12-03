@@ -39,12 +39,12 @@ namespace FrontPerson.UI
         /// </summary>
         private OptionUI current_selected_ui_;
 
-        private EventSystem event_sytem_;
+        private EventSystem event_system_;
 
         // Start is called before the first frame update
         private void Start()
         {
-            event_sytem_ = EventSystem.current;
+            event_system_ = EventSystem.current;
             SelectedOptionButtonSettings();
         }
 
@@ -57,6 +57,21 @@ namespace FrontPerson.UI
                 {
                     // メニューを開いている場合は閉じる、閉じている場合は開く
                     obj.SetActive(!obj.activeSelf);
+                }
+
+                if (!active_menu_[0].activeSelf)
+                {
+                    // メニューを開き直す度前回まで開いていたメニューを閉じ、配列最初のメニューを開く
+                    current_selected_ui_.menu_ui_.SetActive(false);
+                    current_selected_ui_ = option_ui_[0];
+                    current_selected_ui_.menu_ui_.SetActive(true);
+
+                    // メニュー画面を表示した際、タブの配列一つ目を選択する
+                    event_system_.SetSelectedGameObject(option_ui_[0].tab_button_.gameObject);
+                    BaseEventData baseEventData = new BaseEventData(event_system_);
+                    baseEventData.selectedObject = current_selected_ui_.tab_button_.gameObject;
+                    option_ui_[0].tab_button_.OnSelect(baseEventData);
+                    baseEventData.Reset();
                 }
             }
         }
@@ -71,7 +86,13 @@ namespace FrontPerson.UI
                 // 配列の1番目の物を現在選択中のタブにする
                 current_selected_ui_ = option_ui_[0];
                 current_selected_ui_.menu_ui_.SetActive(true);
-                event_sytem_.SetSelectedGameObject(current_selected_ui_.tab_button_.gameObject);
+                event_system_.SetSelectedGameObject(current_selected_ui_.tab_button_.gameObject);
+
+                // メニュー画面を表示した際、タブの配列一つ目を選択する
+                BaseEventData baseEventData = new BaseEventData(event_system_);
+                baseEventData.selectedObject = current_selected_ui_.tab_button_.gameObject;
+                option_ui_[0].tab_button_.OnSelect(baseEventData);
+                baseEventData.Reset();
             }
 
             foreach (var ui in option_ui_)
