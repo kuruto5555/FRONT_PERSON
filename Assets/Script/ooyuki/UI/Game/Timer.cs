@@ -33,14 +33,21 @@ namespace FrontPerson.UI
         /// </summary>
         public float Second { get; private set; } = 0f;
 
+        /// <summary>
+        /// タイマーを進めていいかどうか
+        /// </summary>
+        bool IsCount_ = false;
+
+
         // Start is called before the first frame update
         void Start()
         {
+            IsCount_ = false;
             IsTimeOver = false;
             Second = timeLimit_;
 
             // 分
-            for (; Second > 60f;)
+            for (; Second >= 60f;)
             {
                 Second -= 60f;
                 Minute++;
@@ -55,14 +62,47 @@ namespace FrontPerson.UI
         // Update is called once per frame
         void Update()
         {
+            if (!IsCount_) return;
             if (IsTimeOver) return;
 
             // 秒
             Second -= Time.deltaTime;
+#if UNITY_EDITOR
+            if (Input.GetKey(KeyCode.T))
+            {
+                Second -= Time.deltaTime * 10f;
+            }
+#endif
 
             UpdateTimer();
         }
 
+
+        /// <summary>
+        /// タイマーを動かす
+        /// </summary>
+        public void TimerStart()
+        {
+            IsCount_ = true;
+        }
+
+
+        /// <summary>
+        /// タイマーを止める
+        /// </summary>
+        public void TimerStop()
+        {
+            IsCount_ = false;
+        }
+
+
+        /// <summary>
+        /// タイマーをリセット
+        /// </summary>
+        public void TimreLiset()
+        {
+            Start();
+        }
 
         void UpdateTimer()
         {

@@ -48,7 +48,6 @@ namespace FrontPerson.Item
         void Update()
         {
             // ふわふわ浮かせる
-//          transform_.position = new Vector3(transform_.position.x, Mathf.PingPong(Time.time / fluffy_speed_, fluffy_movement_), transform_.position.z);
             transform_.position = create_position_ + Vector3.up * Mathf.PingPong(Time.time * fluffy_speed_, fluffy_movement_);
 
             // 回転

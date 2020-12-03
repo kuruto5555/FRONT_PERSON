@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 using FrontPerson.Manager;
 
-namespace FrontPerson
+namespace FrontPerson.UI
 {
     public class Title : MonoBehaviour
     {
