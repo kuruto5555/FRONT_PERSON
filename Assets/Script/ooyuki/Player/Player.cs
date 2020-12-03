@@ -3,6 +3,8 @@ using System.Runtime.InteropServices;
 using UnityEngine;
 using FrontPerson.Gimmick;
 using FrontPerson.Manager;
+using FrontPerson.Weapon;
+using System.Collections.Generic;
 
 
 namespace FrontPerson.Character
@@ -52,6 +54,11 @@ namespace FrontPerson.Character
         Skill.SearchArea searchArea = null;
 
         /// <summary>
+        /// スペシャル武器
+        /// </summary>
+        Weapon.Gun Weapon = null;
+
+        /// <summary>
         /// カメラのトランスフォーム
         /// </summary>
         Transform cameraTransform_ = null;
@@ -87,9 +94,14 @@ namespace FrontPerson.Character
         bool _isJump = false;
 
         /// <summary>
-        /// スペシャルウェポンを持っているか
+        /// 右指トリガー
         /// </summary>
-        bool _isSpecialWeapon = false;
+        bool _isFireRHand = false;
+
+        /// <summary>
+        /// 左指トリガー
+        /// </summary>
+        bool _isFireLHand = false;
 
         /// <summary>
         /// ジャンプの余力
@@ -125,6 +137,11 @@ namespace FrontPerson.Character
         /// バウンティマネージャー
         /// </summary>
         private BountyManager _bountyManager = null;
+
+        /// <summary>
+        /// ウェポンマネージャー
+        /// </summary>
+        private SpecialWeaponManager _weponManager = null;
 
 
         /*---- プロパティ ----*/
@@ -188,8 +205,25 @@ namespace FrontPerson.Character
         /// </summary>
         public bool IsInvincible { get { return _isInvincible; } }
 
-        public bool IsSpecialWeapon { get { return _isSpecialWeapon; } }
+        /// <summary>
+        /// スペシャル武器を持っているかどうか
+        /// </summary>
+        public bool IsSpecialWeapon { get { return Weapon != null; } }
 
+        public bool IsLeftTrigger { get { return _isFireLHand; } }
+
+        public bool IsRightTrigger { get { return _isFireRHand; } }
+
+        /// <summary>
+        /// 所持してる武器一覧
+        /// </summary>
+        private List<Gun> _weaponList;
+
+        /// <summary>
+        /// 所持してる武器のList
+        /// 1左拳銃,2右拳銃,3持ってれば特殊武器
+        /// </summary>
+        public List<Gun> GetWeaponList { get { return _weaponList; } }
 
         // Start is called before the first frame update
         void Start()
@@ -203,12 +237,22 @@ namespace FrontPerson.Character
             //初期角度を取得して置く
             _xAxiz = cameraTransform_.localEulerAngles;
 
-            _bountyManager = GameObject.FindGameObjectWithTag("BountyManager").GetComponent<BountyManager>();
+            _bountyManager = BountyManager._instance;
+
+            _weponManager = SpecialWeaponManager._instance;
+
+            _weaponList = new List<Gun>();
+
+            _weaponList.Add(gunL_);
+            _weaponList.Add(gunR_);
+            _weaponList.Add(null);
         }
 
         // Update is called once per frame
         void Update()
         {
+            _isFireLHand = _isFireRHand = false;
+
             if (_isStun)
             {
                 StunStatus();
@@ -216,7 +260,7 @@ namespace FrontPerson.Character
                 return;
             }
 
-            if (Input.GetKeyDown(KeyCode.J)) Stun();
+            if (Input.GetKeyDown(KeyCode.J)) Stun(); //デバッグ
 
             position_ = transform.position;
 
@@ -227,6 +271,7 @@ namespace FrontPerson.Character
             Move();
             Shot();
             Jump();
+            
 
             transform.position = position_;
         }
@@ -236,9 +281,9 @@ namespace FrontPerson.Character
         /// </summary>
         private void ViewPointMove()
         {
-            float X_Rotation = Input.GetAxis("Mouse X") * rotationSpeed_ * 30 * Time.deltaTime;
-            float Y_Rotation = Input.GetAxis("Mouse Y") * rotationSpeed_ * 30 * Time.deltaTime;
-
+            float Y_Rotation = Input.GetAxis(Constants.InputName.VERTICAL2) * rotationSpeed_ * 30 * Time.deltaTime;
+            float X_Rotation = Input.GetAxis(Constants.InputName.HORIZONTAL2) * rotationSpeed_ * 30 * Time.deltaTime;
+            
             transform.Rotate(0, X_Rotation, 0);
 
             var x = _xAxiz.x - Y_Rotation;
@@ -259,12 +304,8 @@ namespace FrontPerson.Character
         {
             Vector3 direction = Vector3.zero;
 
-            if (Input.GetKey(KeyCode.W)) direction += transform.forward;
-            if (Input.GetKey(KeyCode.S)) direction -= transform.forward;
-            if (Input.GetKey(KeyCode.A)) direction -= transform.right;
-            if (Input.GetKey(KeyCode.D)) direction += transform.right;
-
-            
+            direction += Input.GetAxisRaw(Constants.InputName.HORIZONTAL) * transform.right;
+            direction += Input.GetAxisRaw(Constants.InputName.VERTICAL) * transform.forward;
 
             position_ += direction * moveSpeed_ * Time.deltaTime;
         }
@@ -277,7 +318,7 @@ namespace FrontPerson.Character
         {
             if (IsJump) return;
 
-            if (Input.GetKey(KeyCode.LeftShift))
+            if (Input.GetButton(Constants.InputName.DASH))
             {
                 moveSpeed_ = runSpeed_;
             }
@@ -294,7 +335,7 @@ namespace FrontPerson.Character
         {
              _nowGrandHeigh = LandingHeight(position_, 12);
 
-            if (Input.GetKeyDown(KeyCode.Space))
+            if (Input.GetButtonDown(Constants.InputName.JUMP))
             {
                 if(!IsJump) //ジャンプが始まる瞬間
                 {
@@ -362,14 +403,38 @@ namespace FrontPerson.Character
             if (IsDash) return;
             if (isSearch_) return;
 
-            if (Input.GetKey(KeyCode.Mouse0))
+            //左クリック
+            if (Input.GetButton(Constants.InputName.FIRE1)
+                || 0 < Input.GetAxis(Constants.InputName.FIRE1))
             {
-                gunL_.Shot();
+                if (IsSpecialWeapon)
+                {
+                    _isFireLHand = true;
+                }
+                else
+                {
+                    gunL_.Shot();
+                }
             }
 
-            if (Input.GetKey(KeyCode.Mouse1))
+            //右クリック
+            if (Input.GetButton(Constants.InputName.FIRE2)
+                || 0 < Input.GetAxis(Constants.InputName.FIRE2))
             {
-                gunR_.Shot();
+                if (IsSpecialWeapon)
+                {
+                    _isFireRHand = true;
+                }
+                else
+                {
+                    gunR_.Shot();
+                }            
+            }
+
+            //二重でshotを呼ばない為にフラグを使う
+            if (_isFireLHand || _isFireRHand)
+            {
+                Weapon.Shot();
             }
         }
 
@@ -381,7 +446,7 @@ namespace FrontPerson.Character
             if (IsDash) return;
             if (isSearch_) return;
 
-            if (!Input.GetKeyDown(KeyCode.R)) return;
+            if (!Input.GetButton(Constants.InputName.RELOAD)) return;
 
             gunL_.Reload();
             gunR_.Reload();
@@ -395,7 +460,10 @@ namespace FrontPerson.Character
         /// <param name="value">補給量</param>
         void Reload(NutrientsRecoveryPoint vrp)
         {
-            if (!Input.GetKeyDown(KeyCode.R)) return;
+            if (!Input.GetButtonDown(Constants.InputName.RELOAD)) return;
+            if (IsDash) return;
+            if (isSearch_) return;
+            if (IsSpecialWeapon) return;
 
             switch (vrp.VitaminType)
             {
@@ -423,7 +491,7 @@ namespace FrontPerson.Character
             if (IsJump) return;
             if (IsDash) return;
 
-            if (!Input.GetKeyDown(KeyCode.E)) return;
+            if (!Input.GetButtonDown(Constants.InputName.SCAN)) return;
                 
             if(isSearch_ == false)
             {
@@ -446,6 +514,7 @@ namespace FrontPerson.Character
         {
             if (!_isStun) return;
 
+            //スタン中だったら
             if(stunTime > _nowStunTime)
             {
                 _nowStunTime += Time.deltaTime;
@@ -512,6 +581,25 @@ namespace FrontPerson.Character
 
                     break;
             }
+        }
+
+        /// <summary>
+        /// 武器を入手する時に呼ぶ
+        /// WeaponManagerの引数番目を生成して持たせる
+        /// </summary>
+        /// <param name="type">乱数</param>
+        public void WeaponUpgrade(int type)
+        {
+            gunL_.Reload();
+            gunR_.Reload();
+
+            if (IsSpecialWeapon)
+            {
+                Destroy(Weapon.gameObject);
+            }
+
+            Weapon = Instantiate(_weponManager.WeaponPrefabList[type], cameraTransform_).GetComponent<Weapon.Gun>();
+            _weaponList[2] = Weapon;
         }
     }
 

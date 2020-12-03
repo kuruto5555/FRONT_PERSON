@@ -1,32 +1,104 @@
 ﻿using FrontPerson.common;
-using FrontPerson.Manager;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ApplicationManager : MonoBehaviour
+using FrontPerson.Data;
+
+namespace FrontPerson.Manager
 {
-    [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
-    static void RuntimeInit()
+    public class ApplicationManager : MonoBehaviour
     {
-        var go = new GameObject("ApplicationManager", typeof(ApplicationManager));
+        /// <summary>
+        /// 今回のスコア
+        /// </summary>
+        public int Score = 0;
 
-        // オーディオマネージャーを追加
+        /// <summary>
+        /// 今回のコンボ数
+        /// </summary>
+        public int ComboNum = 0;
+
+        /// <summary>
+        /// 今回のクリアしたミッション数
+        /// </summary>
+        public int ClearMissionNum = 0;
+
+        // <summary>
+        /// セーブデータ
+        /// </summary>
+        public SaveDatas save_data_= null;
+
+        /// <summary>
+        /// 入力を受け付けるかどうか
+        /// </summary>
+        public bool IsInput = true;
+
+        /// <summary>
+        /// ゲーム開始フラグ
+        /// </summary>
+        public bool IsGamePlay = false;
+
+
+        [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
+        static void RuntimeInit()
         {
-            var am = go.AddComponent<AudioManager>();
-            am.Init();
+            var go = new GameObject("ApplicationManager", typeof(ApplicationManager));
 
-            go.AddComponent<SceneManager>();
-            go.AddComponent<FadeManager>();
+            go.tag = FrontPerson.Constants.TagName.MANAGER;
+
+            // オーディオマネージャーを追加
+            {
+                var am = go.AddComponent<AudioManager>();
+                am.Init();
+
+                go.AddComponent<SceneManager>();
+                go.AddComponent<FadeManager>();
+            }
+
+            DontDestroyOnLoad(go);
+
+            go.GetComponent<ApplicationManager>().Load();
         }
 
-        DontDestroyOnLoad(go);
-    }
+        /// <summary>
+        /// アプリ終了時呼ばれる
+        /// </summary>
+        private void OnApplicationQuit()
+        {
+        }
 
-    /// <summary>
-    /// アプリ終了時呼ばれる
-    /// </summary>
-    private void OnApplicationQuit()
-    {
+        /// <summary>
+        /// データをセーブする
+        /// </summary>
+        public void Save()
+        {
+#if !UNITY_EDITOR
+            //save_data_.sound_data_ = SoundManagerSetting.Instance.GetSoundVolumeData();
+		    DataManager.Save(save_data_, SaveDatas.SAVE_DATA_NAME);
+#endif
+        }
+
+        /// <summary>
+        /// データをロードする
+        /// </summary>
+        private void Load()
+        {
+            try
+            {
+                // ２回目以降のプレイ
+                save_data_ = DataManager.Load<SaveDatas>(SaveDatas.SAVE_DATA_NAME);
+
+                //SoundManagerSetting.Instance.ValueSetting(save_data_.sound_data_);
+            }
+            catch (System.Exception)
+            {
+                // 初プレイ時はロードするデータが無いため生成
+                save_data_ = new SaveDatas();
+
+                //save_data_.sound_data_ = new SoundVolumeData();
+                //SoundManagerSetting.Instance.ValueSetting(save_data_.sound_data_);
+            }
+        }
     }
 }

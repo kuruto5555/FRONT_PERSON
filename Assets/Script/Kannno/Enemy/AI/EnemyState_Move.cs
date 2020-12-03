@@ -19,7 +19,7 @@ namespace FrontPerson.Enemy.AI
         /// <summary>
         /// 移動先の一覧
         /// </summary>
-        private List<Transform> MovePoint_List = new List<Transform>();
+        private List<Vector3> MovePoint_List = new List<Vector3>();
 
         /// <summary>
         /// 現在のMovePointのインデックス
@@ -77,7 +77,7 @@ namespace FrontPerson.Enemy.AI
 
             foreach (var obj in list)
             {
-                MovePoint_List.Add(obj.transform);
+                MovePoint_List.Add(obj.transform.position);
             }
         }
 
@@ -91,9 +91,9 @@ namespace FrontPerson.Enemy.AI
         protected override void OnUpdate()
         {
             // 目的地についていたら次の目的地の方に行く
-            if (Owner.Agent.remainingDistance <= 0.1f)
+            if (Owner.Agent.remainingDistance <= 1f)
             {
-                Vector3 destination = MovePoint_List[(MovePointIndex + 1) % MovePoint_List.Count].position;
+                Vector3 destination = MovePoint_List[(MovePointIndex + 1) % MovePoint_List.Count];
 
                 Owner.Agent.SetDestination(destination);
 
@@ -103,9 +103,6 @@ namespace FrontPerson.Enemy.AI
 
         protected override void OnChangeState_OrdinaryPeople()
         {
-            //SetMovePoint();
-
-
         }
 
         protected override void OnChangeState_OldBattleaxe()

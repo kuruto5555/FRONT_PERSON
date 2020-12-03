@@ -125,6 +125,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bulletType_: 0
   speed_: 50
-  power_: 10
-  splashParticle_: {fileID: 3852552796251308893, guid: 31d755d3786964c4c952a950d6842d9b,
+  power_: 35
+  splashParticle_: {fileID: 7335020722401341361, guid: 31bd3ee11cd3c5e47b21d30b96e211b8,
     type: 3}

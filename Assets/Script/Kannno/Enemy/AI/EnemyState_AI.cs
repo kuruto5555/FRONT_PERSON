@@ -12,10 +12,19 @@ namespace FrontPerson.Enemy.AI
     /// </summary>
     public abstract class EnemyState_AI : MonoBehaviour
     {
+        /// <summary>
+        /// AIを持つ敵のスクリプト
+        /// </summary>
         protected Character.Enemy Owner = null;
 
+        /// <summary>
+        /// プレイヤー
+        /// </summary>
         protected Player Player = null;
 
+        /// <summary>
+        /// サーチエリア
+        /// </summary>
         protected SearchArea SearchArea = null;
 
         /// <summary>
@@ -26,7 +35,7 @@ namespace FrontPerson.Enemy.AI
         /// <summary>
         /// 移動先の一覧をステートが変わっても保存する為の変数
         /// </summary>
-        protected List<Transform> MovetList = new List<Transform>();
+        protected List<Vector3> MovetList = new List<Vector3>();
 
         public void Start()
         {
@@ -76,6 +85,7 @@ namespace FrontPerson.Enemy.AI
         /// <typeparam name="T"></typeparam>
         public void ChangeState<T>() where T : EnemyState_AI
         {
+//デバッグ用
 #if UNITY_EDITOR
             string B_State = Owner.state_AI.ToString();
             int pos = B_State.LastIndexOf(".");
@@ -91,9 +101,11 @@ namespace FrontPerson.Enemy.AI
 
             if(null != Owner.state_AI as EnemyState_Move)
             {
+                // EnemyState_Move なら MovetList を復元する
                 Owner.state_AI.Load_MovePoint(MoveIndex, MovetList);
             }
 
+//デバッグ用
 #if UNITY_EDITOR
 
             string name = Owner.name;
@@ -133,14 +145,14 @@ namespace FrontPerson.Enemy.AI
         /// <summary>
         /// MovePointをステートが変わっても保存する
         /// </summary>
-        private void Save_MovePoint(int MovePointIndex, List<Transform> MovePoint_List)
+        private void Save_MovePoint(int MovePointIndex, List<Vector3> MovePoint_List)
         {
             MoveIndex = MovePointIndex;
 
             MovetList = MovePoint_List;
         }
 
-        public void Load_MovePoint(int MovePointIndex, List<Transform> MovePoint_List)
+        public void Load_MovePoint(int MovePointIndex, List<Vector3> MovePoint_List)
         {
             EnemyState_Move ai = this as EnemyState_Move;
 

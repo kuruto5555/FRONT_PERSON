@@ -8,6 +8,7 @@ using FrontPerson.Constants;
 using FrontPerson.Enemy;
 using FrontPerson.Enemy.AI;
 using FrontPerson.Manager;
+using FrontPerson.Item;
 
 namespace FrontPerson.Character
 {
@@ -47,9 +48,19 @@ namespace FrontPerson.Character
         public EnemyState_AI state_AI = null;
 
         /// <summary>
-        /// 倒れていることを判断するフラグ(true = 死んでいる)
+        /// 倒れていることを判断するフラグ(true = 倒れている)
+        /// </summary>
+        public bool isDown { get; private set; } = false;
+
+        /// <summary>
+        /// 死んでいることを判断するフラグ(true = 死んでいる)
         /// </summary>
         public bool isDead { get; private set; } = false;
+
+        /// <summary>
+        /// 1回しか実行させない為の変数
+        /// </summary>
+        public bool Eneble { get; private set; } = false; 
 
         private void Awake()
         {
@@ -71,6 +82,8 @@ namespace FrontPerson.Character
         private void Update()
         {
             OnUpdate();
+
+            Down();
 
             Dead();
         }
@@ -114,14 +127,22 @@ namespace FrontPerson.Character
         /// <summary>
         /// 倒れた時に呼ぶ関数
         /// </summary>
-        protected void SetDestroy()
+        protected void SetDown()
+        {
+            isDown = true;
+        }
+
+        /// <summary>
+        /// ころす時に呼ぶ関数
+        /// </summary>
+        public void SetDead()
         {
             isDead = true;
         }
 
-        private void Dead()
+        private void Down()
         {
-            if(true == isDead)
+            if (true == isDown && false == Eneble)
             {
                 ScoreManager score_manager = ScoreManager.Instance;
 
@@ -130,7 +151,12 @@ namespace FrontPerson.Character
                 {
                     Debug.LogError("ScoreManager が存在しません");
 
-                    Destroy(gameObject);
+                    GetComponent<EnemyBelongings>().DropItem();
+
+                    state_AI.ChangeState<EnemyState_Escape>();
+
+                    Eneble = true;
+
                     return;
                 }
 #endif
@@ -153,6 +179,36 @@ namespace FrontPerson.Character
                         break;
                 }
 
+                GetComponent<EnemyBelongings>().DropItem();
+
+                state_AI.ChangeState<EnemyState_Escape>();
+
+                Eneble = true;
+            }
+        }
+
+        private void Dead()
+        {
+            if (true == isDead)
+            {
+                switch (Type)
+                {
+                    case EnemyType.ORDINATY_PEOPLE:
+                        Spawner.Sub_OrdinaryPeople();
+                        break;
+
+                    case EnemyType.OLD_BATTLEAXE:
+                        Spawner.Sub_OldBattleaxe();
+                        break;
+
+                    case EnemyType.YAKUZA:
+                        Spawner.Sub_Yakuza();
+                        break;
+
+                    default:
+                        break;
+                }
+
                 Destroy(gameObject);
             }
         }
@@ -166,16 +222,9 @@ namespace FrontPerson.Character
             state_AI = state;
         }
 
-        public void SetTarget(Transform goal)
+        public void SetTarget(Vector3 goal)
         {
-            if (null != goal)
-            {
-                agent.destination = goal.position;
-            }
-            else
-            {
-                agent.destination = transform.position;
-            }
+            agent.destination = goal;
         }
 
         /// <summary>
