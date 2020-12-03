@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-using FrontPerson.Enemy;
 using FrontPerson.Weapon;
+using FrontPerson.Manager;
 
 namespace FrontPerson.Enemy
 {
@@ -30,6 +30,11 @@ namespace FrontPerson.Enemy
             if (insufficiency <= 0)
             {
                 SetDown();
+
+                // スコア加算
+                var manager = ScoreManager.Instance;
+
+                manager.AddScore((int)EnemyScore.YAKUZA, Score.ReasonForAddition.Nomal);
             }
         }
     }

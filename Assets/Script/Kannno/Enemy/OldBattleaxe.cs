@@ -3,8 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 using FrontPerson.Weapon;
-using FrontPerson.Enemy;
-using FrontPerson.Enemy.AI;
+using FrontPerson.Manager;
 
 namespace FrontPerson.Enemy
 {
@@ -33,6 +32,16 @@ namespace FrontPerson.Enemy
             if (insufficiency <= 0)
             {
                 SetDown();
+
+                // バウンティの処理
+                var bounty_manager = GameObject.FindGameObjectWithTag(Constants.TagName.BOUNTY_MANAGER).GetComponent<BountyManager>();
+
+                bounty_manager.EnemyDeath((int)lack_vitamins);
+
+                // スコア加算
+                var score_manager = ScoreManager.Instance;
+
+                score_manager.AddScore((int)EnemyScore.OLD_BATTLEAXE, Score.ReasonForAddition.Nomal);
             }
 
             if (lack_vitamins != bullet.BulletType && Constants.NUTRIENTS_TYPE._ALL != bullet.BulletType)
