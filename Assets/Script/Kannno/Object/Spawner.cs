@@ -26,6 +26,21 @@ namespace FrontPerson.Enemy
         [SerializeField, Range(0f, 1f)]
         private float Probability_Yakuza = 0f;
 
+        /// <summary>
+        /// 一般人のスポナー確率
+        /// </summary>
+        public float ProbabilityOrdinaryPeople { get { return Probability_OrdinaryPeople; } }
+
+        /// <summary>
+        /// おばちゃんのスポナー確率
+        /// </summary>
+        public float ProbabilityOldBattleaxe { get { return Probability_OldBattleaxe; } }
+
+        /// <summary>
+        /// ヤクザのスポナー確率
+        /// </summary>
+        public float ProbabilityYakuza { get { return Probability_Yakuza; } }
+
         // 確率のリスト(計算用)
         private List<float> ProbabilityList = null;
 
@@ -43,18 +58,11 @@ namespace FrontPerson.Enemy
 
         [Header("スポーンする敵の最大数")]
         [SerializeField, Range(0, 1000)]
-        private int MaxCnt_OrdinaryPeople = 0;
+        private int Max_OrdinaryPeople = 0;
         [SerializeField, Range(0, 1000)]
-        private int MaxCnt_OldBattleaxe = 0;
+        private int Max_OldBattleaxe = 0;
         [SerializeField, Range(0, 1000)]
-        private int MaxCnt_Yakuza = 0;
-
-        /// <summary>
-        /// スポーンする敵の最大数
-        /// </summary>
-        static private int Max_OrdinaryPeople = 0;
-        static private int Max_OldBattleaxe = 0;
-        static private int Max_Yakuza = 0;
+        private int Max_Yakuza = 0;
 
         /// <summary>
         // ステージ上にいる敵の数
@@ -95,19 +103,12 @@ namespace FrontPerson.Enemy
 
         void Start()
         {
-            if(0 == Max_OrdinaryPeople && 0 == Sum_OldBattleaxe && 0 == Max_Yakuza)
-            {
-                Max_OrdinaryPeople = MaxCnt_OrdinaryPeople;
-                Max_OldBattleaxe = MaxCnt_OldBattleaxe;
-                Max_Yakuza = MaxCnt_Yakuza;
-
-                SumEnemy();
-            }
-
             current_time = Time.timeSinceLevelLoad;
 
             ProbabilityList = new List<float> { Probability_OrdinaryPeople, Probability_OldBattleaxe, Probability_Yakuza };
             ProbabilityList.Sort((a, b) => a.CompareTo(b));
+
+            SumEnemy();
 
             Spawn();
         }
