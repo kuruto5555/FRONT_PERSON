@@ -154,6 +154,22 @@ namespace FrontPerson.Manager
         }
 
         /// <summary>
+        /// コンボボーナスの時間を設定
+        /// </summary>
+        public void SetComboBonusTimer()
+        {
+            ComboBonusTimer = combo_bonus_effect_time_;
+        }
+
+        /// <summary>
+        /// コンボボーナスを開始
+        /// </summary>
+        public void StartComboBonus()
+        {
+            StartCoroutine(TimerDuringComboBonus());
+        }
+
+        /// <summary>
         /// コンボボーナス中のタイマー
         /// </summary>
         /// <param name="duration"></param>
@@ -195,14 +211,6 @@ namespace FrontPerson.Manager
                 // タイマーが動いているので制限時間を戻す
                 SetComboBonusTimer();
             }
-        }
-
-        /// <summary>
-        /// コンボボーナスの時間を設定
-        /// </summary>
-        public void SetComboBonusTimer()
-        {
-            ComboBonusTimer = combo_bonus_effect_time_;
         }
 
         /// <summary>
