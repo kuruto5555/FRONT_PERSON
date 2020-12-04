@@ -192,7 +192,7 @@ Font:
       y: 0
       width: 65
       height: -92
-    advance: 60
+    advance: 65
     flipped: 0
   m_KerningValues: []
   m_PixelScale: 0.1
