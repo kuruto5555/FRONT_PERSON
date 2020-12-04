@@ -8,17 +8,20 @@ namespace FrontPerson.Audio
     public class PlaySound : MonoBehaviour
     { 
         //オーディオソース
-        private AudioSource audio = null;
+        private AudioSource audiosorce = null;
+
+        //オーディオクリップ
+        [SerializeField] List<AudioClip> audioclip = new List<AudioClip>();
 
         // Start is called before the first frame update
         void Start()
         {
-            audio = GetComponent<AudioSource>();
+            audiosorce = GetComponent<AudioSource>();
         }
 
-        public void SoundPlay()
+        public void SoundPlay(int num)
         {
-            audio.PlayOneShot(audio.clip, 1.0f * AudioManager.Instance.audio_volume_.SEVolume);
+            audiosorce.PlayOneShot(audioclip[num], 1.0f * AudioManager.Instance.audio_volume_.SEVolume);
         }
 
     }
