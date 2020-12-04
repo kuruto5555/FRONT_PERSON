@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using FrontPerson.Manager;
 using FrontPerson.Constants;
-
+using UnityEngine.UI;
 
 namespace FrontPerson.UI
 {
@@ -14,6 +14,8 @@ namespace FrontPerson.UI
         public void OnCrick()
         {
             if (isCrick) return;
+
+            GetComponent<Button>().enabled = false;
             SceneManager.Instance.SceneChange(SceneName.TITLE_SCENE, 2.0f, Color.black);
             isCrick = true;
         }

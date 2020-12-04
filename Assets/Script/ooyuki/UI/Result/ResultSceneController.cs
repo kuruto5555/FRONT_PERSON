@@ -57,6 +57,11 @@ namespace FrontPerson.Manager
         int averageMissionClearNum = 0;
         int numberOneMissionClearNum = 0;
 
+        /// <summary>
+        /// 総合評価
+        /// </summary>
+        Rank rank_ = Rank.C;
+
 
         // Start is called before the first frame update
         void Start()
@@ -88,7 +93,7 @@ namespace FrontPerson.Manager
             //numberOneMissionClearNum = appManager_.save_data_.RankingMissionClearNum[0];
 
             //ここで総合評価を求める
-
+            //rank_ =
 
         }
 
@@ -115,7 +120,6 @@ namespace FrontPerson.Manager
 
                 case RESULT_SCENE_STATE.DRAW_TOTAL_SUCORE:
                     DrawTotalScore();
-
                     break;
 
                 case RESULT_SCENE_STATE.PLAYER_INPUT:
@@ -136,13 +140,13 @@ namespace FrontPerson.Manager
         /// </summary>
         void FadeInUpdate()
         {
-            //if(/*フェードが終わったら*/)
-            //{
-            scoreGraph_.StartAnimation(30000, 5000, 20000);
-            //scoreGraph_.StartAnimation(youScore, averageScore, numberOneScore);
-            appManager_.IsInput = true;
-            state_ = RESULT_SCENE_STATE.DRAW_SCORE;
-            //}
+            if(!FadeManager.Instance.IsFade)
+            {
+                scoreGraph_.StartAnimation(30000, 5000, 20000);
+                //scoreGraph_.StartAnimation(youScore, averageScore, numberOneScore);
+                appManager_.IsInput = true;
+                state_ = RESULT_SCENE_STATE.DRAW_SCORE;
+            }
         }
 
 
@@ -181,7 +185,7 @@ namespace FrontPerson.Manager
         {
             if (missionClearNumGraph_.IsFinish)
             {
-                totalScore_.StartAnimation(Rank.C);
+                totalScore_.StartAnimation(rank_);
                 state_ = RESULT_SCENE_STATE.DRAW_TOTAL_SUCORE;
             }
         }
@@ -195,6 +199,7 @@ namespace FrontPerson.Manager
             if (totalScore_.IsAnimFinish_)
             {
                 backButton_.SetActive(true);
+                state_ = RESULT_SCENE_STATE.PLAYER_INPUT;
             }
         }
 
