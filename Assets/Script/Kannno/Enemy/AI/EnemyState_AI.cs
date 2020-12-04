@@ -41,7 +41,7 @@ namespace FrontPerson.Enemy.AI
         {
             OnStart();
 
-            Player = GameObject.FindGameObjectWithTag(Constants.TagName.PLAYER).GetComponent<Player>();
+            Player = GameObject.FindGameObjectWithTag(Constants.TagName.PLAYER)?.GetComponent<Player>();
 
             SearchArea = GetComponentInChildren<SearchArea>();
         }

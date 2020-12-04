@@ -31,9 +31,15 @@ namespace FrontPerson.Enemy
                 {
                     SetDown();
 
-                    var manager = GameObject.FindGameObjectWithTag(Constants.TagName.BOUNTY_MANAGER).GetComponent<BountyManager>();
+                    // バウンティの処理
+                    var bounty_manager = GameObject.FindGameObjectWithTag(Constants.TagName.BOUNTY_MANAGER).GetComponent<BountyManager>();
 
-                    manager.EnemyDeath((int)lack_vitamins);
+                    bounty_manager.EnemyDeath((int)lack_vitamins);
+
+                    // スコア加算
+                    var score_manager = ScoreManager.Instance;
+
+                    score_manager.AddScore((int)EnemyScore.ORDINATY_PEOPLE, Score.ReasonForAddition.Nomal);
                 }
             }
         }

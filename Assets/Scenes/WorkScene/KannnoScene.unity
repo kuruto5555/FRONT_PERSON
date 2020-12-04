@@ -1137,6 +1137,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2393630823986044895, guid: 34dc7089d86a38047a11c22287ec03bc,
+        type: 3}
+      propertyPath: m_Carve
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2393630823986044895, guid: 34dc7089d86a38047a11c22287ec03bc,
+        type: 3}
+      propertyPath: m_CarveOnlyStationary
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3400952845557951418, guid: 34dc7089d86a38047a11c22287ec03bc,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -2975,6 +2985,21 @@ PrefabInstance:
     - target: {fileID: 7869129166089239699, guid: b83719008a53ace48bf3a8eb74b3f348,
         type: 3}
       propertyPath: MaxCnt_Yakuza
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7869129166089239699, guid: b83719008a53ace48bf3a8eb74b3f348,
+        type: 3}
+      propertyPath: Max_OrdinaryPeople
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 7869129166089239699, guid: b83719008a53ace48bf3a8eb74b3f348,
+        type: 3}
+      propertyPath: Max_OldBattleaxe
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7869129166089239699, guid: b83719008a53ace48bf3a8eb74b3f348,
+        type: 3}
+      propertyPath: Max_Yakuza
       value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
