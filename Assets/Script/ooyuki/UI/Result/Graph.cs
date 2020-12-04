@@ -15,6 +15,8 @@ namespace FrontPerson.UI
 
         [Header("各データ表示テキスト")]
         [SerializeField]
+        Text dataText_ = null;
+        [SerializeField]
         Text youDataText_ = null;
         [SerializeField]
         Text averageDataText_ = null;
@@ -22,7 +24,7 @@ namespace FrontPerson.UI
         Text numberOneDataText_ = null;
 
         [Header("何秒でアニメーションが終わるか")]
-        [SerializeField, Range(0.1f, 5.0f)]
+        [SerializeField, Range(0.1f, 10.0f)]
         float animSpeed_ = 2.0f;
 
         /// <summary>
@@ -64,9 +66,9 @@ namespace FrontPerson.UI
             youDataText_.text = "0";
             averageDataText_.text = "0";
             numberOneDataText_.text = "0";
-            youDataText_.gameObject.SetActive(false);
-            averageDataText_.gameObject.SetActive(false);
-            numberOneDataText_.gameObject.SetActive(false);
+            //youDataText_.gameObject.SetActive(false);
+            //averageDataText_.gameObject.SetActive(false);
+            //numberOneDataText_.gameObject.SetActive(false);
 
             IsFinish = false;
         }
@@ -77,13 +79,17 @@ namespace FrontPerson.UI
             if (!isAnimation) return;
 
             // 今回のあなたのデータのアニメ―しょん
-            if (youDataGauge_.IsAnimation) youDataGauge_.AnimationUpdate();
+            if (youDataGauge_.IsAnimation)
+            {
+                youDataGauge_.AnimationUpdate();
+                dataText_.text = youDataText_.text;
+            }
             // 平均値のアニメーション
             if (averageDataGauge_.IsAnimation) averageDataGauge_.AnimationUpdate();
             // 一位の人のアニメーション
             if (numberOneDataGauge_.IsAnimation) numberOneDataGauge_.AnimationUpdate();
 
-            if (isAnimation) IsFinish = true;
+            if (!isAnimation) IsFinish = true;
         }
 
 

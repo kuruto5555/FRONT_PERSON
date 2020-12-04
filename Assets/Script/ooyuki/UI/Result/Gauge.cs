@@ -8,6 +8,7 @@ namespace FrontPerson.UI
     public class Gauge
     {
         int   data_ = 0;
+        int   dataMax_ = 0;
         float animSpeed_ = 0;
         float gaugeAnchorMax_X = 0.0f;
 
@@ -25,6 +26,7 @@ namespace FrontPerson.UI
             if (!IsAnimation) return;
 
             gauge_.anchorMax += new Vector2(animSpeed_ * Time.deltaTime, 0.0f);
+            dataText_.text = ((int)(dataMax_ * gauge_.anchorMax.x)).ToString();
             if (gauge_.anchorMax.x >= gaugeAnchorMax_X)
             {
                 dataText_.gameObject.SetActive(true);
@@ -50,10 +52,12 @@ namespace FrontPerson.UI
 
             gauge_ = gauge;
             dataText_ = dataText;
-            animSpeed_ = 1 / animSpeed;
             data_ = data;
+            dataMax_ = max;
+            animSpeed_ = 1 / animSpeed;
 
-            gaugeAnchorMax_X = data_ / max;
+
+            gaugeAnchorMax_X = (float)data_ / dataMax_;
 
             IsAnimation = true;
         }
