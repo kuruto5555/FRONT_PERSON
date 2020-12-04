@@ -69,6 +69,8 @@ namespace FrontPerson.Enemy.AI
 
             list.AddRange(MovePattern.GetComponentsInChildren<MovePoint>());
 
+            list.Sort((a, b) => a.Index - b.Index);
+
             if (null == list)
             {
                 Debug.LogError("MovePoint が存在しません");
@@ -95,7 +97,7 @@ namespace FrontPerson.Enemy.AI
             {
                 Vector3 destination = MovePoint_List[(MovePointIndex + 1) % MovePoint_List.Count];
 
-                Owner.Agent.SetDestination(destination);
+                Owner.SetTarget(destination);
 
                 MovePointIndex = (MovePointIndex + 1) % MovePoint_List.Count;
             }
