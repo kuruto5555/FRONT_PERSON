@@ -4,14 +4,18 @@ using UnityEngine;
 using FrontPerson.Manager;
 using FrontPerson.Constants;
 
-public class BackButton : MonoBehaviour
-{
-    bool isCrick = false;
 
-    public void OnCrick()
+namespace FrontPerson.UI
+{
+    public class BackButton : MonoBehaviour
     {
-        if (isCrick) return;
-        SceneManager.Instance.SceneChange(SceneName.TITLE_SCENE, 2.0f, Color.black);
-        isCrick = true;
+        bool isCrick = false;
+
+        public void OnCrick()
+        {
+            if (isCrick) return;
+            SceneManager.Instance.SceneChange(SceneName.TITLE_SCENE, 2.0f, Color.black);
+            isCrick = true;
+        }
     }
 }
