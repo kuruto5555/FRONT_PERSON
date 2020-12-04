@@ -69,11 +69,14 @@ namespace FrontPerson.Character
             if(null == state_AI) state_AI = GetComponent<EnemyState_AI>();
 
             state_AI.SetOwner(this);
+
+            Set_LackVitamin();
+
+            OnAwake();
         }
 
         private void Start()
         {
-            Set_LackVitamin();
             Set_LackVitamin_Text();
 
             OnStart();
@@ -233,6 +236,8 @@ namespace FrontPerson.Character
         /// </summary>
         protected abstract void OnStart();
         protected abstract void OnUpdate();
+
+        protected abstract void OnAwake();
 
         public abstract void HitBullet(Bullet bullet);
 
