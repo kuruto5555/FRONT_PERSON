@@ -5666,23 +5666,28 @@ PrefabInstance:
     - target: {fileID: 3538857796574733005, guid: 4ac8071099f43f6428587e37f24d8295,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -119
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3538857796574733006, guid: 4ac8071099f43f6428587e37f24d8295,
         type: 3}
       propertyPath: m_FontData.m_Font
       value: 
-      objectReference: {fileID: 12800000, guid: 15168ebd489980a469c6c175c12c4cd7,
-        type: 2}
+      objectReference: {fileID: 12800000, guid: 1c4a3a015138d9744bbb88ce99f2b563,
+        type: 3}
     - target: {fileID: 3538857796574733006, guid: 4ac8071099f43f6428587e37f24d8295,
         type: 3}
       propertyPath: m_FontData.m_FontSize
-      value: 0
+      value: 70
       objectReference: {fileID: 0}
     - target: {fileID: 3538857796574733006, guid: 4ac8071099f43f6428587e37f24d8295,
         type: 3}
       propertyPath: m_Text
-      value: '0123456789:'
+      value: 00000000
+      objectReference: {fileID: 0}
+    - target: {fileID: 3538857796574733006, guid: 4ac8071099f43f6428587e37f24d8295,
+        type: 3}
+      propertyPath: m_FontData.m_Alignment
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 3538857796950533616, guid: 4ac8071099f43f6428587e37f24d8295,
         type: 3}
