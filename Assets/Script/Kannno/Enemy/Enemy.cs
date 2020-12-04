@@ -224,7 +224,7 @@ namespace FrontPerson.Character
 
         public void SetTarget(Vector3 goal)
         {
-            agent.destination = goal;
+            agent.SetDestination(goal);
         }
 
         /// <summary>
