@@ -520,6 +520,26 @@ PrefabInstance:
       propertyPath: m_RootOrder
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5190486413065763720, guid: d6230c432fce9334c83ab85b8cff9c24,
+        type: 3}
+      propertyPath: m_Colors.m_DisabledColor.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5190486413065763720, guid: d6230c432fce9334c83ab85b8cff9c24,
+        type: 3}
+      propertyPath: m_Colors.m_DisabledColor.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5190486413065763720, guid: d6230c432fce9334c83ab85b8cff9c24,
+        type: 3}
+      propertyPath: m_Colors.m_DisabledColor.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5190486413065763720, guid: d6230c432fce9334c83ab85b8cff9c24,
+        type: 3}
+      propertyPath: m_Colors.m_DisabledColor.a
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5192146305451135455, guid: d6230c432fce9334c83ab85b8cff9c24,
         type: 3}
       propertyPath: m_FontData.m_FontSize
