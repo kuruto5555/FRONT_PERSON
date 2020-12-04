@@ -1,12 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using FrontPerson.Manager;
 
-
-namespace FrontPerson
+namespace FrontPerson.Audio
 {
     public class PlaySound : MonoBehaviour
-    {
+    { 
         //オーディオソース
         private AudioSource audio = null;
 
@@ -14,24 +14,12 @@ namespace FrontPerson
         void Start()
         {
             audio = GetComponent<AudioSource>();
-
         }
-
-        // Update is called once per frame
-        void Update()
-        {
-
-        }
-
 
         public void SoundPlay()
         {
-            //
-            if (audio == null)
-            {
-                audio = gameObject.AddComponent<AudioSource>();
-            }
-
+            audio.PlayOneShot(audio.clip, 1.0f * AudioManager.Instance.audio_volume_.SEVolume);
         }
+
     }
 }
