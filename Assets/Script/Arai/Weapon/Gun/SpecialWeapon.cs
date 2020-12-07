@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+
 namespace FrontPerson.Weapon
 {
     public class SpecialWeapon : Gun
@@ -18,7 +19,7 @@ namespace FrontPerson.Weapon
             ChangeWeapon();
         }
 
-        protected void ChangeWeapon()
+        public virtual void ChangeWeapon()
         {
             if (Ammo <= 0)
             {
