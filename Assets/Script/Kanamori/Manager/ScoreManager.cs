@@ -36,10 +36,12 @@ namespace FrontPerson.Manager
         [Tooltip("コンボボーナスの効果時間")]
         [SerializeField]
         private float combo_bonus_effect_time_ = 5f;
+        public float ComboBonusEffectTime { get { return combo_bonus_effect_time_; } }
 
         [Tooltip("フィーバータイムの効果時間")]
         [SerializeField]
         private float fever_effect_time_ = 15f;
+        public float FeverEffectTime { get { return fever_effect_time_; } }
 
         [SerializeField]
         private BountyManager bounty_manager_ = null;
