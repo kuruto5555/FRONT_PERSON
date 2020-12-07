@@ -93,12 +93,12 @@ namespace FrontPerson.Score
                 // スコアを更新
                 int update_score_value = (int)((after_score - before_score) * time_rate + before_score);
 
-                score_text_.text = update_score_value.ToString();
+                score_text_.text = update_score_value.ToString("00000000");
 
                 yield return null;
             }
 
-            score_text_.text = after_score.ToString();
+            score_text_.text = after_score.ToString("00000000");
         }
     }
 }
