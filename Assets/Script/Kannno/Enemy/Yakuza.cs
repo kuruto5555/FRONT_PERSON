@@ -9,12 +9,15 @@ namespace FrontPerson.Enemy
 {
     public class Yakuza : Character.Enemy
     {
-        protected override void OnStart()
+        protected override void OnAwake()
         {
             Type = EnemyType.YAKUZA;
 
             Set_LackVitamin();
-            Set_LackVitamin_Text();
+        }
+
+        protected override void OnStart()
+        {
         }
 
         protected override void OnUpdate()
