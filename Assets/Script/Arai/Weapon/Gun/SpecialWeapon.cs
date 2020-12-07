@@ -27,5 +27,12 @@ namespace FrontPerson.Weapon
             }
             
         }
+        /// <summary>
+        /// 強制的に武器変更
+        /// </summary>
+        public virtual void WeaponForcedChange()
+        {
+            Destroy(gameObject);
+        }
     }
 }

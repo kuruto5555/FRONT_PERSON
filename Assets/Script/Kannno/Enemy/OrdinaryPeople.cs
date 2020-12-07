@@ -10,9 +10,13 @@ namespace FrontPerson.Enemy
 {
     public class OrdinaryPeople : Character.Enemy
     {
-        protected override void OnStart()
+        protected override void OnAwake()
         {
             Type = EnemyType.ORDINATY_PEOPLE;
+        }
+
+        protected override void OnStart()
+        {
         }
 
         protected override void OnUpdate()

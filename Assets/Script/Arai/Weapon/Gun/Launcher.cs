@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using FrontPerson.Enemy;
 using FrontPerson.Constants;
+using System.Linq;
 
 namespace FrontPerson.Weapon
 {
@@ -110,15 +111,20 @@ namespace FrontPerson.Weapon
         /// </summary>
         private Camera _targetCamera = null;
 
+        private void Awake()
+        {
+            _enemyList = new List<Transform>();
+
+            _lockOnTargetList = new Dictionary<Transform, LockOnInfo>();
+        }
+
         // Start is called before the first frame update
         void Start()
         {
             base.Start();
             
             _isTrigger = false;
-            _enemyList = new List<Transform>();
             
-            _lockOnTargetList = new Dictionary<Transform, LockOnInfo>();
             _nowLockOnTime = 0.0f;
             _targetCamera = Camera.main;
 
@@ -141,6 +147,10 @@ namespace FrontPerson.Weapon
 
         public override void Shot()
         {
+            if (_lockOnTargetList.Count != 0 && !_isTrigger)
+            {
+                ammo_ = MaxAmmo_ = _lockOnTargetList.Count;
+            }
             _isTrigger = true;
         }
 
@@ -152,7 +162,7 @@ namespace FrontPerson.Weapon
             if (_lockOnTargetList.Count == 0)
             {
                 //弾を撃ってたら終わり
-                if (_isFire) ammo_--;
+                if (_isFire) ammo_ = 0;
 
                 _isTrigger = false;
                 return;
@@ -165,18 +175,15 @@ namespace FrontPerson.Weapon
 
             var bullet = Instantiate(bullet_, Muzzle.transform.position, Muzzle.transform.rotation, null);
 
-            //foreachだけど複数回回らないようにする
-            foreach(var it in _lockOnTargetList)
-            {
-                bullet.GetComponent<Missile>().SetData(it.Key, it.Value.GetCursor());
-                shotTime_ = 1.0f / rate_;
-                _bountyManager.FireCount();
-
-                _lockOnTargetList.Remove(it.Key);
-
-                return;
-            }
+            ammo_--;
             
+            bullet.GetComponent<Missile>().SetData(_lockOnTargetList.First().Key, _lockOnTargetList.First().Value.GetCursor());
+            shotTime_ = 1.0f / rate_;
+            _bountyManager.FireCount();
+
+            _lockOnTargetList.Remove(_lockOnTargetList.FirstOrDefault().Key);
+
+
         }
 
         private void UpdateLockOn()
@@ -367,6 +374,16 @@ namespace FrontPerson.Weapon
 
                 Destroy(gameObject);
             }
+        }
+
+        public override void WeaponForcedChange()
+        {
+            foreach (var it in _lockOnTargetList)
+            {
+                it.Value.GetCursor().SetDead();
+            }
+
+            Destroy(gameObject);
         }
 
         private void OnTriggerEnter(Collider other)
