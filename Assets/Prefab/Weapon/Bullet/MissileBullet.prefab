@@ -43,7 +43,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1508170094324823988}
-  m_Mesh: {fileID: 8017687306096377267, guid: e04d498c6ae53bc4faeacd8682765a51, type: 3}
+  m_Mesh: {fileID: 10208, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!23 &5596589049960593292
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -116,7 +116,7 @@ MonoBehaviour:
   power_: 1000
   splashParticle_: {fileID: 8539761214703523534, guid: bb7dabee3070b44429fff03852e69ac7,
     type: 3}
-  Radius_: 2.6
+  Radius_: 10
   Blast_: {fileID: 3724696068791601323, guid: 5f6337f466ce305498337605832898a3, type: 3}
   TurnSpeed_: 0.06
   StartHeight_: 40.5

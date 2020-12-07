@@ -25,6 +25,9 @@ namespace FrontPerson.Weapon
         [SerializeField]
         GameObject splashParticle_ = null;
 
+        [Header("有効射程")]
+        [SerializeField, Range(50.0f, 100.0f)] float _range = 50.0f; 
+
         /// <summary>
         /// 生成された位置
         /// </summary>
@@ -65,7 +68,7 @@ namespace FrontPerson.Weapon
 
             transform.position = position;
 
-            if((initPos_-position).magnitude > 50f)
+            if((initPos_-position).magnitude > _range)
             {
                 Destroy(gameObject);
             }
