@@ -8,13 +8,13 @@ namespace FrontPerson.Weapon {
 
     public class Blast : MonoBehaviour
     {
-        
+        [SerializeField] Bullet _bullet;
 
         private float _radius = 0;
 
         private int _nowLife = 0;
 
-        private Bullet _bullet = null;
+        //private Bullet _bullet = null;
         // Start is called before the first frame update
         void Start()
         {
@@ -37,7 +37,7 @@ namespace FrontPerson.Weapon {
         {
             _radius = radius;
             GetComponent<SphereCollider>().radius = _radius;
-            _bullet = bullet;
+            //_bullet = bullet;
         }
 
         /// <summary>
