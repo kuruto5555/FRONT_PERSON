@@ -14,6 +14,8 @@ namespace FrontPerson
         /// <summary>
         /// 裏表反対になることを直す為の変数
         /// </summary>
+        [Header("必要な時にしか設定しないで下さい")]
+        [SerializeField]
         private Quaternion rotate = Quaternion.Euler(0.0f, 180.0f, 0.0f);
 
         /// <summary>

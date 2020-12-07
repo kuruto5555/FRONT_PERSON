@@ -14,9 +14,13 @@ namespace FrontPerson.Enemy
         /// </summary>
         public bool isHit { get; set; } = false;
 
-        protected override void OnStart()
+        protected override void OnAwake()
         {
             Type = EnemyType.OLD_BATTLEAXE;
+        }
+
+        protected override void OnStart()
+        {
         }
 
         protected override void OnUpdate()
