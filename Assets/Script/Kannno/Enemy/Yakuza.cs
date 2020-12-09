@@ -34,10 +34,6 @@ namespace FrontPerson.Enemy
             {
                 SetDown();
 
-                // スコア加算
-                var manager = ScoreManager.Instance;
-
-                manager.AddScore((int)EnemyScore.YAKUZA, Score.ReasonForAddition.Nomal);
             }
         }
     }
