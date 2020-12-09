@@ -167,17 +167,17 @@ namespace FrontPerson.Character
                 switch (Type)
                 {
                     case EnemyType.ORDINATY_PEOPLE:
-                        score_manager.AddScore((int)EnemyScore.ORDINATY_PEOPLE, Score.ReasonForAddition.Nomal);
+                        score_manager.AddScore((int)EnemyScore.ORDINATY_PEOPLE, Score.ReasonForAddition.OrdinaryPeople);
                         break;
-
+                
                     case EnemyType.OLD_BATTLEAXE:
-                        score_manager.AddScore((int)EnemyScore.OLD_BATTLEAXE, Score.ReasonForAddition.Nomal);
+                        score_manager.AddScore((int)EnemyScore.OLD_BATTLEAXE, Score.ReasonForAddition.OldBattleaxe);
                         break;
-
+                
                     case EnemyType.YAKUZA:
-                        score_manager.AddScore((int)EnemyScore.YAKUZA, Score.ReasonForAddition.Nomal);
+                        score_manager.AddScore((int)EnemyScore.YAKUZA, Score.ReasonForAddition.Yakuza);
                         break;
-
+                
                     default:
                         break;
                 }

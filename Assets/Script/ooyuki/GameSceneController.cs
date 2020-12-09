@@ -82,8 +82,8 @@ namespace FrontPerson.Manager
 
             // アプリケーションマネージャーに現在の状態を保存
             applicationManager_ = FindObjectOfType<ApplicationManager>();
-            applicationManager_.IsInput = true;
-            applicationManager_.IsGamePlay = false;
+            applicationManager_.SetIsInput(true);
+            applicationManager_.SetIsGamePlay(false);
 
             // スコアマネージャ―取得
             scoreManager_ = ScoreManager.Instance;
@@ -140,7 +140,7 @@ namespace FrontPerson.Manager
                 tutorial2_.transform.root.gameObject.SetActive(false);
                 countdown_.transform.root.gameObject.SetActive(true);
                 timer_.transform.root.gameObject.SetActive(true);
-                applicationManager_.IsInput = false;
+                applicationManager_.SetIsInput(false);
                 state_ = GAME_SCENE_STATE.START_COUNT_DOWN;
             }
         }
@@ -151,8 +151,8 @@ namespace FrontPerson.Manager
             {
                 bountyManager_.transform.root.gameObject.SetActive(true);
                 timer_.TimerStart();
-                applicationManager_.IsInput = true;
-                applicationManager_.IsGamePlay = true;
+                applicationManager_.SetIsInput(true);
+                applicationManager_.SetIsGamePlay(true);
                 state_ = GAME_SCENE_STATE.PLAY;
             }
         }
@@ -160,15 +160,15 @@ namespace FrontPerson.Manager
         void PlayUpdate()
         {
             //現在のコンボ数が最大コンボ数より大きくなったら更新する
-            if (comboMax_ < scoreManager_.ComboBonus) comboMax_ = scoreManager_.ComboBonus;
+            if (comboMax_ < scoreManager_.ComboNum) comboMax_ = scoreManager_.ComboNum;
 
             //ゲームが終了したとき
             if (timer_.IsTimeOver)
             {
                 timer_.TimerStop();
                 timeUp_.transform.root.gameObject.SetActive(true);
-                applicationManager_.IsInput = false;
-                applicationManager_.IsGamePlay = false;
+                applicationManager_.SetIsInput(false);
+                applicationManager_.SetIsGamePlay(false);
                 state_ = GAME_SCENE_STATE.TIME_UP;
             }
         }
@@ -188,7 +188,7 @@ namespace FrontPerson.Manager
 
         void TransitionUpdate()
         {
-            applicationManager_.IsInput = true;
+            applicationManager_.SetIsInput(true);
             state_ = GAME_SCENE_STATE.FINISH;
         }
     }
