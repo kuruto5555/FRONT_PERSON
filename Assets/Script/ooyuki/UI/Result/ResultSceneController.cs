@@ -71,8 +71,8 @@ namespace FrontPerson.Manager
             backButton_.SetActive(false);
 
             appManager_ = FindObjectOfType<ApplicationManager>();
-            appManager_.IsGamePlay = false;
-            appManager_.IsInput = false;
+            appManager_.SetIsGamePlay(false);
+            appManager_.SetIsInput(false);
 
             // 今回の戦績
             youScore = appManager_.Score;
@@ -144,7 +144,7 @@ namespace FrontPerson.Manager
             {
                 scoreGraph_.StartAnimation(30000, 5000, 20000);
                 //scoreGraph_.StartAnimation(youScore, averageScore, numberOneScore);
-                appManager_.IsInput = true;
+                appManager_.SetIsInput(true);
                 state_ = RESULT_SCENE_STATE.DRAW_SCORE;
             }
         }

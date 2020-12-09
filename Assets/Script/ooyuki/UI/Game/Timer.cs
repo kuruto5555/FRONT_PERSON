@@ -9,10 +9,14 @@ namespace FrontPerson.UI
     {
         [Header("タイマー表示UIテキスト")]
         [SerializeField]
-        Text minute_secondText_ = null;
-
+        Text minute10_ = null;
         [SerializeField]
-        Text millisecondText_ = null;
+        Text minute1_ = null;
+        [SerializeField]
+        Text second10_ = null;
+        [SerializeField]
+        Text second1_ = null;
+
 
         [Header("制限時間(s)")]
         [SerializeField]
@@ -53,10 +57,7 @@ namespace FrontPerson.UI
                 Minute++;
             }
 
-            minute_secondText_.text =
-                Minute.ToString("00") + ":" +
-                Mathf.Floor(Second).ToString("00");
-            millisecondText_.text = "\'" + ((Second - (int)Second) * 100).ToString("00");
+            SetTimeText();
         }
 
         // Update is called once per frame
@@ -70,7 +71,7 @@ namespace FrontPerson.UI
 #if UNITY_EDITOR
             if (Input.GetKey(KeyCode.T))
             {
-                Second -= Time.deltaTime * 10f;
+                Second -= Time.deltaTime * 60f;
             }
 #endif
 
@@ -121,11 +122,16 @@ namespace FrontPerson.UI
             }
 
             // テキストの更新
-            minute_secondText_.text =
-                Minute.ToString("00") + ":" +
-                Mathf.Floor(Second).ToString("00");
-            millisecondText_.text = "\"" +
-                ((Second - (int)Second) * 100).ToString("00");
+            SetTimeText();
+        }
+
+
+        void SetTimeText()
+        {
+            minute10_.text = ((int)(Minute * 0.1f)).ToString("0");
+            minute1_.text =  ((int)(Minute % 10f)).ToString("0");
+            second10_.text = ((int)(Second * 0.1f)).ToString("0");
+            second1_.text =  ((int)(Second % 10f)).ToString("0");
         }
     }
 }

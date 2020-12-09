@@ -10,7 +10,10 @@ namespace FrontPerson.Score
 {
     public enum ReasonForAddition
     {
-        Nomal,
+        Nomal = 0,
+        OrdinaryPeople,
+        OldBattleaxe,
+        Yakuza,
         Bounty,
 
     }
@@ -22,11 +25,7 @@ namespace FrontPerson.Manager
         /// <summary>
         /// 現在のスコア数
         /// </summary>
-        public int CurrentScore
-        {
-            get;
-            private set;
-        } = 0;
+        public int CurrentScore { get; private set; } = 0;
 
         /// <summary>
         /// スコアが変化した際に処理を呼ぶ
@@ -52,9 +51,14 @@ namespace FrontPerson.Manager
         public float ComboBonusTimer { get; private set; } = 0f;
 
         /// <summary>
-        /// コンボボーナス
+        /// コンボ数
         /// </summary>
-        public int ComboBonus { get; private set; } = 0;
+        public int ComboNum { get; private set; } = 0;
+
+        /// <summary>
+        /// コンボ中にもらったコンボ途中ボーナスの数
+        /// </summary>
+        int bonusInTheMiddleOfTheComboCounter = 1;
 
         /// <summary>
         /// コンボ保険中かどうか
@@ -78,14 +82,50 @@ namespace FrontPerson.Manager
         /// </summary>
         public void ActiveFeverTime() => StartCoroutine(FeverTime());
 
+        /// <summary>
+        /// エネミースポナー
+        /// </summary>
+        Enemy.Spawner spawner_ = null;
+
+        /// <summary>
+        /// コンボ中に健康にした一般人の数
+        /// </summary>
+        int ordinaryPeopleNum = 0;
+        /// <summary>
+        /// コンボ中に健康にしたおばちゃんの数
+        /// </summary>
+        int oldBattleaxeNum = 0;
+        /// <summary>
+        /// コンボ中に撃退した数
+        /// </summary>
+        int yakuzaNum = 0;
+
+        /// <summary>
+        /// １０コンボするのにかかった時間
+        /// </summary>
+        float comboTennTime_ = 0f;
+
+        private void Start()
+        {
+            //エネミーの生成率は共通なのでシーン上のどれか一つもらえればいい
+            spawner_ = FindObjectOfType<Enemy.Spawner>();
+        }
+
+
         private void Update()
         {
             if(bounty_manager_ != null)
             {
                 // バウンティマネージャーに現在のコンボ数を伝える
-                bounty_manager_.SetNowCombo(ComboBonus);
+                bounty_manager_.SetNowCombo(ComboNum);
+            }
+
+            if(ComboNum > 0)
+            {
+                comboTennTime_ += Time.deltaTime;
             }
         }
+
 
         /// <summary>
         /// スコアを加算、減算
@@ -100,13 +140,53 @@ namespace FrontPerson.Manager
                 // 通常の加算
                 case Score.ReasonForAddition.Nomal:
                     {
+                        // コンボを1増やす
+                        AddComboBonus(1);
+
                         // 加算スコアにコンボボーナスを追加する
                         add_score += BonusInTheMiddleOfTheCombo();
+                        break;
+                    }
+
+                case Score.ReasonForAddition.OrdinaryPeople:
+                    {
+                        //元気にした一般市民の数をカウントアップ
+                        ordinaryPeopleNum++;
 
                         // コンボを1増やす
                         AddComboBonus(1);
+
+                        // 加算スコアにコンボボーナスを追加する
+                        add_score += BonusInTheMiddleOfTheCombo();
                         break;
                     }
+
+                case Score.ReasonForAddition.OldBattleaxe:
+                    {
+                        //元気にしたおばちゃんの数をカウントアップ
+                        oldBattleaxeNum++;
+
+                        // コンボを1増やす
+                        AddComboBonus(1);
+
+                        // 加算スコアにコンボボーナスを追加する
+                        add_score += BonusInTheMiddleOfTheCombo();
+                        break;
+                    }
+
+                case Score.ReasonForAddition.Yakuza:
+                    {
+                        //元気にしたヤクザの数をカウントアップ
+                        yakuzaNum++;
+
+                        // コンボを1増やす
+                        AddComboBonus(1);
+
+                        // 加算スコアにコンボボーナスを追加する
+                        add_score += BonusInTheMiddleOfTheCombo();
+                        break;
+                    }
+
 
                 // バウンティによる加算
                 case Score.ReasonForAddition.Bounty:
@@ -127,10 +207,15 @@ namespace FrontPerson.Manager
             StartCoroutine(TimerDuringComboBonus());
         }
 
+        /// <summary>
+        /// コンボ数の加算
+        /// </summary>
+        /// <param name="combo"></param>
         public void AddComboBonus(int combo)
         {
-            ComboBonus += combo;
+            ComboNum += combo;
         }
+
 
         /// <summary>
         /// コンボボーナスが途切れた
@@ -138,7 +223,7 @@ namespace FrontPerson.Manager
         public void LostComboBonus()
         {
             // コンボボーナスが無かったら返す
-            if(ComboBonus == 0)
+            if(ComboNum == 0)
             {
                 return;
             }
@@ -150,10 +235,24 @@ namespace FrontPerson.Manager
             }
 
             // 途切れた際のコンボ数でボーナススコア加算
-//            ComboBreakBonus();
+            int addScore = ComboBreakBonus();
+            CurrentScore += addScore;
+            if (on_add_score_ != null)
+            {
+                on_add_score_.Invoke(addScore);
+            }
 
-            ComboBonus = 0;
+
+            // コンボボーナスにかかわる数値を初期化
+            bonusInTheMiddleOfTheComboCounter = 1;
+            ordinaryPeopleNum = 0;
+            oldBattleaxeNum = 0;
+            yakuzaNum = 0;
+
+
+            ComboNum = 0;
         }
+
 
         /// <summary>
         /// コンボボーナスの時間を設定
@@ -163,6 +262,7 @@ namespace FrontPerson.Manager
             ComboBonusTimer = combo_bonus_effect_time_;
         }
 
+
         /// <summary>
         /// コンボボーナスを開始
         /// </summary>
@@ -170,6 +270,7 @@ namespace FrontPerson.Manager
         {
             StartCoroutine(TimerDuringComboBonus());
         }
+
 
         /// <summary>
         /// コンボボーナス中のタイマー
@@ -215,31 +316,55 @@ namespace FrontPerson.Manager
             }
         }
 
+
         /// <summary>
         /// コンボ途中ボーナス
         /// </summary>
         /// <returns></returns>
         private int BonusInTheMiddleOfTheCombo()
         {
-            if(ComboBonus == 0)
+            //コンボ数が0じゃない
+            //または、コンボ制限時間が0じゃない
+            if(ComboNum == 0 || combo_bonus_effect_time_ == 0)
             {
                 return 0;
             }
 
+            // コンボ数が十の倍数だったら
+            if(!(ComboNum == (bonusInTheMiddleOfTheComboCounter * 10)))
+            {
+                return 0;
+            }
+
+            // コンボ途中ボーナス獲得！
             // 計算式：(100 ÷ 前回のコンボ途中ボーナスからかかった時間) × コンボ数
-            return (int)(100 / (combo_bonus_effect_time_ - ComboBonusTimer) * ComboBonus);
+            var bonus = (int)(100f / (1f + comboTennTime_) * ComboNum);
+            // カウントを一つ進める
+            bonusInTheMiddleOfTheComboCounter++;
+            // １０コンボにかかった時間を初期化
+            comboTennTime_ = 0f;
+
+            return bonus;
         }
+
 
         /// <summary>
         /// コンボ途切れボーナス
         /// </summary>
         /// <returns></returns>
-        //        private int ComboBreakBonus()
-        //        {
-        //            return 50 * combo_bonus_ * ((2 - 一般市民の出現確率) * コンボ中に健康にした一般市民の数)
-        //                * ((2 - ヤクザの出現確率) * コンボ中に健康にしたヤクザの数)
-        //                * ((2 - おばちゃんの出現確率) * コンボ中に健康にしたおばちゃんの数);
-        //        }
+        private int ComboBreakBonus()
+        {
+            return (int)(50 * ComboNum
+                * (1f + ((1f - spawner_.ProbabilityOrdinaryPeople) * ordinaryPeopleNum))
+                * (1f + ((1f - spawner_.ProbabilityOldBattleaxe)   * oldBattleaxeNum))
+                * (1f + ((1f - spawner_.ProbabilityYakuza)         * yakuzaNum))
+                );
+
+
+            //return 50 * combo_bonus_ * ((2 - 一般市民の出現確率) * コンボ中に健康にした一般市民の数)
+            //    * ((2 - ヤクザの出現確率) * コンボ中に健康にしたヤクザの数)
+            //    * ((2 - おばちゃんの出現確率) * コンボ中に健康にしたおばちゃんの数);
+        }
 
 
         /// <summary>
@@ -257,6 +382,7 @@ namespace FrontPerson.Manager
 
             return false;
         }
+
 
         /// <summary>
         /// フィーバータイム発動
