@@ -86,7 +86,7 @@ public class UI_Combo : MonoBehaviour
     void SetComboNum()
     {
         comboNumPrev_ = comboNum_;
-        comboNum_ = scoreManager_.ComboBonus;
+        comboNum_ = scoreManager_.ComboNum;
         comboNumText_.text = comboNum_.ToString();
 
 
