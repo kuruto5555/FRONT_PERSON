@@ -140,5 +140,7 @@ MonoBehaviour:
   Muzzle: {fileID: 7642996294189006837}
   rate_: 3
   MaxAmmo_: 10
+  Reticle_: {fileID: 4361485535351179734, guid: 977711cffd104294682e73a615e4f149,
+    type: 3}
   PelletNum: 12
   Angle: 7

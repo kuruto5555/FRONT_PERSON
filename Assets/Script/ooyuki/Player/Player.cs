@@ -601,6 +601,25 @@ namespace FrontPerson.Character
             Weapon = Instantiate(_weponManager.WeaponPrefabList[type], cameraTransform_).GetComponent<Weapon.SpecialWeapon>();
             _weaponList[2] = Weapon;
         }
+
+        /// <summary>
+        /// SpecialWeaponの状態を監視
+        /// </summary>
+        private void SPWeaponcheck()
+        {
+            if (IsSpecialWeapon)
+            {
+                if(Weapon.Ammo == 0)
+                {
+
+                }
+            }
+        }
+
+        public Gun GetSPWeapon()
+        {
+            return _weaponList[2];
+        }
     }
 
 };

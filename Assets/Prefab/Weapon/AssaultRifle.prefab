@@ -97,6 +97,8 @@ MonoBehaviour:
   Muzzle: {fileID: 4391293750179688789}
   rate_: 10
   MaxAmmo_: 50
+  Reticle_: {fileID: 1185698901002453259, guid: 117d1aa1a42826144bd6c3c3053c224d,
+    type: 3}
 --- !u!1 &4391293750179688789
 GameObject:
   m_ObjectHideFlags: 0
