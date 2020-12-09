@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using FrontPerson.Constants;
 
 namespace FrontPerson.Audio
 {
@@ -22,7 +22,10 @@ namespace FrontPerson.Audio
         {
             if (Input.GetKeyDown(KeyCode.H))
             {
-                b.SoundPlay("Common_SE_Back1");
+                b.Play3DSound(gameObject, SEPath.COMMON_SE_BACK);
+               
+                
+               
             }
         }
     }

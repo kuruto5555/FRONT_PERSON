@@ -2,9 +2,10 @@
 using System.IO;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Audio;
 using UnityEditor;
 using FrontPerson.Manager;
-
+using FrontPerson.Constants;
 
 
 namespace FrontPerson.Audio
@@ -16,39 +17,83 @@ namespace FrontPerson.Audio
 
         //オーディオクリップ
         [Header("SE音源")]
-        [SerializeField] List<AudioClip> audioclip = new List<AudioClip>();
+        [SerializeField] List<AudioClip> se_list = new List<AudioClip>();
 
-        // Start is called before the first frame update
-        public void SoundPlay(string directory_path)
+        /// <summary>
+        /// 2Dサウンド再生
+        /// </summary>
+        /// <param name="me">オーディオソースアタッチ用</param>
+        /// <param name="se_name">再生させたいSE音源</param>
+        public void Play2DSound(GameObject me,string se_name)
         {
-            ////オーディオファイルへのパスを抽出
-            //string directory_name = Path.GetFileName(directory_path); 
-            //var audio_path_dict = new Dictionary<string, string>();
+            audiosorce = me.GetComponent<AudioSource>();
 
-            audiosorce = GetComponent<AudioSource>();
-
-            Debug.Log("AAA" + audioclip[0].ToString());
-
-            foreach (var audio_clip in audioclip)
+            if (audiosorce == null)
             {
-                if(audio_clip.ToString()==directory_path)
-                {
-                    audiosorce.PlayOneShot(audio_clip, 1.0f * AudioManager.Instance.audio_volume_.SEVolume);
+                me.AddComponent<AudioSource>();
 
-                }
-
-                ////アセットへのパスを取得
-                //var asset_path = AssetDatabase.GetAssetPath(audio_clip);
-                ////オーディオ名の重複チェック
-                //var audio_name = audio_clip.name;
-                //if (audio_path_dict.ContainsKey(audio_name))
-                //{
-                //    Debug.LogError(audio_name + " is duplicate!\n1 : " + directory_name + "/" + audio_name + "\n2 : " + audio_path_dict[audio_name]);
-                //}
-                //audio_path_dict[audio_name] = directory_name + "/" + audio_name;
+                audiosorce = me.GetComponent<AudioSource>();
             }
 
-            //再生
+            AudioSourceSetting(false);
+
+            SearchAndPlaySE(se_name);
+        }
+
+        /// <summary>
+        /// 3Dサウンド再生
+        /// </summary>
+        /// <param name="me">オーディオソースアタッチ用</param>
+        /// <param name="se_name">再生させたいSE音源</param>
+        public void Play3DSound(GameObject me, string se_name)
+        {
+            audiosorce = me.GetComponent<AudioSource>();
+
+            if (audiosorce == null)
+            {
+                me.AddComponent<AudioSource>();
+
+                audiosorce = me.GetComponent<AudioSource>();
+            }
+
+            AudioSourceSetting(true);
+
+            SearchAndPlaySE(se_name);
+        }
+
+        private void AudioSourceSetting(bool sound_3d)
+        {
+            if (sound_3d)
+            {
+                //3Dサウンド設定
+                audiosorce.spatialBlend = 1;
+
+                //距離減衰グラフ設定
+                audiosorce.rolloffMode = AudioRolloffMode.Linear;
+
+                //減衰距離設定
+                audiosorce.maxDistance = 50f;
+            }
+
+            //起動時再生をfalseに
+            audiosorce.playOnAwake = false;
+
+            audiosorce.priority = 0;
+        }
+
+        private void SearchAndPlaySE(string se_name)
+        {
+            string sename = se_name.Replace("SE/", "");
+
+            foreach (var se in se_list)
+            {
+
+                if (se.name == sename)
+                {
+                    //再生
+                    audiosorce.PlayOneShot(se, 1.0f * AudioManager.Instance.audio_volume_.SEVolume);
+                }
+            }
         }
     }
 }
