@@ -32,12 +32,14 @@ namespace FrontPerson.Manager
         /// <summary>
         /// 入力を受け付けるかどうか
         /// </summary>
-        public bool IsInput = true;
+        public bool IsInput { get; private set; } = true;
+        public void SetIsInput(bool value) { IsInput = value; }
 
         /// <summary>
         /// ゲーム開始フラグ
         /// </summary>
-        public bool IsGamePlay = false;
+        public bool IsGamePlay { get; private set; } = false;
+        public void SetIsGamePlay(bool value) { IsGamePlay = value; }
 
 
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]

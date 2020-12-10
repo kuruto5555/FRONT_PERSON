@@ -11,7 +11,6 @@ namespace FrontPerson.Gimmick
         [SerializeField, Range(1, 100)]
         private int recoveryValue_ = 1;
 
-
         /// <summary>
         /// 一度使っているかどうか
         /// </summary>
@@ -41,6 +40,7 @@ namespace FrontPerson.Gimmick
 
             bountyManager_.NutritionCharge();
             IsUse = true;
+            icon_.SetActive(false);
             return value <= recoveryValue_ ? value : recoveryValue_;
         }
     }
