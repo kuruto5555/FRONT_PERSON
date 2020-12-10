@@ -9,13 +9,17 @@ namespace FrontPerson.UI
 {
     public class Ranking : MonoBehaviour
     {
-        [Header("スタートボタン")]
+        [Header("スコアのテキスト")]
         [SerializeField]
         private List<Text> ScoreText_List = null;
 
+        [Header("コンボのテキスト")]
+        [SerializeField]
+        private List<Text> ComboText_List = null;
+
         void Start()
         {
-            if(null != ScoreText_List)
+            if(null != ScoreText_List && null != ComboText_List)
             {
                 var manager = GameObject.FindGameObjectWithTag(Constants.TagName.MANAGER).GetComponent<ApplicationManager>();
 
@@ -25,11 +29,18 @@ namespace FrontPerson.UI
                 {
                     ScoreText_List[i].text = scores[i].ToString();
                 }
+
+                var combos = manager.save_data_.RankingCombo;
+
+                for (int i = 0; i < combos.Count; i++)
+                {
+                    ComboText_List[i].text = combos[i].ToString();
+                }
             }
 #if UNITY_EDITOR
             else
             {
-                Debug.LogError("ScoreText_List が null です");
+                Debug.LogError("ScoreText_List or ComboText_List が null です");
             }
 #endif
         }
