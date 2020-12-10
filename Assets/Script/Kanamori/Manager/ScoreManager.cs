@@ -54,6 +54,10 @@ namespace FrontPerson.Manager
         /// コンボ数
         /// </summary>
         public int ComboNum { get; private set; } = 0;
+        /// <summary>
+        /// 最大コンボ数
+        /// </summary>
+        public int ComboNumMAX { get; private set; } = 0;
 
         /// <summary>
         /// コンボ中にもらったコンボ途中ボーナスの数
@@ -109,6 +113,7 @@ namespace FrontPerson.Manager
         {
             //エネミーの生成率は共通なのでシーン上のどれか一つもらえればいい
             spawner_ = FindObjectOfType<Enemy.Spawner>();
+            bounty_manager_ = BountyManager._instance;
         }
 
 
@@ -194,6 +199,9 @@ namespace FrontPerson.Manager
                         break;
                     }
             }
+
+            // 最大コンボ数が更新されたかどうか
+            if (ComboNum > ComboNumMAX) ComboNumMAX = ComboNum;
 
             // スコアを更新
             CurrentScore += add_score;

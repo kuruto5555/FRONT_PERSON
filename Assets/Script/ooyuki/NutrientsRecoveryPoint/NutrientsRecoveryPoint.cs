@@ -11,6 +11,10 @@ namespace FrontPerson.Gimmick
         [SerializeField]
         private NUTRIENTS_TYPE nutrientsType_ = NUTRIENTS_TYPE._ALL;
 
+        [Header("ビルボードアイコン")]
+        [SerializeField]
+        protected GameObject icon_ = null;
+
         /// <summary>
         /// 取り扱っているビタミンの種類
         /// </summary>

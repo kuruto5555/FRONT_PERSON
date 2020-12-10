@@ -61,8 +61,6 @@ namespace FrontPerson.Manager
         /// </summary>
         ApplicationManager applicationManager_ = null;
 
-        int comboMax_ = 0;
-
 
         // Start is called before the first frame update
         void Start()
@@ -159,9 +157,6 @@ namespace FrontPerson.Manager
 
         void PlayUpdate()
         {
-            //現在のコンボ数が最大コンボ数より大きくなったら更新する
-            if (comboMax_ < scoreManager_.ComboNum) comboMax_ = scoreManager_.ComboNum;
-
             //ゲームが終了したとき
             if (timer_.IsTimeOver)
             {
@@ -180,7 +175,7 @@ namespace FrontPerson.Manager
                 // スコア等を保存
                 applicationManager_.ClearMissionNum = bountyManager_._missionCnt;
                 applicationManager_.Score = scoreManager_.CurrentScore;
-                applicationManager_.ComboNum = comboMax_;
+                applicationManager_.ComboNum = scoreManager_.ComboNumMAX;
                 state_ = GAME_SCENE_STATE.TRANSITION;
                 SceneManager.Instance.SceneChange(SceneName.RESULT_SCENE, 1.0f, Color.black);
             }

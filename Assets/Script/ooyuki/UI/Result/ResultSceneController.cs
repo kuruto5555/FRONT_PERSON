@@ -142,7 +142,7 @@ namespace FrontPerson.Manager
         {
             if(!FadeManager.Instance.IsFade)
             {
-                scoreGraph_.StartAnimation(30000, 5000, 20000);
+                scoreGraph_.StartAnimation(youScore, 5000, 20000);
                 //scoreGraph_.StartAnimation(youScore, averageScore, numberOneScore);
                 appManager_.SetIsInput(true);
                 state_ = RESULT_SCENE_STATE.DRAW_SCORE;
@@ -157,7 +157,7 @@ namespace FrontPerson.Manager
         {
             if (scoreGraph_.IsFinish)
             {
-                comboNumGraph_.StartAnimation(100, 50, 150);
+                comboNumGraph_.StartAnimation(youComboNum, 50, 150);
                 //comboNumGraph_.StartAnimation(youComboNum, averageComboNum, numberOneCmnboNum);
                 state_ = RESULT_SCENE_STATE.DRAW_COMBO_NUM;
             }
@@ -171,7 +171,7 @@ namespace FrontPerson.Manager
         {
             if (comboNumGraph_.IsFinish)
             {
-                missionClearNumGraph_.StartAnimation(30, 10, 50);
+                missionClearNumGraph_.StartAnimation(youMissionClearNum, 10, 50);
                 //missionClearNumGraph_.StartAnimation(youMissionClearNum, averageMissionClearNum, numberOneMissionClearNum);
                 state_ = RESULT_SCENE_STATE.DRAW_MISSION_CLEAR_NUM;
             }
