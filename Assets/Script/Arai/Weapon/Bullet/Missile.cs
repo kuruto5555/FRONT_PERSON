@@ -17,7 +17,10 @@ namespace FrontPerson.Weapon
         [SerializeField, Range(0.01f, 1.0f)] float TurnSpeed_ = 0.06f;
 
         [Header("追尾開始する高度")]
-        [SerializeField, Range(10.0f, 50.0f)] float StartHeight_ = 50.0f;
+        [SerializeField, Range(10.0f, 100.0f)] float StartHeight_ = 50.0f;
+
+
+        [SerializeField] ParticleSystem Particle_ = null;
 
         //発射されてからの時間
         private float _nowTime = 0.0f;
@@ -29,6 +32,8 @@ namespace FrontPerson.Weapon
 
         private bool _isHoming = false;
 
+        Vector3 newPos;
+
         // Start is called before the first frame update
         void Start()
         {
@@ -36,6 +41,10 @@ namespace FrontPerson.Weapon
             _nowTime = 0.0f;
             _isHoming = false;
             _targetPos = _target.position;
+
+            newPos = transform.position + transform.forward * 25.0f;
+            newPos.y = StartHeight_;
+
         }
 
         // Update is called once per frame
@@ -72,7 +81,8 @@ namespace FrontPerson.Weapon
             //if (_nowTime < StarterSpeed_) return;
             if (_isHoming) return;
 
-            Vector3 newPos = new Vector3(_targetPos.z, StartHeight_, _targetPos.z);
+            //Vector3 newPos = new Vector3(_targetPos.x, StartHeight_, _targetPos.z);
+            
 
             //ターゲットの方向ベクトル
             Vector3 vec = (newPos - transform.position).normalized;
@@ -116,6 +126,8 @@ namespace FrontPerson.Weapon
                 var blast = Instantiate(Blast_, transform.position, Quaternion.identity);
                 blast.GetComponent<Blast>().SetData(Radius_, this);
                 _cursor.SetDead();
+                Particle_.transform.parent = null;
+                Particle_.loop = false;
                 Destroy(gameObject);
             }
         }

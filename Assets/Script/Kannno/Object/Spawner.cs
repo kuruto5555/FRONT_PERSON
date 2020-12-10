@@ -137,12 +137,9 @@ namespace FrontPerson.Enemy
         /// </summary>
         private void SumEnemy()
         {
-            var enemys_object = GameObject.FindGameObjectsWithTag(Constants.TagName.ENEMY);
+            var enemys_list = GameObject.FindGameObjectsWithTag(Constants.TagName.ENEMY);
 
-            List<GameObject> enemys = new List<GameObject>();
-            enemys.AddRange(enemys_object);
-
-            foreach(var obj in enemys)
+            foreach(var obj in enemys_list)
             {
                 Character.Enemy enemy = obj.GetComponent<Character.Enemy>();
 

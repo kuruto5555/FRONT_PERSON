@@ -1291,3 +1291,7 @@ MonoBehaviour:
   Muzzle: {fileID: 3979214626855618706}
   rate_: 2
   MaxAmmo_: 10
+  Reticle_: {fileID: 1185698901002453259, guid: 117d1aa1a42826144bd6c3c3053c224d,
+    type: 3}
+  MuzzleFlash: {fileID: 1120585243774102722, guid: cc95eeae6fc0c154d92ba823181516a3,
+    type: 3}

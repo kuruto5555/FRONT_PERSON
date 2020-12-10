@@ -33,7 +33,6 @@ namespace FrontPerson.Enemy
             if (insufficiency <= 0)
             {
                 SetDown();
-
             }
         }
     }

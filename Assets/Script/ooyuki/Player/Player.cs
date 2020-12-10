@@ -37,11 +37,11 @@ namespace FrontPerson.Character
 
         [Header("視点感度")]
         [SerializeField, Range(1, 14)]
-        int rotationSpeed_ = 7;
+        int RotationSpeed_ = 7;
 
         [Header("視点角度制限")]
         [SerializeField, Range(30.0f, 90.0f)]
-        float limitVerticalAngle = 89.0f;
+        float LimitVerticalAngle_ = 89.0f;
 
         [Header("銃")]
         [SerializeField]
@@ -214,6 +214,8 @@ namespace FrontPerson.Character
 
         public bool IsRightTrigger { get { return _isFireRHand; } }
 
+        
+
         /// <summary>
         /// 所持してる武器一覧
         /// </summary>
@@ -224,6 +226,15 @@ namespace FrontPerson.Character
         /// 1左拳銃,2右拳銃,3持ってれば特殊武器
         /// </summary>
         public List<Gun> GetWeaponList { get { return _weaponList; } }
+
+        /// <summary>
+        /// 視点感度取得関数
+        /// </summary>
+        /// <returns></returns>
+        public int GetViewRotateSpeed()
+        {
+            return RotationSpeed_;
+        }
 
         // Start is called before the first frame update
         void Start()
@@ -281,15 +292,15 @@ namespace FrontPerson.Character
         /// </summary>
         private void ViewPointMove()
         {
-            float Y_Rotation = Input.GetAxis(Constants.InputName.VERTICAL2) * rotationSpeed_ * 30 * Time.deltaTime;
-            float X_Rotation = Input.GetAxis(Constants.InputName.HORIZONTAL2) * rotationSpeed_ * 30 * Time.deltaTime;
+            float Y_Rotation = Input.GetAxis(Constants.InputName.VERTICAL2) * RotationSpeed_ * 30 * Time.deltaTime;
+            float X_Rotation = Input.GetAxis(Constants.InputName.HORIZONTAL2) * RotationSpeed_ * 30 * Time.deltaTime;
             
             transform.Rotate(0, X_Rotation, 0);
 
             var x = _xAxiz.x - Y_Rotation;
 
             //角度検証
-            if (x >= -limitVerticalAngle && x <= limitVerticalAngle)
+            if (x >= -LimitVerticalAngle_ && x <= LimitVerticalAngle_)
             {
                 //問題無ければ反映
                 _xAxiz.x = x;
@@ -476,8 +487,8 @@ namespace FrontPerson.Character
                     break;
 
                 case NUTRIENTS_TYPE._ALL:
-                    gunL_.Reload();
-                    gunR_.Reload();
+                    gunL_.Reload(vrp.Charge(GunAmmoMAX_L - GunAmmoL));
+                    gunR_.Reload(vrp.Charge(GunAmmoMAX_R - GunAmmoR));
                     break;
             }
         }
@@ -601,6 +612,7 @@ namespace FrontPerson.Character
             Weapon = Instantiate(_weponManager.WeaponPrefabList[type], cameraTransform_).GetComponent<Weapon.SpecialWeapon>();
             _weaponList[2] = Weapon;
         }
+
     }
 
 };
