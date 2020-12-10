@@ -2,30 +2,63 @@
 using System.Collections.Generic;
 using UnityEngine;
 using FrontPerson.Constants;
+using FrontPerson.Manager;
 
-namespace FrontPerson.Audio
+
+namespace FrontPerson
 {
     public class SoundPlayTest : MonoBehaviour
     {
-        private GameObject a = null;
-        private PlaySound b = null;
+       
 
         // Start is called before the first frame update
         void Start()
         {
-            a = Resources.Load("SE") as GameObject;
-            b = a.GetComponent<PlaySound>();
+          
         }
 
         // Update is called once per frame
         void Update()
         {
-            if (Input.GetKeyDown(KeyCode.H))
+            //b.Play3DSound(gameObject, SEPath.GAME_SE_ENEMY_HEALTH_2);
+            //b.Play3DSound(gameObject, SEPath.COMMON_SE_BACK);
+
+
+
+            if (Input.GetKeyDown(KeyCode.W))
             {
-                b.Play3DSound(gameObject, SEPath.COMMON_SE_BACK);
-               
-                
-               
+                AudioManager.Instance.Play2DSound(gameObject, SEPath.GAME_SE_ENEMY_HEALTH_2);
+                AudioManager.Instance.Play2DSound(gameObject, SEPath.GAME_SE_ENEMY_HEALTH_2);
+                AudioManager.Instance.Play2DSound(gameObject, SEPath.GAME_SE_ENEMY_HEALTH_2);
+                AudioManager.Instance.Play2DSound(gameObject, SEPath.GAME_SE_ENEMY_HEALTH_2);
+                AudioManager.Instance.Play2DSound(gameObject, SEPath.GAME_SE_ENEMY_HEALTH_2);
+
+            }
+
+            if (Input.GetKeyDown(KeyCode.A))
+            {
+
+                AudioManager.Instance.Play2DSound(gameObject, SEPath.GAME_SE_ENEMY_HEALTH_2);
+
+
+
+
+            }
+
+            if (Input.GetKeyDown(KeyCode.S))
+            {
+                AudioManager.Instance.Play2DSound(gameObject, SEPath.GAME_SE_ENEMY_HEALTH_2);
+
+
+
+            }
+
+            if (Input.GetKeyDown(KeyCode.D))
+            {
+                AudioManager.Instance.Play2DSound(gameObject, SEPath.GAME_SE_ENEMY_HEALTH_2);
+
+
+
             }
         }
     }
