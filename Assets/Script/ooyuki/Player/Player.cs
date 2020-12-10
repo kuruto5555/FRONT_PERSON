@@ -143,6 +143,8 @@ namespace FrontPerson.Character
         /// </summary>
         private SpecialWeaponManager _weponManager = null;
 
+        int _viewRotetaSpeed = 0;
+
 
         /*---- プロパティ ----*/
         /// <summary>
@@ -214,7 +216,10 @@ namespace FrontPerson.Character
 
         public bool IsRightTrigger { get { return _isFireRHand; } }
 
-        
+        /// <summary>
+        /// アプリケーションマネージャー参照
+        /// </summary>
+        private ApplicationManager _appManager = null;
 
         /// <summary>
         /// 所持してる武器一覧
@@ -233,7 +238,16 @@ namespace FrontPerson.Character
         /// <returns></returns>
         public int GetViewRotateSpeed()
         {
-            return RotationSpeed_;
+            return _viewRotetaSpeed;
+        }
+
+        /// <summary>
+        /// 視点感度代入関数
+        /// </summary>
+        /// <param name="speed"></param>
+        public void SetViewRotateSpeed(int speed)
+        {
+            _viewRotetaSpeed = speed;
         }
 
         // Start is called before the first frame update
@@ -252,16 +266,22 @@ namespace FrontPerson.Character
 
             _weponManager = SpecialWeaponManager._instance;
 
+            _viewRotetaSpeed = RotationSpeed_;
+
             _weaponList = new List<Gun>();
 
             _weaponList.Add(gunL_);
             _weaponList.Add(gunR_);
             _weaponList.Add(null);
+
+            _appManager = GameObject.FindGameObjectWithTag(TagName.MANAGER).GetComponent<ApplicationManager>();
         }
 
         // Update is called once per frame
         void Update()
         {
+            if (!_appManager.IsGamePlay) return;
+
             _isFireLHand = _isFireRHand = false;
 
             if (_isStun)
