@@ -34,7 +34,7 @@ namespace FrontPerson.Data
         /// <summary>
         /// ランキングに表示する最大コンボ数(上位5位分)
         /// </summary>
-        public List<int> RankingCombo = new List<int>() { 0, 0, 0, 0, 0 };
+        public List<int> RankingComboNum = new List<int>() { 0, 0, 0, 0, 0 };
 
         /// <summary>
         /// ランキングに表示するミッションクリア数(上位5位分)
