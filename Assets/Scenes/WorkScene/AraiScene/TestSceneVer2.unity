@@ -4720,6 +4720,26 @@ PrefabInstance:
       propertyPath: Yakuza_MovePatternList.Array.data[0]
       value: 
       objectReference: {fileID: 1733896748}
+    - target: {fileID: 7869129166089239699, guid: b83719008a53ace48bf3a8eb74b3f348,
+        type: 3}
+      propertyPath: Max_OrdinaryPeople
+      value: 191
+      objectReference: {fileID: 0}
+    - target: {fileID: 7869129166089239699, guid: b83719008a53ace48bf3a8eb74b3f348,
+        type: 3}
+      propertyPath: Max_OldBattleaxe
+      value: 238
+      objectReference: {fileID: 0}
+    - target: {fileID: 7869129166089239699, guid: b83719008a53ace48bf3a8eb74b3f348,
+        type: 3}
+      propertyPath: Max_Yakuza
+      value: 250
+      objectReference: {fileID: 0}
+    - target: {fileID: 7869129166089239699, guid: b83719008a53ace48bf3a8eb74b3f348,
+        type: 3}
+      propertyPath: time
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b83719008a53ace48bf3a8eb74b3f348, type: 3}
 --- !u!1001 &1643514125

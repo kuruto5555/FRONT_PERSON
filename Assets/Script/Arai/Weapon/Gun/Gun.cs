@@ -32,6 +32,9 @@ namespace FrontPerson.Weapon
         /// </summary>
         protected GameObject _canvas = null;
 
+        [Header("マズルスプラッシュ")]
+        [SerializeField] protected GameObject MuzzleFlash = null;
+
         /// <summary>
         /// ヒエラルキーのBountyManagerを入れておく
         /// </summary>
@@ -99,6 +102,7 @@ namespace FrontPerson.Weapon
             shotTime_ = 1.0f / rate_;
             ammo_--;
             _bountyManager.FireCount();
+            Instantiate(MuzzleFlash,  Muzzle.transform.position, Quaternion.identity, transform);
         }
 
         /// <summary>

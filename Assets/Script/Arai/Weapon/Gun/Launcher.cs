@@ -180,7 +180,7 @@ namespace FrontPerson.Weapon
             _bountyManager.FireCount();
 
             _lockOnTargetList.Remove(_lockOnTargetList.FirstOrDefault().Key);
-
+            Instantiate(MuzzleFlash, Muzzle.transform.position, Quaternion.identity, transform);
 
         }
 
