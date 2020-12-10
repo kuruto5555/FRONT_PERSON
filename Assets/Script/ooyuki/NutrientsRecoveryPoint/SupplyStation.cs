@@ -17,7 +17,7 @@ namespace FrontPerson.Gimmick
         /// true  -> チャージできる
         /// false -> チャージできない
         /// </summary>
-        public bool IsCharge{ get { return time_ >= 0f; } }
+        public bool IsCharge{ get { return time_ <= 0f; } }
 
         /// <summary>
         /// インターバル計測用
@@ -40,6 +40,10 @@ namespace FrontPerson.Gimmick
             if (!IsCharge)
             {
                 time_ -= Time.deltaTime;
+                if (IsCharge)
+                {
+                    icon_.SetActive(true);
+                }
             }
         }
 
@@ -51,10 +55,11 @@ namespace FrontPerson.Gimmick
         /// <returns>もらえる弾の量</returns>
         public override int Charge(int value)
         {
-            if (IsCharge) return 0;
+            if (!IsCharge) return 0;
 
             bountyManager_.NutritionCharge();
             time_ = interval_;
+            icon_.SetActive(false);
             return value;
         }
 

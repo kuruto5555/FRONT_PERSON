@@ -56,7 +56,7 @@ namespace FrontPerson.Character
         /// <summary>
         /// スペシャル武器
         /// </summary>
-        Weapon.Gun Weapon = null;
+        Weapon.SpecialWeapon Weapon = null;
 
         /// <summary>
         /// カメラのトランスフォーム
@@ -595,10 +595,10 @@ namespace FrontPerson.Character
 
             if (IsSpecialWeapon)
             {
-                Destroy(Weapon.gameObject);
+                Weapon.WeaponForcedChange();
             }
 
-            Weapon = Instantiate(_weponManager.WeaponPrefabList[type], cameraTransform_).GetComponent<Weapon.Gun>();
+            Weapon = Instantiate(_weponManager.WeaponPrefabList[type], cameraTransform_).GetComponent<Weapon.SpecialWeapon>();
             _weaponList[2] = Weapon;
         }
     }

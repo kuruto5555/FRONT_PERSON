@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
 using UnityEngine;
 using UnityEditor;
 
@@ -7,11 +8,26 @@ namespace FrontPerson.Enemy
 {
     public class MovePoint : MonoBehaviour
     {
+        /// <summary>
+        /// ルートの順番
+        /// </summary>
+        public int Index { get; private set; }
+
         private Vector3 point_;
         public Vector3 Point { get { return point_; } }
 
-        public void Awake()
+        private void Awake()
         {
+#if UNITY_EDITOR
+            if(false == Regex.IsMatch(gameObject.name, @"[^0-9]"))
+            {
+                Debug.LogError("MovePoint の name 内に番号が無いです");
+            }
+#endif
+            int str = int.Parse(Regex.Replace(gameObject.name, @"[^0-9]", ""));
+
+            Index = str;
+
             point_ = transform.position;
         }
 

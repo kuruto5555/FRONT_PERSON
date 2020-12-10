@@ -10,9 +10,13 @@ namespace FrontPerson.Enemy
 {
     public class OrdinaryPeople : Character.Enemy
     {
-        protected override void OnStart()
+        protected override void OnAwake()
         {
             Type = EnemyType.ORDINATY_PEOPLE;
+        }
+
+        protected override void OnStart()
+        {
         }
 
         protected override void OnUpdate()
@@ -35,11 +39,6 @@ namespace FrontPerson.Enemy
                     var bounty_manager = GameObject.FindGameObjectWithTag(Constants.TagName.BOUNTY_MANAGER).GetComponent<BountyManager>();
 
                     bounty_manager.EnemyDeath((int)lack_vitamins);
-
-                    // スコア加算
-                    var score_manager = ScoreManager.Instance;
-
-                    score_manager.AddScore((int)EnemyScore.ORDINATY_PEOPLE, Score.ReasonForAddition.Nomal);
                 }
             }
         }

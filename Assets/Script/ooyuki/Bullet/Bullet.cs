@@ -14,8 +14,8 @@ namespace FrontPerson.Weapon
         NUTRIENTS_TYPE bulletType_ = NUTRIENTS_TYPE._ALL;
 
         [Header("弾速")]
-        [SerializeField, Range(30f, 100f)]
-        float speed_ = 50.0f;
+        [SerializeField, Range(1f, 100f)]
+        protected float speed_ = 50.0f;
 
         [Header("弾の威力")]
         [SerializeField, Range(1, 1000)]
@@ -25,6 +25,9 @@ namespace FrontPerson.Weapon
         [SerializeField]
         GameObject splashParticle_ = null;
 
+        [Header("有効射程")]
+        [SerializeField, Range(50.0f, 100.0f)] float _range = 50.0f; 
+
         /// <summary>
         /// 生成された位置
         /// </summary>
@@ -33,7 +36,7 @@ namespace FrontPerson.Weapon
         /// <summary>
         /// 前フレームの位置
         /// </summary>
-        Vector3 prevPos_;
+        protected Vector3 prevPos_;
 
         /// <summary>
         /// 弾の威力
@@ -45,19 +48,19 @@ namespace FrontPerson.Weapon
         /// </summary>
         public NUTRIENTS_TYPE BulletType { get{return bulletType_;} }
 
-        void Start()
+        protected void Start()
         {
             prevPos_ = initPos_ = transform.position;
         }
 
-        void Update()
+        protected void Update()
         {
             Move();
         }
 
 
 
-        protected void Move()
+        public virtual void Move()
         {
             Vector3 position = prevPos_ = transform.position;
 
@@ -65,7 +68,7 @@ namespace FrontPerson.Weapon
 
             transform.position = position;
 
-            if((initPos_-position).magnitude > 50f)
+            if((initPos_-position).magnitude > _range)
             {
                 Destroy(gameObject);
             }

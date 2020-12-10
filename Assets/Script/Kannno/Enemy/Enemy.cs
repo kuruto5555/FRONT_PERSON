@@ -69,11 +69,14 @@ namespace FrontPerson.Character
             if(null == state_AI) state_AI = GetComponent<EnemyState_AI>();
 
             state_AI.SetOwner(this);
+
+            Set_LackVitamin();
+
+            OnAwake();
         }
 
         private void Start()
         {
-            Set_LackVitamin();
             Set_LackVitamin_Text();
 
             OnStart();
@@ -164,17 +167,17 @@ namespace FrontPerson.Character
                 switch (Type)
                 {
                     case EnemyType.ORDINATY_PEOPLE:
-                        score_manager.AddScore((int)EnemyScore.ORDINATY_PEOPLE, Score.ReasonForAddition.Nomal);
+                        score_manager.AddScore((int)EnemyScore.ORDINATY_PEOPLE, Score.ReasonForAddition.OrdinaryPeople);
                         break;
-
+                
                     case EnemyType.OLD_BATTLEAXE:
-                        score_manager.AddScore((int)EnemyScore.OLD_BATTLEAXE, Score.ReasonForAddition.Nomal);
+                        score_manager.AddScore((int)EnemyScore.OLD_BATTLEAXE, Score.ReasonForAddition.OldBattleaxe);
                         break;
-
+                
                     case EnemyType.YAKUZA:
-                        score_manager.AddScore((int)EnemyScore.YAKUZA, Score.ReasonForAddition.Nomal);
+                        score_manager.AddScore((int)EnemyScore.YAKUZA, Score.ReasonForAddition.Yakuza);
                         break;
-
+                
                     default:
                         break;
                 }
@@ -224,7 +227,7 @@ namespace FrontPerson.Character
 
         public void SetTarget(Vector3 goal)
         {
-            agent.destination = goal;
+            agent.SetDestination(goal);
         }
 
         /// <summary>
@@ -233,6 +236,8 @@ namespace FrontPerson.Character
         /// </summary>
         protected abstract void OnStart();
         protected abstract void OnUpdate();
+
+        protected abstract void OnAwake();
 
         public abstract void HitBullet(Bullet bullet);
 

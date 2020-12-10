@@ -9,12 +9,15 @@ namespace FrontPerson.Enemy
 {
     public class Yakuza : Character.Enemy
     {
-        protected override void OnStart()
+        protected override void OnAwake()
         {
             Type = EnemyType.YAKUZA;
 
             Set_LackVitamin();
-            Set_LackVitamin_Text();
+        }
+
+        protected override void OnStart()
+        {
         }
 
         protected override void OnUpdate()
@@ -31,10 +34,6 @@ namespace FrontPerson.Enemy
             {
                 SetDown();
 
-                // スコア加算
-                var manager = ScoreManager.Instance;
-
-                manager.AddScore((int)EnemyScore.YAKUZA, Score.ReasonForAddition.Nomal);
             }
         }
     }
