@@ -60,7 +60,7 @@ namespace FrontPerson.Character
         /// <summary>
         /// 1回しか実行させない為の変数
         /// </summary>
-        public bool Eneble { get; private set; } = false; 
+        private bool Eneble = false; 
 
         private void Awake()
         {
