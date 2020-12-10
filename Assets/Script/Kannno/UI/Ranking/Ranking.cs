@@ -30,7 +30,7 @@ namespace FrontPerson.UI
                     ScoreText_List[i].text = scores[i].ToString();
                 }
 
-                var combos = manager.save_data_.RankingCombo;
+                var combos = manager.save_data_.RankingComboNum;
 
                 for (int i = 0; i < combos.Count; i++)
                 {
