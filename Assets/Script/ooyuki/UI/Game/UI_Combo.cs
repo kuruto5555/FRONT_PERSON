@@ -97,7 +97,7 @@ public class UI_Combo : MonoBehaviour
         }
 
         // コンボの色変更
-        if(comboNum_ >= iconChengeValueList_[comboIconType_] && comboIconType_ <= iconImageList_.Count)
+        if(comboNum_ >= iconChengeValueList_[comboIconType_] && comboIconType_ < iconImageList_.Count)
         {
             comboIconType_++;
             SetColor();
