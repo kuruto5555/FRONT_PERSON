@@ -16,11 +16,20 @@ namespace FrontPerson.Manager
         /// <param name="data"></param>
         public static void Save<T>(T data, string data_name)
         {
+            // フォルダパス
+            string FolderPath = null;
+
             // ファイルパス
 #if UNITY_EDITOR
-            string export_path = Application.dataPath + "/Save/" + data_name + ".sav";
+            //Editor上では普通にカレントディレクトリを確認
+            FolderPath = Directory.GetCurrentDirectory();
+
+            string export_path = FolderPath + "/Save/" + data_name + ".sav";
 #else
-            string export_path = Application.persistentDataPath + "/Save/" + data_name + ".sav";
+            //EXEを実行したカレントディレクトリ (ショートカット等でカレントディレクトリが変わるのでこの方式で)
+            FolderPath = AppDomain.CurrentDomain.BaseDirectory.TrimEnd('\\');
+
+            string export_path = FolderPath + "/Save/" + data_name + ".sav";
 #endif
 
             // バイナリ形式でシリアル化
@@ -73,11 +82,20 @@ namespace FrontPerson.Manager
         {
             T data;
 
+            // フォルダパス
+            string FolderPath = null;
+
             // ファイルパス
 #if UNITY_EDITOR
-            string save_file_path = Application.dataPath + "/Save/" + data_name + ".sav";
+            //Editor上では普通にカレントディレクトリを確認
+            FolderPath = Directory.GetCurrentDirectory();
+
+            string save_file_path = FolderPath + "/Save/" + data_name + ".sav";
 #else
-            string save_file_path = Application.persistentDataPath + "/Save/" + data_name + ".sav";
+            //EXEを実行したカレントディレクトリ (ショートカット等でカレントディレクトリが変わるのでこの方式で)
+            FolderPath = AppDomain.CurrentDomain.BaseDirectory.TrimEnd('\\');
+
+            string save_file_path = FolderPath + "/Save/" + data_name + ".sav";
 #endif
 
             // バイナリ形式でシリアル化
