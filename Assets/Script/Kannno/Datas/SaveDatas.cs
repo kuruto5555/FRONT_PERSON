@@ -39,6 +39,6 @@ namespace FrontPerson.Data
         /// <summary>
         /// ランキングに表示するミッションクリア数(上位5位分)
         /// </summary>
-        public List<int> RankingMissionCLearNum = new List<int>() { 0, 0, 0, 0, 0 };
+        public List<int> RankingClearMissionNum = new List<int>() { 0, 0, 0, 0, 0 };
     }
 }
