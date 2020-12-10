@@ -13,7 +13,7 @@ namespace FrontPerson.UI
         [Tooltip("指定したメニュー画面を開くボタン")]
         public Button button_to_open_the_menu_;
 
-        [Tooltip("上で指定するメニュー画面")]
+        [Tooltip("上で指定したメニュー画面")]
         public GameObject menu_;
     }
 
@@ -42,6 +42,9 @@ namespace FrontPerson.UI
 
         private EventSystem event_system_;
 
+        /// <summary>
+        /// 開いたオプション画面をとじれるかどうか（閉じれる <=> 閉じれない）
+        /// </summary>
         private bool is_opened_and_closed_ = true;
 
         // Start is called before the first frame update
@@ -56,10 +59,11 @@ namespace FrontPerson.UI
         // Update is called once per frame
         private void Update()
         {
-            // メニューを開く
+            // メニュー開閉
             if (Input.GetButtonDown(Constants.InputName.PAUSE) && is_opened_and_closed_)
             {
-                Time.timeScale = (Time.timeScale <= 0) ? 1f : 0f;
+                // メニュー画面を開いている間、時間を止める
+                Time.timeScale = (opened_menu_[0].activeSelf) ? 1f : 0f;
                 print(Time.timeScale);
 
                 // メニューを開いている場合は閉じる、閉じている場合は開く
@@ -67,6 +71,8 @@ namespace FrontPerson.UI
                 {
                     menu.SetActive(!menu.activeSelf);
                 }
+
+                FirstTouchSelectable();
             }
         }
 
@@ -76,7 +82,8 @@ namespace FrontPerson.UI
         public void AllowsTheMenuClose()
         {
             is_opened_and_closed_ = true;
-            event_system_.SetSelectedGameObject(ui_controllers_[0].button_to_open_the_menu_.gameObject);
+
+            FirstTouchSelectable();
         }
 
         /// <summary>
@@ -101,6 +108,8 @@ namespace FrontPerson.UI
                 }
                 );
 
+            FirstTouchSelectable();
+
             foreach (var ui in ui_controllers_)
             {
                 // ボタンを押した際にどのメニューを開くのかを設定
@@ -118,6 +127,19 @@ namespace FrontPerson.UI
                     }
                     );
             }
+        }
+
+        /// <summary>
+        /// Selectableオブジェクトを選択中にする
+        /// </summary>
+        private void FirstTouchSelectable()
+        {
+            // メニュー画面を表示した際、ボタンの一つ目を選択する
+            event_system_.SetSelectedGameObject(ui_controllers_[0].button_to_open_the_menu_.gameObject);
+            BaseEventData baseEventData = new BaseEventData(event_system_);
+            baseEventData.selectedObject = event_system_.currentSelectedGameObject;
+            ui_controllers_[0].button_to_open_the_menu_.OnSelect(baseEventData);
+            baseEventData.Reset();
         }
     }
 }
