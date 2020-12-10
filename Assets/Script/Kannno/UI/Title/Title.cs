@@ -35,7 +35,7 @@ namespace FrontPerson.UI
             }
 #endif
 
-            StartButton.onClick.AddListener( () => { SceneManager.Instance.SceneChange("GameScene", FadeTime); });
+            StartButton.onClick.AddListener( () => { SceneManager.Instance.SceneChange(Constants.SceneName.GAME_SCENE, FadeTime); });
 
             OptionButton.onClick.AddListener(() => { return; });
 
