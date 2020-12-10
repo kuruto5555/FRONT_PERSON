@@ -28,7 +28,7 @@ namespace FrontPerson
         {
             if(null == targetCamera)
             {
-                targetCamera = FindObjectOfType<Camera>();
+                targetCamera = GameObject.FindGameObjectWithTag(Constants.TagName.MAIN_CAMERA).GetComponent<Camera>();
             }
         }
 #endif
