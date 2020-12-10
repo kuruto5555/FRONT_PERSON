@@ -18,8 +18,8 @@ namespace FrontPerson.Weapon
         [Header("ロックオン解除する時間")]
         [SerializeField, Range(1.0f, 30.0f)] float TargerLostTime = 10.0f;
 
-        [Header("生成するキャンバス")]
-        [SerializeField] GameObject Canvas_ = null;
+        //[Header("生成するキャンバス")]
+        //[SerializeField] GameObject Canvas_ = null;
 
         [Header("生成するロックオンカーソルプレハブ")]
         [SerializeField] GameObject Cursor_ = null;
@@ -74,10 +74,7 @@ namespace FrontPerson.Weapon
             }
         }
 
-        /// <summary>
-        /// ゲームUIキャンバス参照
-        /// </summary>
-        private GameObject _canvas = null;
+        
 
         /// <summary>
         /// 大体視界内に入っているEnemy
@@ -122,14 +119,15 @@ namespace FrontPerson.Weapon
         void Start()
         {
             base.Start();
+
+            _type = Constants.WEAPON_TYPE.MISSILE;
             
             _isTrigger = false;
             
             _nowLockOnTime = 0.0f;
             _targetCamera = Camera.main;
 
-            _canvas = Instantiate(Canvas_);
-            _canvas.GetComponent<LockOnCanvas>().SetData(gameObject);
+            _canvas = GameObject.Find("WeaponCanvas");
         }
 
         // Update is called once per frame
@@ -171,7 +169,7 @@ namespace FrontPerson.Weapon
             if (shotTime_ > 0.0f) return;
 
             _isFire = true;
-            _canvas.GetComponent<LockOnCanvas>().NowFire();
+            //_canvas.GetComponent<LockOnCanvas>().NowFire();
 
             var bullet = Instantiate(bullet_, Muzzle.transform.position, Muzzle.transform.rotation, null);
 
@@ -182,7 +180,7 @@ namespace FrontPerson.Weapon
             _bountyManager.FireCount();
 
             _lockOnTargetList.Remove(_lockOnTargetList.FirstOrDefault().Key);
-
+            Instantiate(MuzzleFlash, Muzzle.transform.position, Quaternion.identity, transform);
 
         }
 
