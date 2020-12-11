@@ -9,6 +9,14 @@ namespace FrontPerson.Item
     // フィーバータイムアイテム
     public class FeverTimePickup : MonoBehaviour
     {
+        [Header("フィーバータイム継続時間")]
+        [SerializeField, Range(1f, 30f)]
+        float feverTimeduration_ = 15f;
+
+        [Header("フィーバー時のスコア倍率")]
+        [SerializeField, Range(1.1f, 2.0f)]
+        float scoreMagnification_ = 1.5f;
+
         private Pickup pickup_;
 
         // Start is called before the first frame update
@@ -23,7 +31,7 @@ namespace FrontPerson.Item
             pickup_.PlayPickupFeedback();
 
             // フィーバータイム発動
-            ScoreManager.Instance.ActiveFeverTime();
+            ScoreManager.Instance.ActiveFeverTime(feverTimeduration_, scoreMagnification_);
         }
     }
 }

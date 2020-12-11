@@ -55,11 +55,14 @@ namespace FrontPerson.Manager
         /// スコアマネージャ―
         /// </summary>
         ScoreManager scoreManager_ = null;
-
         /// <summary>
         /// アプリケーションマネージャー
         /// </summary>
         ApplicationManager applicationManager_ = null;
+        /// <summary>
+        /// コンボマネージャー
+        /// </summary>
+        ComboManager comboManager_ = null;
 
 
         // Start is called before the first frame update
@@ -85,6 +88,9 @@ namespace FrontPerson.Manager
 
             // スコアマネージャ―取得
             scoreManager_ = ScoreManager.Instance;
+
+            // コンボマネージャー取得
+            comboManager_ = ComboManager.Instance;
 
             // ステートを操作説明にする
             state_ = GAME_SCENE_STATE.TUTORIAL1;
@@ -175,7 +181,7 @@ namespace FrontPerson.Manager
                 // スコア等を保存
                 applicationManager_.ClearMissionNum = bountyManager_._missionCnt;
                 applicationManager_.Score = scoreManager_.CurrentScore;
-                applicationManager_.ComboNum = scoreManager_.ComboNumMAX;
+                applicationManager_.ComboNum = comboManager_.ComboNumMax;
                 state_ = GAME_SCENE_STATE.TRANSITION;
                 SceneManager.Instance.SceneChange(SceneName.RESULT_SCENE, 1.0f, Color.black);
             }

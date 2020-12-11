@@ -35,7 +35,7 @@ public class UI_Combo : MonoBehaviour
     /// <summary>
     /// スコアマネージャー
     /// </summary>
-    ScoreManager scoreManager_ = null;
+    ComboManager comboManager_ = null;
 
     /// <summary>
     /// コンボ数のテキストの輪郭
@@ -63,8 +63,8 @@ public class UI_Combo : MonoBehaviour
     {
         comboNumPrev_ = comboNum_ = 0;
         comboIconType_ = 0;
-        
-        scoreManager_ = ScoreManager.Instance;
+
+        comboManager_ = ComboManager.Instance;
         comboNumTextOutline_ = comboNumText_.GetComponent<Outline>();
 
         SetColor();
@@ -86,7 +86,7 @@ public class UI_Combo : MonoBehaviour
     void SetComboNum()
     {
         comboNumPrev_ = comboNum_;
-        comboNum_ = scoreManager_.ComboNum;
+        comboNum_ = comboManager_.ComboNum;
         comboNumText_.text = comboNum_.ToString();
 
 
@@ -97,7 +97,7 @@ public class UI_Combo : MonoBehaviour
         }
 
         // コンボの色変更
-        if(comboNum_ >= iconChengeValueList_[comboIconType_] && comboIconType_ <= iconImageList_.Count)
+        if(comboNum_ >= iconChengeValueList_[comboIconType_] && comboIconType_ < iconImageList_.Count)
         {
             comboIconType_++;
             SetColor();
@@ -113,7 +113,7 @@ public class UI_Combo : MonoBehaviour
         if (comboNum_ == 0) return;
 
         comboTimeLimitGauge_.rectTransform.anchorMin =
-            new Vector2(1.0f - (scoreManager_.ComboBonusTimer / scoreManager_.ComboBonusEffectTime),
+            new Vector2(1.0f - (comboManager_.ComboRemainingTime / comboManager_.ComboDuration),
                         comboTimeLimitGauge_.rectTransform.anchorMin.y );
     }
 

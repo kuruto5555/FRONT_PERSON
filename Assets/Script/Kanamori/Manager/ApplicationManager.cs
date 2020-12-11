@@ -31,12 +31,16 @@ namespace FrontPerson.Manager
 
         /// <summary>
         /// 入力を受け付けるかどうか
+        /// true -> 受け付ける
+        /// false -> 受け付けない
         /// </summary>
         public bool IsInput { get; private set; } = true;
         public void SetIsInput(bool value) { IsInput = value; }
 
         /// <summary>
         /// ゲーム開始フラグ
+        /// true -> ゲームプレイ中
+        /// false -> ゲームプレイ外
         /// </summary>
         public bool IsGamePlay { get; private set; } = false;
         public void SetIsGamePlay(bool value) { IsGamePlay = value; }
