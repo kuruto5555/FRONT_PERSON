@@ -5,6 +5,7 @@ using FrontPerson.Gimmick;
 using FrontPerson.Manager;
 using FrontPerson.Weapon;
 using System.Collections.Generic;
+using System;
 
 
 namespace FrontPerson.Character
@@ -143,6 +144,36 @@ namespace FrontPerson.Character
         /// </summary>
         private SpecialWeaponManager _weponManager = null;
 
+        /// <summary>
+        /// 視点感度変数
+        /// </summary>
+        int _viewRotetaSpeed = 0;
+
+        /// <summary>
+        /// 武器切り替えのアニメーションが再生されてるかどうか
+        /// </summary>
+        bool _isWeaponChangeAnimation = false;
+
+        /// <summary>
+        /// アイテムフラグ
+        /// </summary>
+        ITEM_STATUS _itemStatusFlag = ITEM_STATUS.NORMAL;
+
+        /// <summary>
+        /// スピードアップアイテムの倍率
+        /// </summary>
+        float _addSpeed = 1.0f;
+
+        /// <summary>
+        /// スピードアップアイテムの時間
+        /// </summary>
+        float _movementSpeedUpTime = 0.0f;
+
+        /// <summary>
+        /// 透明化アイテムの時間
+        /// </summary>
+        float _invicibleItemTime = 0.0f;
+
 
         /*---- プロパティ ----*/
         /// <summary>
@@ -214,7 +245,10 @@ namespace FrontPerson.Character
 
         public bool IsRightTrigger { get { return _isFireRHand; } }
 
-        
+        /// <summary>
+        /// アプリケーションマネージャー参照
+        /// </summary>
+        private ApplicationManager _appManager = null;
 
         /// <summary>
         /// 所持してる武器一覧
@@ -233,7 +267,16 @@ namespace FrontPerson.Character
         /// <returns></returns>
         public int GetViewRotateSpeed()
         {
-            return RotationSpeed_;
+            return _viewRotetaSpeed;
+        }
+
+        /// <summary>
+        /// 視点感度代入関数
+        /// </summary>
+        /// <param name="speed"></param>
+        public void SetViewRotateSpeed(int speed)
+        {
+            _viewRotetaSpeed = speed;
         }
 
         // Start is called before the first frame update
@@ -252,16 +295,22 @@ namespace FrontPerson.Character
 
             _weponManager = SpecialWeaponManager._instance;
 
+            _viewRotetaSpeed = RotationSpeed_;
+
             _weaponList = new List<Gun>();
 
             _weaponList.Add(gunL_);
             _weaponList.Add(gunR_);
             _weaponList.Add(null);
+
+            _appManager = GameObject.FindGameObjectWithTag(TagName.MANAGER).GetComponent<ApplicationManager>();
         }
 
         // Update is called once per frame
         void Update()
         {
+            if (!_appManager.IsGamePlay) return;
+
             _isFireLHand = _isFireRHand = false;
 
             if (_isStun)
@@ -271,10 +320,9 @@ namespace FrontPerson.Character
                 return;
             }
 
-            if (Input.GetKeyDown(KeyCode.J)) Stun(); //デバッグ
-
             position_ = transform.position;
-
+            DebugUpdeta();
+            ItemStatusUpdate();
             InvincibleStatus();
             ViewPointMove();
             Search();
@@ -282,6 +330,7 @@ namespace FrontPerson.Character
             Move();
             Shot();
             Jump();
+            
             
 
             transform.position = position_;
@@ -318,7 +367,7 @@ namespace FrontPerson.Character
             direction += Input.GetAxisRaw(Constants.InputName.HORIZONTAL) * transform.right;
             direction += Input.GetAxisRaw(Constants.InputName.VERTICAL) * transform.forward;
 
-            position_ += direction * moveSpeed_ * Time.deltaTime;
+            position_ += direction * moveSpeed_* _addSpeed * Time.deltaTime;
         }
 
         /// <summary>
@@ -413,6 +462,7 @@ namespace FrontPerson.Character
         {
             if (IsDash) return;
             if (isSearch_) return;
+            if (_isWeaponChangeAnimation) return;
 
             //左クリック
             if (Input.GetButton(Constants.InputName.FIRE1)
@@ -547,6 +597,7 @@ namespace FrontPerson.Character
         /// </summary>
         public void Stun()
         {
+            if (_itemStatusFlag.HasFlag(ITEM_STATUS.INVICIBLE)) return;
             _isStun = true;
             _bountyManager.PlayerDamage();
         }
@@ -571,14 +622,7 @@ namespace FrontPerson.Character
             }
         }
 
-        /// <summary>
-        /// 無敵にする時呼ぶ
-        /// </summary>
-        /// <param name="time"></param>
-        public void SetInvincible(float time)
-        {
-            _isInvincible = true;
-        }
+        
 
         private void OnTriggerStay(Collider other)
         {
@@ -608,9 +652,131 @@ namespace FrontPerson.Character
             {
                 Weapon.WeaponForcedChange();
             }
+            else
+            {
+                //ハンドガンを下に下げるアニメーションを呼ぶ
+                //WeaponChangeAnimationStart();
+            }
 
             Weapon = Instantiate(_weponManager.WeaponPrefabList[type], cameraTransform_).GetComponent<Weapon.SpecialWeapon>();
             _weaponList[2] = Weapon;
+        }
+
+        private void ItemStatusUpdate()
+        {
+            if (_itemStatusFlag == ITEM_STATUS.NORMAL)
+            {
+                return;
+            }
+            else
+            {
+                AddMovementSpeedItemUpdate();
+                InvicibleItemUpdate();
+            }
+
+            
+        }
+
+        private void AddMovementSpeedItemUpdate()
+        {
+            if (!_itemStatusFlag.HasFlag(ITEM_STATUS.SPEED_UP)) return;
+
+            _movementSpeedUpTime -= Time.deltaTime;
+
+            if (_movementSpeedUpTime < 0)
+            {
+                _itemStatusFlag &= ITEM_STATUS.SPEED_UP; //解除
+                _addSpeed = 1.0f; //等倍に戻す
+            }
+        }
+
+        private void InvicibleItemUpdate()
+        {
+            if (!_itemStatusFlag.HasFlag(ITEM_STATUS.INVICIBLE)) return;
+
+            _invicibleItemTime -= Time.deltaTime;
+
+            if(_invicibleItemTime < 0)
+            {
+                _itemStatusFlag &= ITEM_STATUS.INVICIBLE; //解除
+                _isInvincible = false;
+            }
+        }
+
+        /// <summary>
+        /// 武器のアニメーションが始まったとき呼ぶ関数
+        /// </summary>
+        public void WeaponChangeAnimationStart()
+        {
+            _isWeaponChangeAnimation = true;
+        }
+
+        /// <summary>
+        /// 武器のアニメーションが終わったとき呼ぶ関数
+        /// </summary>
+        public void WeaponChangeAnimationFinish()
+        {
+            _isWeaponChangeAnimation = false;
+        }
+
+        //public void PickUpItem(ITEM_STATUS type, int time)
+        //{
+        //    switch (type)
+        //    {
+        //        case ITEM_STATUS.INVICIBLE:
+        //
+        //            break;
+        //
+        //        case ITEM_STATUS.FEVER:
+        //            break;
+        //
+        //        case ITEM_STATUS.SPEED_UP:
+        //            break;
+        //    }
+        //}
+
+        /// <summary>
+        /// 速度上昇アイテムを取得した時呼ぶ
+        /// </summary>
+        /// <param name="time">効果時間</param>
+        /// <param name="value">効果倍率</param>
+        public void PickUpMovementSpeedItem(float time, float value)
+        {
+            _movementSpeedUpTime = time;
+            _addSpeed = value;
+
+            //flagを立てる
+            _itemStatusFlag |= ITEM_STATUS.SPEED_UP;
+        }
+
+        /// <summary>
+        /// 無敵にする時呼ぶ
+        /// </summary>
+        /// <param name="time">効果時間</param>
+        public void SetInvincible(float time)
+        {
+            _isInvincible = true;
+
+            _invicibleItemTime = time;
+
+            _itemStatusFlag |= ITEM_STATUS.INVICIBLE;
+        }
+
+        private void DebugUpdeta()
+        {
+#if UNITY_EDITOR
+            if (Input.GetKeyDown(KeyCode.J)) Stun();
+            if (Input.GetKeyDown(KeyCode.L)) 
+            {
+                PickUpMovementSpeedItem(10.0f, 10.5f);
+                
+            }
+            if (Input.GetKeyDown(KeyCode.O))
+            {
+                SetInvincible(10.0f);
+            }
+
+#endif
         }
 
     }

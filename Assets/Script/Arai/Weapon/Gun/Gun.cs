@@ -61,19 +61,19 @@ namespace FrontPerson.Weapon
         /// </summary>
         public int Ammo {  get { return ammo_; }}
 
+        protected void Awake()
+        {
+            _bountyManager = BountyManager._instance;
+            _canvas = GameObject.Find("WeaponCanvas");
+        }
+
         // Start is called before the first frame update
         protected void Start()
         {
             ammo_ = MaxAmmo_;
             shotTime_ = 0.0f;
-            _bountyManager = BountyManager._instance;
-            _canvas = GameObject.Find("WeaponCanvas");
 
-            if(Reticle_ != null)
-            {
-                _reticle = Instantiate(Reticle_, _canvas.transform);
-            }
-            
+            _bountyManager = BountyManager._instance;
         }
 
         // Update is called once per frame
@@ -133,6 +133,21 @@ namespace FrontPerson.Weapon
             if (_reticle == null) return;
 
             Destroy(_reticle);
+        }
+
+        private void OnDisable()
+        {
+            if (_reticle == null) return;
+
+            Destroy(_reticle);
+        }
+
+        private void OnEnable()
+        {
+            if (Reticle_ != null)
+            {
+                _reticle = Instantiate(Reticle_, _canvas.transform);
+            }
         }
     }
 
