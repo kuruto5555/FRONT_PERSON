@@ -89,6 +89,9 @@ namespace FrontPerson.Manager
             // スコアマネージャ―取得
             scoreManager_ = ScoreManager.Instance;
 
+            // コンボマネージャー取得
+            comboManager_ = ComboManager.Instance;
+
             // ステートを操作説明にする
             state_ = GAME_SCENE_STATE.TUTORIAL1;
         }

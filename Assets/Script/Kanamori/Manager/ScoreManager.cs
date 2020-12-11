@@ -56,7 +56,7 @@ namespace FrontPerson.Manager
             private set
             {
                 feverScore_ = value;
-                feverScore_ = Mathf.Min(SCORE_MAX, Mathf.Max(SCORE_MIN, currentScore_));
+                feverScore_ = Mathf.Min(SCORE_MAX, Mathf.Max(SCORE_MIN, feverScore_));
             }
         }
 
@@ -76,15 +76,33 @@ namespace FrontPerson.Manager
         /// <summary>
         /// フィーバータイム継続時間
         /// </summary>
-        public float FeverEffectTime { get; private set; }
+        public float FeverEffectTime { get; private set; } = 15;
         /// <summary>
         /// フィーバー中のタイマー
         /// </summary>
         public float FeverTimer { get; private set; }
         /// <summary>
+        /// フィーバー中のスコア倍率
+        /// </summary>
+        float scoreMagnification_ = 1.5f;
+        /// <summary>
         /// フィーバータイムを発動する
         /// </summary>
-        public void ActiveFeverTime(float feverTimeDuration) => StartCoroutine(FeverTime(feverTimeDuration));
+        public void ActiveFeverTime(float feverTimeDuration, float scoreMagnification) => StartCoroutine(FeverTime(feverTimeDuration, scoreMagnification));
+
+        /// <summary>
+        /// フィーバータイムUI
+        /// </summary>
+        UI.UI_FeverTime feverTimeUI_ = null;
+
+
+
+
+        void Start()
+        {
+            feverTimeUI_ = FindObjectOfType<UI.UI_FeverTime>();
+            feverTimeUI_.gameObject.SetActive(false);
+        }
 
 
         /// <summary>
@@ -99,7 +117,7 @@ namespace FrontPerson.Manager
                     //フィーバー中は現在スコアに加算せずにフィーバー用のスコアに加算していく
                     if (IsFever)
                     {
-                        AddFeverScore(score);
+                        AddFeverScore((int)(score * scoreMagnification_));
                     }
                     // フィーバー中でないなら普通に加算していく
                     else
@@ -141,17 +159,25 @@ namespace FrontPerson.Manager
                 on_add_fever_score_?.Invoke(score);
         }
 
+
         /// <summary>
         /// フィーバータイム発動
         /// </summary>
         /// <returns></returns>
-        private IEnumerator FeverTime(float feverTimeDuration)
+        private IEnumerator FeverTime(float feverTimeDuration, float scoreMagnification)
         {
             // フィーバー中かどうか
             if (FeverTimer <= 0)
             {
                 // フィーバーの時間を設定する
-                FeverTimer = FeverEffectTime = feverTimeDuration;
+                FeverEffectTime = feverTimeDuration;
+                FeverTimer = feverTimeDuration;
+                // スコア倍率
+                scoreMagnification_ = scoreMagnification;
+                // フィーバーUIを表示
+                feverTimeUI_.gameObject.SetActive(true);
+                feverTimeUI_.FeverStart();
+                // フラグを立てる
                 IsFever = true;
 
                 // フィーバーが終了するまで更新する
@@ -163,7 +189,9 @@ namespace FrontPerson.Manager
                 }
 
                 // フィーバー中に取った基本スコアをトータルスコアに加算しフィーバーを終了する
+                feverTimeUI_.gameObject.SetActive(false);
                 AddBasicScore(FeverScore);
+                feverScore_ = 0;
                 IsFever = false;
             }
             else
