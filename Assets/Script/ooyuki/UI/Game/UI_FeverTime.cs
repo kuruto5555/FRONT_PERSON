@@ -30,7 +30,7 @@ namespace FrontPerson.UI
         void Update()
         {
             //スコアマネージャーからフィーバー中のスコアをもらう
-            FeverScoreTextUpdate(scoreManager_.FeverScore);
+            //FeverScoreTextUpdate(scoreManager_.FeverScore);
             GaugeUpdate();
 
         }
