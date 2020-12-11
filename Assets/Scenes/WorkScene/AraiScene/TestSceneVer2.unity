@@ -467,6 +467,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: WeaponCanvas
       objectReference: {fileID: 0}
+    - target: {fileID: 2474073653196374400, guid: 5e325fa70c4bdf5489470daed5fd8a4f,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4277939323249496210, guid: 5e325fa70c4bdf5489470daed5fd8a4f,
         type: 3}
       propertyPath: _player
@@ -2291,8 +2296,7 @@ PrefabInstance:
     - target: {fileID: 193327161, guid: 34dc7089d86a38047a11c22287ec03bc, type: 3}
       propertyPath: Reticle_
       value: 
-      objectReference: {fileID: 1185698901002453259, guid: 117d1aa1a42826144bd6c3c3053c224d,
-        type: 3}
+      objectReference: {fileID: 0}
     - target: {fileID: 664643109, guid: 34dc7089d86a38047a11c22287ec03bc, type: 3}
       propertyPath: Reticle_
       value: 
@@ -2362,6 +2366,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Layer
       value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 5309056130533203822, guid: 34dc7089d86a38047a11c22287ec03bc,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5309056131460875225, guid: 34dc7089d86a38047a11c22287ec03bc,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 34dc7089d86a38047a11c22287ec03bc, type: 3}
