@@ -476,6 +476,7 @@ namespace FrontPerson.Character
                 else
                 {
                     gunL_.Shot();
+                    
                 }
             }
 
@@ -490,6 +491,7 @@ namespace FrontPerson.Character
                 else
                 {
                     gunR_.Shot();
+                    
                 }            
             }
 
