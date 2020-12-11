@@ -16,7 +16,7 @@ public class TestScript : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            ScoreManager.Instance.AddScore(50, FrontPerson.Score.ReasonForAddition.Nomal);
+            ScoreManager.Instance.AddScore(50, FrontPerson.Score.ADD_SCORE_TYPE.BASIC_SCORE);
         }
     }
 }

@@ -23,21 +23,20 @@ namespace FrontPerson.UI
             scoreText_.text = "00000000";
             gauge_.anchorMin = new Vector2(1.0f, gauge_.anchorMin.y);
 
-            gameObject.SetActive(false);
+            //gameObject.SetActive(false);
         }
 
         // Update is called once per frame
         void Update()
         {
-
             //スコアマネージャーからフィーバー中のスコアをもらう
             scoreText_.text = scoreManager_.CurrentScore.ToString("00000000");
-            gauge_.anchorMin = new Vector2(scoreManager_.FeverTimer / scoreManager_.FeverEffectTime, gauge_.anchorMin.y);
+            gauge_.anchorMin = new Vector2(1f-(scoreManager_.FeverTimer / scoreManager_.FeverEffectTime), gauge_.anchorMin.y);
 
-            if (!scoreManager_.IsFever)
-            {
-                gameObject.SetActive(false);
-            }
+            //if (!scoreManager_.IsFever)
+            //{
+            //    gameObject.SetActive(false);
+            //}
         }
 
         public void FeverStart()

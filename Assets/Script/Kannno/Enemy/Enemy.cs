@@ -148,6 +148,7 @@ namespace FrontPerson.Character
             if (true == isDown && false == Eneble)
             {
                 ScoreManager score_manager = ScoreManager.Instance;
+                ComboManager comboManager = ComboManager.Instance;
 
 #if UNITY_EDITOR
                 if (null == score_manager)
@@ -167,15 +168,18 @@ namespace FrontPerson.Character
                 switch (Type)
                 {
                     case EnemyType.ORDINATY_PEOPLE:
-                        score_manager.AddScore((int)EnemyScore.ORDINATY_PEOPLE, Score.ReasonForAddition.OrdinaryPeople);
+                        score_manager.AddScore((int)EnemyScore.ORDINATY_PEOPLE, Score.ADD_SCORE_TYPE.BASIC_SCORE);
+                        comboManager.AddCombo(1, ADD_COMBO_TYPE.ORDINATY_PEOPLE);
                         break;
                 
                     case EnemyType.OLD_BATTLEAXE:
-                        score_manager.AddScore((int)EnemyScore.OLD_BATTLEAXE, Score.ReasonForAddition.OldBattleaxe);
+                        score_manager.AddScore((int)EnemyScore.OLD_BATTLEAXE, Score.ADD_SCORE_TYPE.BASIC_SCORE);
+                        comboManager.AddCombo(1, ADD_COMBO_TYPE.OLD_BATTLEAXE);
                         break;
                 
                     case EnemyType.YAKUZA:
-                        score_manager.AddScore((int)EnemyScore.YAKUZA, Score.ReasonForAddition.Yakuza);
+                        score_manager.AddScore((int)EnemyScore.YAKUZA, Score.ADD_SCORE_TYPE.BASIC_SCORE);
+                        comboManager.AddCombo(1, ADD_COMBO_TYPE.YAKUZA);
                         break;
                 
                     default:
