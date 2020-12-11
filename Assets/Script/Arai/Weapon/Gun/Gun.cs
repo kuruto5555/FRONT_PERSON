@@ -102,7 +102,7 @@ namespace FrontPerson.Weapon
             shotTime_ = 1.0f / rate_;
             ammo_--;
             _bountyManager.FireCount();
-            Instantiate(MuzzleFlash,  Muzzle.transform.position, Quaternion.identity, transform);
+            Instantiate(MuzzleFlash, Muzzle.transform);
         }
 
         /// <summary>
