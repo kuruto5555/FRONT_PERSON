@@ -22,29 +22,30 @@ namespace FrontPerson
         {
             //AudioManager.Instance.Play2DSE(gameObject, SEPath.GAME_SE_ENEMY_HEALTH_2);
 
-            if (Input.GetKey(KeyCode.A))
+#if UNITY_EDITOR
+
+            if (Input.GetKey(KeyCode.H))
             {
                 AudioManager.Instance.Play2DSE(gameObject, SEPath.GAME_SE_ENEMY_HEALTH_2);
                 AudioManager.Instance.Play2DSE(gameObject, SEPath.GAME_SE_ENEMY_HEALTH_2);
                 AudioManager.Instance.Play2DSE(gameObject, SEPath.GAME_SE_ENEMY_HEALTH_2);
                 AudioManager.Instance.Play2DSE(gameObject, SEPath.GAME_SE_ENEMY_HEALTH_2);
                 AudioManager.Instance.Play2DSE(gameObject, SEPath.GAME_SE_ENEMY_HEALTH_2);
-                AudioManager.Instance.Play2DSE(gameObject, SEPath.GAME_SE_ENEMY_HEALTH_2);
-                AudioManager.Instance.Play2DSE(gameObject, SEPath.GAME_SE_ENEMY_HEALTH_2);
-                AudioManager.Instance.Play2DSE(gameObject, SEPath.GAME_SE_ENEMY_HEALTH_2);
-                AudioManager.Instance.Play2DSE(gameObject, SEPath.GAME_SE_ENEMY_HEALTH_2);
-                AudioManager.Instance.Play2DSE(gameObject, SEPath.GAME_SE_ENEMY_HEALTH_2);
-                AudioManager.Instance.Play2DSE(gameObject, SEPath.GAME_SE_ENEMY_HEALTH_2);
-                AudioManager.Instance.Play2DSE(gameObject, SEPath.GAME_SE_ENEMY_HEALTH_2);
-                AudioManager.Instance.Play2DSE(gameObject, SEPath.GAME_SE_ENEMY_HEALTH_2);
+                AudioManager.Instance.Play2DSE(gameObject, SEPath.COMMON_SE_BACK);
+                AudioManager.Instance.Play2DSE(gameObject, SEPath.COMMON_SE_BACK);
+                AudioManager.Instance.Play2DSE(gameObject, SEPath.COMMON_SE_BACK);
+                AudioManager.Instance.Play2DSE(gameObject, SEPath.COMMON_SE_BACK);
+                AudioManager.Instance.Play2DSE(gameObject, SEPath.COMMON_SE_BACK);
+                AudioManager.Instance.Play2DSE(gameObject, SEPath.COMMON_SE_BACK);
+
             }
 
 
-            if (Input.GetKeyDown(KeyCode.W))
+            if (Input.GetKeyDown(KeyCode.Y))
             {
-                AudioManager.Instance.Play3DSE(gameObject, SEPath.GAME_SE_ENEMY_HEALTH_2);
+                AudioManager.Instance.Play3DSE(gameObject.transform.position, SEPath.GAME_SE_ENEMY_HEALTH_2);
             }
-
+#endif
 
         }
     }

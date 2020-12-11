@@ -82,6 +82,21 @@ namespace FrontPerson.Manager
         public AudioVolume audio_volume_;
 
         /// <summary>
+        /// リソースフォルダーから探す用
+        /// </summary>
+        private const string AUDIO_DIRECTORY_PATH = "Resources/";
+
+        /// <summary>
+        /// ゲーム全体の最大同時発生音数
+        /// </summary>
+        private const int MAX_SAME_COUNT = 32;
+
+        /// <summary>
+        /// 同じSEの最大同時発生音数 
+        /// </summary>
+        private const int MAX_SAME_SE_COUNT = 4;
+
+        /// <summary>
         /// 音源一覧
         /// </summary>
         private List<AudioClip> clip = new List<AudioClip>();
@@ -90,34 +105,18 @@ namespace FrontPerson.Manager
         /// 流れる予定の音源
         /// </summary>
         private List<AudioInfo> sound_info_list = new List<AudioInfo>();
-        
-        /// <summary>
-        /// ゲーム全体の最大同時発生音数
-        /// </summary>
-        private int max_se_num = 32;
 
         /// <summary>
-        /// 同じSEの最大同時発生音数 
+        /// オーディオ3Dプレハブ
         /// </summary>
-        private int max_same_se_num = 4;
+        private GameObject audio_3D_prefab = null;
 
-        /// <summary>
-        /// リソースフォルダーから探す用
-        /// </summary>
-        private const string AUDIO_DIRECTORY_PATH = "Resources/";
 
-        /// <summary>
-        /// ミキサー
-        /// </summary>
         private AudioMixer mixer = null;
         private AudioMixerGroup mixer_master = null;
         private AudioMixerGroup mixer_se = null;
         private AudioMixerGroup mixer_bgm = null;
         private AudioMixerGroup mixer_same_se = null;
-
-        private GameObject audio_3D_prefab = null;
-
-        private int same_se_count = 0;
 
         public void Init()
         {
@@ -138,7 +137,7 @@ namespace FrontPerson.Manager
                 clip.Add(audio_clip);
             }
 
-            audio_3D_prefab = Resources.Load<GameObject>("3DAudio");
+            audio_3D_prefab= Resources.Load<GameObject>("3DAudio");
 
             mixer = Resources.Load<AudioMixer>("AudioMix");
             mixer_master = mixer.FindMatchingGroups("Master")[0];
@@ -154,11 +153,6 @@ namespace FrontPerson.Manager
 
             for (int i = 0; i < sound_info_list.Count; i++)
             {
-                if(sound_info_list==null)
-                {
-                    int a = 0;
-                }
-
                 float new_length = sound_info_list[i].length - Time.deltaTime;
 
                 if (new_length > 0f && sound_info_list[i].source.isPlaying)
@@ -167,8 +161,6 @@ namespace FrontPerson.Manager
                     cheack_sound.Add(sound_info_list[i]);
                 }
             }
-
-
 
             //リスト更新
             sound_info_list = cheack_sound;
@@ -184,10 +176,20 @@ namespace FrontPerson.Manager
 
         }
 
+        void LateUpdate()
+        {
+            SortingList();
+
+            foreach(AudioInfo info in sound_info_list )
+            {
+                info.source.PlayOneShot(info.clip, 1 * AudioManager.Instance.audio_volume_.SEVolume);
+            }
+        }
+
         /// <summary>
         /// 2Dサウンド再生要請
         /// </summary>
-        /// <param name="me">オーディオソースアタッチ用</param>
+        /// <param name="me">オーディオソースをアタッチしたいオブジェクト</param>
         /// <param name="se_name">再生させたいSE音源</param>
         public void Play2DSE(GameObject me, string se_name)
         {
@@ -204,13 +206,11 @@ namespace FrontPerson.Manager
         /// <summary>
         /// 3Dサウンド再生要請
         /// </summary>
-        /// <param name="me">オーディオソースアタッチ用</param>
+        /// <param name="set_pos">3DAudioプレハブ生成位置</param>
         /// <param name="se_name">再生させたいSE音源</param>
-        public void Play3DSE(GameObject me, string se_name)
+        public void Play3DSE(Vector3 set_pos, string se_name)
         {
-            AudioSource audiosource = GameObject.Instantiate(audio_3D_prefab,me.transform.position,Quaternion.identity).GetComponent<AudioSource>();
-
-            //AudioSourceSetting(me,ref audiosource, true);
+            AudioSource audiosource = GameObject.Instantiate(audio_3D_prefab, set_pos, Quaternion.identity).GetComponent<AudioSource>();
 
             AudioInfo info = SearchSE(se_name,audiosource);
 
@@ -232,7 +232,7 @@ namespace FrontPerson.Manager
             {
                 if (audio.name == sename)
                 {
-                    AudioInfo info = new AudioInfo(source, audio, audio.length, max_se_num, max_same_se_num);
+                    AudioInfo info = new AudioInfo(source, audio, audio.length, MAX_SAME_COUNT, MAX_SAME_SE_COUNT);
                     return info;
                 }
             }
@@ -243,38 +243,35 @@ namespace FrontPerson.Manager
         private void PlaySE(AudioInfo info)
         {
             //最大同時再生数より少なかったら再生
-            if (sound_info_list.Count < max_se_num && SameSoundCheack(info))
+            if (sound_info_list.Count < MAX_SAME_SE_COUNT && SameSoundCheack(info))
             {
                 SetList(info);
-
-                SortingList();
-
-                info.source.PlayOneShot(info.clip, 1 * AudioManager.Instance.audio_volume_.SEVolume);
 
                
-                //Debug.Log("a;" + a++);
             }
             else
-            {
-                //a = 0;
-
+            { 
                 SetList(info);
 
-                SortingList();
+                
 
                 AudioSource se = sound_info_list[0].source;
 
                 se.Stop();
-
-                info.source.PlayOneShot(info.clip, 1 * AudioManager.Instance.audio_volume_.SEVolume);
             }
-
-            
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="info"></param>
+        /// <returns></returns>
         private bool SameSoundCheack(AudioInfo info)
         {
-            same_se_count = 0;
+            /// <summary>
+            /// 同じSEを数える
+            /// </summary>
+            int same_se_count = 0;
 
             for (int i = 0; i < sound_info_list.Count; i++)
             {
@@ -284,13 +281,11 @@ namespace FrontPerson.Manager
                 }
             }
 
-            Debug.Log(same_se_count++);
-
-            if (same_se_count > max_same_se_num)
+            if (same_se_count >= MAX_SAME_SE_COUNT)
             {
                 return false;
             }
-            
+
             return true;
         }
 
@@ -333,22 +328,28 @@ namespace FrontPerson.Manager
         /// </summary>
         private void SortingList()
         {
-            List<AudioInfo> hoge = new List<AudioInfo>();
+            AudioClip base_info = null;
+            List<AudioInfo> leave_list = new List<AudioInfo>();
+            int count = 0;
+            
+            leave_list = sound_info_list;
+            count = sound_info_list.Count;
 
-            hoge = sound_info_list;
-
-            foreach (var base_se in sound_info_list)
+            for (int i = 0; i < count; i++)
             {
-                foreach (var target_se in sound_info_list)
+                base_info = sound_info_list[i].clip;
+                for (int j = i + 1; j < count; j++)
                 {
-                    if (base_se.clip.name != target_se.clip.name && base_se == target_se)
+                    if (base_info.name == leave_list[1].clip.name)
                     {
-                        hoge.Add(target_se);
+                        leave_list.Remove(sound_info_list[1]);
                     }
                 }
+                count = leave_list.Count;
             }
 
-            sound_info_list = hoge;
+            sound_info_list=leave_list;
+
         }
     }
 

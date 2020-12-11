@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8708763423788266012}
   - component: {fileID: -976455931089929733}
-  - component: {fileID: -1473370991397054902}
+  - component: {fileID: 6778543644013186541}
   m_Layer: 0
   m_Name: 3DAudio
   m_TagString: Untagged
@@ -41,7 +41,7 @@ AudioSource:
   m_GameObject: {fileID: 2694418117926724953}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: -3706169599794468335, guid: 3e22605cba3111f40aeb4b55d9938b70,
+  OutputAudioMixerGroup: {fileID: -4398418399811953247, guid: 3e22605cba3111f40aeb4b55d9938b70,
     type: 2}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
@@ -54,7 +54,7 @@ AudioSource:
   Priority: 0
   DopplerLevel: 1
   MinDistance: 1
-  MaxDistance: 500
+  MaxDistance: 50
   Pan2D: 0
   rolloffMode: 1
   BypassEffects: 0
@@ -129,7 +129,7 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &-1473370991397054902
+--- !u!114 &6778543644013186541
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -138,6 +138,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 2694418117926724953}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9ba5ab75ec0548b4ea16572ca5a57fc8, type: 3}
+  m_Script: {fileID: 11500000, guid: 5d10fef55bdccca4093a6869d1012302, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 

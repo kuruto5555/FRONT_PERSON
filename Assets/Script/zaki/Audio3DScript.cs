@@ -5,7 +5,7 @@ using UnityEngine;
 public class Audio3DScript : MonoBehaviour
 {
     private AudioSource source = null;
-    
+
     // Start is called before the first frame update
     void Start()
     {
@@ -15,9 +15,7 @@ public class Audio3DScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(!source.isPlaying)
-        {
+        if (!source.isPlaying)
             Destroy(gameObject);
-        }
     }
 }
