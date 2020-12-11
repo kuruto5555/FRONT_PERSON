@@ -91,13 +91,10 @@ namespace FrontPerson.Manager
         /// </summary>
         private List<float> now_play_sounds_length = new List<float>();
 
-        //オーディオソース
-        private AudioSource audiosorce = null;
-
         //リソースフォルダーから探す用
         private const string AUDIO_DIRECTORY_PATH = "Resources/";
 
-        Dictionary<AudioClip, AudioClipInfo> audioClips = new Dictionary<AudioClip, AudioClipInfo>();
+        //Dictionary<AudioClip, AudioClipInfo> audioClips = new Dictionary<AudioClip, AudioClipInfo>();
 
         public void Init()
         {
@@ -112,6 +109,7 @@ namespace FrontPerson.Manager
             string directory_name = Path.GetFileName(AUDIO_DIRECTORY_PATH);
             var audio_path_dict = new Dictionary<string, string>();
 
+            //用意したリストに全SE/BGMを入れる
             foreach (var audio_clip in Resources.LoadAll<AudioClip>(directory_name))
             {
                 clip.Add(audio_clip);
@@ -120,37 +118,39 @@ namespace FrontPerson.Manager
 
         void Update()
         {
-            //// playing SE update
-
-            //Debug.Log("更新前" + now_play_sounds_length.Count);
-
-            //List<float> newList = new List<float>();
-            //foreach (var len in now_play_sounds_length)
-            //{
-            //    float newlen = len - Time.deltaTime;
-            //    if (newlen > 0.0f)
-            //        newList.Add(newlen);
-            //}
-            //now_play_sounds_length = newList;
-            //Debug.Log("更新後" + now_play_sounds_length.Count);
 
 
 
-            // playing SE update
-            foreach (AudioClipInfo info in audioClips.Values)
+            //SEの再生時間更新 
+            Debug.Log("更新前カウント" + now_play_sounds_length.Count);
+
+            List<float> newList = new List<float>();
+            foreach (var len in now_play_sounds_length)
             {
-                List<SEInfo> newList = new List<SEInfo>();
-
-                foreach (SEInfo seInfo in info.playingList)
-                {
-                    seInfo.curTime = seInfo.curTime - Time.deltaTime;
-                    if (seInfo.curTime > 0.0f)
-                        newList.Add(seInfo);
-                    else
-                        info.stockList.Add(seInfo.index, seInfo);
-                }
-                info.playingList = newList;
+                float newlen = len - Time.deltaTime;
+                if (newlen > 0.0f)
+                    newList.Add(newlen);
             }
+            now_play_sounds_length = newList;
+            Debug.Log("更新後カウント" + now_play_sounds_length.Count);
+
+
+
+            //// playing SE update
+            //foreach (AudioClipInfo info in audioClips.Values)
+            //{
+            //    List<SEInfo> newList = new List<SEInfo>();
+
+            //    foreach (SEInfo seInfo in info.playingList)
+            //    {
+            //        seInfo.curTime = seInfo.curTime - Time.deltaTime;
+            //        if (seInfo.curTime > 0.0f)
+            //            newList.Add(seInfo);
+            //        else
+            //            info.stockList.Add(seInfo.index, seInfo);
+            //    }
+            //    info.playingList = newList;
+            //}
 
 
         }
@@ -162,9 +162,9 @@ namespace FrontPerson.Manager
         /// <param name="se_name">再生させたいSE音源</param>
         public void Play2DSound(GameObject me, string se_name)
         {
-            audiosorce = me.GetComponent<AudioSource>();
+            AudioSource audiosorce = me.GetComponent<AudioSource>();
 
-            AudioSourceSetting(me, false);
+            AudioSourceSetting(me,audiosorce, false);
 
             AudioClip clip = SearchSE(se_name);
 
@@ -179,9 +179,9 @@ namespace FrontPerson.Manager
         /// <param name="se_name">再生させたいSE音源</param>
         public void Play3DSound(GameObject me, string se_name)
         {
-            audiosorce = me.GetComponent<AudioSource>();
+            AudioSource audiosorce = me.GetComponent<AudioSource>();
 
-            AudioSourceSetting(me, true);
+            AudioSourceSetting(me,audiosorce, true);
 
             AudioClip clip = SearchSE(se_name);
 
@@ -189,9 +189,15 @@ namespace FrontPerson.Manager
 
         }
 
-        private void SetDic(AudioClip clip,AudioClipInfo clipinfo)
+        //private void SetDic(AudioClip clip,AudioClipInfo clipinfo)
+        //{
+        //    //audioClips.Add(clip, clipinfo);
+        //    now_play_sounds_length.Add(clip.length);
+        //}
+
+        private void SetDic(AudioClip clip)
         {
-            audioClips.Add(clip, clipinfo);
+            now_play_sounds_length.Add(clip.length);
         }
 
         private AudioClip SearchSE(string path)
@@ -202,7 +208,8 @@ namespace FrontPerson.Manager
             {
                 if (audio.name == sename)
                 {
-                    SetDic(audio, new AudioClipInfo(path, max_se_num, AudioManager.Instance.audio_volume_.SEVolume));
+                    //SetDic(audio, new AudioClipInfo(path, max_se_num, AudioManager.Instance.audio_volume_.SEVolume));
+                    SetDic(audio);
                     return audio;
                 }
             }
@@ -210,141 +217,142 @@ namespace FrontPerson.Manager
             return null;
         }
 
-        //private void PlaySE(AudioSource source, AudioClip clip)
-        //{
-        //    audiosorce.PlayOneShot(clip, 1 * AudioManager.Instance.audio_volume_.SEVolume);
-        //    Debug.Log("SearchSE");
-        //}
-
         private void PlaySE(AudioSource source, AudioClip clip)
         {
-            AudioClipInfo info = audioClips[clip];
-
-            float len = info.clip.length;
-            if (info.stockList.Count > 0)
+            if (now_play_sounds_length.Count < max_se_num)
             {
-                SEInfo seInfo = info.stockList.Values[0];
-                seInfo.curTime = len;
-                info.playingList.Add(seInfo);
-
-                // remove from stock
-                info.stockList.Remove(seInfo.index);
-
-                // Play SE
-                source.PlayOneShot(info.clip, seInfo.volume);
-
-              
+                source.PlayOneShot(clip, 1 * AudioManager.Instance.audio_volume_.SEVolume);
             }
-            
         }
 
-        private void AudioSourceSetting(GameObject me, bool sound_3d)
+        //private void PlaySE(AudioSource source, AudioClip clip)
+        //{
+        //    AudioClipInfo info = audioClips[clip];
+
+        //    float len = info.clip.length;
+        //    if (info.stockList.Count > 0)
+        //    {
+        //        SEInfo seInfo = info.stockList.Values[0];
+        //        seInfo.curTime = len;
+        //        info.playingList.Add(seInfo);
+
+        //        // remove from stock
+        //        info.stockList.Remove(seInfo.index);
+
+        //        // Play SE
+        //        source.PlayOneShot(info.clip, seInfo.volume);
+
+
+        //    }
+
+        //}
+
+        private void AudioSourceSetting(GameObject me,AudioSource source, bool sound_3d)
         {
-            if (audiosorce == null)
+            if (source == null)
             {
                 me.AddComponent<AudioSource>();
 
-                audiosorce = me.GetComponent<AudioSource>();
+                source = me.GetComponent<AudioSource>();
             }
 
             if (sound_3d)
             {
                 //3Dサウンド設定
-                audiosorce.spatialBlend = 1;
+                source.spatialBlend = 1;
 
                 //距離減衰グラフ設定
-                audiosorce.rolloffMode = AudioRolloffMode.Linear;
+                source.rolloffMode = AudioRolloffMode.Linear;
 
                 //減衰距離設定
-                audiosorce.maxDistance = 50f;
+                source.maxDistance = 50f;
             }
 
             //起動時再生をfalseに
-            audiosorce.playOnAwake = false;
+            source.playOnAwake = false;
 
-            audiosorce.priority = 0;
+            source.priority = 0;
         }
     }
 
-    public class NewtonMethod
-    {
-        public delegate float Func(float x);
+    //public class NewtonMethod
+    //{
+    //    public delegate float Func(float x);
 
-        public static float run(Func func, Func derive, float initX, int maxLoop)
-        {
-            float x = initX;
-            for (int i = 0; i < maxLoop; i++)
-            {
-                float curY = func(x);
-                if (curY < 0.00001f && curY > -0.00001f)
-                    break;
-                x = x - curY / derive(x);
-            }
-            return x;
-        }
-    }
+    //    public static float run(Func func, Func derive, float initX, int maxLoop)
+    //    {
+    //        float x = initX;
+    //        for (int i = 0; i < maxLoop; i++)
+    //        {
+    //            float curY = func(x);
+    //            if (curY < 0.00001f && curY > -0.00001f)
+    //                break;
+    //            x = x - curY / derive(x);
+    //        }
+    //        return x;
+    //    }
+    //}
 
-    class SEInfo
-    {
-        public int index = 0;
-        public float curTime = 0f;
-        public float volume = 0f;
-        private int i;
-        private float v1;
-        private float v2;
+    //class SEInfo
+    //{
+    //    public int index = 0;
+    //    public float curTime = 0f;
+    //    public float volume = 0f;
+    //    private int i;
+    //    private float v1;
+    //    private float v2;
 
-        public SEInfo(int i, float v1, float v2)
-        {
-            this.i = i;
-            this.v1 = v1;
-            this.v2 = v2;
-        }
-    }
+    //    public SEInfo(int i, float v1, float v2)
+    //    {
+    //        this.i = i;
+    //        this.v1 = v1;
+    //        this.v2 = v2;
+    //    }
+    //}
 
-    class AudioClipInfo
-    {
-        public SortedList<int, SEInfo> stockList = new SortedList<int, SEInfo>();
-        public List<SEInfo> playingList = new List<SEInfo>();
-        public int maxSENum = 10;
-        public float initVolume = 1.0f;
-        public float attenuate = 0.0f;
-        public AudioClip clip;
+    //class AudioClipInfo
+    //{
+    //    public SortedList<int, SEInfo> stockList = new SortedList<int, SEInfo>();
+    //    public List<SEInfo> playingList = new List<SEInfo>();
+    //    public int maxSENum = 10;
+    //    public float initVolume = 1.0f;
+    //    public float attenuate = 0.0f;
+    //    public AudioClip clip;
 
-        public AudioClipInfo(string name, int maxSENum, float initVolume)
-        {
-            //this.name = name;
-            this.maxSENum = maxSENum;
+    //    public AudioClipInfo(string name, int maxSENum, float initVolume)
+    //    {
+    //        this.maxSENum = maxSENum;
 
-            this.initVolume = initVolume;
-            attenuate = calcAttenuateRate();
+    //        this.initVolume = initVolume;
+    //        attenuate = calcAttenuateRate();
 
-            // create stock list
-            for (int i = 0; i < maxSENum; i++)
-            {
-                SEInfo seInfo = new SEInfo(i, 0f, initVolume * Mathf.Pow(attenuate, i));
-                stockList.Add(seInfo.index, seInfo);
-            }
-        }
+    //        // create stock list
+    //        for (int i = 0; i < maxSENum; i++)
+    //        {
+    //            SEInfo seInfo = new SEInfo(i, 0f, initVolume * Mathf.Pow(attenuate, i));
+    //            stockList.Add(seInfo.index, seInfo);
+    //        }
+    //    }
 
-        private float calcAttenuateRate()
-        {
-            float n = maxSENum;
-            return NewtonMethod.run(
-                delegate (float p)
-                {
-                    return (1.0f - Mathf.Pow(p, n)) / (1.0f - p) - 1.0f / initVolume;
-                },
-                delegate (float p)
-                {
-                    float ip = 1.0f - p;
-                    float t0 = -n * Mathf.Pow(p, n - 1.0f) / ip;
-                    float t1 = (1.0f - Mathf.Pow(p, n)) / ip / ip;
-                    return t0 + t1;
-                },
-                0.9f, 100
-            );
-        }
-    }
+    //    private float calcAttenuateRate()
+    //    {
+    //        float n = maxSENum;
+    //        return NewtonMethod.run(
+    //            delegate (float p)
+    //            {
+    //                return (1.0f - Mathf.Pow(p, n)) / (1.0f - p) - 1.0f / initVolume;
+    //            },
+    //            delegate (float p)
+    //            {
+    //                float ip = 1.0f - p;
+    //                float t0 = -n * Mathf.Pow(p, n - 1.0f) / ip;
+    //                float t1 = (1.0f - Mathf.Pow(p, n)) / ip / ip;
+    //                return t0 + t1;
+    //            },
+    //            0.9f, 100
+    //        );
+    //    }
+    //}
 
 
     

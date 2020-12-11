@@ -27,11 +27,11 @@ namespace FrontPerson
 
             if (Input.GetKeyDown(KeyCode.W))
             {
+                AudioManager.Instance.Play2DSound(gameObject, SEPath.GAME_SE_PLAYER_HIT1);
                 AudioManager.Instance.Play2DSound(gameObject, SEPath.GAME_SE_ENEMY_HEALTH_2);
-                AudioManager.Instance.Play2DSound(gameObject, SEPath.GAME_SE_ENEMY_HEALTH_2);
-                AudioManager.Instance.Play2DSound(gameObject, SEPath.GAME_SE_ENEMY_HEALTH_2);
-                AudioManager.Instance.Play2DSound(gameObject, SEPath.GAME_SE_ENEMY_HEALTH_2);
-                AudioManager.Instance.Play2DSound(gameObject, SEPath.GAME_SE_ENEMY_HEALTH_2);
+                //AudioManager.Instance.Play2DSound(gameObject, SEPath.GAME_SE_PLAYER_HIT2);
+                //AudioManager.Instance.Play2DSound(gameObject, SEPath.GAME_SE_PLAYER_HIT3);
+                //AudioManager.Instance.Play2DSound(gameObject, SEPath.GAME_SE_PLAYER_HIT4);
 
             }
 
