@@ -106,13 +106,16 @@ namespace FrontPerson.Manager
         /// </summary>
         private const string AUDIO_DIRECTORY_PATH = "Resources/";
 
+        /// <summary>
+        /// ミキサー
+        /// </summary>
         private AudioMixer mixer = null;
         private AudioMixerGroup mixer_master = null;
         private AudioMixerGroup mixer_se = null;
         private AudioMixerGroup mixer_bgm = null;
         private AudioMixerGroup mixer_same_se = null;
 
-        int a = 0;
+        private GameObject audio_3D_prefab = null;
 
         private int same_se_count = 0;
 
@@ -135,6 +138,8 @@ namespace FrontPerson.Manager
                 clip.Add(audio_clip);
             }
 
+            audio_3D_prefab = Resources.Load<GameObject>("3DAudio");
+
             mixer = Resources.Load<AudioMixer>("AudioMix");
             mixer_master = mixer.FindMatchingGroups("Master")[0];
             mixer_se = mixer.FindMatchingGroups("Master")[1];
@@ -149,6 +154,11 @@ namespace FrontPerson.Manager
 
             for (int i = 0; i < sound_info_list.Count; i++)
             {
+                if(sound_info_list==null)
+                {
+                    int a = 0;
+                }
+
                 float new_length = sound_info_list[i].length - Time.deltaTime;
 
                 if (new_length > 0f && sound_info_list[i].source.isPlaying)
@@ -198,9 +208,9 @@ namespace FrontPerson.Manager
         /// <param name="se_name">再生させたいSE音源</param>
         public void Play3DSE(GameObject me, string se_name)
         {
-            AudioSource audiosource = me.GetComponent<AudioSource>();
+            AudioSource audiosource = GameObject.Instantiate(audio_3D_prefab,me.transform.position,Quaternion.identity).GetComponent<AudioSource>();
 
-            AudioSourceSetting(me,ref audiosource, true);
+            //AudioSourceSetting(me,ref audiosource, true);
 
             AudioInfo info = SearchSE(se_name,audiosource);
 
@@ -258,17 +268,19 @@ namespace FrontPerson.Manager
 
                 info.source.PlayOneShot(info.clip, 1 * AudioManager.Instance.audio_volume_.SEVolume);
             }
+
+            
         }
 
         private bool SameSoundCheack(AudioInfo info)
         {
-            //same_se_count = 0;
+            same_se_count = 0;
 
             for (int i = 0; i < sound_info_list.Count; i++)
             {
                 if (info.clip.name == sound_info_list[i].clip.name)
                 {
-                    info.same_count.Add(info.clip.name,same_se_count++);
+                    same_se_count++;
                 }
             }
 
@@ -321,16 +333,22 @@ namespace FrontPerson.Manager
         /// </summary>
         private void SortingList()
         {
+            List<AudioInfo> hoge = new List<AudioInfo>();
+
+            hoge = sound_info_list;
+
             foreach (var base_se in sound_info_list)
             {
                 foreach (var target_se in sound_info_list)
                 {
-                    if (base_se.clip.name == target_se.clip.name && base_se != target_se)
+                    if (base_se.clip.name != target_se.clip.name && base_se == target_se)
                     {
-                        sound_info_list.Remove(target_se);
+                        hoge.Add(target_se);
                     }
                 }
             }
+
+            sound_info_list = hoge;
         }
     }
 
