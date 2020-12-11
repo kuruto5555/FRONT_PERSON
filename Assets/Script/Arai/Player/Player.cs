@@ -304,6 +304,7 @@ namespace FrontPerson.Character
             _weaponList.Add(null);
 
             _appManager = GameObject.FindGameObjectWithTag(TagName.MANAGER).GetComponent<ApplicationManager>();
+            if (_appManager == null) Debug.Log("GameSceneController");
         }
 
         // Update is called once per frame
@@ -475,6 +476,7 @@ namespace FrontPerson.Character
                 else
                 {
                     gunL_.Shot();
+                    
                 }
             }
 
@@ -489,6 +491,7 @@ namespace FrontPerson.Character
                 else
                 {
                     gunR_.Shot();
+                    
                 }            
             }
 
