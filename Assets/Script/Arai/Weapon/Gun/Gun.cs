@@ -24,12 +24,25 @@ namespace FrontPerson.Weapon
         [Range(1, 200)]
         public int MaxAmmo_ = 10;
 
+        [Header("レティクルPrefab")]
+        [SerializeField] GameObject Reticle_ = null;
+
+        /// <summary>
+        /// ゲームUIキャンバス参照
+        /// </summary>
+        protected GameObject _canvas = null;
+
+        [Header("マズルスプラッシュ")]
+        [SerializeField] protected GameObject MuzzleFlash = null;
+
         /// <summary>
         /// ヒエラルキーのBountyManagerを入れておく
         /// </summary>
         protected BountyManager _bountyManager = null;
 
         protected WEAPON_TYPE _type;
+
+        protected GameObject _reticle = null;
 
         public WEAPON_TYPE GetWeaponType { get { return _type; } }
 
@@ -54,6 +67,13 @@ namespace FrontPerson.Weapon
             ammo_ = MaxAmmo_;
             shotTime_ = 0.0f;
             _bountyManager = BountyManager._instance;
+            _canvas = GameObject.Find("WeaponCanvas");
+
+            if(Reticle_ != null)
+            {
+                _reticle = Instantiate(Reticle_, _canvas.transform);
+            }
+            
         }
 
         // Update is called once per frame
@@ -82,6 +102,7 @@ namespace FrontPerson.Weapon
             shotTime_ = 1.0f / rate_;
             ammo_--;
             _bountyManager.FireCount();
+            Instantiate(MuzzleFlash,  Muzzle.transform.position, Quaternion.identity, transform);
         }
 
         /// <summary>
@@ -105,6 +126,13 @@ namespace FrontPerson.Weapon
             if (ammo_ > MaxAmmo_) return;
 
             ammo_ = MaxAmmo_;
+        }
+
+        private void OnDestroy()
+        {
+            if (_reticle == null) return;
+
+            Destroy(_reticle);
         }
     }
 

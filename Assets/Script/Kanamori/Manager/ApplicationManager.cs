@@ -75,10 +75,8 @@ namespace FrontPerson.Manager
         /// </summary>
         public void Save()
         {
-#if !UNITY_EDITOR
             //save_data_.sound_data_ = SoundManagerSetting.Instance.GetSoundVolumeData();
 		    DataManager.Save(save_data_, SaveDatas.SAVE_DATA_NAME);
-#endif
         }
 
         /// <summary>

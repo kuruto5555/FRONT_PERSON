@@ -32,7 +32,9 @@ namespace FrontPerson.Manager
         {
             set
             {
-                volume_ = Mathf.Clamp01(value);
+                volume_ = Mathf.Clamp01(value * 0.1f);
+                bgm_volume_ = bgm_volume_ * volume_;
+                se_volume_ = se_volume_ * volume_;
             }
             get
             {
@@ -43,7 +45,7 @@ namespace FrontPerson.Manager
         {
             set
             {
-                bgm_volume_ = Mathf.Clamp01(value);
+                bgm_volume_ = Mathf.Clamp01(value * 0.1f);
                 bgm_volume_ = bgm_volume_ * volume_;
             }
             get
@@ -55,7 +57,7 @@ namespace FrontPerson.Manager
         {
             set
             {
-                se_volume_ = Mathf.Clamp01(value);
+                se_volume_ = Mathf.Clamp01(value * 0.1f);
                 se_volume_ = se_volume_ * volume_;
             }
             get

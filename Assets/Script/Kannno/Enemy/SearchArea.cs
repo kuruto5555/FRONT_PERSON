@@ -54,7 +54,7 @@ namespace FrontPerson.Enemy.AI
 
                     // 壁、障害物、ギミックだったら見つけてない
                     if (hit.transform.tag == TagName.UNTAGGED
-                    //|| hit.transform.tag == TagName.WALL
+                    //|| hit.transform.tag == TagName.
                     //|| hit.transform.tag == TagName.GIMMICK
                     )
                     {
