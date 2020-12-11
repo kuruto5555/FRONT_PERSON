@@ -67,15 +67,15 @@ public class UI_Combo : MonoBehaviour
         comboManager_ = ComboManager.Instance;
         comboNumTextOutline_ = comboNumText_.GetComponent<Outline>();
 
-        SetColor();
-
         SetComboNum();
+        SetColor();
     }
 
     // Update is called once per frame
     void Update()
     {
         SetComboNum();
+        SetColor();
         SetComboTimeLimitGauge();
     }
 
@@ -94,13 +94,6 @@ public class UI_Combo : MonoBehaviour
         if(comboNumPrev_ > comboNum_)
         {
             ComboUI_Reset();
-        }
-
-        // コンボの色変更
-        if(comboNum_ >= iconChengeValueList_[comboIconType_] && comboIconType_ < iconImageList_.Count)
-        {
-            comboIconType_++;
-            SetColor();
         }
     }
 
@@ -132,7 +125,11 @@ public class UI_Combo : MonoBehaviour
 
     private void SetColor()
     {
+        if (comboIconType_ >= iconImageList_.Count) return;
+        if (comboNum_ < iconChengeValueList_[comboIconType_]) return;
+
         comboIcon_.sprite = iconImageList_[comboIconType_];
         comboNumTextOutline_.effectColor = comboNumTextColorList_[comboIconType_];
+        comboIconType_++;
     }
 }

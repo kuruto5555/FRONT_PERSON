@@ -93,16 +93,10 @@ namespace FrontPerson.Manager
         /// <summary>
         /// フィーバータイムUI
         /// </summary>
+        [Header("ふぃーばーたいむUI")]
+        [SerializeField]
         UI.UI_FeverTime feverTimeUI_ = null;
 
-
-
-
-        void Start()
-        {
-            feverTimeUI_ = FindObjectOfType<UI.UI_FeverTime>();
-            feverTimeUI_.gameObject.SetActive(false);
-        }
 
 
         /// <summary>
@@ -175,7 +169,6 @@ namespace FrontPerson.Manager
                 // スコア倍率
                 scoreMagnification_ = scoreMagnification;
                 // フィーバーUIを表示
-                feverTimeUI_.gameObject.SetActive(true);
                 feverTimeUI_.FeverStart();
                 // フラグを立てる
                 IsFever = true;
@@ -189,7 +182,6 @@ namespace FrontPerson.Manager
                 }
 
                 // フィーバー中に取った基本スコアをトータルスコアに加算しフィーバーを終了する
-                feverTimeUI_.gameObject.SetActive(false);
                 AddBasicScore(FeverScore);
                 feverScore_ = 0;
                 IsFever = false;

@@ -23,6 +23,7 @@ namespace FrontPerson.UI
             scoreManager_.on_add_fever_score_ += StartScoreAnimation;
             scoreText_.text = "+0";
             gauge_.anchorMin = new Vector2(1.0f, gauge_.anchorMin.y);
+            gameObject.SetActive(false);
         }
 
 
@@ -33,6 +34,10 @@ namespace FrontPerson.UI
             //FeverScoreTextUpdate(scoreManager_.FeverScore);
             GaugeUpdate();
 
+            if (!scoreManager_.IsFever)
+            {
+                gameObject.SetActive(false);
+            }
         }
 
 
@@ -41,6 +46,7 @@ namespace FrontPerson.UI
         /// </summary>
         public void FeverStart()
         {
+            gameObject.SetActive(true);
             FeverScoreTextUpdate(scoreManager_.FeverScore);
             GaugeUpdate();
         }
