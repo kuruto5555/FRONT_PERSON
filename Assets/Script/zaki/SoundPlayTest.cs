@@ -20,46 +20,32 @@ namespace FrontPerson
         // Update is called once per frame
         void Update()
         {
-            //b.Play3DSound(gameObject, SEPath.GAME_SE_ENEMY_HEALTH_2);
-            //b.Play3DSound(gameObject, SEPath.COMMON_SE_BACK);
+            //AudioManager.Instance.Play2DSE(gameObject, SEPath.GAME_SE_ENEMY_HEALTH_2);
 
+            if (Input.GetKey(KeyCode.A))
+            {
+                AudioManager.Instance.Play2DSE(gameObject, SEPath.GAME_SE_ENEMY_HEALTH_2);
+                AudioManager.Instance.Play2DSE(gameObject, SEPath.GAME_SE_ENEMY_HEALTH_2);
+                AudioManager.Instance.Play2DSE(gameObject, SEPath.GAME_SE_ENEMY_HEALTH_2);
+                AudioManager.Instance.Play2DSE(gameObject, SEPath.GAME_SE_ENEMY_HEALTH_2);
+                AudioManager.Instance.Play2DSE(gameObject, SEPath.GAME_SE_ENEMY_HEALTH_2);
+                AudioManager.Instance.Play2DSE(gameObject, SEPath.GAME_SE_ENEMY_HEALTH_2);
+                AudioManager.Instance.Play2DSE(gameObject, SEPath.GAME_SE_ENEMY_HEALTH_2);
+                AudioManager.Instance.Play2DSE(gameObject, SEPath.GAME_SE_ENEMY_HEALTH_2);
+                AudioManager.Instance.Play2DSE(gameObject, SEPath.GAME_SE_ENEMY_HEALTH_2);
+                AudioManager.Instance.Play2DSE(gameObject, SEPath.GAME_SE_ENEMY_HEALTH_2);
+                AudioManager.Instance.Play2DSE(gameObject, SEPath.GAME_SE_ENEMY_HEALTH_2);
+                AudioManager.Instance.Play2DSE(gameObject, SEPath.GAME_SE_ENEMY_HEALTH_2);
+                AudioManager.Instance.Play2DSE(gameObject, SEPath.GAME_SE_ENEMY_HEALTH_2);
+            }
 
 
             if (Input.GetKeyDown(KeyCode.W))
             {
-                AudioManager.Instance.Play2DSound(gameObject, SEPath.GAME_SE_PLAYER_HIT1);
-                AudioManager.Instance.Play2DSound(gameObject, SEPath.GAME_SE_ENEMY_HEALTH_2);
-                //AudioManager.Instance.Play2DSound(gameObject, SEPath.GAME_SE_PLAYER_HIT2);
-                //AudioManager.Instance.Play2DSound(gameObject, SEPath.GAME_SE_PLAYER_HIT3);
-                //AudioManager.Instance.Play2DSound(gameObject, SEPath.GAME_SE_PLAYER_HIT4);
-
+                AudioManager.Instance.Play3DSE(gameObject, SEPath.GAME_SE_ENEMY_HEALTH_2);
             }
 
-            if (Input.GetKeyDown(KeyCode.A))
-            {
 
-                AudioManager.Instance.Play2DSound(gameObject, SEPath.GAME_SE_ENEMY_HEALTH_2);
-
-
-
-
-            }
-
-            if (Input.GetKeyDown(KeyCode.S))
-            {
-                AudioManager.Instance.Play2DSound(gameObject, SEPath.GAME_SE_ENEMY_HEALTH_2);
-
-
-
-            }
-
-            if (Input.GetKeyDown(KeyCode.D))
-            {
-                AudioManager.Instance.Play2DSound(gameObject, SEPath.GAME_SE_ENEMY_HEALTH_2);
-
-
-
-            }
         }
     }
 }
