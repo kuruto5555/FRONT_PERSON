@@ -11,6 +11,16 @@ namespace FrontPerson.Item
     /// </summary>
     public class IncreasedMovementSpeedPickup : MonoBehaviour
     {
+        /// <summary>
+        /// 効果時間
+        /// </summary>
+        private readonly float EFFECT_TIME = 30f;
+
+        /// <summary>
+        /// 移動速度増加倍率
+        /// </summary>
+        private readonly float MOVEMENT_SPEED_MAGNIFICATION = 1.5f;
+
         private Pickup pickup_;
 
         // Start is called before the first frame update
@@ -25,6 +35,7 @@ namespace FrontPerson.Item
             pickup_.PlayPickupFeedback();
 
             // 移動速度アップ
+            player.PickUpMovementSpeedItem(EFFECT_TIME, MOVEMENT_SPEED_MAGNIFICATION);
         }
     }
 }
