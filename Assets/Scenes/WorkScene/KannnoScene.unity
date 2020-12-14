@@ -843,6 +843,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: TutorialCanvas (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 8046839223206943534, guid: 30e1d726ae0a2f54dbba2907731bb555,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 30e1d726ae0a2f54dbba2907731bb555, type: 3}
 --- !u!114 &623765245 stripped
@@ -1048,6 +1053,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: TutorialCanvas
+      objectReference: {fileID: 0}
+    - target: {fileID: 8046839223206943534, guid: 30e1d726ae0a2f54dbba2907731bb555,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 30e1d726ae0a2f54dbba2907731bb555, type: 3}
@@ -2517,6 +2527,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: CountDown_Canvas
       objectReference: {fileID: 0}
+    - target: {fileID: 5987147762783971920, guid: f49b37a5d4febf944867f86bd57078e1,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5987147762783971933, guid: f49b37a5d4febf944867f86bd57078e1,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -3455,6 +3470,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: TimeUp_Canvas
+      objectReference: {fileID: 0}
+    - target: {fileID: 848033666550223690, guid: 172f81a1e0edf1348b09837f08a479ae,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 848033666550223694, guid: 172f81a1e0edf1348b09837f08a479ae,
         type: 3}
