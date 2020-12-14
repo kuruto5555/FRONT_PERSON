@@ -34,10 +34,6 @@ namespace FrontPerson.UI
             //FeverScoreTextUpdate(scoreManager_.FeverScore);
             GaugeUpdate();
 
-            if (!scoreManager_.IsFever)
-            {
-                gameObject.SetActive(false);
-            }
         }
 
 
@@ -46,7 +42,6 @@ namespace FrontPerson.UI
         /// </summary>
         public void FeverStart()
         {
-            gameObject.SetActive(true);
             FeverScoreTextUpdate(scoreManager_.FeverScore);
             GaugeUpdate();
         }
