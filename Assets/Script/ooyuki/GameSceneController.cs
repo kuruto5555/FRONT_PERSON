@@ -131,8 +131,13 @@ namespace FrontPerson.Manager
         {
             if (tutorial1_.IsFinish)
             {
+                // 無効にするObject
                 tutorial1_.transform.root.gameObject.SetActive(false);
+
+                // 有効にするObject
                 tutorial2_.transform.root.gameObject.SetActive(true);
+
+                // ステート切り替え
                 state_ = GAME_SCENE_STATE.TUTORIAL2;
             }
         }
@@ -141,10 +146,15 @@ namespace FrontPerson.Manager
         {
             if (tutorial2_.IsFinish)
             {
+                // 無効にするObject
                 tutorial2_.transform.root.gameObject.SetActive(false);
+                applicationManager_.SetIsInput(false);
+
+                // 有効にするObject
                 countdown_.transform.root.gameObject.SetActive(true);
                 timer_.transform.root.gameObject.SetActive(true);
-                applicationManager_.SetIsInput(false);
+
+                // ステート切り替え
                 state_ = GAME_SCENE_STATE.START_COUNT_DOWN;
             }
         }
@@ -153,10 +163,18 @@ namespace FrontPerson.Manager
         {
             if (countdown_.IsCountdownFinish)
             {
+                // 無効にするObject
+                countdown_.gameObject.SetActive(false);
+
+                // 有効にするObject
                 bountyManager_.transform.root.gameObject.SetActive(true);
-                timer_.TimerStart();
                 applicationManager_.SetIsInput(true);
                 applicationManager_.SetIsGamePlay(true);
+
+                // タイマースタート
+                timer_.TimerStart();
+
+                // ステート切り替え
                 state_ = GAME_SCENE_STATE.PLAY;
             }
         }
@@ -166,10 +184,17 @@ namespace FrontPerson.Manager
             //ゲームが終了したとき
             if (timer_.IsTimeOver)
             {
+                // タイマーを停止
                 timer_.TimerStop();
-                timeUp_.transform.root.gameObject.SetActive(true);
+
+                // 無効にするObject
                 applicationManager_.SetIsInput(false);
                 applicationManager_.SetIsGamePlay(false);
+
+                // 有効にするObject
+                timeUp_.transform.root.gameObject.SetActive(true);
+
+                // ステート切り替え
                 state_ = GAME_SCENE_STATE.TIME_UP;
             }
         }
@@ -182,7 +207,11 @@ namespace FrontPerson.Manager
                 applicationManager_.ClearMissionNum = bountyManager_._missionCnt;
                 applicationManager_.Score = scoreManager_.CurrentScore;
                 applicationManager_.ComboNum = comboManager_.ComboNumMax;
+
+                // ステート切り替え
                 state_ = GAME_SCENE_STATE.TRANSITION;
+
+                // シーンチェンジ
                 SceneManager.Instance.SceneChange(SceneName.RESULT_SCENE, 1.0f, Color.black);
             }
         }
