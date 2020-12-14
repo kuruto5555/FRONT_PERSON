@@ -616,6 +616,12 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1339486384741249159, guid: 3be85688237ca0c489cc6b224031e13d,
+        type: 3}
+      propertyPath: WeaponPrefabList.Array.data[2]
+      value: 
+      objectReference: {fileID: 5008039636571061990, guid: fdae484d2cfb5bf4ba20052d502c5ebb,
+        type: 3}
     - target: {fileID: 1339486384741249176, guid: 3be85688237ca0c489cc6b224031e13d,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -5753,7 +5759,7 @@ PrefabInstance:
     - target: {fileID: 8046839223206943534, guid: 30e1d726ae0a2f54dbba2907731bb555,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 30e1d726ae0a2f54dbba2907731bb555, type: 3}
@@ -6938,7 +6944,7 @@ PrefabInstance:
     - target: {fileID: 8046839223206943534, guid: 30e1d726ae0a2f54dbba2907731bb555,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 30e1d726ae0a2f54dbba2907731bb555, type: 3}

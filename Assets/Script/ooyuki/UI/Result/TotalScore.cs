@@ -1,4 +1,6 @@
-﻿using System.Collections;
+﻿using FrontPerson.Constants;
+using FrontPerson.Manager;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -31,6 +33,8 @@ namespace FrontPerson.UI
         [SerializeField]
         List<Color> fontColor_ = null;
 
+        Rank rank_ = Rank.C;
+
         /// <summary>
         /// 総合評価のアニメーションが終わったかどうか
         /// </summary>
@@ -46,7 +50,8 @@ namespace FrontPerson.UI
 
         public void StartAnimation(Rank totalScore)
         {
-            totalScore_.text = rankText[totalScore];
+            rank_ = totalScore;
+            totalScore_.text = rankText[rank_];
             totalScore_.color = fontColor_[(int)totalScore];
             GetComponent<Animator>().Play("TotalScoreAnimation");
             totalScore_.gameObject.SetActive(true);
@@ -55,6 +60,44 @@ namespace FrontPerson.UI
         public void AnimFinish()
         {
             IsAnimFinish_ = true;
+            AudioManager.Instance.UnPauseBGM();
+        }
+
+
+        public void PlaySE_ScoreShow1()
+        {
+            AudioManager.Instance.PauseBGM();
+            AudioManager.Instance.Play2DSE(gameObject, SEPath.RESULT_SE_SCORE_SHOW1);
+        }
+
+
+
+        public void PlaySE_ScoreShow2()
+        {
+            AudioManager.Instance.Play2DSE(gameObject, SEPath.RESULT_SE_SCORE_SHOW2);
+        }
+
+
+        public void PlaySE_ScoreRank()
+        {
+            switch (rank_)
+            {
+                case Rank.C:
+                    AudioManager.Instance.Play2DSE(gameObject, SEPath.RESULT_SE_SCORE_C);
+                    break;
+
+                case Rank.B:
+                    AudioManager.Instance.Play2DSE(gameObject, SEPath.RESULT_SE_SCORE_B);
+                    break;
+
+                case Rank.A:
+                    AudioManager.Instance.Play2DSE(gameObject, SEPath.RESULT_SE_SCORE_A);
+                    break;
+
+                case Rank.S:
+                    AudioManager.Instance.Play2DSE(gameObject, SEPath.RESULT_SE_SCORE_S);
+                    break;
+            }
         }
     }
 }

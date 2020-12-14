@@ -328,7 +328,7 @@ MonoBehaviour:
   youDataText_: {fileID: 6776108657168921221}
   averageDataText_: {fileID: 6994752424502237363}
   numberOneDataText_: {fileID: 760604008179096676}
-  animSpeed_: 3
+  animSpeed_: 2
 --- !u!1 &5755130978464584254
 GameObject:
   m_ObjectHideFlags: 0

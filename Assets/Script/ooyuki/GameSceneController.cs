@@ -92,6 +92,9 @@ namespace FrontPerson.Manager
             // コンボマネージャー取得
             comboManager_ = ComboManager.Instance;
 
+            // BGM再生
+            AudioManager.Instance.PlayBGM(gameObject, BGMPath.GAME_BGM_MAIN);
+
             // ステートを操作説明にする
             state_ = GAME_SCENE_STATE.TUTORIAL1;
         }
