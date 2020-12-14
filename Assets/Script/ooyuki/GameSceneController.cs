@@ -96,6 +96,7 @@ namespace FrontPerson.Manager
             state_ = GAME_SCENE_STATE.TUTORIAL1;
         }
 
+
         // Update is called once per frame
         void Update()
         {
@@ -127,6 +128,7 @@ namespace FrontPerson.Manager
             }
         }
 
+
         void Tutorial1Update()
         {
             if (tutorial1_.IsFinish)
@@ -141,6 +143,7 @@ namespace FrontPerson.Manager
                 state_ = GAME_SCENE_STATE.TUTORIAL2;
             }
         }
+
 
         void Tutorial2Update()
         {
@@ -158,6 +161,7 @@ namespace FrontPerson.Manager
                 state_ = GAME_SCENE_STATE.START_COUNT_DOWN;
             }
         }
+
 
         void CountDownUpdate()
         {
@@ -179,6 +183,7 @@ namespace FrontPerson.Manager
             }
         }
 
+
         void PlayUpdate()
         {
             //ゲームが終了したとき
@@ -194,10 +199,14 @@ namespace FrontPerson.Manager
                 // 有効にするObject
                 timeUp_.transform.root.gameObject.SetActive(true);
 
+                // サウンド再生
+                AudioManager.Instance.Play2DSE(gameObject, SEPath.GAME_SE_TIME_UP);
+
                 // ステート切り替え
                 state_ = GAME_SCENE_STATE.TIME_UP;
             }
         }
+
 
         void TimeUpUpdate()
         {
@@ -215,6 +224,7 @@ namespace FrontPerson.Manager
                 SceneManager.Instance.SceneChange(SceneName.RESULT_SCENE, 1.0f, Color.black);
             }
         }
+
 
         void TransitionUpdate()
         {

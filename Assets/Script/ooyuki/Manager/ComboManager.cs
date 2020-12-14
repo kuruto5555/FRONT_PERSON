@@ -4,6 +4,7 @@ using UnityEngine;
 using FrontPerson.common;
 using FrontPerson.Enemy;
 using System.ComponentModel;
+using FrontPerson.Constants;
 
 namespace FrontPerson.Manager
 {
@@ -159,10 +160,10 @@ namespace FrontPerson.Manager
                     break;
             }
 
-            // コンボが0だったらUIを有効にする
-            //if (comboNum_ == 0) comboUI_.gameObject.SetActive(true);
 
+            // コンボを加算
             ComboNum += addComboNum;
+            comboMidwayBonusCount_ += addComboNum;
 
             // バウンティーに現在のコンボ数を教える
             bountyManager_.SetNowCombo(comboNum_);
@@ -235,6 +236,10 @@ namespace FrontPerson.Manager
             var bonus = (int)(100f / (1f + comboMidwayBonusTime_) * ComboNum);
             // スコア加算
             scoreManager_.AddScore(bonus, Score.ADD_SCORE_TYPE.COMBO_SCORE);
+
+
+            //コンボの区切り音
+            AudioManager.Instance.Play2DSE(gameObject, SEPath.GAME_SE_COMBO);
 
 
             // カウントから途中コンボボーナス間隔分引く
