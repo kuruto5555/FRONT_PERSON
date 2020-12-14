@@ -24,6 +24,9 @@ namespace FrontPerson.Weapon
         [Header("生成するロックオンカーソルプレハブ")]
         [SerializeField] GameObject Cursor_ = null;
 
+        [Header("弾の拡散角度")]
+        [SerializeField, Range(0.0f, 10.0f)] float Angle = 0.0f;
+
         /// <summary>
         /// 今ロックオンしてるやつ
         /// </summary>
@@ -169,10 +172,12 @@ namespace FrontPerson.Weapon
             if (shotTime_ > 0.0f) return;
 
             _isFire = true;
-            //_canvas.GetComponent<LockOnCanvas>().NowFire();
 
-            var bullet = Instantiate(bullet_, Muzzle.transform.position, Muzzle.transform.rotation, null);
+            float randX = Random.Range(-Angle, Angle);
+            float randY = Random.Range(-Angle, Angle);
 
+            GameObject bullet = Instantiate(bullet_, Muzzle.transform.position, Muzzle.transform.rotation, null);
+            bullet.transform.Rotate(randX, randY, 0.0f, Space.Self);
             ammo_--;
             
             bullet.GetComponent<Missile>().SetData(_lockOnTargetList.First().Key, _lockOnTargetList.First().Value.GetCursor());

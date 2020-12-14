@@ -104,6 +104,7 @@ namespace FrontPerson.Weapon
         {
             if (shotTime_ > 0.0f) return;
             if (ammo_ < 1) return;
+            //if (_isAnimation) return;
            
             Instantiate(bullet_, Muzzle.transform.position, Muzzle.transform.rotation, null);
             shotTime_ = 1.0f / rate_;
