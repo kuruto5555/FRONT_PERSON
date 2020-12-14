@@ -5,6 +5,7 @@ using UnityEngine;
 using FrontPerson.Enemy;
 using FrontPerson.Weapon;
 using FrontPerson.Manager;
+using FrontPerson.Constants;
 
 namespace FrontPerson.Enemy
 {
@@ -40,6 +41,10 @@ namespace FrontPerson.Enemy
 
                     bounty_manager.EnemyDeath((int)lack_vitamins);
                 }
+            }
+            else
+            {
+                AudioManager.Instance.Play3DSE(transform.position, SEPath.GAME_SE_VOICE_MAN);
             }
         }
     }
