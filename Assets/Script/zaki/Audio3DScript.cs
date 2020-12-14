@@ -12,8 +12,7 @@ public class Audio3DScript : MonoBehaviour
         source = GetComponent<AudioSource>();
     }
 
-    // Update is called once per frame
-    void Update()
+    void LateUpdate()
     {
         if (!source.isPlaying)
             Destroy(gameObject);

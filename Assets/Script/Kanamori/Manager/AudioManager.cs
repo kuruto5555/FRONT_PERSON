@@ -149,7 +149,7 @@ namespace FrontPerson.Manager
         /// <summary>
         /// フェードアウトbool
         /// </summary>
-        private bool fase_out = false;
+        private bool fade_out = false;
 
 
         public void Init()
@@ -183,18 +183,55 @@ namespace FrontPerson.Manager
 
         void Update()
         {
+
             //bgm_audiosource.volume = DEFAULT_SOUND_VOLUME * AudioManager.Instance.audio_volume_.BGMVolume;
+
+        }
+
+        void LateUpdate()
+        {
+            if(fade_in)
+            {
+                float i = 0f; 
+                mixer_bgm.audioMixer.GetFloat("BGM", out i);
+
+                for (; i > -80f; i -= 0.1f)
+                {
+                    mixer_bgm.audioMixer.SetFloat("BGM", i);
+                }
+
+                fade_in = false;
+            }
+
+            if (fade_out)
+            {
+                float i = 0f;
+                mixer_bgm.audioMixer.GetFloat("BGM", out i);
+
+                for (; i < 0f; i += 0.1f)
+                {
+                    mixer_bgm.audioMixer.SetFloat("BGM", i);
+                }
+
+                fade_out = false;
+            }
+
+            SortingList();
+
+            foreach (AudioInfo info in sound_info_list)
+            {
+                {
+                    info.source.PlayOneShot(info.clip, DEFAULT_SOUND_VOLUME * AudioManager.Instance.audio_volume_.SEVolume);
+                }
+            }
 
             //SEが再生しているかどうかのチェック
             List<AudioInfo> cheack_sound = new List<AudioInfo>();
 
             for (int i = 0; i < sound_info_list.Count; i++)
             {
-                float new_length = sound_info_list[i].length - Time.deltaTime;
-
-                if (new_length > 0f && sound_info_list[i].source.isPlaying)
+                if (sound_info_list[i].source.isPlaying)
                 {
-                    sound_info_list[i].length = new_length;
                     cheack_sound.Add(sound_info_list[i]);
                 }
             }
@@ -202,30 +239,7 @@ namespace FrontPerson.Manager
             //リスト更新
             sound_info_list = cheack_sound;
             cheack_sound.Clear();
-
-            ////フェードイン
-            //if (fade_in)
-            //{
-            //    FadeDeltaTime += Time.deltaTime;
-            //    if (FadeDeltaTime & gt;= FadeInSeconds)
-            //{
-            //        FadeDeltaTime = FadeInSeconds;
-            //        IsFadeIn = false;
-            //    }
-            //    audioSource.volume = (float)(FadeDeltaTime / FadeInSeconds);
-            //}
-
-
-        }
-
-        void LateUpdate()
-        {
-            SortingList();
-
-            foreach (AudioInfo info in sound_info_list)
-            {
-                info.source.PlayOneShot(info.clip, DEFAULT_SOUND_VOLUME * AudioManager.Instance.audio_volume_.SEVolume);
-            }
+            
         }
 
 
@@ -253,7 +267,7 @@ namespace FrontPerson.Manager
         /// <param name="se_name">再生させたいSE音源</param>
         public void Play3DSE(Vector3 set_pos, string se_name)
         {
-            AudioSource audiosource = GameObject.Instantiate(audio_3D_prefab, set_pos, Quaternion.identity).GetComponent<AudioSource>();
+            AudioSource audiosource = Instantiate(audio_3D_prefab, set_pos, Quaternion.identity).GetComponent<AudioSource>();
 
             AudioInfo info = SearchSE(se_name, audiosource);
 
@@ -270,6 +284,8 @@ namespace FrontPerson.Manager
         /// <param name="bgm_name"></param>
         public void PlayBGM(GameObject me, string bgm_name)
         {
+            fade_out = true;
+
             bgm_audiosource = me.GetComponent<AudioSource>();
             
             AudioSourceSetting(me,ref bgm_audiosource, false);
@@ -284,6 +300,7 @@ namespace FrontPerson.Manager
         /// </summary>
         public void StopBGM()
         {
+            fade_in = true;
             bgm_audiosource.Stop();
         }
 
@@ -416,8 +433,6 @@ namespace FrontPerson.Manager
             if (sound_info_list.Count < MAX_SAME_SE_COUNT && SameSoundCheack(info))
             {
                 SetList(info);
-
-
             }
             else
             {
@@ -507,7 +522,6 @@ namespace FrontPerson.Manager
             length = length_;
             max_se_num = max_se_num_;
             max_same_se_num = max_same_se_num_;
-            same_count.Add(clip.name, 0);
         }
     }
 

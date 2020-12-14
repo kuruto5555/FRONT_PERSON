@@ -12,7 +12,7 @@ namespace FrontPerson
         // Start is called before the first frame update
         void Start()
         {
-            //AudioManager.Instance.PauseBGM();
+            AudioManager.Instance.PlayBGM(gameObject, SEPath.GAME_BGM);
         }
 
         // Update is called once per frame
@@ -22,26 +22,23 @@ namespace FrontPerson
 
 #if UNITY_EDITOR
 
-            if (Input.GetKey(KeyCode.H))
+            if (Input.GetKeyDown(KeyCode.H))
             {
-                //AudioManager.Instance.Play2DSE(gameObject, SEPath.GAME_SE_ENEMY_HEALTH_2);
-                AudioManager.Instance.Play2DSE(gameObject, SEPath.GAME_SE_ENEMY_HEALTH_2);
-                AudioManager.Instance.Play2DSE(gameObject, SEPath.GAME_SE_ENEMY_HEALTH_2);
-                AudioManager.Instance.Play2DSE(gameObject, SEPath.GAME_SE_ENEMY_HEALTH_2);
-                AudioManager.Instance.Play2DSE(gameObject, SEPath.GAME_SE_ENEMY_HEALTH_2);
-                AudioManager.Instance.Play2DSE(gameObject, SEPath.COMMON_SE_BACK);
-                AudioManager.Instance.Play2DSE(gameObject, SEPath.COMMON_SE_BACK);
-                AudioManager.Instance.Play2DSE(gameObject, SEPath.COMMON_SE_BACK);
-                AudioManager.Instance.Play2DSE(gameObject, SEPath.COMMON_SE_BACK);
-                AudioManager.Instance.Play2DSE(gameObject, SEPath.COMMON_SE_BACK);
-                AudioManager.Instance.Play2DSE(gameObject, SEPath.COMMON_SE_BACK);
+                AudioManager.Instance.Play2DSE(gameObject, SEPath.COMMON_SE_DECISION);
+
 
             }
 
 
             if (Input.GetKeyDown(KeyCode.Y))
             {
-                AudioManager.Instance.Play3DSE(gameObject.transform.position, SEPath.GAME_SE_ENEMY_HEALTH_2);
+                AudioManager.Instance.Play3DSE(gameObject.transform.position, SEPath.COMMON_SE_DECISION);
+            }
+
+            if(Input.GetKeyDown(KeyCode.U))
+            {
+                AudioManager.Instance.StopBGM();
+
             }
 #endif
 
