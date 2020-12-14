@@ -256,6 +256,11 @@ namespace FrontPerson.Character
         private List<Gun> _weaponList;
 
         /// <summary>
+        /// 入手した武器の番号
+        /// </summary>
+        private int _weaponType = 0;
+
+        /// <summary>
         /// 所持してる武器のList
         /// 1左拳銃,2右拳銃,3持ってれば特殊武器
         /// </summary>
@@ -625,6 +630,22 @@ namespace FrontPerson.Character
             }
         }
 
+        /// <summary>
+        /// 毎フレームスペシャル武器の状態をチェックする
+        /// </summary>
+        private void WeaponStatus()
+        {
+            if (Weapon == null) return;
+            if (Weapon.IsAnimation) return;
+
+            if (Weapon.Ammo <= 0 )
+            {
+                //武器のアニメーションスタート
+                //Weapon.
+            }
+            
+        }
+
         
 
         private void OnTriggerStay(Collider other)
@@ -654,6 +675,7 @@ namespace FrontPerson.Character
             if (IsSpecialWeapon)
             {
                 Weapon.WeaponForcedChange();
+                //武器チェンジアニメーションスタート
             }
             else
             {
@@ -661,7 +683,19 @@ namespace FrontPerson.Character
                 //WeaponChangeAnimationStart();
             }
 
+            _weaponType = type;
+
+            //下２行アニメーションが出来次第消す
             Weapon = Instantiate(_weponManager.WeaponPrefabList[type], cameraTransform_).GetComponent<Weapon.SpecialWeapon>();
+            _weaponList[2] = Weapon;
+        }
+
+        /// <summary>
+        /// 武器チェンジアニメーションが終わった時に呼ぶ
+        /// </summary>
+        public void SetWeapon()
+        {
+            Weapon = Instantiate(_weponManager.WeaponPrefabList[_weaponType], cameraTransform_).GetComponent<Weapon.SpecialWeapon>();
             _weaponList[2] = Weapon;
         }
 
