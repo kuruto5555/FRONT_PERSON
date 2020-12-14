@@ -295,6 +295,7 @@ namespace FrontPerson.Manager
                 {
                     // もう一度
                     SetComboBonusTimer();
+                    IsCombo = false;
                     StartCoroutine(UpdateComboTimer());
                 }
                 // 使えなかったらコンボ終了
