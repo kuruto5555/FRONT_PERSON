@@ -61,6 +61,13 @@ namespace FrontPerson.Weapon
         /// </summary>
         public int Ammo {  get { return ammo_; }}
 
+        /// <summary>
+        /// 
+        /// </summary>
+        protected bool _isAnimation = false;
+
+        public bool IsAnimation { get { return _isAnimation; } }
+
         protected void Awake()
         {
             _bountyManager = BountyManager._instance;
