@@ -511,6 +511,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Combo
       objectReference: {fileID: 0}
+    - target: {fileID: 6136691143630601108, guid: 8c3ad241ce12a644aa7bab058f2abde7,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6136691143630601111, guid: 8c3ad241ce12a644aa7bab058f2abde7,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -740,6 +745,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: FeverTime
+      objectReference: {fileID: 0}
+    - target: {fileID: 4883082492111079487, guid: 874b9eeca93d7c64a9b4b866dcd888d8,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 874b9eeca93d7c64a9b4b866dcd888d8, type: 3}

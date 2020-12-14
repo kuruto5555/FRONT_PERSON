@@ -48,11 +48,6 @@ public class UI_Combo : MonoBehaviour
     int comboNum_ = 0;
 
     /// <summary>
-    /// コンボ数の前フレーム
-    /// </summary>
-    int comboNumPrev_ = 0;
-
-    /// <summary>
     /// コンボのアイコンの種類
     /// </summary>
     int comboIconType_ = 0;
@@ -61,49 +56,56 @@ public class UI_Combo : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        comboNumPrev_ = comboNum_ = 0;
+        comboNum_ = 0;
         comboIconType_ = 0;
 
         comboManager_ = ComboManager.Instance;
         comboNumTextOutline_ = comboNumText_.GetComponent<Outline>();
 
-        SetComboNum();
+        SetTextComboNum();
         SetColor();
+
     }
+
 
     // Update is called once per frame
     void Update()
     {
-        SetComboNum();
-        SetColor();
-        SetComboTimeLimitGauge();
-    }
+        UpdateComboTimeLimitGauge();
 
-
-    /// <summary>
-    /// コンボ数をテキストにセット
-    /// </summary>
-    void SetComboNum()
-    {
-        comboNumPrev_ = comboNum_;
-        comboNum_ = comboManager_.ComboNum;
-        comboNumText_.text = comboNum_.ToString();
-
-
-        // コンボ数が前フレームのほうが大きかったらそれはきっとコンボが途切れてる
-        if(comboNumPrev_ > comboNum_)
+        // コンボ数が0なら無効にする
+        if(comboManager_.ComboNum <= 0)
         {
             ComboUI_Reset();
         }
     }
 
 
-    /// <summary>
-    /// コンボの更新時間ゲージのアップデート
-    /// </summary>
-    void SetComboTimeLimitGauge()
+    public void SetComboNum()
     {
-        if (comboNum_ == 0) return;
+        SetTextComboNum();
+        SetColor();
+        UpdateComboTimeLimitGauge();
+        gameObject.SetActive(true);
+    }
+
+
+    /// <summary>
+    /// コンボ数をテキストにセット
+    /// </summary>
+    void SetTextComboNum()
+    {
+        comboNum_ = comboManager_.ComboNum;
+        comboNumText_.text = comboNum_.ToString();
+    }
+
+
+    /// <summary>
+    /// コンボの継続時間ゲージの更新
+    /// </summary>
+    void UpdateComboTimeLimitGauge()
+    {
+        if (comboNum_ <= 0) return;
 
         comboTimeLimitGauge_.rectTransform.anchorMin =
             new Vector2(1.0f - (comboManager_.ComboRemainingTime / comboManager_.ComboDuration),
@@ -116,10 +118,12 @@ public class UI_Combo : MonoBehaviour
     /// </summary>
     private void ComboUI_Reset()
     {
-        comboNum_ = comboNumPrev_ = 0;
+        comboNum_ = 0;
+        comboNumText_.text = "0".ToString();
         comboIconType_ = 0;
         SetColor();
         comboTimeLimitGauge_.rectTransform.anchorMin = new Vector2(1.0f, comboTimeLimitGauge_.rectTransform.anchorMin.y);
+        gameObject.SetActive(false);
     }
 
 

@@ -17,26 +17,36 @@ namespace FrontPerson.Manager
 
     public class ComboManager : SingletonMonoBehaviour<ComboManager>
     {
+        //スコア最大最小
+        const int COMBO_MAX = 999;
+        const int COMBO_MIN = 0;
+
         /// <summary>
         /// コンボ数
         /// </summary>
-        private int comboNum = 0;
+        private int comboNum_ = 0;
         /// <summary>
         /// コンボ数　最大999　最小0
         /// </summary>
         public int ComboNum
         {
-            get { return comboNum; }
+            get { return comboNum_; }
             private set
             {
-                comboNum = value;
-                comboNum = Mathf.Max(0, Mathf.Min(999, comboNum));
+                comboNum_ = Mathf.Min(COMBO_MAX, Mathf.Max(COMBO_MIN, value));
             }
         }
         /// <summary>
         /// 最大到達コンボ数
         /// </summary>
         public int ComboNumMax { get; private set; } = 0;
+
+        /// <summary>
+        /// コンボ中かどうか
+        /// true -> コンボ中
+        /// false -> コンボ中じゃない
+        /// </summary>
+        public bool IsCombo { get; private set; }
 
         /// <summary>
         /// コンボの継続時間
@@ -97,24 +107,25 @@ namespace FrontPerson.Manager
         /// </summary>
         Spawner spawner_ = null;
 
+        [Header("コンボUI")]
+        [SerializeField]
+        UI_Combo comboUI_ = null;
+
+
+
 
         // Start is called before the first frame update
         void Start()
         {
+            IsCombo = false;
             // コンボボーナス加算用にスコアマネージャー受け取っておく
             scoreManager_ = ScoreManager.Instance;
             // 生成率はどれも一緒なのでどれか一つを取ればいい
             spawner_ = FindObjectOfType<Spawner>();
             // バウンティーマネージャー
             bountyManager_ = BountyManager._instance;
-            bountyManager_.SetNowCombo(comboNum);
+            bountyManager_.SetNowCombo(comboNum_);
         }
-
-
-//        void Update()
-//        {
-//            bountyManager_.SetNowCombo(comboNum);            
-//        }
 
 
         /// <summary>
@@ -148,20 +159,30 @@ namespace FrontPerson.Manager
                     break;
             }
 
-            // コンボを加算
+            // コンボが0だったらUIを有効にする
+            //if (comboNum_ == 0) comboUI_.gameObject.SetActive(true);
+
             ComboNum += addComboNum;
 
             // バウンティーに現在のコンボ数を教える
-            bountyManager_.SetNowCombo(comboNum);
+            bountyManager_.SetNowCombo(comboNum_);
 
             // コンボが最大到達コンボを超えたかどうか
             if (ComboNum > ComboNumMax) ComboNumMax = ComboNum;
-
+            
             // コンボ時間の更新
+            SetComboBonusTimer();
+
+            // UIにコンボ情報を伝える
+            comboUI_.SetComboNum();
+
+            // コルーチンでコンボのタイマーを開始
+            // すでに動いていた場合特に何も起きない
             StartCoroutine(UpdateComboTimer());
 
             // コンボボーナスがあればスコアに加算
             ComboMidwayBonus();
+
         }
 
 
@@ -170,6 +191,8 @@ namespace FrontPerson.Manager
         /// </summary>
         public void LostCombo()
         {
+            IsCombo = false;
+
             // コンボ途切れボーナス加算
             LostComboBonus();
 
@@ -189,7 +212,7 @@ namespace FrontPerson.Manager
             comboMidwayBonusCount_ = 0;
 
             // バウンティーに現在のコンボ数を教える
-            bountyManager_.SetNowCombo(comboNum);
+            bountyManager_.SetNowCombo(comboNum_);
         }
 
 
@@ -229,7 +252,7 @@ namespace FrontPerson.Manager
         {
             if(IsComboInsurance)
 
-            //コンボ数が0じゃない
+            //コンボ数が0なのにどうやってここに来るんだよ
             if (ComboNum == 0) return;
 
 
@@ -250,10 +273,9 @@ namespace FrontPerson.Manager
         private IEnumerator UpdateComboTimer()
         {
             // タイマーが止まっているとき
-            if (ComboRemainingTime <= 0)
+            if (IsCombo == false)
             {
-                // コンボの制限時間を設定
-                SetComboBonusTimer();
+                IsCombo = true;
 
                 // コンボが続かず制限時間がきれたら抜ける
                 while (0f < ComboRemainingTime)
@@ -272,6 +294,7 @@ namespace FrontPerson.Manager
                 if (UseComboInsurance())
                 {
                     // もう一度
+                    SetComboBonusTimer();
                     StartCoroutine(UpdateComboTimer());
                 }
                 // 使えなかったらコンボ終了
@@ -279,11 +302,6 @@ namespace FrontPerson.Manager
                 {
                     LostCombo();
                 }
-            }
-            else // タイマーが動いてるとき
-            {
-                // タイマーが動いているので制限時間を戻す
-                SetComboBonusTimer();
             }
         }
 
@@ -312,8 +330,5 @@ namespace FrontPerson.Manager
                 return true;
             }
         }
-        
-
-
     }
 }
