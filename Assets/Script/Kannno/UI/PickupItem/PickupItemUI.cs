@@ -13,7 +13,7 @@ namespace FrontPerson.UI
         /// <summary>
         /// 
         /// </summary>
-        private bool flag = true;
+        private bool flag = false;
 
         private void OnEnable()
         {
@@ -27,14 +27,11 @@ namespace FrontPerson.UI
 
         void Start()
         {
+            flag = true;
+
             animator = GetComponent<Animator>();
 
-            if (flag)
-            {
-                animator?.Play(PICKUP_ITEM);
-
-                flag = false;
-            }
+            //animator?.Play(PICKUP_ITEM);
         }
 
         private void Enable()
