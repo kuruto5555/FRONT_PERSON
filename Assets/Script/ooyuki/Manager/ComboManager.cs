@@ -252,7 +252,7 @@ namespace FrontPerson.Manager
         {
             if(IsComboInsurance)
 
-            //コンボ数が0じゃない
+            //コンボ数が0なのにどうやってここに来るんだよ
             if (ComboNum == 0) return;
 
 
@@ -294,6 +294,7 @@ namespace FrontPerson.Manager
                 if (UseComboInsurance())
                 {
                     // もう一度
+                    SetComboBonusTimer();
                     StartCoroutine(UpdateComboTimer());
                 }
                 // 使えなかったらコンボ終了
