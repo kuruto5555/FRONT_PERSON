@@ -373,7 +373,7 @@ namespace FrontPerson.Character
             direction += Input.GetAxisRaw(Constants.InputName.HORIZONTAL) * transform.right;
             direction += Input.GetAxisRaw(Constants.InputName.VERTICAL) * transform.forward;
 
-            position_ += direction * moveSpeed_* _addSpeed * Time.deltaTime;
+            position_ += direction.normalized * moveSpeed_* _addSpeed * Time.deltaTime;
         }
 
         /// <summary>
