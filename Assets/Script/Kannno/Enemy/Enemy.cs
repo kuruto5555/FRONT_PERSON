@@ -170,11 +170,15 @@ namespace FrontPerson.Character
                     case EnemyType.ORDINATY_PEOPLE:
                         score_manager.AddScore((int)EnemyScore.ORDINATY_PEOPLE, Score.ADD_SCORE_TYPE.BASIC_SCORE);
                         comboManager.AddCombo(1, ADD_COMBO_TYPE.ORDINATY_PEOPLE);
+
+                        AudioManager.Instance.Play3DSE(transform.position, SEPath.GAME_SE_ENEMY_FINE);
                         break;
                 
                     case EnemyType.OLD_BATTLEAXE:
                         score_manager.AddScore((int)EnemyScore.OLD_BATTLEAXE, Score.ADD_SCORE_TYPE.BASIC_SCORE);
                         comboManager.AddCombo(1, ADD_COMBO_TYPE.OLD_BATTLEAXE);
+
+                        AudioManager.Instance.Play3DSE(transform.position, SEPath.GAME_SE_ENEMY_FINE);
                         break;
                 
                     case EnemyType.YAKUZA:
