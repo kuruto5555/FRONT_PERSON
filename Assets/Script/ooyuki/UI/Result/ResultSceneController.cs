@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using FrontPerson.UI;
 using UnityEngine.UI;
+using FrontPerson.Constants;
 
 namespace FrontPerson.Manager
 {
@@ -95,6 +96,9 @@ namespace FrontPerson.Manager
             //ここで総合評価を求める
             //rank_ =
 
+
+            AudioManager.Instance.PlayBGM(gameObject, BGMPath.RESULT_BGM_MAIN);
+            AudioManager.Instance.PauseBGM();
         }
 
         // Update is called once per frame
@@ -202,6 +206,5 @@ namespace FrontPerson.Manager
                 state_ = RESULT_SCENE_STATE.PLAYER_INPUT;
             }
         }
-
     }
 }

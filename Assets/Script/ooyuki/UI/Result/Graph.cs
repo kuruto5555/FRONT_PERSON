@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using FrontPerson.Constants;
+using FrontPerson.Manager;
+using UnityEngine;
 using UnityEngine.UI;
 
 namespace FrontPerson.UI
@@ -102,6 +104,9 @@ namespace FrontPerson.UI
         public void StartAnimation(int youData, int averageData, int numberOneData)
         {
             if (isAnimation) return;
+
+            // SE鳴らす
+            AudioManager.Instance.Play2DSE(gameObject, SEPath.RESULT_SE_SCORE_METER);
 
             int max = youData > numberOneData ? youData : numberOneData;
             youDataGauge_.StartAnimation(youGauge_, youDataText_, youData, max, animSpeed_);
