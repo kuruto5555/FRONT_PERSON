@@ -18,7 +18,7 @@ namespace FrontPerson.Manager
 {
     public class ScoreManager : SingletonMonoBehaviour<ScoreManager>
     {
-        //スコア最大数
+        //スコア最大最小
         const int SCORE_MAX = 99999999;
         const int SCORE_MIN = 0;
 
@@ -36,8 +36,7 @@ namespace FrontPerson.Manager
             }
             private set 
             {
-                currentScore_ = value;
-                currentScore_ = Mathf.Min(SCORE_MAX, Mathf.Max(SCORE_MIN, currentScore_));
+                currentScore_ = Mathf.Min(SCORE_MAX, Mathf.Max(SCORE_MIN, value));
             } 
         }
 
@@ -55,8 +54,7 @@ namespace FrontPerson.Manager
             }
             private set
             {
-                feverScore_ = value;
-                feverScore_ = Mathf.Min(SCORE_MAX, Mathf.Max(SCORE_MIN, feverScore_));
+                feverScore_ = Mathf.Min(SCORE_MAX, Mathf.Max(SCORE_MIN, value));
             }
         }
 
@@ -155,6 +153,14 @@ namespace FrontPerson.Manager
 
 
         /// <summary>
+        /// フィーバータイムを終わらせる
+        /// </summary>
+        public void StopFeverTime()
+        {
+            FeverTimer = 0;
+        }
+
+        /// <summary>
         /// フィーバータイム発動
         /// </summary>
         /// <returns></returns>
@@ -169,6 +175,7 @@ namespace FrontPerson.Manager
                 // スコア倍率
                 scoreMagnification_ = scoreMagnification;
                 // フィーバーUIを表示
+                feverTimeUI_.gameObject.SetActive(true);
                 feverTimeUI_.FeverStart();
                 // フラグを立てる
                 IsFever = true;
@@ -183,6 +190,8 @@ namespace FrontPerson.Manager
 
                 // フィーバー中に取った基本スコアをトータルスコアに加算しフィーバーを終了する
                 AddBasicScore(FeverScore);
+
+                feverTimeUI_.gameObject.SetActive(false);
                 feverScore_ = 0;
                 IsFever = false;
             }
