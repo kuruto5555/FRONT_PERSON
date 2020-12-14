@@ -707,6 +707,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d2eba39b6db42a74bb94c1ad6b593b62, type: 3}
+--- !u!114 &238747327 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8773701040825813159, guid: 4ac8071099f43f6428587e37f24d8295,
+    type: 3}
+  m_PrefabInstance: {fileID: 1724121994}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a6c6f3493d2352b4f973a90f5a26249b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!20 &271114538 stripped
 Camera:
   m_CorrespondingSourceObject: {fileID: 3400952847268517111, guid: 34dc7089d86a38047a11c22287ec03bc,
@@ -810,6 +822,7 @@ GameObject:
   m_Component:
   - component: {fileID: 370611611}
   - component: {fileID: 370611610}
+  - component: {fileID: 370611612}
   m_Layer: 0
   m_Name: GameObject
   m_TagString: Untagged
@@ -837,12 +850,30 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 370611609}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 19.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 21
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &370611612
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 370611609}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 42aa15ab1222504428f12263b5e4de25, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tutorial1_: {fileID: 608451681}
+  tutorial2_: {fileID: 1376009472}
+  timer_: {fileID: 238747327}
+  countdown_: {fileID: 1452061147}
+  timeUp_: {fileID: 1321327633}
+  bountyManager_: {fileID: 2072859339}
 --- !u!1 &434235804
 GameObject:
   m_ObjectHideFlags: 0
