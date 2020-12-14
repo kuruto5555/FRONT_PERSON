@@ -68,10 +68,13 @@ namespace FrontPerson.Weapon
 
         public bool IsAnimation { get { return _isAnimation; } }
 
+        protected AudioManager _audioManager = null;
+
         protected void Awake()
         {
             _bountyManager = BountyManager._instance;
             _canvas = GameObject.Find("WeaponCanvas");
+            
         }
 
         // Start is called before the first frame update
@@ -81,6 +84,7 @@ namespace FrontPerson.Weapon
             shotTime_ = 0.0f;
 
             _bountyManager = BountyManager._instance;
+            _audioManager = AudioManager.Instance;
         }
 
         // Update is called once per frame
@@ -134,6 +138,11 @@ namespace FrontPerson.Weapon
             if (ammo_ > MaxAmmo_) return;
 
             ammo_ = MaxAmmo_;
+        }
+
+        public virtual void FireSound()
+        {
+
         }
 
         /// <summary>
