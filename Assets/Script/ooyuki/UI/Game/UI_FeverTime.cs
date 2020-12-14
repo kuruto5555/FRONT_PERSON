@@ -22,7 +22,7 @@ namespace FrontPerson.UI
             scoreManager_ = ScoreManager.Instance;
             scoreManager_.on_add_fever_score_ += StartScoreAnimation;
             scoreText_.text = "+0";
-            gauge_.anchorMin = new Vector2(1.0f, gauge_.anchorMin.y);
+            gauge_.anchorMax = new Vector2(1.0f, gauge_.anchorMax.y);
             gameObject.SetActive(false);
         }
 
@@ -62,7 +62,7 @@ namespace FrontPerson.UI
         /// </summary>
         private void GaugeUpdate()
         {
-            gauge_.anchorMin = new Vector2(1f - (scoreManager_.FeverTimer / scoreManager_.FeverEffectTime), gauge_.anchorMin.y);
+            gauge_.anchorMax = new Vector2((scoreManager_.FeverTimer / scoreManager_.FeverEffectTime), gauge_.anchorMax.y);
         }
 
 
