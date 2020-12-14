@@ -9,12 +9,10 @@ namespace FrontPerson
 {
     public class SoundPlayTest : MonoBehaviour
     {
-       
-
         // Start is called before the first frame update
         void Start()
         {
-          
+            //AudioManager.Instance.PauseBGM();
         }
 
         // Update is called once per frame
@@ -26,7 +24,7 @@ namespace FrontPerson
 
             if (Input.GetKey(KeyCode.H))
             {
-                AudioManager.Instance.Play2DSE(gameObject, SEPath.GAME_SE_ENEMY_HEALTH_2);
+                //AudioManager.Instance.Play2DSE(gameObject, SEPath.GAME_SE_ENEMY_HEALTH_2);
                 AudioManager.Instance.Play2DSE(gameObject, SEPath.GAME_SE_ENEMY_HEALTH_2);
                 AudioManager.Instance.Play2DSE(gameObject, SEPath.GAME_SE_ENEMY_HEALTH_2);
                 AudioManager.Instance.Play2DSE(gameObject, SEPath.GAME_SE_ENEMY_HEALTH_2);

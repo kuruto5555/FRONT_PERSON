@@ -97,12 +97,17 @@ namespace FrontPerson.Manager
         private const int MAX_SAME_SE_COUNT = 4;
 
         /// <summary>
+        /// 音声のデフォ音量
+        /// </summary>
+        private const float DEFAULT_SOUND_VOLUME = 1f;
+
+        /// <summary>
         /// 音源一覧
         /// </summary>
         private List<AudioClip> clip = new List<AudioClip>();
 
         /// <summary>
-        /// 流れる予定の音源
+        /// 流れる予定のSE音源
         /// </summary>
         private List<AudioInfo> sound_info_list = new List<AudioInfo>();
 
@@ -111,18 +116,48 @@ namespace FrontPerson.Manager
         /// </summary>
         private GameObject audio_3D_prefab = null;
 
+        /// <summary>
+        /// BGM専用オーディオソース
+        /// </summary>
+        private static AudioSource bgm_audiosource = null;
 
+        /// <summary>
+        /// オーディオミキサー
+        /// </summary>
         private AudioMixer mixer = null;
+
+        /// <summary>
+        /// 親ミキサー
+        /// </summary>
         private AudioMixerGroup mixer_master = null;
+
+        /// <summary>
+        /// SEミキサー
+        /// </summary>
         private AudioMixerGroup mixer_se = null;
+
+        /// <summary>
+        /// BGMミキサー
+        /// </summary>
         private AudioMixerGroup mixer_bgm = null;
-        private AudioMixerGroup mixer_same_se = null;
+
+        /// <summary>
+        /// フェードインbool
+        /// </summary>
+        private bool fade_in = false;
+
+        /// <summary>
+        /// フェードアウトbool
+        /// </summary>
+        private bool fase_out = false;
+
 
         public void Init()
         {
             // セーブデータができたら修正
             audio_volume_ = new AudioVolume();
         }
+
 
         // Start is called before the first frame update
         void Start()
@@ -137,18 +172,20 @@ namespace FrontPerson.Manager
                 clip.Add(audio_clip);
             }
 
-            audio_3D_prefab= Resources.Load<GameObject>("3DAudio");
+            audio_3D_prefab = Resources.Load<GameObject>("3DAudio");
 
             mixer = Resources.Load<AudioMixer>("AudioMix");
             mixer_master = mixer.FindMatchingGroups("Master")[0];
             mixer_se = mixer.FindMatchingGroups("Master")[1];
-            mixer_same_se = mixer.FindMatchingGroups("Master")[2];
             mixer_bgm = mixer.FindMatchingGroups("Master")[3];
         }
 
+
         void Update()
         {
-            //再生しているかどうかのチェック
+            //bgm_audiosource.volume = DEFAULT_SOUND_VOLUME * AudioManager.Instance.audio_volume_.BGMVolume;
+
+            //SEが再生しているかどうかのチェック
             List<AudioInfo> cheack_sound = new List<AudioInfo>();
 
             for (int i = 0; i < sound_info_list.Count; i++)
@@ -166,13 +203,18 @@ namespace FrontPerson.Manager
             sound_info_list = cheack_sound;
             cheack_sound.Clear();
 
-            // Debug.Log("sound_info.Count"+sound_info.Count);
-            //Debug.Log("play_queue.Count"+play_queue.Count);
+            ////フェードイン
+            //if (fade_in)
+            //{
+            //    FadeDeltaTime += Time.deltaTime;
+            //    if (FadeDeltaTime & gt;= FadeInSeconds)
+            //{
+            //        FadeDeltaTime = FadeInSeconds;
+            //        IsFadeIn = false;
+            //    }
+            //    audioSource.volume = (float)(FadeDeltaTime / FadeInSeconds);
+            //}
 
-            Debug.Log(mixer_master);
-            Debug.Log(mixer_se);
-            Debug.Log(mixer_same_se);
-            Debug.Log(mixer_bgm);
 
         }
 
@@ -180,14 +222,15 @@ namespace FrontPerson.Manager
         {
             SortingList();
 
-            foreach(AudioInfo info in sound_info_list )
+            foreach (AudioInfo info in sound_info_list)
             {
-                info.source.PlayOneShot(info.clip, 1 * AudioManager.Instance.audio_volume_.SEVolume);
+                info.source.PlayOneShot(info.clip, DEFAULT_SOUND_VOLUME * AudioManager.Instance.audio_volume_.SEVolume);
             }
         }
 
+
         /// <summary>
-        /// 2Dサウンド再生要請
+        /// 2DSE再生要請
         /// </summary>
         /// <param name="me">オーディオソースをアタッチしたいオブジェクト</param>
         /// <param name="se_name">再生させたいSE音源</param>
@@ -195,16 +238,16 @@ namespace FrontPerson.Manager
         {
             AudioSource audiosource = me.GetComponent<AudioSource>();
 
-            AudioSourceSetting(me,ref audiosource, false);
+            AudioSourceSetting(me, ref audiosource,true);
 
             AudioInfo info = SearchSE(se_name, audiosource);
 
-            PlaySE(info);
+            ReservationSE(info);
 
         }
 
         /// <summary>
-        /// 3Dサウンド再生要請
+        /// 3DSE再生要請
         /// </summary>
         /// <param name="set_pos">3DAudioプレハブ生成位置</param>
         /// <param name="se_name">再生させたいSE音源</param>
@@ -212,48 +255,175 @@ namespace FrontPerson.Manager
         {
             AudioSource audiosource = GameObject.Instantiate(audio_3D_prefab, set_pos, Quaternion.identity).GetComponent<AudioSource>();
 
-            AudioInfo info = SearchSE(se_name,audiosource);
+            AudioInfo info = SearchSE(se_name, audiosource);
 
-            PlaySE(info);
+            ReservationSE(info);
 
         }
 
+        /// <summary>
+        /// BGM再生
+        /// BGM再生中にこの関数を呼ぶと上書きされます
+        /// BGMは1つしか再生できないので停止や一時停止する際は専用の関数使ってください
+        /// </summary>
+        /// <param name="me">オーディオソースをアタッチしたいオブジェクト</param>
+        /// <param name="bgm_name"></param>
+        public void PlayBGM(GameObject me, string bgm_name)
+        {
+            bgm_audiosource = me.GetComponent<AudioSource>();
+            
+            AudioSourceSetting(me,ref bgm_audiosource, false);
+
+            bgm_audiosource.clip = SearchBGM(bgm_name);
+
+            bgm_audiosource.Play();
+        }
+
+        /// <summary>
+        /// BGM停止要請
+        /// </summary>
+        public void StopBGM()
+        {
+            bgm_audiosource.Stop();
+        }
+
+        /// <summary>
+        /// BGM一時停止
+        /// </summary>
+        public void PauseBGM()
+        {
+            bgm_audiosource.Pause();
+        }
+
+        /// <summary>
+        /// BGM再開
+        /// </summary>
+        public void UnPauseBGM()
+        {
+            bgm_audiosource.UnPause();
+        }
+
+        /// <summary>
+        /// オーディオソースセティング
+        /// </summary>
+        /// <param name="me">オーディオソースをアタッチするオブジェクト</param>
+        /// <param name="source">これから設定するオーディオソース</param>
+        private void AudioSourceSetting(GameObject me, ref AudioSource source,bool sound_se)
+        {
+            if (source == null)
+            {
+                me.AddComponent<AudioSource>();
+
+                source = me.GetComponent<AudioSource>();
+            }
+            //2Dサウンド設定
+            source.spatialBlend = 0;
+
+
+            //起動時再生をfalseに
+            source.playOnAwake = false;
+
+
+            if (sound_se)
+                source.outputAudioMixerGroup = mixer_se;
+
+            else
+            {
+                source.outputAudioMixerGroup = mixer_bgm;
+
+                source.priority = 0;
+
+                source.loop = true;
+            }
+        }
+
+        /// <summary>
+        /// sound_info_listにスタック
+        /// </summary>
+        /// <param name="info"></param>
         private void SetList(AudioInfo info)
         {
             sound_info_list.Add(info);
             //play_queue.Enqueue(info);
         }
 
-        private AudioInfo SearchSE(string path,AudioSource source)
-        {
-            string sename = path.Replace("SE/", "");
 
-            foreach (var audio in clip)
+        /// <summary>
+        /// 指定されたSEを検索して返す
+        /// </summary>
+        /// <param name="se_name">探したいSEの名前</param>
+        /// <param name="source">オーディオソース</param>
+        /// <returns></returns>
+        private AudioInfo SearchSE(string se_name, AudioSource source)
+        {
+            if(se_name.IndexOf("SE")!=0)
             {
-                if (audio.name == sename)
+                Debug.Log("指定した定数はSEではないので再生できません");
+                return null;
+            }
+
+            string sename = se_name.Replace("SE/", "");
+
+            foreach (var target_sound in clip)
+            {
+                if (target_sound.name == sename)
                 {
-                    AudioInfo info = new AudioInfo(source, audio, audio.length, MAX_SAME_COUNT, MAX_SAME_SE_COUNT);
+                    AudioInfo info = new AudioInfo(source, target_sound, target_sound.length, MAX_SAME_COUNT, MAX_SAME_SE_COUNT);
                     return info;
                 }
             }
 
+            Debug.Log("指定したBGMはヒットしませんでした");
             return null;
         }
 
-        private void PlaySE(AudioInfo info)
+
+        /// <summary>
+        /// 指定されたBGMを検索して返す
+        /// </summary>
+        /// <param name="bgm_name">探したいBGMの名前</param>
+        /// <returns></returns>
+        private AudioClip SearchBGM(string bgm_name)
+        {
+            if(bgm_name.IndexOf("BGM")!=0)
+            {
+                Debug.Log("指定した定数はBGMではないので再生できません");
+                return null;
+            }
+
+            string bgmname = bgm_name.Replace("BGM/", "");
+
+            foreach (var target_sound in clip)
+            {
+                if (target_sound.name == bgmname)
+                {
+                    return target_sound;
+                }
+            }
+
+
+            Debug.Log("指定したBGMはヒットしませんでした");
+            return null;
+        }
+
+        /// <summary>
+        /// SE再生の予約
+        /// </summary>
+        /// <param name="info"></param>
+        private void ReservationSE(AudioInfo info)
         {
             //最大同時再生数より少なかったら再生
             if (sound_info_list.Count < MAX_SAME_SE_COUNT && SameSoundCheack(info))
             {
                 SetList(info);
 
-               
+
             }
             else
-            { 
+            {
                 SetList(info);
 
-                
+
 
                 AudioSource se = sound_info_list[0].source;
 
@@ -262,7 +432,7 @@ namespace FrontPerson.Manager
         }
 
         /// <summary>
-        /// 
+        /// 連続で同じSEが再生されそうかチェック
         /// </summary>
         /// <param name="info"></param>
         /// <returns></returns>
@@ -289,39 +459,6 @@ namespace FrontPerson.Manager
             return true;
         }
 
-        private void AudioSourceSetting(GameObject me,ref AudioSource source, bool sound_3d)
-        {
-            if (source == null)
-            {
-                me.AddComponent<AudioSource>();
-
-                source = me.GetComponent<AudioSource>();
-            }
-
-            if (sound_3d)
-            {
-                //3Dサウンド設定
-                source.spatialBlend = 1;
-
-                //距離減衰グラフ設定
-                source.rolloffMode = AudioRolloffMode.Linear;
-
-                //減衰距離設定
-                source.maxDistance = 50f;
-            }
-
-            else
-            {
-                //2Dサウンド設定
-                source.spatialBlend = 0;
-            }
-
-            //起動時再生をfalseに
-            source.playOnAwake = false;
-
-            source.outputAudioMixerGroup = mixer_se;
-            
-        }
 
         /// <summary>
         /// 同じフレームで重複したSEを削除
@@ -331,7 +468,7 @@ namespace FrontPerson.Manager
             AudioClip base_info = null;
             List<AudioInfo> leave_list = new List<AudioInfo>();
             int count = 0;
-            
+
             leave_list = sound_info_list;
             count = sound_info_list.Count;
 
@@ -348,9 +485,10 @@ namespace FrontPerson.Manager
                 count = leave_list.Count;
             }
 
-            sound_info_list=leave_list;
+            sound_info_list = leave_list;
 
         }
+
     }
 
     class AudioInfo
@@ -361,15 +499,15 @@ namespace FrontPerson.Manager
         public int max_se_num = 0;
         public int max_same_se_num = 0;
         public Dictionary<string, int> same_count = new Dictionary<string, int>();
-       
-        public AudioInfo(AudioSource source_,AudioClip clip_,float length_,int max_se_num_,int max_same_se_num_)
+
+        public AudioInfo(AudioSource source_, AudioClip clip_, float length_, int max_se_num_, int max_same_se_num_)
         {
             source = source_;
             clip = clip_;
             length = length_;
             max_se_num = max_se_num_;
             max_same_se_num = max_same_se_num_;
-            same_count.Add(clip.name,0);
+            same_count.Add(clip.name, 0);
         }
     }
 
