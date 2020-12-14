@@ -4,6 +4,7 @@ using UnityEngine;
 
 using FrontPerson.Weapon;
 using FrontPerson.Manager;
+using FrontPerson.Constants;
 
 namespace FrontPerson.Enemy
 {
@@ -47,6 +48,8 @@ namespace FrontPerson.Enemy
             {
                 // 弾の種類と足りないビタミンが違う
                 isHit = true;
+
+                AudioManager.Instance.Play3DSE(transform.position, SEPath.GAME_SE_VOICE_WOMAN);
             }
             else
             {
