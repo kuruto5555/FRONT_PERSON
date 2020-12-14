@@ -187,6 +187,7 @@ namespace FrontPerson.Weapon
             _lockOnTargetList.Remove(_lockOnTargetList.FirstOrDefault().Key);
             Instantiate(MuzzleFlash, Muzzle.transform);
 
+            _audioManager.Play3DSE(transform.position, SEPath.GAME_SE_FIRE_LANCHER);
         }
 
         private void UpdateLockOn()
@@ -262,7 +263,7 @@ namespace FrontPerson.Weapon
             _lockOnTarget = null;
 
             //ロックオンの音ならす
-            
+            _audioManager.Play3DSE(transform.position, SEPath.GAME_SE_LOCK_ON);
         }
 
         private void EnemyListUpdate()
