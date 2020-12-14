@@ -12,7 +12,7 @@ namespace FrontPerson
         // Start is called before the first frame update
         void Start()
         {
-            AudioManager.Instance.PlayBGM(gameObject, SEPath.GAME_BGM);
+            ////AudioManager.Instance.PlayBGM(gameObject, BGMPath.GAME_BGM);
         }
 
         // Update is called once per frame
@@ -35,11 +35,25 @@ namespace FrontPerson
                 AudioManager.Instance.Play3DSE(gameObject.transform.position, SEPath.COMMON_SE_DECISION);
             }
 
-            if(Input.GetKeyDown(KeyCode.U))
-            {
-                AudioManager.Instance.StopBGM();
+            //if(Input.GetKeyDown(KeyCode.U))
+            //{
+            //    AudioManager.Instance.StopBGM();
 
-            }
+            //}
+
+            //if(Input.GetKeyDown(KeyCode.J))
+            //{
+            //    AudioManager.Instance.PauseBGM();
+
+
+            //}
+
+            //if (Input.GetKeyDown(KeyCode.K))
+            //{
+            //    AudioManager.Instance.UnPauseBGM();
+
+
+            //}
 #endif
 
         }
