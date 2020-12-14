@@ -35,9 +35,7 @@ namespace FrontPerson.Weapon
             { 
                 float randX = Random.Range(-Angle, Angle);
                 float randY = Random.Range(-Angle, Angle);
-                Debug.Log(randX);
-                Debug.Log(randY);
-
+                
                 GameObject bullet = Instantiate(bullet_, Muzzle.transform.position, Muzzle.transform.rotation, null);
                 bullet.transform.Rotate(randX, randY, 0.0f, Space.Self);
             }
