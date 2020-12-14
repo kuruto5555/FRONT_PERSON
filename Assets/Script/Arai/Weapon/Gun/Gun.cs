@@ -62,7 +62,7 @@ namespace FrontPerson.Weapon
         public int Ammo {  get { return ammo_; }}
 
         /// <summary>
-        /// 
+        /// アニメーション中かどうか 初期値はtrue 武器は構えないと使えない
         /// </summary>
         protected bool _isAnimation = false;
 
@@ -133,6 +133,14 @@ namespace FrontPerson.Weapon
             if (ammo_ > MaxAmmo_) return;
 
             ammo_ = MaxAmmo_;
+        }
+
+        /// <summary>
+        /// アニメーションが終わった時に呼ぶ
+        /// </summary>
+        public void AnimationFinish()
+        {
+            _isAnimation = false;
         }
 
         private void OnDestroy()
