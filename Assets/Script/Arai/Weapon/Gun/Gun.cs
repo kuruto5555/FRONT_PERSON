@@ -61,6 +61,13 @@ namespace FrontPerson.Weapon
         /// </summary>
         public int Ammo {  get { return ammo_; }}
 
+        /// <summary>
+        /// アニメーション中かどうか 初期値はtrue 武器は構えないと使えない
+        /// </summary>
+        protected bool _isAnimation = false;
+
+        public bool IsAnimation { get { return _isAnimation; } }
+
         protected void Awake()
         {
             _bountyManager = BountyManager._instance;
@@ -97,6 +104,7 @@ namespace FrontPerson.Weapon
         {
             if (shotTime_ > 0.0f) return;
             if (ammo_ < 1) return;
+            //if (_isAnimation) return;
            
             Instantiate(bullet_, Muzzle.transform.position, Muzzle.transform.rotation, null);
             shotTime_ = 1.0f / rate_;
@@ -126,6 +134,14 @@ namespace FrontPerson.Weapon
             if (ammo_ > MaxAmmo_) return;
 
             ammo_ = MaxAmmo_;
+        }
+
+        /// <summary>
+        /// アニメーションが終わった時に呼ぶ
+        /// </summary>
+        public void AnimationFinish()
+        {
+            _isAnimation = false;
         }
 
         private void OnDestroy()

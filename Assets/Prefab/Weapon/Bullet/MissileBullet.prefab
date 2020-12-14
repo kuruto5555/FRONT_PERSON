@@ -121,7 +121,7 @@ MonoBehaviour:
   Radius_: 5
   Blast_: {fileID: 3724696068791601323, guid: 5f6337f466ce305498337605832898a3, type: 3}
   TurnSpeed_: 0.1
-  StartHeight_: 100
+  StartHeight_: 50
   Particle_: {fileID: 3768628226506098523}
 --- !u!135 &2230927747416365831
 SphereCollider:

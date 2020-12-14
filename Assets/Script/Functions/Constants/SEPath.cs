@@ -9,7 +9,6 @@ public static class SEPath
 	public const string COMMON_SE_BACK                             ="SE/Common_SE_Back";
 	public const string COMMON_SE_CURSOR                           ="SE/Common_SE_Cursor";
 	public const string COMMON_SE_DECISION                         ="SE/Common_SE_Decision";
-	public const string GAME_BGM                                   ="SE/Game_BGM";
 	public const string GAME_SE_DAMEGE                             ="SE/Game_SE_Damege";
 	public const string GAME_SE_DASH                               ="SE/Game_SE_Dash";
 	public const string GAME_SE_ENEMY_FINE                         ="SE/Game_SE_EnemyFine";

@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 using FrontPerson.Manager;
+using FrontPerson.Constants;
 
 namespace FrontPerson.UI
 {
@@ -35,17 +36,29 @@ namespace FrontPerson.UI
             }
 #endif
 
-            StartButton.onClick.AddListener( () => { SceneManager.Instance.SceneChange(Constants.SceneName.GAME_SCENE, FadeTime); });
+            StartButton.onClick.AddListener( () => { 
+                SceneManager.Instance.SceneChange(SceneName.GAME_SCENE, FadeTime);
+                DecisionSound();
+                });
 
-            OptionButton.onClick.AddListener(() => { return; });
+            OptionButton.onClick.AddListener(() => { DecisionSound(); });
 
             ExitButton.onClick.AddListener(() => {
+                DecisionSound();
 #if UNITY_EDITOR
                 UnityEditor.EditorApplication.isPlaying = false;
 #elif UNITY_STANDALONE
       UnityEngine.Application.Quit();
 #endif
             });
+        }
+
+        /// <summary>
+        /// 決定音の再生
+        /// </summary>
+        private void DecisionSound()
+        {
+            AudioManager.Instance.Play2DSE(gameObject, SEPath.COMMON_SE_DECISION);
         }
     }
 }
