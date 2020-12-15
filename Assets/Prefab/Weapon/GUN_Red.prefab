@@ -55,7 +55,6 @@ GameObject:
   - component: {fileID: 6949298900344038268}
   - component: {fileID: 5157793438037710774}
   - component: {fileID: 2832903219965202551}
-  - component: {fileID: 4854520405678937124}
   m_Layer: 0
   m_Name: GUN_Red
   m_TagString: Untagged
@@ -145,22 +144,3 @@ MonoBehaviour:
   MaxAmmo_: 10
   Reticle_: {fileID: 0}
   MuzzleFlash: {fileID: 0}
---- !u!95 &4854520405678937124
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6671191960964544099}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 45467d5a682bf0d4b85ddc7302da1e06, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0

@@ -303,11 +303,6 @@ namespace FrontPerson.Manager
 
         }
 
-        public void StopSE(string se_name)
-        {
-
-        }
-
         /// <summary>
         /// 一番最初に鳴らすBGMを再生
         /// BGM再生中にこの関数を呼ぶと上書きされます
