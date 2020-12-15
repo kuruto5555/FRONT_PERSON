@@ -5,10 +5,10 @@
 /// </summary>
 public static class SEPath
 {
+
 	public const string COMMON_SE_BACK          ="SE/Common_SE_Back";
 	public const string COMMON_SE_CURSOR        ="SE/Common_SE_Cursor";
 	public const string COMMON_SE_DECISION      ="SE/Common_SE_Decision";
-	public const string GAME_BGM                ="SE/Game_BGM";
 	public const string GAME_SE_COMBO           ="SE/Game_SE_Combo";
 	public const string GAME_SE_COUNTDOWN       ="SE/Game_SE_Countdown";
 	public const string GAME_SE_DAMEGE          ="SE/Game_SE_Damege";
@@ -43,7 +43,6 @@ public static class SEPath
 	public const string RESULT_SE_SCORE_SHOW2   ="SE/Result_SE_ScoreShow2";
 	public const string RESULT_SE_SHOW_RESULT   ="SE/Result_SE_ShowResult";
 	public const string TITLE_SE_START          ="SE/Title_SE_Start";
-
 
 }
 

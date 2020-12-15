@@ -106,6 +106,7 @@ GameObject:
   - component: {fileID: 1940112621107443796}
   - component: {fileID: 314042894532451198}
   - component: {fileID: 1203919612667063607}
+  - component: {fileID: 4811005815708435403}
   m_Layer: 5
   m_Name: Score
   m_TagString: Untagged
@@ -182,6 +183,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e9e16f40e4bb1154fa307b2595525067, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  combo_bonus_effect_time_: 5
-  fever_effect_time_: 15
-  bounty_manager_: {fileID: 0}
+  feverTimeUI_: {fileID: 0}
+--- !u!95 &4811005815708435403
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1203919612667063605}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 7dbe2e4bcf5c3d64ba81257f96eeba8c, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
