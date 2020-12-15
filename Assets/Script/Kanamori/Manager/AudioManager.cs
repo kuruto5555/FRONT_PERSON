@@ -153,7 +153,7 @@ namespace FrontPerson.Manager
 
         /// <summary>
         /// オーディオミキサーの最高音量
-        /// ここ変えれば100％の時の音量が変わる
+        /// ここ変えれば100％時の音量上限が変わる
         /// </summary>
         private float bgm_mixer_max_volume = 10f;
 
@@ -193,9 +193,7 @@ namespace FrontPerson.Manager
             mixer_se        = mixer.FindMatchingGroups("SE")[0];
             mixer_bgm       = mixer.FindMatchingGroups("BGM")[0];
 
-            
         }
-
 
         void Update()
         {
@@ -243,8 +241,6 @@ namespace FrontPerson.Manager
 
         void LateUpdate()
         {
-            
-
             SortingList();
 
             foreach (AudioInfo info in sound_info_list)
@@ -271,7 +267,6 @@ namespace FrontPerson.Manager
             
         }
 
-
         /// <summary>
         /// 2DSE再生要請
         /// </summary>
@@ -296,11 +291,20 @@ namespace FrontPerson.Manager
         /// <param name="se_name">再生させたいSE音源</param>
         public void Play3DSE(Vector3 set_pos, string se_name)
         {
-            AudioSource audiosource = Instantiate(audio_3D_prefab, set_pos, Quaternion.identity).GetComponent<AudioSource>();
+            GameObject audio_3d = Instantiate(audio_3D_prefab, set_pos, Quaternion.identity);
+
+            AudioSource audiosource = audio_3d.GetComponent<AudioSource>();
 
             AudioInfo info = SearchSE(se_name, audiosource);
 
+            info.obj = audio_3d;
+
             ReservationSE(info);
+
+        }
+
+        public void StopSE(string se_name)
+        {
 
         }
 
@@ -545,6 +549,7 @@ namespace FrontPerson.Manager
         public int max_se_num = 0;
         public int max_same_se_num = 0;
         public Dictionary<string, int> same_count = new Dictionary<string, int>();
+        public GameObject obj = null;
 
         public AudioInfo(AudioSource source_, AudioClip clip_, float length_, int max_se_num_, int max_same_se_num_)
         {
@@ -553,6 +558,7 @@ namespace FrontPerson.Manager
             length = length_;
             max_se_num = max_se_num_;
             max_same_se_num = max_same_se_num_;
+            obj = null;
         }
     }
 
