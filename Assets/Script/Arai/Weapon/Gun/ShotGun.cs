@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using FrontPerson.Constants;
 
 namespace FrontPerson.Weapon
 {
@@ -18,6 +19,7 @@ namespace FrontPerson.Weapon
         {
             base.Start();
             _type = Constants.WEAPON_TYPE.SHOT_GUN;
+            _shotSoundPath = SEPath.GAME_SE_FIRE_SHOTGUN;
         }
 
         // Update is called once per frame
@@ -44,6 +46,7 @@ namespace FrontPerson.Weapon
             ammo_--;
             _bountyManager.FireCount();
             Instantiate(MuzzleFlash, Muzzle.transform);
+            _audioManager.Play3DSE(transform.position, _shotSoundPath);
         }
     }
 }

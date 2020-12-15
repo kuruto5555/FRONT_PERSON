@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using FrontPerson.Constants;
 using FrontPerson.Character;
+using FrontPerson.Manager;
 
 namespace FrontPerson.Weapon {
 
@@ -14,11 +15,14 @@ namespace FrontPerson.Weapon {
 
         private int _nowLife = 0;
 
+        private AudioManager _audioManager;
+
         //private Bullet _bullet = null;
         // Start is called before the first frame update
         void Start()
         {
             _nowLife = 0;
+            _audioManager = AudioManager.Instance;
         }
 
         // Update is called once per frame
@@ -71,6 +75,8 @@ namespace FrontPerson.Weapon {
             if (other.gameObject.layer != LayerNumber.ENEMY) return;
 
             other.GetComponent<Character.Enemy>().HitBullet(_bullet);
+
+            //_audioManager.Play3DSE(transform.position, SEPath.GAME_SE_)
 
             //if (HitCheckEnemy(other))
             //{
