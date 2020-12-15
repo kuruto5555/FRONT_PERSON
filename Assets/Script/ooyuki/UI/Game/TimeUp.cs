@@ -1,4 +1,5 @@
-﻿using FrontPerson.Manager;
+﻿using FrontPerson.Constants;
+using FrontPerson.Manager;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -14,6 +15,12 @@ namespace FrontPerson.UI
         public void Finish()
         {
             IsFinissh = true;
+        }
+
+        public void PlaySe()
+        {
+            // サウンド再生
+            AudioManager.Instance.Play2DSE(gameObject, SEPath.GAME_SE_TIME_UP);
         }
 
         public void StopCombo_AND_Fever_()
