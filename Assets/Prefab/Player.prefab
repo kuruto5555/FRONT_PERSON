@@ -89,6 +89,7 @@ MonoBehaviour:
   gunR_: {fileID: 3359392782031868817}
   gunL_: {fileID: 5652042479663759200}
   searchArea: {fileID: 4960959426141481895}
+  DashSoundRate: 0.3
 --- !u!208 &2393630823986044895
 NavMeshObstacle:
   m_ObjectHideFlags: 0
