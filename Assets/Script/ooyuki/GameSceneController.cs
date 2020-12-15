@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using FrontPerson.UI;
 using FrontPerson.Constants;
+using UnityEngine.SocialPlatforms.Impl;
 
 namespace FrontPerson.Manager
 {
@@ -65,6 +66,7 @@ namespace FrontPerson.Manager
         ComboManager comboManager_ = null;
 
 
+
         // Start is called before the first frame update
         void Start()
         {
@@ -91,6 +93,9 @@ namespace FrontPerson.Manager
 
             // コンボマネージャー取得
             comboManager_ = ComboManager.Instance;
+
+            // BGM再生
+            AudioManager.Instance.PlayBGM(gameObject, BGMPath.GAME_BGM_MAIN);
 
             // ステートを操作説明にする
             state_ = GAME_SCENE_STATE.TUTORIAL1;
@@ -157,7 +162,13 @@ namespace FrontPerson.Manager
                 countdown_.transform.root.gameObject.SetActive(true);
                 timer_.transform.root.gameObject.SetActive(true);
 
-                // ステート切り替え
+                // UI登場アニメーション再生
+                FindObjectOfType<UI_MissionDraw>().gameObject.GetComponent<Animator>().Play("BountyManagerUI_IN");
+                FindObjectOfType<Timer>().gameObject.GetComponent<Animator>().Play("TimerUI_IN");
+                FindObjectOfType<ScoreManager>().gameObject.GetComponent<Animator>().Play("ScoreUI_IN");
+
+                
+                // ステートをカウントダウンに切り替え
                 state_ = GAME_SCENE_STATE.START_COUNT_DOWN;
             }
         }

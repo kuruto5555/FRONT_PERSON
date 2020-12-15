@@ -151,13 +151,26 @@ namespace FrontPerson.Manager
         /// </summary>
         private bool fade_out = false;
 
+        /// <summary>
+        /// オーディオミキサーの最高音量
+        /// </summary>
+        private float bgm_mixer_max_volume = 10f;
+
+        /// <summary>
+        /// オーディオミキサーの最低音量(db表示)
+        /// </summary>
+        private const float bgm_mixer_min_volume = 80f; 
+
+        /// <summary>
+        /// BGMフェード完了時間
+        /// </summary>
+        private const float FADE_FINISH_SECOND = 1f;
 
         public void Init()
         {
             // セーブデータができたら修正
             audio_volume_ = new AudioVolume();
         }
-
 
         // Start is called before the first frame update
         void Start()
@@ -175,46 +188,59 @@ namespace FrontPerson.Manager
             audio_3D_prefab = Resources.Load<GameObject>("3DAudio");
 
             mixer = Resources.Load<AudioMixer>("AudioMix");
-            mixer_master = mixer.FindMatchingGroups("Master")[0];
-            mixer_se = mixer.FindMatchingGroups("Master")[1];
-            mixer_bgm = mixer.FindMatchingGroups("Master")[3];
+            mixer_master    = mixer.FindMatchingGroups("Master")[0];
+            mixer_se        = mixer.FindMatchingGroups("SE")[0];
+            mixer_bgm       = mixer.FindMatchingGroups("BGM")[0];
         }
 
 
         void Update()
         {
 
-            //bgm_audiosource.volume = DEFAULT_SOUND_VOLUME * AudioManager.Instance.audio_volume_.BGMVolume;
+            bgm_audiosource.volume = DEFAULT_SOUND_VOLUME * AudioManager.Instance.audio_volume_.BGMVolume;
 
-        }
-
-        void LateUpdate()
-        {
-            if(fade_in)
-            {
-                float i = 0f; 
-                mixer_bgm.audioMixer.GetFloat("BGM", out i);
-
-                for (; i > -80f; i -= 0.1f)
-                {
-                    mixer_bgm.audioMixer.SetFloat("BGM", i);
-                }
-
-                fade_in = false;
-            }
 
             if (fade_out)
             {
                 float i = 0f;
+
                 mixer_bgm.audioMixer.GetFloat("BGM", out i);
 
-                for (; i < 0f; i += 0.1f)
+                mixer.SetFloat("BGM", i + ((bgm_mixer_min_volume - bgm_mixer_max_volume) / FADE_FINISH_SECOND) * Time.deltaTime);
+
+                i += 0f;
+
+                if (i >= -bgm_mixer_max_volume)
                 {
-                    mixer_bgm.audioMixer.SetFloat("BGM", i);
+                    fade_out = false;
+                }
+            }
+
+            if (fade_in)
+            {
+                float i = 0f;
+
+                mixer_bgm.audioMixer.GetFloat("BGM", out i);
+
+                mixer.SetFloat("BGM", i + ((bgm_mixer_max_volume - bgm_mixer_min_volume) / FADE_FINISH_SECOND) * Time.deltaTime);
+
+
+                if (i < -bgm_mixer_min_volume)
+                {
+                    bgm_audiosource.Stop();
+                    fade_in = false;
                 }
 
-                fade_out = false;
             }
+
+            Debug.Log(mixer_master);
+            Debug.Log(mixer_se);
+            Debug.Log(mixer_bgm);
+        }
+
+        void LateUpdate()
+        {
+            
 
             SortingList();
 
@@ -276,9 +302,9 @@ namespace FrontPerson.Manager
         }
 
         /// <summary>
-        /// BGM再生
+        /// 一番最初に鳴らすBGMを再生
         /// BGM再生中にこの関数を呼ぶと上書きされます
-        /// BGMは1つしか再生できないので停止や一時停止する際は専用の関数使ってください
+        /// BGMは1つしか再生できないので停止や一時停止をする際は専用の関数使ってください
         /// </summary>
         /// <param name="me">オーディオソースをアタッチしたいオブジェクト</param>
         /// <param name="bgm_name"></param>
@@ -287,12 +313,13 @@ namespace FrontPerson.Manager
             fade_out = true;
 
             bgm_audiosource = me.GetComponent<AudioSource>();
-            
-            AudioSourceSetting(me,ref bgm_audiosource, false);
+
+            AudioSourceSetting(me, ref bgm_audiosource, false);
 
             bgm_audiosource.clip = SearchBGM(bgm_name);
 
             bgm_audiosource.Play();
+            
         }
 
         /// <summary>
@@ -301,7 +328,6 @@ namespace FrontPerson.Manager
         public void StopBGM()
         {
             fade_in = true;
-            bgm_audiosource.Stop();
         }
 
         /// <summary>

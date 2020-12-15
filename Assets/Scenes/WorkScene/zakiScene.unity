@@ -821,7 +821,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 370611611}
-  - component: {fileID: 370611610}
   - component: {fileID: 370611612}
   m_Layer: 0
   m_Name: GameObject
@@ -830,18 +829,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &370611610
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 370611609}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: afa72603c5ca05a46b5c662587507a4b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!4 &370611611
 Transform:
   m_ObjectHideFlags: 0
@@ -1566,6 +1553,49 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1460772997}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &596597348
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 596597350}
+  - component: {fileID: 596597349}
+  m_Layer: 0
+  m_Name: GameObject (1)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &596597349
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 596597348}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: afa72603c5ca05a46b5c662587507a4b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &596597350
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 596597348}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 4.8336763, y: -15.821807, z: 28.397537}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 22
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &596757544 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6968342322128123073, guid: cd9edc7087627fc4bbe2ba98eb9c9d48,
