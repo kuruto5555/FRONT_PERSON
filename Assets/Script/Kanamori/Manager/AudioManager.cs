@@ -153,6 +153,7 @@ namespace FrontPerson.Manager
 
         /// <summary>
         /// オーディオミキサーの最高音量
+        /// ここ変えれば100％の時の音量が変わる
         /// </summary>
         private float bgm_mixer_max_volume = 10f;
 
@@ -164,7 +165,7 @@ namespace FrontPerson.Manager
         /// <summary>
         /// BGMフェード完了時間
         /// </summary>
-        private const float FADE_FINISH_SECOND = 1f;
+        private  float fade_time = 1f;
 
         public void Init()
         {
@@ -191,6 +192,8 @@ namespace FrontPerson.Manager
             mixer_master    = mixer.FindMatchingGroups("Master")[0];
             mixer_se        = mixer.FindMatchingGroups("SE")[0];
             mixer_bgm       = mixer.FindMatchingGroups("BGM")[0];
+
+            
         }
 
 
@@ -206,7 +209,7 @@ namespace FrontPerson.Manager
 
                 mixer_bgm.audioMixer.GetFloat("BGM", out i);
 
-                mixer.SetFloat("BGM", i + ((bgm_mixer_min_volume - bgm_mixer_max_volume) / FADE_FINISH_SECOND) * Time.deltaTime);
+                mixer.SetFloat("BGM", i + ((bgm_mixer_min_volume - bgm_mixer_max_volume) / fade_time) * Time.deltaTime);
 
                 i += 0f;
 
@@ -222,7 +225,7 @@ namespace FrontPerson.Manager
 
                 mixer_bgm.audioMixer.GetFloat("BGM", out i);
 
-                mixer.SetFloat("BGM", i + ((bgm_mixer_max_volume - bgm_mixer_min_volume) / FADE_FINISH_SECOND) * Time.deltaTime);
+                mixer.SetFloat("BGM", i + ((bgm_mixer_max_volume - bgm_mixer_min_volume) / fade_time) * Time.deltaTime);
 
 
                 if (i < -bgm_mixer_min_volume)
@@ -308,7 +311,7 @@ namespace FrontPerson.Manager
         /// </summary>
         /// <param name="me">オーディオソースをアタッチしたいオブジェクト</param>
         /// <param name="bgm_name"></param>
-        public void PlayBGM(GameObject me, string bgm_name)
+        public void PlayBGM(GameObject me, string bgm_name,float fade_time_)
         {
             fade_out = true;
 
@@ -317,6 +320,8 @@ namespace FrontPerson.Manager
             AudioSourceSetting(me, ref bgm_audiosource, false);
 
             bgm_audiosource.clip = SearchBGM(bgm_name);
+
+            fade_time = fade_time_;
 
             bgm_audiosource.Play();
             
