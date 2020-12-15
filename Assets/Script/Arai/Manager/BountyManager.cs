@@ -221,7 +221,6 @@ namespace FrontPerson.Manager
         /// </summary>
         private void MissionMonitoring()
         {
-            //*
             for(int i = 0 ; i<MissionList.Count; i++ )
             {
                 var mission = MissionList[i];
@@ -230,7 +229,7 @@ namespace FrontPerson.Manager
                 if (mission.IsCrear)
                 {
                     //スコア加算
-                    ScoreManager.Instance.AddScore((int)mission.GetScore, FrontPerson.Score.ReasonForAddition.Bounty);
+                    ScoreManager.Instance.AddScore((int)mission.GetScore, Score.ADD_SCORE_TYPE.BOUNTY_SCORE);
 
                     _missionCnt++;
 
@@ -247,34 +246,6 @@ namespace FrontPerson.Manager
                 // クリアしたほうは消す
                 mission.ImDie();
             }
-            /*/
-            int i = 0;
-            foreach (var it in MissionList)
-            {
-                if (it.IsFinish)
-                {
-                    if (it.IsCrear)
-                    {
-                        //スコア加算
-                        ScoreManager.Instance.AddScore((int)it.GetScore, FrontPerson.Score.ReasonForAddition.Bounty);
-
-                        _missionCnt++;
-
-                        //ミッションクリア数が３つになったら
-                        if (_missionCnt >= 3)
-                        {
-                            //武器を出す
-                            _player.WeaponUpgrade(Random.Range(0, SpecialWeaponManager._instance._weaponNum));
-                            _missionCnt = 0;
-                        }
-                    }
-                    var mission = MissionList[i];
-                    MissionList[i] = Instantiate(MissionPrefabList[Random.Range(0, _missionNum)], transform).GetComponent<Bounty.Bounty>();
-                    Destroy(mission);
-                }
-                i++;
-            }
-            //*/
         }
     }
 }

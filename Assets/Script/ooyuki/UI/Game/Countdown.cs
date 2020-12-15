@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using FrontPerson.Manager;
+using FrontPerson.Constants;
 
 
 namespace FrontPerson.UI
@@ -20,14 +22,11 @@ namespace FrontPerson.UI
         [SerializeField]
         List<string> texts_ = null;
 
-
-
         /// <summary>
         /// カウントダウンが終了したかどうか
         /// </summary>
         [System.NonSerialized]
         public bool IsCountdownFinish = false;
-
 
 
         /// <summary>
@@ -39,7 +38,10 @@ namespace FrontPerson.UI
         void Start()
         {
             index_ = 0;
+            AudioManager.Instance.Play2DSE(gameObject, SEPath.GAME_SE_COUNTDOWN);
         }
+
+
 
         public void ChangeText()
         {
@@ -53,5 +55,7 @@ namespace FrontPerson.UI
             text_.text = texts_[index_];
             index_++;
         }
+
+        
     }
 }

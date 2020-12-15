@@ -61,19 +61,30 @@ namespace FrontPerson.Weapon
         /// </summary>
         public int Ammo {  get { return ammo_; }}
 
+        /// <summary>
+        /// アニメーション中かどうか 初期値はtrue 武器は構えないと使えない
+        /// </summary>
+        protected bool _isAnimation = false;
+
+        public bool IsAnimation { get { return _isAnimation; } }
+
+        protected AudioManager _audioManager = null;
+
+        protected void Awake()
+        {
+            _bountyManager = BountyManager._instance;
+            _canvas = GameObject.Find("WeaponCanvas");
+            
+        }
+
         // Start is called before the first frame update
         protected void Start()
         {
             ammo_ = MaxAmmo_;
             shotTime_ = 0.0f;
-            _bountyManager = BountyManager._instance;
-            _canvas = GameObject.Find("WeaponCanvas");
 
-            if(Reticle_ != null)
-            {
-                _reticle = Instantiate(Reticle_, _canvas.transform);
-            }
-            
+            _bountyManager = BountyManager._instance;
+            _audioManager = AudioManager.Instance;
         }
 
         // Update is called once per frame
@@ -97,12 +108,13 @@ namespace FrontPerson.Weapon
         {
             if (shotTime_ > 0.0f) return;
             if (ammo_ < 1) return;
+            //if (_isAnimation) return;
            
             Instantiate(bullet_, Muzzle.transform.position, Muzzle.transform.rotation, null);
             shotTime_ = 1.0f / rate_;
             ammo_--;
             _bountyManager.FireCount();
-            Instantiate(MuzzleFlash,  Muzzle.transform.position, Quaternion.identity, transform);
+            Instantiate(MuzzleFlash, Muzzle.transform);
         }
 
         /// <summary>
@@ -128,11 +140,39 @@ namespace FrontPerson.Weapon
             ammo_ = MaxAmmo_;
         }
 
+        public virtual void FireSound()
+        {
+
+        }
+
+        /// <summary>
+        /// アニメーションが終わった時に呼ぶ
+        /// </summary>
+        public void AnimationFinish()
+        {
+            _isAnimation = false;
+        }
+
         private void OnDestroy()
         {
             if (_reticle == null) return;
 
             Destroy(_reticle);
+        }
+
+        private void OnDisable()
+        {
+            if (_reticle == null) return;
+
+            Destroy(_reticle);
+        }
+
+        private void OnEnable()
+        {
+            if (Reticle_ != null)
+            {
+                _reticle = Instantiate(Reticle_, _canvas.transform);
+            }
         }
     }
 

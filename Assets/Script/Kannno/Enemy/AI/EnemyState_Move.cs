@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
+using FrontPerson.Manager;
+using FrontPerson.Constants;
+
 namespace FrontPerson.Enemy.AI
 {
     public class EnemyState_Move : EnemyState_AI
@@ -134,6 +137,8 @@ namespace FrontPerson.Enemy.AI
                 var ai = Owner.state_AI as EnemyState_Close;
 
                 ai.Goal = Player.transform;
+
+                AudioManager.Instance.Play3DSE(Owner.transform.position, SEPath.GAME_SE_VOICE_YAKUZA);
             }
         }
     }

@@ -11,7 +11,7 @@ namespace FrontPerson.Weapon
         [SerializeField, Range(0, 20)] int PelletNum = 12;
 
         [Header("弾の拡散角度")]
-        [SerializeField, Range(0.0f, 30.0f)] float Angle = 0.0f;
+        [SerializeField, Range(0.0f, 10.0f)] float Angle = 0.0f;
 
         // Start is called before the first frame update
         void Start()
@@ -39,13 +39,13 @@ namespace FrontPerson.Weapon
                 Debug.Log(randY);
 
                 GameObject bullet = Instantiate(bullet_, Muzzle.transform.position, Muzzle.transform.rotation, null);
-                bullet.transform.Rotate(randX, randY, 0.0f, Space.World);
+                bullet.transform.Rotate(randX, randY, 0.0f, Space.Self);
             }
             
             shotTime_ = 1.0f / rate_;
             ammo_--;
             _bountyManager.FireCount();
-            Instantiate(MuzzleFlash, Muzzle.transform.position, Quaternion.identity, transform);
+            Instantiate(MuzzleFlash, Muzzle.transform);
         }
     }
 }

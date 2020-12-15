@@ -9,6 +9,10 @@ namespace FrontPerson.Item
     // コンボ加算アイテム
     public class ComboAdditionPickup : MonoBehaviour
     {
+        [Header("加算するコンボ数")]
+        [SerializeField, Range(1, 9)]
+        int addComboNum_ = 5;
+
         private Pickup pickup_;
 
         // Start is called before the first frame update
@@ -23,9 +27,7 @@ namespace FrontPerson.Item
             pickup_.PlayPickupFeedback();
 
             // コンボ追加(５追加)
-            ScoreManager.Instance.AddComboBonus(5);
-            // コンボボーナス開始
-            ScoreManager.Instance.StartComboBonus();
+            ComboManager.Instance.AddCombo(addComboNum_, ADD_COMBO_TYPE.ITEM);
         }
     }
 }

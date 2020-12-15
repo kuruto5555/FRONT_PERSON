@@ -4,6 +4,8 @@ using UnityEngine;
 using UnityEngine.UI;
 
 using FrontPerson.Manager;
+using FrontPerson.Constants;
+using UnityEngine.EventSystems;
 
 namespace FrontPerson.UI
 {
@@ -25,6 +27,15 @@ namespace FrontPerson.UI
         [SerializeField]
         private float FadeTime = 0f;
 
+        /// <summary>
+        /// イベントシステム
+        /// </summary>
+        private EventSystem event_system = null;
+
+        private AudioManager audio_manager = null;
+
+        private GameObject current_buttom = null;
+
         void Start()
         {
 #if UNITY_EDITOR
@@ -34,18 +45,46 @@ namespace FrontPerson.UI
                 return;
             }
 #endif
+            StartButton.onClick.AddListener( () => { 
+                SceneManager.Instance.SceneChange(SceneName.GAME_SCENE, FadeTime);
+                DecisionSound();
+                });
 
-            StartButton.onClick.AddListener( () => { SceneManager.Instance.SceneChange(Constants.SceneName.GAME_SCENE, FadeTime); });
-
-            OptionButton.onClick.AddListener(() => { return; });
+            OptionButton.onClick.AddListener(() => { DecisionSound(); });
 
             ExitButton.onClick.AddListener(() => {
+                DecisionSound();
 #if UNITY_EDITOR
                 UnityEditor.EditorApplication.isPlaying = false;
 #elif UNITY_STANDALONE
       UnityEngine.Application.Quit();
 #endif
             });
+
+            current_buttom = StartButton.gameObject;
+
+            event_system = EventSystem.current;
+
+            audio_manager = AudioManager.Instance;
+        }
+
+        private void Update()
+        {
+            // 選択しているものが違う
+            if (event_system.currentSelectedGameObject != current_buttom)
+            {
+                current_buttom = event_system.currentSelectedGameObject;
+
+                audio_manager.Play2DSE(gameObject, SEPath.COMMON_SE_CURSOR);
+            }
+        }
+
+        /// <summary>
+        /// 決定音の再生
+        /// </summary>
+        private void DecisionSound()
+        {
+            audio_manager.Play2DSE(gameObject, SEPath.COMMON_SE_DECISION);
         }
     }
 }

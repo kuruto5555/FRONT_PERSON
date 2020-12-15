@@ -35,7 +35,7 @@ public class UI_Combo : MonoBehaviour
     /// <summary>
     /// スコアマネージャー
     /// </summary>
-    ScoreManager scoreManager_ = null;
+    ComboManager comboManager_ = null;
 
     /// <summary>
     /// コンボ数のテキストの輪郭
@@ -48,11 +48,6 @@ public class UI_Combo : MonoBehaviour
     int comboNum_ = 0;
 
     /// <summary>
-    /// コンボ数の前フレーム
-    /// </summary>
-    int comboNumPrev_ = 0;
-
-    /// <summary>
     /// コンボのアイコンの種類
     /// </summary>
     int comboIconType_ = 0;
@@ -61,60 +56,60 @@ public class UI_Combo : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        comboNumPrev_ = comboNum_ = 0;
+        comboNum_ = 0;
         comboIconType_ = 0;
-        
-        scoreManager_ = ScoreManager.Instance;
+
+        comboManager_ = ComboManager.Instance;
         comboNumTextOutline_ = comboNumText_.GetComponent<Outline>();
 
+        SetTextComboNum();
         SetColor();
 
-        SetComboNum();
     }
+
 
     // Update is called once per frame
     void Update()
     {
-        SetComboNum();
-        SetComboTimeLimitGauge();
+        UpdateComboTimeLimitGauge();
+
+        // コンボ数が0なら無効にする
+        if(comboManager_.ComboNum <= 0)
+        {
+            ComboUI_Reset();
+        }
+    }
+
+
+    public void SetComboNum()
+    {
+        SetTextComboNum();
+        SetColor();
+        UpdateComboTimeLimitGauge();
+        gameObject.SetActive(true);
     }
 
 
     /// <summary>
     /// コンボ数をテキストにセット
     /// </summary>
-    void SetComboNum()
+    void SetTextComboNum()
     {
-        comboNumPrev_ = comboNum_;
-        comboNum_ = scoreManager_.ComboNum;
+        comboNum_ = comboManager_.ComboNum;
         comboNumText_.text = comboNum_.ToString();
-
-
-        // コンボ数が前フレームのほうが大きかったらそれはきっとコンボが途切れてる
-        if(comboNumPrev_ > comboNum_)
-        {
-            ComboUI_Reset();
-        }
-
-        // コンボの色変更
-        if(comboNum_ >= iconChengeValueList_[comboIconType_] && comboIconType_ <= iconImageList_.Count)
-        {
-            comboIconType_++;
-            SetColor();
-        }
     }
 
 
     /// <summary>
-    /// コンボの更新時間ゲージのアップデート
+    /// コンボの継続時間ゲージの更新
     /// </summary>
-    void SetComboTimeLimitGauge()
+    void UpdateComboTimeLimitGauge()
     {
-        if (comboNum_ == 0) return;
+        if (comboNum_ <= 0) return;
 
-        comboTimeLimitGauge_.rectTransform.anchorMin =
-            new Vector2(1.0f - (scoreManager_.ComboBonusTimer / scoreManager_.ComboBonusEffectTime),
-                        comboTimeLimitGauge_.rectTransform.anchorMin.y );
+        comboTimeLimitGauge_.rectTransform.anchorMax =
+            new Vector2((comboManager_.ComboRemainingTime / comboManager_.ComboDuration),
+                        comboTimeLimitGauge_.rectTransform.anchorMax.y );
     }
 
 
@@ -123,16 +118,22 @@ public class UI_Combo : MonoBehaviour
     /// </summary>
     private void ComboUI_Reset()
     {
-        comboNum_ = comboNumPrev_ = 0;
+        comboNum_ = 0;
+        comboNumText_.text = "0".ToString();
         comboIconType_ = 0;
         SetColor();
-        comboTimeLimitGauge_.rectTransform.anchorMin = new Vector2(1.0f, comboTimeLimitGauge_.rectTransform.anchorMin.y);
+        comboTimeLimitGauge_.rectTransform.anchorMax = new Vector2(1.0f, comboTimeLimitGauge_.rectTransform.anchorMax.y);
+        gameObject.SetActive(false);
     }
 
 
     private void SetColor()
     {
+        if (comboIconType_ >= iconImageList_.Count) return;
+        if (comboNum_ < iconChengeValueList_[comboIconType_]) return;
+
         comboIcon_.sprite = iconImageList_[comboIconType_];
         comboNumTextOutline_.effectColor = comboNumTextColorList_[comboIconType_];
+        comboIconType_++;
     }
 }

@@ -25,8 +25,11 @@ namespace FrontPerson.Weapon
             {
                 Destroy(gameObject);
             }
-            
+
+            //アニメーション開始
+            //_isAnimation = true;
         }
+
         /// <summary>
         /// 強制的に武器変更
         /// </summary>
