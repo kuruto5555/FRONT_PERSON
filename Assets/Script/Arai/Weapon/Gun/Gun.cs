@@ -70,6 +70,8 @@ namespace FrontPerson.Weapon
 
         protected AudioManager _audioManager = null;
 
+        protected string _shotSoundPath;
+
         protected void Awake()
         {
             _bountyManager = BountyManager._instance;
@@ -107,7 +109,15 @@ namespace FrontPerson.Weapon
         public virtual void Shot()
         {
             if (shotTime_ > 0.0f) return;
-            if (ammo_ < 1) return;
+
+            //弾切れ処理
+            if (ammo_ < 1) 
+            {
+                _audioManager.Play3DSE(transform.position, SEPath.GAME_SE_NO_AMMO);
+                shotTime_ = 1.0f / rate_;
+                return;
+            }
+            
             //if (_isAnimation) return;
            
             Instantiate(bullet_, Muzzle.transform.position, Muzzle.transform.rotation, null);
@@ -115,6 +125,7 @@ namespace FrontPerson.Weapon
             ammo_--;
             _bountyManager.FireCount();
             Instantiate(MuzzleFlash, Muzzle.transform);
+            _audioManager.Play3DSE(transform.position, _shotSoundPath);
         }
 
         /// <summary>
