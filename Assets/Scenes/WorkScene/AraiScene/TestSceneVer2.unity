@@ -4713,22 +4713,37 @@ PrefabInstance:
     - target: {fileID: 7869129166089239699, guid: b83719008a53ace48bf3a8eb74b3f348,
         type: 3}
       propertyPath: Max_OrdinaryPeople
-      value: 191
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7869129166089239699, guid: b83719008a53ace48bf3a8eb74b3f348,
         type: 3}
       propertyPath: Max_OldBattleaxe
-      value: 238
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 7869129166089239699, guid: b83719008a53ace48bf3a8eb74b3f348,
         type: 3}
       propertyPath: Max_Yakuza
-      value: 250
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7869129166089239699, guid: b83719008a53ace48bf3a8eb74b3f348,
         type: 3}
       propertyPath: time
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7869129166089239699, guid: b83719008a53ace48bf3a8eb74b3f348,
+        type: 3}
+      propertyPath: Probability_OrdinaryPeople
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7869129166089239699, guid: b83719008a53ace48bf3a8eb74b3f348,
+        type: 3}
+      propertyPath: Probability_OldBattleaxe
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7869129166089239699, guid: b83719008a53ace48bf3a8eb74b3f348,
+        type: 3}
+      propertyPath: Probability_Yakuza
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b83719008a53ace48bf3a8eb74b3f348, type: 3}

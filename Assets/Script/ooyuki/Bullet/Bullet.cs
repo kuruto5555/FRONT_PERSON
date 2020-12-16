@@ -3,6 +3,7 @@ using FrontPerson.Constants;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using FrontPerson.Manager;
 
 
 namespace FrontPerson.Weapon
@@ -26,7 +27,9 @@ namespace FrontPerson.Weapon
         GameObject splashParticle_ = null;
 
         [Header("有効射程")]
-        [SerializeField, Range(50.0f, 100.0f)] float _range = 50.0f; 
+        [SerializeField, Range(50.0f, 100.0f)] float _range = 50.0f;
+
+        private AudioManager _audioManager = null;
 
         /// <summary>
         /// 生成された位置
@@ -51,6 +54,7 @@ namespace FrontPerson.Weapon
         protected void Start()
         {
             prevPos_ = initPos_ = transform.position;
+            _audioManager = AudioManager.Instance;
         }
 
         protected void Update()
@@ -101,6 +105,7 @@ namespace FrontPerson.Weapon
             if (HitCheck(out hit))
             {
                 Instantiate(splashParticle_, hit.point, Quaternion.identity);
+                //_audioManager.Play3DSE(transform. position, SEPath.);
                 Destroy(gameObject);
             }
         }

@@ -54,6 +54,10 @@ namespace FrontPerson.Character
         [SerializeField]
         Skill.SearchArea searchArea = null;
 
+        [Header("足音鳴らす間隔")]
+        [SerializeField, Range(0.1f, 1.0f)]
+        float DashSoundRate = 1.0f;
+
         /// <summary>
         /// スペシャル武器
         /// </summary>
@@ -173,6 +177,16 @@ namespace FrontPerson.Character
         /// 透明化アイテムの時間
         /// </summary>
         float _invicibleItemTime = 0.0f;
+
+        /// <summary>
+        /// 足音を鳴らす間隔
+        /// </summary>
+        float _nowDashSoundRate = 0.0f;
+
+
+        
+
+        AudioManager _audioManager = null;
 
 
         /*---- プロパティ ----*/
@@ -310,6 +324,10 @@ namespace FrontPerson.Character
 
             _appManager = GameObject.FindGameObjectWithTag(TagName.MANAGER).GetComponent<ApplicationManager>();
             if (_appManager == null) Debug.Log("GameSceneController");
+
+            _nowDashSoundRate = 1.0f;
+
+            _audioManager = AudioManager.Instance;
         }
 
         // Update is called once per frame
@@ -373,7 +391,7 @@ namespace FrontPerson.Character
             direction += Input.GetAxisRaw(Constants.InputName.HORIZONTAL) * transform.right;
             direction += Input.GetAxisRaw(Constants.InputName.VERTICAL) * transform.forward;
 
-            position_ += direction * moveSpeed_* _addSpeed * Time.deltaTime;
+            position_ += direction.normalized * moveSpeed_* _addSpeed * Time.deltaTime;
         }
 
         /// <summary>
@@ -387,6 +405,14 @@ namespace FrontPerson.Character
             if (Input.GetButton(Constants.InputName.DASH))
             {
                 moveSpeed_ = runSpeed_;
+
+                _nowDashSoundRate += Time.deltaTime;
+
+                if (_nowDashSoundRate > DashSoundRate)
+                {
+                    _audioManager.Play3DSE(Position, SEPath.GAME_SE_DASH);
+                    _nowDashSoundRate = 0;
+                }
             }
             else
             {
@@ -408,6 +434,8 @@ namespace FrontPerson.Character
                     _isJump = true;
                     _jumpForce = jumpPower;
                     position_ += transform.up * _jumpForce * Time.deltaTime;
+
+                    _audioManager.Play3DSE(Position, SEPath.GAME_SE_JUMP);
                 }
             }
 
@@ -566,6 +594,7 @@ namespace FrontPerson.Character
             {
                 isSearch_ = true;
                 searchArea.Search();
+                _audioManager.Play3DSE(Position, SEPath.GAME_SE_SCAN);
             }
             else
             {
@@ -596,6 +625,8 @@ namespace FrontPerson.Character
 
                 //無敵開始
                 _isInvincible = true;
+
+                //ぴよぴよ音止める処理欲しい
             }
             
         }
@@ -608,6 +639,8 @@ namespace FrontPerson.Character
             if (_itemStatusFlag.HasFlag(ITEM_STATUS.INVICIBLE)) return;
             _isStun = true;
             _bountyManager.PlayerDamage();
+            _audioManager.Play3DSE(Position, SEPath.GAME_SE_STUN);
+            _audioManager.Play3DSE(Position, SEPath.GAME_SE_DAMEGE);
         }
 
         /// <summary>
@@ -756,21 +789,21 @@ namespace FrontPerson.Character
             _isWeaponChangeAnimation = false;
         }
 
-        //public void PickUpItem(ITEM_STATUS type, int time)
-        //{
-        //    switch (type)
-        //    {
-        //        case ITEM_STATUS.INVICIBLE:
-        //
-        //            break;
-        //
-        //        case ITEM_STATUS.FEVER:
-        //            break;
-        //
-        //        case ITEM_STATUS.SPEED_UP:
-        //            break;
-        //    }
-        //}
+        public void PickUpItem(ITEM_STATUS type, int time, float value)
+        {
+            switch (type)
+            {
+                case ITEM_STATUS.INVICIBLE:
+        
+                    break;
+        
+                case ITEM_STATUS.FEVER:
+                    break;
+        
+                case ITEM_STATUS.SPEED_UP:
+                    break;
+            }
+        }
 
         /// <summary>
         /// 速度上昇アイテムを取得した時呼ぶ

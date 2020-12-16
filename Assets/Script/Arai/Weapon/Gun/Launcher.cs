@@ -131,6 +131,8 @@ namespace FrontPerson.Weapon
             _targetCamera = Camera.main;
 
             _canvas = GameObject.Find("WeaponCanvas");
+
+            _shotSoundPath = SEPath.GAME_SE_FIRE_LANCHER;
         }
 
         // Update is called once per frame
@@ -187,7 +189,7 @@ namespace FrontPerson.Weapon
             _lockOnTargetList.Remove(_lockOnTargetList.FirstOrDefault().Key);
             Instantiate(MuzzleFlash, Muzzle.transform);
 
-            _audioManager.Play3DSE(transform.position, SEPath.GAME_SE_FIRE_LANCHER);
+            _audioManager.Play3DSE(transform.position, _shotSoundPath);
         }
 
         private void UpdateLockOn()
