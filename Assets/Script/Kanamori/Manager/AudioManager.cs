@@ -153,6 +153,7 @@ namespace FrontPerson.Manager
 
         /// <summary>
         /// オーディオミキサーの最高音量
+        /// ここ変えれば100％時の音量上限が変わる
         /// </summary>
         private float bgm_mixer_max_volume = 10f;
 
@@ -164,7 +165,7 @@ namespace FrontPerson.Manager
         /// <summary>
         /// BGMフェード完了時間
         /// </summary>
-        private const float FADE_FINISH_SECOND = 1f;
+        private  float fade_time = 1f;
 
         public void Init()
         {
@@ -191,8 +192,8 @@ namespace FrontPerson.Manager
             mixer_master    = mixer.FindMatchingGroups("Master")[0];
             mixer_se        = mixer.FindMatchingGroups("SE")[0];
             mixer_bgm       = mixer.FindMatchingGroups("BGM")[0];
-        }
 
+        }
 
         void Update()
         {
@@ -206,7 +207,7 @@ namespace FrontPerson.Manager
 
                 mixer_bgm.audioMixer.GetFloat("BGM", out i);
 
-                mixer.SetFloat("BGM", i + ((bgm_mixer_min_volume - bgm_mixer_max_volume) / FADE_FINISH_SECOND) * Time.deltaTime);
+                mixer.SetFloat("BGM", i + ((bgm_mixer_min_volume - bgm_mixer_max_volume) / fade_time) * Time.deltaTime);
 
                 i += 0f;
 
@@ -222,7 +223,7 @@ namespace FrontPerson.Manager
 
                 mixer_bgm.audioMixer.GetFloat("BGM", out i);
 
-                mixer.SetFloat("BGM", i + ((bgm_mixer_max_volume - bgm_mixer_min_volume) / FADE_FINISH_SECOND) * Time.deltaTime);
+                mixer.SetFloat("BGM", i + ((bgm_mixer_max_volume - bgm_mixer_min_volume) / fade_time) * Time.deltaTime);
 
 
                 if (i < -bgm_mixer_min_volume)
@@ -240,8 +241,6 @@ namespace FrontPerson.Manager
 
         void LateUpdate()
         {
-            
-
             SortingList();
 
             foreach (AudioInfo info in sound_info_list)
@@ -268,7 +267,6 @@ namespace FrontPerson.Manager
             
         }
 
-
         /// <summary>
         /// 2DSE再生要請
         /// </summary>
@@ -293,9 +291,13 @@ namespace FrontPerson.Manager
         /// <param name="se_name">再生させたいSE音源</param>
         public void Play3DSE(Vector3 set_pos, string se_name)
         {
-            AudioSource audiosource = Instantiate(audio_3D_prefab, set_pos, Quaternion.identity).GetComponent<AudioSource>();
+            GameObject audio_3d = Instantiate(audio_3D_prefab, set_pos, Quaternion.identity);
+
+            AudioSource audiosource = audio_3d.GetComponent<AudioSource>();
 
             AudioInfo info = SearchSE(se_name, audiosource);
+
+            info.obj = audio_3d;
 
             ReservationSE(info);
 
@@ -308,7 +310,7 @@ namespace FrontPerson.Manager
         /// </summary>
         /// <param name="me">オーディオソースをアタッチしたいオブジェクト</param>
         /// <param name="bgm_name"></param>
-        public void PlayBGM(GameObject me, string bgm_name)
+        public void PlayBGM(GameObject me, string bgm_name,float fade_time_)
         {
             fade_out = true;
 
@@ -317,6 +319,8 @@ namespace FrontPerson.Manager
             AudioSourceSetting(me, ref bgm_audiosource, false);
 
             bgm_audiosource.clip = SearchBGM(bgm_name);
+
+            fade_time = fade_time_;
 
             bgm_audiosource.Play();
             
@@ -540,6 +544,7 @@ namespace FrontPerson.Manager
         public int max_se_num = 0;
         public int max_same_se_num = 0;
         public Dictionary<string, int> same_count = new Dictionary<string, int>();
+        public GameObject obj = null;
 
         public AudioInfo(AudioSource source_, AudioClip clip_, float length_, int max_se_num_, int max_same_se_num_)
         {
@@ -548,6 +553,7 @@ namespace FrontPerson.Manager
             length = length_;
             max_se_num = max_se_num_;
             max_same_se_num = max_same_se_num_;
+            obj = null;
         }
     }
 

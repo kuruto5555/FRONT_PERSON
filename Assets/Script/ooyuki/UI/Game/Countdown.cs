@@ -38,10 +38,13 @@ namespace FrontPerson.UI
         void Start()
         {
             index_ = 0;
-            AudioManager.Instance.Play2DSE(gameObject, SEPath.GAME_SE_COUNTDOWN);
         }
 
-
+        public void PlaySe()
+        {
+            // カウントダウンSE再生
+            AudioManager.Instance.Play2DSE(gameObject, SEPath.GAME_SE_COUNTDOWN);
+        }
 
         public void ChangeText()
         {

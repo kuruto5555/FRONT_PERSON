@@ -515,6 +515,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: ScoreGraph
       objectReference: {fileID: 0}
+    - target: {fileID: 5190486411242716030, guid: d6230c432fce9334c83ab85b8cff9c24,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5190486411579270507, guid: d6230c432fce9334c83ab85b8cff9c24,
         type: 3}
       propertyPath: m_RootOrder
