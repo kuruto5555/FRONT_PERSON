@@ -11,8 +11,7 @@ namespace FrontPerson.Manager
     {
         public enum GAME_SCENE_STATE
         {
-            TUTORIAL1 = 0,      // 操作説明
-            TUTORIAL2,          // ルール説明
+            TUTORIAL = 0,      // ゲーム説明
             START_COUNT_DOWN,   // ゲーム開始カウントダウン
             PLAY,               // ゲーム
             TIME_UP,            // タイムアップ
@@ -24,42 +23,46 @@ namespace FrontPerson.Manager
         { 
             get; 
             private set; 
-        } = GAME_SCENE_STATE.TUTORIAL1;
+        } = GAME_SCENE_STATE.TUTORIAL;
 
         
 
         [Header("操作説明UI")]
         [SerializeField]
-        Tutorial tutorial1_ = null;
+        Tutorial tutorial_ = null;
 
-        [Header("ゲームルール説明UI")]
-        [SerializeField]
-        Tutorial tutorial2_ = null;
-
-        [Header("タイマー")]
+        [Header("タイマーUI")]
         [SerializeField]
         Timer timer_ = null;
 
-        [Header("カウントダウン")]
+        [Header("カウントダウンUI")]
         [SerializeField]
         Countdown countdown_ = null;
 
-        [Header("タイムアップ")]
+        [Header("ミッションリストUI")]
+        [SerializeField]
+        UI_MissionDraw missionDrawUI_ = null;
+
+        [Header("タイムアップUI")]
         [SerializeField]
         TimeUp timeUp_ = null;
 
-        [Header("マネージャー")]
+        [Header("残弾ゲージUI")]
         [SerializeField]
-        BountyManager bountyManager_ = null;
+        RemainingBulletGauge remainingBulletGauge_ = null;
 
-        /// <summary>
-        /// スコアマネージャ―
-        /// </summary>
-        ScoreManager scoreManager_ = null;
         /// <summary>
         /// アプリケーションマネージャー
         /// </summary>
         ApplicationManager applicationManager_ = null;
+        /// <summary>
+        /// バウンティマネージャー
+        /// </summary>
+        BountyManager bountyManager_ = null;
+        /// <summary>
+        /// スコアマネージャ―
+        /// </summary>
+        ScoreManager scoreManager_ = null;
         /// <summary>
         /// コンボマネージャー
         /// </summary>
@@ -70,35 +73,38 @@ namespace FrontPerson.Manager
         // Start is called before the first frame update
         void Start()
         {
-            // 最初は操作説明のみ出す
-            tutorial1_.transform.root.gameObject.SetActive(true);
-
-            // 他はいったん非表示
-            tutorial2_.transform.root.gameObject.SetActive(false);
-            countdown_.transform.root.gameObject.SetActive(false);
-            timeUp_.transform.root.gameObject.SetActive(false);
-            bountyManager_.transform.root.gameObject.SetActive(false);
-            timer_.transform.root.gameObject.SetActive(false);
-            
-            // タイマーを止めていく
-            timer_.TimerStop();
+            // スコアマネージャ―取得
+            scoreManager_ = ScoreManager.Instance;
+            // コンボマネージャー取得
+            comboManager_ = ComboManager.Instance;
+            // バウンティマネージャー取得
+            bountyManager_ = BountyManager._instance;
 
             // アプリケーションマネージャーに現在の状態を保存
             applicationManager_ = FindObjectOfType<ApplicationManager>();
             applicationManager_.SetIsInput(true);
             applicationManager_.SetIsGamePlay(false);
 
-            // スコアマネージャ―取得
-            scoreManager_ = ScoreManager.Instance;
+            // 最初は操作説明のみ出す
+            tutorial_.gameObject.SetActive(true);
 
-            // コンボマネージャー取得
-            comboManager_ = ComboManager.Instance;
+            // 他はいったん非表示
+            timer_.gameObject.SetActive(false);
+            timeUp_.gameObject.SetActive(false);
+            countdown_.gameObject.SetActive(false);
+            scoreManager_.gameObject.SetActive(false);
+            missionDrawUI_.gameObject.SetActive(false);
+            bountyManager_.gameObject.SetActive(false);
+            remainingBulletGauge_.gameObject.SetActive(false);
+
+            // タイマーを止めていく
+            timer_.TimerStop();
 
             // BGM再生
-            AudioManager.Instance.PlayBGM(gameObject, BGMPath.GAME_BGM_MAIN);
+            AudioManager.Instance.PlayBGM(gameObject, BGMPath.GAME_BGM_MAIN, 3.0f);
 
             // ステートを操作説明にする
-            state_ = GAME_SCENE_STATE.TUTORIAL1;
+            state_ = GAME_SCENE_STATE.TUTORIAL;
         }
 
 
@@ -107,12 +113,8 @@ namespace FrontPerson.Manager
         {
             switch (state_)
             {
-                case GAME_SCENE_STATE.TUTORIAL1:
-                    Tutorial1Update();
-                    break;
-
-                case GAME_SCENE_STATE.TUTORIAL2:
-                    Tutorial2Update();
+                case GAME_SCENE_STATE.TUTORIAL:
+                    TutorialUpdate();
                     break;
 
                 case GAME_SCENE_STATE.START_COUNT_DOWN:
@@ -134,41 +136,31 @@ namespace FrontPerson.Manager
         }
 
 
-        void Tutorial1Update()
+        void TutorialUpdate()
         {
-            if (tutorial1_.IsFinish)
+            if (tutorial_.IsFinish)
             {
                 // 無効にするObject
-                tutorial1_.transform.root.gameObject.SetActive(false);
-
-                // 有効にするObject
-                tutorial2_.transform.root.gameObject.SetActive(true);
-
-                // ステート切り替え
-                state_ = GAME_SCENE_STATE.TUTORIAL2;
-            }
-        }
-
-
-        void Tutorial2Update()
-        {
-            if (tutorial2_.IsFinish)
-            {
-                // 無効にするObject
-                tutorial2_.transform.root.gameObject.SetActive(false);
+                tutorial_.gameObject.SetActive(false);
                 applicationManager_.SetIsInput(false);
 
                 // 有効にするObject
-                countdown_.transform.root.gameObject.SetActive(true);
-                timer_.transform.root.gameObject.SetActive(true);
+                countdown_.gameObject.SetActive(true);
+                timer_.gameObject.SetActive(true);
+                scoreManager_.gameObject.SetActive(true);
+                missionDrawUI_.gameObject.SetActive(true);
+                remainingBulletGauge_.gameObject.SetActive(true);
 
                 // UI登場アニメーション再生
-                FindObjectOfType<UI_MissionDraw>().gameObject.GetComponent<Animator>().Play("BountyManagerUI_IN");
-                FindObjectOfType<Timer>().gameObject.GetComponent<Animator>().Play("TimerUI_IN");
-                FindObjectOfType<ScoreManager>().gameObject.GetComponent<Animator>().Play("ScoreUI_IN");
+                timer_.gameObject.GetComponent<Animator>().Play("TimerUI_IN");
+                scoreManager_.gameObject.GetComponent<Animator>().Play("ScoreUI_IN");
+                missionDrawUI_.gameObject.GetComponent<Animator>().Play("BountyManagerUI_IN");
+                remainingBulletGauge_.transform.GetChild(0).gameObject.GetComponent<Animator>().Play("HandGunGageStart");
 
-                
-                // ステートをカウントダウンに切り替え
+                // カウントダウンSE再生
+                countdown_.PlaySe();
+
+                // ステート切り替え
                 state_ = GAME_SCENE_STATE.START_COUNT_DOWN;
             }
         }
@@ -182,7 +174,7 @@ namespace FrontPerson.Manager
                 countdown_.gameObject.SetActive(false);
 
                 // 有効にするObject
-                bountyManager_.transform.root.gameObject.SetActive(true);
+                bountyManager_.gameObject.SetActive(true);
                 applicationManager_.SetIsInput(true);
                 applicationManager_.SetIsGamePlay(true);
 
@@ -208,10 +200,10 @@ namespace FrontPerson.Manager
                 applicationManager_.SetIsGamePlay(false);
 
                 // 有効にするObject
-                timeUp_.transform.root.gameObject.SetActive(true);
+                timeUp_.gameObject.SetActive(true);
 
-                // サウンド再生
-                AudioManager.Instance.Play2DSE(gameObject, SEPath.GAME_SE_TIME_UP);
+                // タイムアップのSE再生サウンド再生
+                timeUp_.PlaySe();
 
                 // ステート切り替え
                 state_ = GAME_SCENE_STATE.TIME_UP;
@@ -231,8 +223,17 @@ namespace FrontPerson.Manager
                 // ステート切り替え
                 state_ = GAME_SCENE_STATE.TRANSITION;
 
+                // UI登場アニメーション再生
+                timer_.gameObject.GetComponent<Animator>().Play("TimerUI_OUT");
+                scoreManager_.gameObject.GetComponent<Animator>().Play("ScoreUI_OUT");
+                missionDrawUI_.gameObject.GetComponent<Animator>().Play("BountyManagerUI_OUT");
+                
+
+                // BGM停止
+                AudioManager.Instance.StopBGM();
+
                 // シーンチェンジ
-                SceneManager.Instance.SceneChange(SceneName.RESULT_SCENE, 1.0f, Color.black);
+                SceneManager.Instance.SceneChange(SceneName.RESULT_SCENE, 3.0f, Color.black);
             }
         }
 
