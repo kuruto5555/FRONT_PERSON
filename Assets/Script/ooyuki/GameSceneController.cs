@@ -101,7 +101,7 @@ namespace FrontPerson.Manager
             timer_.TimerStop();
 
             // BGM再生
-            AudioManager.Instance.PlayBGM(gameObject, BGMPath.GAME_BGM_MAIN);
+            AudioManager.Instance.PlayBGM(gameObject, BGMPath.GAME_BGM_MAIN, 3.0f);
 
             // ステートを操作説明にする
             state_ = GAME_SCENE_STATE.TUTORIAL;
@@ -155,6 +155,7 @@ namespace FrontPerson.Manager
                 timer_.gameObject.GetComponent<Animator>().Play("TimerUI_IN");
                 scoreManager_.gameObject.GetComponent<Animator>().Play("ScoreUI_IN");
                 missionDrawUI_.gameObject.GetComponent<Animator>().Play("BountyManagerUI_IN");
+                remainingBulletGauge_.transform.GetChild(0).gameObject.GetComponent<Animator>().Play("HandGunGageStart");
 
                 // カウントダウンSE再生
                 countdown_.PlaySe();
@@ -221,6 +222,15 @@ namespace FrontPerson.Manager
 
                 // ステート切り替え
                 state_ = GAME_SCENE_STATE.TRANSITION;
+
+                // UI登場アニメーション再生
+                timer_.gameObject.GetComponent<Animator>().Play("TimerUI_OUT");
+                scoreManager_.gameObject.GetComponent<Animator>().Play("ScoreUI_OUT");
+                missionDrawUI_.gameObject.GetComponent<Animator>().Play("BountyManagerUI_OUT");
+                
+
+                // BGM停止
+                AudioManager.Instance.StopBGM();
 
                 // シーンチェンジ
                 SceneManager.Instance.SceneChange(SceneName.RESULT_SCENE, 3.0f, Color.black);

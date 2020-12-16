@@ -97,7 +97,7 @@ namespace FrontPerson.Manager
             //rank_ =
 
 
-            AudioManager.Instance.PlayBGM(gameObject, BGMPath.RESULT_BGM_MAIN);
+            AudioManager.Instance.PlayBGM(gameObject, BGMPath.RESULT_BGM_MAIN, 2.0f);
             AudioManager.Instance.PauseBGM();
         }
 
