@@ -1,4 +1,6 @@
-﻿using System.Collections;
+﻿using FrontPerson.Constants;
+using FrontPerson.Manager;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -8,20 +10,6 @@ namespace FrontPerson.UI
 {
     public class Tutorial : MonoBehaviour
     {
-        [Header("チュートリアルの画像リスト")]
-        [SerializeField]
-        List<GameObject> tutotials_ = null;
-
-        [Header("矢印")]
-        [SerializeField]
-        GameObject left_ = null;
-        [SerializeField]
-        GameObject right_ = null;
-
-        [Header("入力待ち時間")]
-        [SerializeField, Range(0.1f, 2.0f)]
-        float inputWaitTime = 0.0f;
-
         /// <summary>
         /// チュートリアル終了フラグ
         /// ゲームシーンコントローラーに教えるため
@@ -32,8 +20,12 @@ namespace FrontPerson.UI
         /// 連打対策
         /// trueなら入力可
         /// </summary>
-        bool isInput = true;
+        bool isInputWait_ = true;
 
+        /// <summary>
+        /// チュートリアルのアニメーター
+        /// </summary>
+        Animator animator_ = null;
 
         /// <summary>
         /// 表示してるチュートリアルのインデックス
@@ -44,51 +36,44 @@ namespace FrontPerson.UI
         // Start is called before the first frame update
         void Start()
         {
-            isInput = true;
+            isInputWait_ = true;
             IsFinish = false;
-            left_.SetActive(false);
+            animator_ = GetComponent<Animator>();
         }
 
         void OnEnable()
         {
-            isInput = true;
+            isInputWait_ = true;
             IsFinish = false;
-            left_.SetActive(false);
+            animator_ = GetComponent<Animator>();
         }
+
 
         // Update is called once per frame
         void Update()
         {
             // 入力可能じゃないなら帰る
-            //        if (!isInput) return;
+            if (!isInputWait_) return;
 
 
             // エスケイプ押されたら、チュートリアル表示をすぐ終わらせる
-            if (Input.GetKeyDown(KeyCode.Escape))
+            if (Input.GetButton(InputName.PAUSE))
             {
                 PushESC();
             }
 
             // 一個前のチュートリアルを出す
-            else if (Input.GetKeyDown(KeyCode.A))
+            else if (Input.GetAxisRaw(InputName.HORIZONTAL) <= -0.5f)
             {
                 PushLeft();
             }
 
             // 次のチュートリアルを出す
             // 最後のページだったら終了
-            else if (Input.GetKeyDown(KeyCode.D))
+            else if (Input.GetAxisRaw(InputName.HORIZONTAL) >= 0.5f)
             {
                 PushRight();
             }
-        }
-
-        /// <summary>
-        /// チュートリアル終了
-        /// </summary>
-        void Finish()
-        {
-            IsFinish = true;
         }
 
 
@@ -98,29 +83,13 @@ namespace FrontPerson.UI
         void PushLeft()
         {
             // 今一番左にいるなら動かさない
-            if (tutorialIndex_ <= 0)
-            {
-                return;
-            }
+            if (tutorialIndex_ <= 0) return;
 
-            tutotials_[tutorialIndex_].SetActive(false);
+            animator_.SetBool("IsInputLeft", true);
+            isInputWait_ = false;
             tutorialIndex_--;
-            tutotials_[tutorialIndex_].SetActive(true);
-            isInput = false;
-
-            // 動いたということは一番右にいないはずなので
-            // 右の矢印が出てないなら出し、終了アイコンを非表示にする
-            if (!right_.activeSelf)
-            {
-                right_.SetActive(true);
-                //***.SetActive(false);
-            }
-
-            // 動いた結果一番左に行ったら左の矢印を消す
-            if (tutorialIndex_ <= 0)
-            {
-                left_.SetActive(false);
-            }
+            // SE再生
+            AudioManager.Instance.Play2DSE(gameObject, SEPath.COMMON_SE_CURSOR);
         }
 
 
@@ -129,33 +98,14 @@ namespace FrontPerson.UI
         /// </summary>
         void PushRight()
         {
-            // 今一番右にいるならチュートリアル終了
-            if (tutorialIndex_ >= (tutotials_.Count-1))
-            {
-                Finish();
-                return;
-            }
+            // 今一番左にいるなら動かさない
+            if (tutorialIndex_ >= 3) return;
 
-
-            // 動いたということは一番左にいないはずなので
-            // 左の矢印が出てないなら出す
-            if (!left_.activeSelf)
-            {
-                left_.SetActive(true);
-            }
-
-
-            tutotials_[tutorialIndex_].SetActive(false);
+            animator_.SetBool("IsInputRight", true);
+            isInputWait_ = false;
             tutorialIndex_++;
-            tutotials_[tutorialIndex_].SetActive(true);
-            isInput = false;
-
-            // 動いた結果一番右にいるならアイコンを変える
-            if (tutorialIndex_ >= (tutotials_.Count-1))
-            {
-                right_.SetActive(false);
-                //***.SetActive(true);
-            }
+            // SE再生
+            AudioManager.Instance.Play2DSE(gameObject, SEPath.COMMON_SE_CURSOR);
         }
 
 
@@ -164,16 +114,32 @@ namespace FrontPerson.UI
         /// </summary>
         void PushESC()
         {
-            Finish();
+            animator_.SetBool("IsInputStartButton", true);
+            isInputWait_ = false;
+
+            AudioManager.Instance.Play2DSE(gameObject, SEPath.COMMON_SE_CURSOR);
         }
 
 
         /// <summary>
         /// アニメーション終了時
         /// </summary>
-        void StopAnim()
+        public void StopAnim()
         {
-            isInput = true;
+            isInputWait_ = true;
+            animator_.SetBool("IsInputLeft", false);
+            animator_.SetBool("IsInputRight", false);
+            animator_.SetBool("IsInputStartButton", false);
+        }
+
+
+        /// <summary>
+        /// チュートリアル終了
+        /// </summary>
+        public void Finish()
+        {
+            isInputWait_ = false;
+            IsFinish = true;
         }
     }
 }

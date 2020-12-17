@@ -201,15 +201,23 @@ namespace FrontPerson.Manager
             bgm_audiosource.volume = DEFAULT_SOUND_VOLUME * AudioManager.Instance.audio_volume_.BGMVolume;
 
 
+            
+
+            Debug.Log(mixer_master);
+            Debug.Log(mixer_se);
+            Debug.Log(mixer_bgm);
+        }
+
+        void LateUpdate()
+        {
             if (fade_out)
             {
-                float i = 0f;
-
-                mixer_bgm.audioMixer.GetFloat("BGM", out i);
+                if(fade_in)
+                    fade_in = false;
+                
+                mixer_bgm.audioMixer.GetFloat("BGM", out float i);
 
                 mixer.SetFloat("BGM", i + ((bgm_mixer_min_volume - bgm_mixer_max_volume) / fade_time) * Time.deltaTime);
-
-                i += 0f;
 
                 if (i >= -bgm_mixer_max_volume)
                 {
@@ -219,12 +227,9 @@ namespace FrontPerson.Manager
 
             if (fade_in)
             {
-                float i = 0f;
-
-                mixer_bgm.audioMixer.GetFloat("BGM", out i);
+                mixer_bgm.audioMixer.GetFloat("BGM", out float i);
 
                 mixer.SetFloat("BGM", i + ((bgm_mixer_max_volume - bgm_mixer_min_volume) / fade_time) * Time.deltaTime);
-
 
                 if (i < -bgm_mixer_min_volume)
                 {
@@ -234,13 +239,6 @@ namespace FrontPerson.Manager
 
             }
 
-            Debug.Log(mixer_master);
-            Debug.Log(mixer_se);
-            Debug.Log(mixer_bgm);
-        }
-
-        void LateUpdate()
-        {
             SortingList();
 
             foreach (AudioInfo info in sound_info_list)
@@ -313,7 +311,7 @@ namespace FrontPerson.Manager
         public void PlayBGM(GameObject me, string bgm_name,float fade_time_)
         {
             fade_out = true;
-
+            
             bgm_audiosource = me.GetComponent<AudioSource>();
 
             AudioSourceSetting(me, ref bgm_audiosource, false);
@@ -329,8 +327,9 @@ namespace FrontPerson.Manager
         /// <summary>
         /// BGM停止要請
         /// </summary>
-        public void StopBGM()
+        public void StopBGM(float fade_time_)
         {
+            fade_time = fade_time_;
             fade_in = true;
         }
 

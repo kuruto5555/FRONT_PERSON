@@ -73,7 +73,7 @@ GameObject:
   - component: {fileID: 1953081233101462364}
   - component: {fileID: 4898938971478405790}
   - component: {fileID: 7660902943740626536}
-  m_Layer: 10
+  m_Layer: 2
   m_Name: New Sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -169,7 +169,7 @@ GameObject:
   - component: {fileID: 7084438279979148024}
   - component: {fileID: 5022653079292925490}
   - component: {fileID: 3846939266295310061}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: DustBoxVer2Red
   m_TagString: Untagged
   m_Icon: {fileID: 0}
