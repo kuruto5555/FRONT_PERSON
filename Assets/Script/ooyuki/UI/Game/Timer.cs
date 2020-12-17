@@ -61,12 +61,19 @@ namespace FrontPerson.UI
         /// <summary>
         /// タイマーの色のインデックス
         /// </summary>
-        ushort textColorIndex = 0; 
+        ushort textColorIndex_ = 0;
+
+        /// <summary>
+        /// アニメーター
+        /// </summary>
+        Animator animator_;
 
 
         // Start is called before the first frame update
         void Start()
         {
+            animator_ = GetComponent<Animator>();
+
             IsCount_ = false;
             IsTimeOver = false;
             Second = timeLimit_;
@@ -137,18 +144,31 @@ namespace FrontPerson.UI
         /// </summary>
         void UpdateTextColor()
         {
-            if (textColorIndex >= textColorList_.Count) return;
+            if (textColorIndex_ >= textColorList_.Count) return;
 
 
             float remainingSecond = Second + Minute * 60f;
-            if(textColorChangeTimeList_[textColorIndex] >= remainingSecond)
+            if(textColorChangeTimeList_[textColorIndex_] >= remainingSecond)
             {
-                second1_.color = textColorList_[textColorIndex];
-                second10_.color = textColorList_[textColorIndex];
-                minute1_.color = textColorList_[textColorIndex];
-                minute10_.color = textColorList_[textColorIndex];
-                colon_.color = textColorList_[textColorIndex];
-                textColorIndex++;
+                // 色変更
+                second1_.color = textColorList_[textColorIndex_];
+                second10_.color = textColorList_[textColorIndex_];
+                minute1_.color = textColorList_[textColorIndex_];
+                minute10_.color = textColorList_[textColorIndex_];
+                colon_.color = textColorList_[textColorIndex_];
+
+                // 黄と赤の時はアニメーション再生
+                switch (textColorIndex_)
+                {
+                    case 1:
+                        animator_.Play("TimerYellowBlinking");
+                        break;
+
+                    case 2:
+                        animator_.Play("TimerRedBlinking");
+                        break;
+                }
+                textColorIndex_++;
             }
         }
 
