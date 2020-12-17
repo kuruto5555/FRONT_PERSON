@@ -846,6 +846,10 @@ namespace FrontPerson.Character
                 SetInvincible(10.0f);
             }
 
+            if (Input.GetKeyDown(KeyCode.Alpha1)) WeaponUpgrade(0);
+            if (Input.GetKeyDown(KeyCode.Alpha2)) WeaponUpgrade(1);
+            if (Input.GetKeyDown(KeyCode.Alpha3)) WeaponUpgrade(2);
+
 #endif
         }
 

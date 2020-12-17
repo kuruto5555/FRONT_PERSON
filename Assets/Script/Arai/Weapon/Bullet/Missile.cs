@@ -22,6 +22,9 @@ namespace FrontPerson.Weapon
 
         [SerializeField] ParticleSystem Particle_ = null;
 
+        [Header("爆発エフェクトプレハブ")]
+        [SerializeField] GameObject _BlastEffect = null;
+
         //発射されてからの時間
         private float _nowTime = 0.0f;
 
@@ -128,6 +131,9 @@ namespace FrontPerson.Weapon
                 _cursor.SetDead();
                 Particle_.transform.parent = null;
                 Particle_.loop = false;
+                GameObject obj = Instantiate(_BlastEffect, transform.position, Quaternion.identity);
+                //obj.GetComponent<ParticleSystemRenderer>().material = _BlastEffect.GetComponent<ParticleSystemRenderer>().sharedMaterial;
+                _audioManager.Play3DSE(transform.position, SEPath.GAME_SE_LANDING_MISSILE);
                 Destroy(gameObject);
             }
         }
