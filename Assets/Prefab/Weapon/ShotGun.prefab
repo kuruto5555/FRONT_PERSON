@@ -141,7 +141,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bullet_: {fileID: 7446926822106657240, guid: 642190f1d33e15148ad230fbe6e07b9c, type: 3}
   Muzzle: {fileID: 67956210764982871}
-  rate_: 4
+  rate_: 2
   MaxAmmo_: 10
   Reticle_: {fileID: 4361485535351179734, guid: 977711cffd104294682e73a615e4f149,
     type: 3}
