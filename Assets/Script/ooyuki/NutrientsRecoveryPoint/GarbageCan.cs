@@ -14,7 +14,7 @@ namespace FrontPerson.Gimmick
         /// <summary>
         /// 一度使っているかどうか
         /// </summary>
-        public bool IsUse { get; private set; }
+        public bool IsUsed { get; private set; } = true;
 
 
         /// <summary>
@@ -36,10 +36,10 @@ namespace FrontPerson.Gimmick
         /// <returns>もらえる弾の量</returns>
         public override int Charge(int value)
         {
-            if (IsUse) return 0;
+            if (IsUsed) return 0;
 
             bountyManager_.NutritionCharge();
-            IsUse = true;
+            IsUsed = true;
             icon_.SetActive(false);
             return value <= recoveryValue_ ? value : recoveryValue_;
         }
