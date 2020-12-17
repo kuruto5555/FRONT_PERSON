@@ -131,7 +131,8 @@ namespace FrontPerson.Weapon
                 _cursor.SetDead();
                 Particle_.transform.parent = null;
                 Particle_.loop = false;
-                Instantiate(_BlastEffect, transform.position, Quaternion.identity);
+                GameObject obj = Instantiate(_BlastEffect, transform.position, Quaternion.identity);
+                //obj.GetComponent<ParticleSystemRenderer>().material = _BlastEffect.GetComponent<ParticleSystemRenderer>().sharedMaterial;
                 _audioManager.Play3DSE(transform.position, SEPath.GAME_SE_LANDING_MISSILE);
                 Destroy(gameObject);
             }
