@@ -146,9 +146,9 @@ namespace FrontPerson.Weapon
         {
             ammo_ += value;
 
-            if (ammo_ > MaxAmmo_) return;
+            if (ammo_ > MaxAmmo_)
+                    ammo_ = MaxAmmo_;
 
-            ammo_ = MaxAmmo_;
         }
 
         public virtual void FireSound()

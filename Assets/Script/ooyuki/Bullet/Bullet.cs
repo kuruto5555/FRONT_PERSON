@@ -29,7 +29,7 @@ namespace FrontPerson.Weapon
         [Header("有効射程")]
         [SerializeField, Range(50.0f, 100.0f)] float _range = 50.0f;
 
-        private AudioManager _audioManager = null;
+        protected AudioManager _audioManager = null;
 
         /// <summary>
         /// 生成された位置
@@ -105,7 +105,7 @@ namespace FrontPerson.Weapon
             if (HitCheck(out hit))
             {
                 Instantiate(splashParticle_, hit.point, Quaternion.identity);
-                //_audioManager.Play3DSE(transform. position, SEPath.);
+                _audioManager.Play3DSE(transform. position, SEPath.GAME_SE_LANDING);
                 Destroy(gameObject);
             }
         }
@@ -117,6 +117,7 @@ namespace FrontPerson.Weapon
             {
                 Instantiate(splashParticle_, hit.point, Quaternion.identity);
                 enemy.HitBullet(this);
+                _audioManager.Play3DSE(transform.position, SEPath.GAME_SE_LANDING);
                 Destroy(gameObject);
             }
         }
