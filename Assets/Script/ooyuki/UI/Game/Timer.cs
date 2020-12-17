@@ -8,15 +8,31 @@ namespace FrontPerson.UI
     public class Timer : MonoBehaviour
     {
         [Header("タイマー表示UIテキスト")]
+        [Tooltip("分の十の位")]
         [SerializeField]
         Text minute10_ = null;
+        [Tooltip("分の一の位")]
         [SerializeField]
         Text minute1_ = null;
+        [Tooltip("秒の十の位")]
         [SerializeField]
         Text second10_ = null;
+        [Tooltip("秒の一の位")]
         [SerializeField]
         Text second1_ = null;
+        [Tooltip("分と秒の間の点々")]
+        [SerializeField]
+        Text colon_ = null;
 
+        [Header("文字の色")]
+        [Tooltip("残り時間で変わる色\n上から順に変わっていく")]
+        [SerializeField]
+        List<Color> textColorList_ = null;
+
+        [Header("文字の色の変わるタイミング(s)")]
+        [Tooltip("色が変わる残り時間\n上から順にみる")]
+        [SerializeField]
+        List<float> textColorChangeTimeList_ = null;
 
         [Header("制限時間(s)")]
         [SerializeField]
@@ -42,6 +58,11 @@ namespace FrontPerson.UI
         /// </summary>
         bool IsCount_ = false;
 
+        /// <summary>
+        /// タイマーの色のインデックス
+        /// </summary>
+        ushort textColorIndex = 0; 
+
 
         // Start is called before the first frame update
         void Start()
@@ -57,6 +78,7 @@ namespace FrontPerson.UI
                 Minute++;
             }
 
+            UpdateTextColor();
             SetTimeText();
         }
 
@@ -68,13 +90,17 @@ namespace FrontPerson.UI
 
             // 秒
             Second -= Time.deltaTime;
+
+
 #if UNITY_EDITOR
+            // タイマー加速
             if (Input.GetKey(KeyCode.T))
             {
-                Second -= Time.deltaTime * 60f;
+                Second -= Time.deltaTime * 59f;
             }
 #endif
 
+            UpdateTextColor();
             UpdateTimer();
         }
 
@@ -105,6 +131,31 @@ namespace FrontPerson.UI
             Start();
         }
 
+
+        /// <summary>
+        /// テキストの色を更新
+        /// </summary>
+        void UpdateTextColor()
+        {
+            if (textColorIndex >= textColorList_.Count) return;
+
+
+            float remainingSecond = Second + Minute * 60f;
+            if(textColorChangeTimeList_[textColorIndex] >= remainingSecond)
+            {
+                second1_.color = textColorList_[textColorIndex];
+                second10_.color = textColorList_[textColorIndex];
+                minute1_.color = textColorList_[textColorIndex];
+                minute10_.color = textColorList_[textColorIndex];
+                colon_.color = textColorList_[textColorIndex];
+                textColorIndex++;
+            }
+        }
+
+
+        /// <summary>
+        /// タイマーの更新
+        /// </summary>
         void UpdateTimer()
         {
             // 分
@@ -126,6 +177,9 @@ namespace FrontPerson.UI
         }
 
 
+        /// <summary>
+        /// テキストに時間をセット
+        /// </summary>
         void SetTimeText()
         {
             minute10_.text = ((int)(Minute * 0.1f)).ToString("0");
