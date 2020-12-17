@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 2840861126626669502}
   - component: {fileID: 1566211539200925010}
   - component: {fileID: 4626698446616316561}
-  m_Layer: 10
+  m_Layer: 2
   m_Name: New Sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -107,7 +107,7 @@ GameObject:
   - component: {fileID: 660931055436918851}
   - component: {fileID: 3371206017307608201}
   - component: {fileID: 7167693825817879002}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: DustBoxVer2Blue
   m_TagString: Untagged
   m_Icon: {fileID: 0}

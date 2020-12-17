@@ -230,10 +230,10 @@ namespace FrontPerson.Manager
                 
 
                 // BGM停止
-                AudioManager.Instance.StopBGM();
+                AudioManager.Instance.StopBGM(3f);
 
                 // シーンチェンジ
-                SceneManager.Instance.SceneChange(SceneName.RESULT_SCENE, 3.0f, Color.black);
+                SceneManager.Instance.SceneChange(SceneName.RESULT_SCENE, 3f, Color.black);
             }
         }
 
