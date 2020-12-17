@@ -123,6 +123,8 @@ MonoBehaviour:
   TurnSpeed_: 0.1
   StartHeight_: 50
   Particle_: {fileID: 3768628226506098523}
+  _BlastEffect: {fileID: 7420113861134389894, guid: b4e8598914de95f4c8fd621ed546c9c8,
+    type: 3}
 --- !u!135 &2230927747416365831
 SphereCollider:
   m_ObjectHideFlags: 0

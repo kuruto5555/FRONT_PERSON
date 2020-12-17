@@ -351,14 +351,17 @@ namespace FrontPerson.Weapon
                     {
                         Vector3 vec = (pos - Camera.main.transform.position).normalized;
                         RaycastHit hit;
-                        int layerMask = 1 << 11 | 1 << 12; //enemyとFildeObjectだけぶつける
+                        int layerMask = 1 << LayerNumber.ENEMY | 1 << LayerNumber.FIELD_OBJECT; //enemyとFildeObjectだけぶつける
 
-                        Physics.Raycast(Camera.main.transform.position, vec, out hit, 100.0f, layerMask);
-
-                        if (LayerNumber.ENEMY != hit.collider.gameObject.layer)
+                        if(Physics.Raycast(Camera.main.transform.position, vec, out hit, 100.0f, layerMask))
                         {
-                            return false;
+                            if (LayerNumber.ENEMY != hit.collider.gameObject.layer)
+                            {
+                                return false;
+                            }
                         }
+
+                        
                     }
 
                     return true;

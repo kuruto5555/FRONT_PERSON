@@ -23,7 +23,7 @@ public class MuzzleStabilizer : MonoBehaviour
     {
         RaycastHit hit;
 
-        if (Physics.Raycast(_cameraTransform.position, _cameraTransform.forward, out hit, _layerMask))
+        if (Physics.Raycast(_cameraTransform.position, _cameraTransform.forward, out hit, 50.0f, _layerMask))
         {
             transform.LookAt(hit.point);
         }
