@@ -13,7 +13,7 @@ namespace FrontPerson.UI
         [SerializeField]
         private List<Image> ItemImages = new List<Image>();
 
-        [Tooltip("透明化 速度上昇 コンボ保険 の順番で設定して下さい")]
+        [Tooltip("透明化、速度上昇、コンボ保険 の順番で設定して下さい")]
         [Header("アイテムのアイコン")]
         [SerializeField]
         private List<Sprite> ItemSprites = new List<Sprite>();
@@ -35,35 +35,13 @@ namespace FrontPerson.UI
         /// </summary>
         private int Before_ItemCnt = 0;
 
-        /// <summary>
-        /// 
-        /// </summary>
-        private bool flag = false;
-
         private readonly int PICKUP_ITEM_01 = Animator.StringToHash("PickupItem01");
         private readonly int PICKUP_ITEM_02 = Animator.StringToHash("PickupItem02");
         private readonly int PICKUP_ITEM_03 = Animator.StringToHash("PickupItem03");
 
-        private void OnEnable()
-        {
-            if(flag)
-            {
-                Animator?.Play(PICKUP_ITEM_01);
-
-                flag = false;
-            }
-        }
-
         void Start()
         {
-            flag = true;
-
             Animator = GetComponent<Animator>();
-        }
-
-        private void Update()
-        {
-            
         }
 
         private void LateUpdate()
@@ -71,10 +49,6 @@ namespace FrontPerson.UI
             PlayAnimation();
         }
 
-        private void Enable()
-        {
-            flag = true;
-        }
 
         /// <summary>
         /// アニメーションの再生関数
