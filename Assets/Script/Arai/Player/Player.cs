@@ -109,6 +109,11 @@ namespace FrontPerson.Character
         bool _isFireLHand = false;
 
         /// <summary>
+        /// 止まっているかどうか
+        /// </summary>
+        bool _isStop = false;
+
+        /// <summary>
         /// ジャンプの余力
         /// </summary>
         float _jumpForce = 0.0f;
@@ -228,7 +233,7 @@ namespace FrontPerson.Character
         /// <summary>
         /// 止まっているかどうか
         /// </summary>
-        public bool IsStop { get { return moveSpeed_ == 0f; } }
+        public bool IsStop { get { return _isStop; } }
 
         /// <summary>
         /// ジャンプしているかどうか
@@ -306,6 +311,8 @@ namespace FrontPerson.Character
             //gunR_ = GetComponentInChildren<Gun>();
 
             position_ = transform.position;
+
+            moveSpeed_ = walkSpeed_;
 
             //初期角度を取得して置く
             _xAxiz = cameraTransform_.localEulerAngles;
@@ -392,6 +399,16 @@ namespace FrontPerson.Character
             direction += Input.GetAxisRaw(Constants.InputName.VERTICAL) * transform.forward;
 
             position_ += direction.normalized * moveSpeed_* _addSpeed * Time.deltaTime;
+
+            //移動中だけ音を鳴らす
+            if(direction == Vector3.zero)
+            {
+                _isStop = true;
+            }
+            else
+            {
+                _isStop = false;
+            }
         }
 
         /// <summary>
@@ -401,6 +418,12 @@ namespace FrontPerson.Character
         void Dash()
         {
             if (IsJump) return;
+            if (IsStop)
+            {
+                moveSpeed_ = walkSpeed_;
+                return;
+            }
+
 
             if (Input.GetButton(Constants.InputName.DASH))
             {
@@ -410,7 +433,7 @@ namespace FrontPerson.Character
 
                 if (_nowDashSoundRate > DashSoundRate)
                 {
-                    _audioManager.Play3DSE(Position, SEPath.GAME_SE_DASH);
+                    _audioManager.Play3DSE(position_, SEPath.GAME_SE_DASH);
                     _nowDashSoundRate = 0;
                 }
             }
