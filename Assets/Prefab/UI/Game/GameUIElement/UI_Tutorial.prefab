@@ -544,7 +544,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_EffectColor: {r: 0, g: 0.4339623, b: 0.047464624, a: 1}
-  m_EffectDistance: {x: 5, y: -5}
+  m_EffectDistance: {x: 3, y: -3}
   m_UseGraphicAlpha: 1
 --- !u!1 &854703976007344700
 GameObject:
@@ -636,12 +636,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 449d4b1428840e947b5668d1551d9129, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tutotials_:
-  - {fileID: 854703974444957134}
-  - {fileID: 854703975256769656}
-  left_: {fileID: 854703975127802320}
-  right_: {fileID: 854703976568388595}
-  inputWaitTime_: 0
 --- !u!95 &2513005868083129994
 Animator:
   serializedVersion: 3
@@ -829,7 +823,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_EffectColor: {r: 0, g: 0, b: 0, a: 1}
-  m_EffectDistance: {x: 2, y: 2}
+  m_EffectDistance: {x: 2, y: -2}
   m_UseGraphicAlpha: 0
 --- !u!1 &3283620149563917787
 GameObject:
