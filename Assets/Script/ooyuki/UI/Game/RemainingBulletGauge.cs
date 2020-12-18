@@ -186,14 +186,14 @@ namespace FrontPerson.UI {
             handGunBulletGaugeL_.rectTransform.localScale = new Vector2(xl_scale, 1.0f);
             handGunBulletGaugeR_.rectTransform.localScale = new Vector2(xr_scale, 1.0f);
 
-            if (xl_scale <= handGunBulletGaugeLimit_ && !isPlaying_handGunBulletGaugeLeft_ && 0f < xl_scale)
+            if (xl_scale <= handGunBulletGaugeLimit_ && !isPlaying_handGunBulletGaugeLeft_ && 0f <= xl_scale)
             {
                 isPlaying_handGunBulletGaugeLeft_ = true;
 
                 handGunBulletGaugeLeftAnimator_.PlayInFixedTime(handGunLeftLimit_, 0, 0f);
             }
 
-            if (xr_scale <= handGunBulletGaugeLimit_ && !isPlaying_handGunBulletGaugeRight_ && 0f < xr_scale)
+            if (xr_scale <= handGunBulletGaugeLimit_ && !isPlaying_handGunBulletGaugeRight_ && 0f <= xr_scale)
             {
                 isPlaying_handGunBulletGaugeRight_ = true;
 
