@@ -12,12 +12,15 @@ namespace FrontPerson.Gimmick
         [SerializeField, Range(0f, 60f)]
         private float interval_ = 0f;
 
+        // ハンドガンは二個あるからそのカウント補給
+        int chargeNum_ = 2;
+
         /// <summary>
         /// チャージできるかどうか
         /// true  -> チャージできる
         /// false -> チャージできない
         /// </summary>
-        public bool IsCharge{ get { return time_ <= 0f; } }
+        public bool IsCharge{ get { return time_ <= 0f || chargeNum_ > 0; } }
 
         /// <summary>
         /// インターバル計測用
@@ -42,6 +45,7 @@ namespace FrontPerson.Gimmick
                 time_ -= Time.deltaTime;
                 if (IsCharge)
                 {
+                    chargeNum_ = 2; // ハンドガンが二丁あるから
                     icon_.SetActive(true);
                 }
             }
@@ -57,8 +61,9 @@ namespace FrontPerson.Gimmick
         {
             if (!IsCharge) return 0;
 
-            bountyManager_.NutritionCharge();
+            //bountyManager_.NutritionCharge();
             time_ = interval_;
+            chargeNum_--;
             icon_.SetActive(false);
             return value;
         }
