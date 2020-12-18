@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Assertions.Must;
 using UnityEngine.UI;
 
 namespace FrontPerson.UI
@@ -12,7 +13,23 @@ namespace FrontPerson.UI
         Text scoreText_ = null;
 
         [SerializeField]
+        Outline scoreOutLine_ = null;
+
+        [SerializeField]
         RectTransform gauge_ = null;
+
+        [SerializeField]
+        List<Color> gameingColor_ = null;
+
+        [SerializeField]
+        List<Color> outLineColor_ = null;
+
+        [SerializeField, Range(0.1f, 2.0f)]
+        float changeTimeLate_ = 0.5f;
+
+        float changeTime_ =0.0f;
+
+        int changeColorIndex_ = 0;
 
         ScoreManager scoreManager_ = null;
 
@@ -34,6 +51,15 @@ namespace FrontPerson.UI
             //FeverScoreTextUpdate(scoreManager_.FeverScore);
             GaugeUpdate();
 
+            changeTime_ += Time.deltaTime;
+            if(changeTimeLate_ <= changeTime_)
+            {
+                scoreText_.color = gameingColor_[changeColorIndex_];
+                scoreOutLine_.effectColor = outLineColor_[changeColorIndex_];
+                changeColorIndex_++;
+                changeColorIndex_ %= gameingColor_.Count;
+                changeTime_ = 0f;
+            }
         }
 
 
