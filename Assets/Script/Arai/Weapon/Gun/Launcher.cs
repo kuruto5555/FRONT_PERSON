@@ -116,6 +116,8 @@ namespace FrontPerson.Weapon
             _enemyList = new List<Transform>();
 
             _lockOnTargetList = new Dictionary<Transform, LockOnInfo>();
+
+            _canvas = GameObject.Find("GameUI_Canvas");
         }
 
         // Start is called before the first frame update
@@ -129,8 +131,6 @@ namespace FrontPerson.Weapon
             
             _nowLockOnTime = 0.0f;
             _targetCamera = Camera.main;
-
-            _canvas = GameObject.Find("WeaponCanvas");
 
             _shotSoundPath = SEPath.GAME_SE_FIRE_LANCHER;
         }
