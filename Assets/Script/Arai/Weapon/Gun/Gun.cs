@@ -77,8 +77,8 @@ namespace FrontPerson.Weapon
         protected void Awake()
         {
             _bountyManager = BountyManager._instance;
-            _canvas = GameObject.Find("WeaponCanvas");
-            
+
+            _canvas = GameObject.Find("GameUI_Canvas");
         }
 
         // Start is called before the first frame update
@@ -89,8 +89,9 @@ namespace FrontPerson.Weapon
 
             _bountyManager = BountyManager._instance;
             _audioManager = AudioManager.Instance;
-            //_animator = GetComponent<Animator>();
             
+            //_animator = GetComponent<Animator>();
+
         }
 
         // Update is called once per frame
