@@ -21,7 +21,7 @@ namespace FrontPerson.UI
         /// <summary>
         /// 所持しているアイテム一覧
         /// </summary>
-        private List<ITEM_STATUS> HaveItems = new List<ITEM_STATUS>() { ITEM_STATUS.NORMAL, ITEM_STATUS.NORMAL, ITEM_STATUS.NORMAL };
+        private List<ITEM_STATUS> HaveItems = null;
 
         private Animator Animator = null;
 
@@ -41,12 +41,15 @@ namespace FrontPerson.UI
 
         private void Awake()
         {
+            HaveItems = new List<ITEM_STATUS>() { ITEM_STATUS.NORMAL, ITEM_STATUS.NORMAL, ITEM_STATUS.NORMAL };
+
             gameObject.SetActive(false);
+            if (null == Animator) Animator = GetComponent<Animator>();
         }
 
         private void OnEnable()
         {
-            PlayAnimation();
+            if(null == Animator) Animator = GetComponent<Animator>();
         }
 
         void Start()

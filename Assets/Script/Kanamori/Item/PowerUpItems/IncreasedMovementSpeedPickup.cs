@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using FrontPerson.Manager;
 using FrontPerson.Character;
@@ -12,6 +13,10 @@ namespace FrontPerson.Item
     /// </summary>
     public class IncreasedMovementSpeedPickup : MonoBehaviour
     {
+        [Header("PickupItemUIのスクリプト")]
+        [SerializeField]
+        private PickupItemUI pickupItemUI_ = null;
+
         /// <summary>
         /// 効果時間
         /// </summary>
@@ -38,19 +43,7 @@ namespace FrontPerson.Item
             // 移動速度アップ
             player.PickUpMovementSpeedItem(EFFECT_TIME, MOVEMENT_SPEED_MAGNIFICATION);
 
-            var gameobjs = GameObject.FindGameObjectsWithTag(Constants.TagName.GAME_CONTROLLER);
-
-            foreach (var obj in gameobjs)
-            {
-                var pickup_itemUI = obj.GetComponent<PickupItemUI>();
-
-                if (pickup_itemUI)
-                {
-                    pickup_itemUI.AddItem(Constants.ITEM_STATUS.SPEED_UP);
-
-                    break;
-                }
-            }
+            pickupItemUI_.AddItem(Constants.ITEM_STATUS.SPEED_UP);
         }
     }
 }

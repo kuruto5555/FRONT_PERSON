@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using FrontPerson.Character;
 using FrontPerson.UI;
@@ -11,6 +12,10 @@ namespace FrontPerson.Item
     /// </summary>
     public class ComboInsurancePickup : MonoBehaviour
     {
+        [Header("PickupItemUIのスクリプト")]
+        [SerializeField]
+        private PickupItemUI pickupItemUI_ = null;
+
         private Pickup pickup_;
 
         // Start is called before the first frame update
@@ -26,19 +31,7 @@ namespace FrontPerson.Item
 
             Manager.ComboManager.Instance.ActiveComboInsurance();
 
-            var gameobjs = GameObject.FindGameObjectsWithTag(Constants.TagName.GAME_CONTROLLER);
-
-            foreach(var obj in gameobjs)
-            {
-                var pickup_itemUI = obj.GetComponent<PickupItemUI>();
-
-                if (pickup_itemUI)
-                {
-                    pickup_itemUI.AddItem(Constants.ITEM_STATUS.COMBO_INSURANCE);
-
-                    break;
-                }
-            }
+            pickupItemUI_.AddItem(Constants.ITEM_STATUS.COMBO_INSURANCE);
         }
     }
 }
