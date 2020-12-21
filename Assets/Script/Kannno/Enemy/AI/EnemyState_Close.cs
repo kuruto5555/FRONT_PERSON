@@ -48,7 +48,7 @@ namespace FrontPerson.Enemy.AI
 
         protected override void OnChangeState_OldBattleaxe()
         {
-            if (Player.IsStun || Player.IsInvincible)
+            if (Player.IsStun || Player.IsInvincible || Player.IsTransparent)
             {
                 ChangeState<EnemyState_Move>();
 
@@ -65,7 +65,7 @@ namespace FrontPerson.Enemy.AI
 
         protected override void OnChangeState_Yakuza()
         {
-            if (Player.IsStun || Player.IsInvincible)
+            if (Player.IsStun || Player.IsInvincible || Player.IsTransparent)
             {
                 ChangeState<EnemyState_Move>();
 
