@@ -39,7 +39,7 @@ namespace FrontPerson.Enemy.AI
         {
             if (!searchArea.IsFound || Player.IsStun)
             {
-                ChangeState<EnemyState_Search>();
+                ChangeState<EnemyState_Move>();
             }
 
             Player.Stun();

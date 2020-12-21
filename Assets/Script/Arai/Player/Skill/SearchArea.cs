@@ -65,12 +65,30 @@ namespace FrontPerson.Character.Skill
         // Update is called once per frame
         void Update()
         {
+            // エリアが無効のなら帰る
             if (!eria_.enabled) return;
+
+            // リストのやつが元気になったらリストから外す
+            for (int i = 0; i < rendererList_.Count; i++)
+            {
+                // 元気じゃないならコンティニュー
+                if (!rendererList_[i].gameObject.GetComponent<Enemy>().isDown)
+                    continue;
+
+                // 元気だったらマテリアル戻してリストから削除
+                rendererList_[i].materials = initMaterialsList_[i];
+                rendererList_.RemoveAt(i);
+                initMaterialsList_.RemoveAt(i);
+                break;
+            }
+
+            // エリアサイズが最大以上だったら変える
             if (transform.localScale.x >= areaSizeMAX_) return;
 
             Vector3 scl = Vector3.zero;
             scl.x = scl.y = scl.z = speed_ * Time.deltaTime;
             transform.localScale += scl;
+
             if(transform.localScale.x >= areaSizeMAX_)
             {
                 scl.x = scl.y = scl.z = areaSizeMAX_;
@@ -79,12 +97,20 @@ namespace FrontPerson.Character.Skill
 
         }
 
+
+        /// <summary>
+        /// サーチ発動
+        /// </summary>
         public void Search()
         {
             eria_.enabled = true;
             mesh_.enabled = true;
         }
 
+
+        /// <summary>
+        /// サーチ停止
+        /// </summary>
         public void Stop()
         {
             //コライダーを無効にする
@@ -96,6 +122,7 @@ namespace FrontPerson.Character.Skill
             if (initMaterialsList_.Count == 0) return;
             for (int i = 0; i < initMaterialsList_.Count; i++)
             {
+                if (rendererList_[i].gameObject.GetComponent<Enemy>().isDown) continue;
                 rendererList_[i].materials = initMaterialsList_[i];
             }
 
@@ -103,7 +130,58 @@ namespace FrontPerson.Character.Skill
             initMaterialsList_.Clear();
         }
 
-        //出てった処理
+
+        /// <summary>
+        /// サーチエリアに入ったとき
+        /// </summary>
+        /// <param name="other">エリアに入ったやつ</param>
+        private void OnTriggerEnter(Collider other)
+        {
+            // エリアに入ったやつがEnemyじゃなかったら帰る
+            if (other.tag != TagName.ENEMY) return;
+
+            //バグ対策
+            foreach (Renderer render in rendererList_)
+            {
+                //同じオブジェクトがもしあった場合帰る
+                if (render.gameObject == other.gameObject) return;
+            }
+
+            // EnemyComponentの取得
+            Enemy enemy = other.GetComponent<Enemy>();
+            // エネミーがすでに元気になっていたら帰る
+            if (enemy.isDown) return;
+            initMaterialsList_.Add(other.GetComponent<Renderer>().materials);
+            rendererList_.Add(other.GetComponent<Renderer>());
+
+            // エネミーの足りないビタミンの種類によってセットするMaterialを変える
+            Renderer renderer = other.GetComponent<Renderer>();
+            Material[] materials = renderer.materials;
+            for (int i=0; i < other.GetComponent<Renderer>().materials.Length; i++)
+            {
+                // とりあえずビタミンCのいろにしちゃう
+                //materials[i] = vitaminCMat_;
+
+                
+                if(enemy.LackVitamins == NUTRIENTS_TYPE._A)
+                {
+                    materials[i] = vitaminCMat_;
+                }
+                else if(enemy.LackVitamins == NUTRIENTS_TYPE._B)
+                {
+                    materials[i] = vitaminDMat_;
+                }
+                
+            }
+            renderer.materials = materials;
+        }
+
+
+
+        /// <summary>
+        /// サーチエリアから出てった時
+        /// </summary>
+        /// <param name="other">エリアから出たやつ</param>
         private void OnTriggerExit(Collider other)
         {
             for (int i = 0; i < rendererList_.Count; i++)
@@ -117,43 +195,6 @@ namespace FrontPerson.Character.Skill
                 rendererList_.RemoveAt(i);
                 initMaterialsList_.RemoveAt(i);
                 break;
-            }
-        }
-
-        private void OnTriggerEnter(Collider other)
-        {
-            //バグ対策
-            foreach (Renderer render in rendererList_)
-            {
-                if(render.gameObject == other.gameObject) return;
-            }
-
-            if(other.tag == TagName.ENEMY)
-            {
-                Enemy enemy = other.GetComponent<Enemy>();
-                initMaterialsList_.Add(other.GetComponent<Renderer>().materials);
-                rendererList_.Add(other.GetComponent<Renderer>());
-
-                // エネミーの足りないビタミンの種類によってセットするMaterialを変える
-                Renderer renderer = other.GetComponent<Renderer>();
-                Material[] materials = renderer.materials;
-                for (int i=0; i < other.GetComponent<Renderer>().materials.Length; i++)
-                {
-                    // とりあえずビタミンCのいろにしちゃう
-                    //materials[i] = vitaminCMat_;
-
-                    
-                    if(enemy.LackVitamins == NUTRIENTS_TYPE._A)
-                    {
-                        materials[i] = vitaminCMat_;
-                    }
-                    else if(enemy.LackVitamins == NUTRIENTS_TYPE._B)
-                    {
-                        materials[i] = vitaminDMat_;
-                    }
-                    
-                }
-                renderer.materials = materials;
             }
         }
 
