@@ -140,6 +140,7 @@ namespace FrontPerson.UI
         {
             isInputWait_ = false;
             IsFinish = true;
+            gameObject.SetActive(false);
         }
     }
 }

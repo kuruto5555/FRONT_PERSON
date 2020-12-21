@@ -1,7 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using FrontPerson.Character;
+using FrontPerson.UI;
 
 namespace FrontPerson.Item
 {
@@ -10,6 +12,10 @@ namespace FrontPerson.Item
     /// </summary>
     public class InviciblePickup : MonoBehaviour
     {
+        [Header("PickupItemUIのスクリプト")]
+        [SerializeField]
+        private PickupItemUI pickupItemUI_ = null;
+
         [SerializeField]
         private float invicible_time_ = 15f;
 
@@ -28,6 +34,8 @@ namespace FrontPerson.Item
 
             // 無敵化
             player.SetInvincible(invicible_time_);
+
+            pickupItemUI_.AddItem(Constants.ITEM_STATUS.INVICIBLE);
         }
     }
 }
