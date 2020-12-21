@@ -119,7 +119,7 @@ namespace FrontPerson.Manager
         /// <summary>
         /// BGM専用オーディオソース
         /// </summary>
-        private static AudioSource bgm_audiosource = null;
+        private AudioSource bgm_audiosource = null;
 
         /// <summary>
         /// オーディオミキサー
@@ -195,21 +195,10 @@ namespace FrontPerson.Manager
 
         }
 
-        void Update()
-        {
-
-            bgm_audiosource.volume = DEFAULT_SOUND_VOLUME * AudioManager.Instance.audio_volume_.BGMVolume;
-
-
-            
-
-            Debug.Log(mixer_master);
-            Debug.Log(mixer_se);
-            Debug.Log(mixer_bgm);
-        }
-
         void LateUpdate()
         {
+            bgm_audiosource.volume = DEFAULT_SOUND_VOLUME * AudioManager.Instance.audio_volume_.BGMVolume;
+
             if (fade_out)
             {
                 if(fade_in)
@@ -262,7 +251,6 @@ namespace FrontPerson.Manager
             //リスト更新
             sound_info_list = cheack_sound;
             cheack_sound.Clear();
-            
         }
 
         /// <summary>
@@ -404,7 +392,7 @@ namespace FrontPerson.Manager
         {
             if(se_name.IndexOf("SE")!=0)
             {
-                Debug.Log("指定した定数はSEではないので再生できません");
+                Debug.LogError("指定した定数はSEではないので再生できません");
                 return null;
             }
 
@@ -419,7 +407,7 @@ namespace FrontPerson.Manager
                 }
             }
 
-            Debug.Log("指定したBGMはヒットしませんでした");
+            Debug.LogError("指定したBGMはヒットしませんでした");
             return null;
         }
 
@@ -433,7 +421,7 @@ namespace FrontPerson.Manager
         {
             if(bgm_name.IndexOf("BGM")!=0)
             {
-                Debug.Log("指定した定数はBGMではないので再生できません");
+                Debug.LogError("指定した定数はBGMではないので再生できません");
                 return null;
             }
 
@@ -448,7 +436,7 @@ namespace FrontPerson.Manager
             }
 
 
-            Debug.Log("指定したBGMはヒットしませんでした");
+            Debug.LogError("指定したBGMはヒットしませんでした");
             return null;
         }
 
