@@ -12,8 +12,6 @@ namespace FrontPerson.Item
     /// </summary>
     public class InviciblePickup : MonoBehaviour
     {
-        [Header("PickupItemUIのスクリプト")]
-        [SerializeField]
         private PickupItemUI pickupItemUI_ = null;
 
         [SerializeField]
@@ -26,6 +24,8 @@ namespace FrontPerson.Item
         {
             pickup_ = GetComponent<Pickup>();
             pickup_.onPick += OnPicked;
+
+            pickupItemUI_ = GameObject.FindGameObjectWithTag(Constants.TagName.GAME_CONTROLLER).GetComponent<PickupItemUI>();
         }
 
         private void OnPicked(Player player)
