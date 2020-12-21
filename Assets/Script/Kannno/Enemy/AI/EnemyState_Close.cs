@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 namespace FrontPerson.Enemy.AI
 {
@@ -11,13 +12,20 @@ namespace FrontPerson.Enemy.AI
         private Transform goal = null;
         public Transform Goal { set { goal = value; } }
 
+        [Header("半径からの距離")]
+        [SerializeField]
+        private float RadiusOffset = 0.3f;
+
+        private Vector3 offset = new Vector3();
+        public Vector3 Offset { set { offset = value; } }
+
         private float time = 0.0f;
 
         public float max_time = 1.0f;
 
         protected override void OnStart()
         {
-            Owner.SetTarget(goal.position);
+            Owner.SetTarget(goal.position + offset);
 
             time = Time.timeSinceLevelLoad;
         }
@@ -28,7 +36,9 @@ namespace FrontPerson.Enemy.AI
             {
                 time = Time.timeSinceLevelLoad;
 
-                Owner.SetTarget(goal.position);
+                ClalOffset();
+
+                Owner.SetTarget(goal.position + offset);
             }
         }
 
@@ -68,6 +78,22 @@ namespace FrontPerson.Enemy.AI
 
                 return;
             }
+        }
+
+        /// <summary>
+        /// 半径(ナビゲーション)分のオフセットを計算
+        /// </summary>
+        private void ClalOffset()
+        {
+            var ai = Owner.state_AI as EnemyState_Close;
+
+            Vector3 vec_enemy = transform.position - goal.position;
+            vec_enemy.y = 0f;
+
+            Vector3 vec_radius = Vector3.Normalize(vec_enemy) * (Player.GetComponent<NavMeshObstacle>().radius + RadiusOffset);
+            vec_radius.y = 0f;
+
+            Offset = vec_radius;
         }
     }
 }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.AI;
 
 using FrontPerson.Manager;
 using FrontPerson.Constants;
@@ -122,7 +123,7 @@ namespace FrontPerson.Enemy.AI
 
                 var ai = Owner.state_AI as EnemyState_Close;
 
-                ai.Goal = Player.transform;
+                ClalPosition();
             }
         }
 
@@ -136,10 +137,26 @@ namespace FrontPerson.Enemy.AI
 
                 var ai = Owner.state_AI as EnemyState_Close;
 
-                ai.Goal = Player.transform;
+                ClalPosition();
 
                 AudioManager.Instance.Play3DSE(Owner.transform.position, SEPath.GAME_SE_VOICE_YAKUZA);
             }
+        }
+
+        /// <summary>
+        /// 半径(ナビゲーション)分のオフセットを計算
+        /// </summary>
+        private void ClalPosition()
+        {
+            var ai = Owner.state_AI as EnemyState_Close;
+
+            Vector3 vec_enemy = transform.position - Player.transform.position;
+            vec_enemy.y = 0f;
+
+            Vector3 vec_radius = Vector3.Normalize(vec_enemy) * (Player.GetComponent<NavMeshObstacle>().radius + 0.3f);
+
+            ai.Goal = Player.transform;
+            ai.Offset = vec_radius;
         }
     }
 }
