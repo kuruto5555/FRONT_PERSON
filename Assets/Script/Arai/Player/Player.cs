@@ -58,6 +58,10 @@ namespace FrontPerson.Character
         [SerializeField, Range(0.1f, 1.0f)]
         float DashSoundRate = 1.0f;
 
+        [Header("透明中画面エフェクト")]
+        [SerializeField] 
+        GameObject InvisibleEffect_ = null;
+
         /// <summary>
         /// スペシャル武器
         /// </summary>
@@ -188,11 +192,20 @@ namespace FrontPerson.Character
         /// </summary>
         float _nowDashSoundRate = 0.0f;
 
-
-        
-
+        /// <summary>
+        /// オーディオマネージャー参照
+        /// </summary>
         AudioManager _audioManager = null;
 
+        /// <summary>
+        /// 透明化中のエフェクトの参照
+        /// </summary>
+        GameObject _invisibleObject = null;
+
+        /// <summary>
+        /// UI用キャンバス参照
+        /// </summary>
+        Transform _canvas = null;
 
         /*---- プロパティ ----*/
         /// <summary>
@@ -335,6 +348,8 @@ namespace FrontPerson.Character
             _nowDashSoundRate = 1.0f;
 
             _audioManager = AudioManager.Instance;
+
+            _canvas = GameObject.Find("GameUI_Canvas").transform;
         }
 
         // Update is called once per frame
@@ -683,6 +698,7 @@ namespace FrontPerson.Character
             {
                 _nowInvincibleTime = 0.0f;
                 _isInvincible = false;
+                 
             }
         }
 
@@ -778,7 +794,7 @@ namespace FrontPerson.Character
 
             if (_movementSpeedUpTime < 0)
             {
-                _itemStatusFlag &= ITEM_STATUS.SPEED_UP; //解除
+                _itemStatusFlag &= ~ITEM_STATUS.SPEED_UP; //解除
                 _addSpeed = 1.0f; //等倍に戻す
             }
         }
@@ -791,8 +807,9 @@ namespace FrontPerson.Character
 
             if(_invicibleItemTime < 0)
             {
-                _itemStatusFlag &= ITEM_STATUS.INVICIBLE; //解除
+                _itemStatusFlag &= ~ITEM_STATUS.INVICIBLE; //解除
                 _isInvincible = false;
+                Destroy(_invisibleObject);
             }
         }
 
@@ -853,6 +870,8 @@ namespace FrontPerson.Character
             _invicibleItemTime = time;
 
             _itemStatusFlag |= ITEM_STATUS.INVICIBLE;
+
+            _invisibleObject = Instantiate(InvisibleEffect_, _canvas.transform);
         }
 
         private void DebugUpdeta()
