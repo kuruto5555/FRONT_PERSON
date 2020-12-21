@@ -33,7 +33,7 @@ namespace FrontPerson.Item
             pickup_.PlayPickupFeedback();
 
             // 無敵化
-            player.SetInvincible(invicible_time_);
+            player.PickUpTransparent(invicible_time_);
 
             pickupItemUI_.AddItem(Constants.ITEM_STATUS.INVICIBLE);
         }
