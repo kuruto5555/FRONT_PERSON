@@ -72,6 +72,8 @@ namespace FrontPerson.Weapon
 
         protected string _shotSoundPath;
 
+        protected Animator _animator = null;
+
         protected void Awake()
         {
             _bountyManager = BountyManager._instance;
@@ -87,6 +89,8 @@ namespace FrontPerson.Weapon
 
             _bountyManager = BountyManager._instance;
             _audioManager = AudioManager.Instance;
+            //_animator = GetComponent<Animator>();
+            
         }
 
         // Update is called once per frame
