@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 262.3371, g: 325.05005, b: 430.21954, a: 1}
+  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -608,6 +608,27 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1052964434}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &126932287 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7300097364196378511, guid: 4ac8071099f43f6428587e37f24d8295,
+    type: 3}
+  m_PrefabInstance: {fileID: 3538857796688485564}
+  m_PrefabAsset: {fileID: 0}
+--- !u!111 &126932291
+Animation:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 126932287}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Animation: {fileID: 0}
+  m_Animations: []
+  m_WrapMode: 0
+  m_PlayAutomatically: 1
+  m_AnimatePhysics: 0
+  m_CullingType: 0
 --- !u!1001 &143497280
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -9905,7 +9926,7 @@ PrefabInstance:
     - target: {fileID: 3400952845557951417, guid: 34dc7089d86a38047a11c22287ec03bc,
         type: 3}
       propertyPath: walkSpeed_
-      value: 10
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 3400952845557951417, guid: 34dc7089d86a38047a11c22287ec03bc,
         type: 3}
