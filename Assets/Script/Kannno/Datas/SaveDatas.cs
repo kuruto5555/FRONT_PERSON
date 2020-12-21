@@ -29,16 +29,16 @@ namespace FrontPerson.Data
         /// <summary>
         /// ランキングに表示するスコア(上位5位分)
         /// </summary>
-        public List<int> RankingScore = new List<int>() { 0, 0, 0, 0, 0 };
+        public List<int> RankingScore = new List<int>() { 1000000, 500000, 100000, 50000, 10000 };
 
         /// <summary>
         /// ランキングに表示する最大コンボ数(上位5位分)
         /// </summary>
-        public List<int> RankingComboNum = new List<int>() { 0, 0, 0, 0, 0 };
+        public List<int> RankingComboNum = new List<int>() { 50, 40, 30, 20, 10 };
 
         /// <summary>
         /// ランキングに表示するミッションクリア数(上位5位分)
         /// </summary>
-        public List<int> RankingClearMissionNum = new List<int>() { 0, 0, 0, 0, 0 };
+        public List<int> RankingClearMissionNum = new List<int>() { 10, 8, 6, 4, 2 };
     }
 }
