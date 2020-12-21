@@ -4,10 +4,10 @@ namespace FrontPerson.Constants
 {
     public enum WEAPON_ANIM_INDEX
     {
-
-        HAVE    = 0,
-        PUT     = 1,
-        SHOT    = 2
+        IDEL    = 0,
+        HAVE    = 1,
+        PUT     = 2,
+        SHOT    = 3
     }
     
 }
