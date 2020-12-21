@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 1175710397610723847}
   - component: {fileID: 2885835446934486966}
   - component: {fileID: 123489415921436923}
+  - component: {fileID: 259838076706482143}
   m_Layer: 5
   m_Name: LockOnCursor
   m_TagString: Untagged
@@ -87,3 +88,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0c50c68acb5fd1e4081c492dbea0d5e7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!95 &259838076706482143
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3163502147343172641}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: cb349fc873d63a343a611dd8785e5178, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
