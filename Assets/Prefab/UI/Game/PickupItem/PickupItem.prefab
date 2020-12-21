@@ -87,7 +87,7 @@ GameObject:
   - component: {fileID: 6642804831391888911}
   m_Layer: 5
   m_Name: PickupItem
-  m_TagString: Untagged
+  m_TagString: GameController
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

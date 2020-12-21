@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using FrontPerson.Character;
+using FrontPerson.UI;
 
 namespace FrontPerson.Item
 {
@@ -28,6 +29,20 @@ namespace FrontPerson.Item
 
             // 無敵化
             player.SetInvincible(invicible_time_);
+
+            var gameobjs = GameObject.FindGameObjectsWithTag(Constants.TagName.GAME_CONTROLLER);
+
+            foreach (var obj in gameobjs)
+            {
+                var pickup_itemUI = obj.GetComponent<PickupItemUI>();
+
+                if (pickup_itemUI)
+                {
+                    pickup_itemUI.AddItem(Constants.ITEM_STATUS.INVICIBLE);
+
+                    break;
+                }
+            }
         }
     }
 }
