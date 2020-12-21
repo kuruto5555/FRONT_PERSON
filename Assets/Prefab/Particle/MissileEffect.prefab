@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 7420113861134390139}
   - component: {fileID: 7420113861134389892}
   - component: {fileID: 7420113861134389893}
+  - component: {fileID: 8755566294325520499}
   m_Layer: 0
   m_Name: MissileEffect
   m_TagString: Untagged
@@ -27,7 +28,7 @@ Transform:
   m_GameObject: {fileID: 7420113861134389894}
   m_LocalRotation: {x: -0.7071068, y: -0, z: -0, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 2, y: 2, z: 2}
   m_Children:
   - {fileID: 1532626439629111591}
   - {fileID: 7516846655403513344}
@@ -4814,6 +4815,18 @@ ParticleSystemRenderer:
   m_Mesh2: {fileID: 0}
   m_Mesh3: {fileID: 0}
   m_MaskInteraction: 0
+--- !u!114 &8755566294325520499
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7420113861134389894}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6a73ba814e213f14792ab203115680a2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &3198538099247570738
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4969,32 +4982,32 @@ PrefabInstance:
     - target: {fileID: 2079133386939970310, guid: 1cc6d0dcae8f097418b5ac6f208444be,
         type: 3}
       propertyPath: InitialModule.startColor.maxGradient.key0.r
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2079133386939970310, guid: 1cc6d0dcae8f097418b5ac6f208444be,
-        type: 3}
-      propertyPath: InitialModule.startColor.maxGradient.key0.g
-      value: 0.9561809
-      objectReference: {fileID: 0}
-    - target: {fileID: 2079133386939970310, guid: 1cc6d0dcae8f097418b5ac6f208444be,
-        type: 3}
-      propertyPath: InitialModule.startColor.maxGradient.key0.b
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2079133386939970310, guid: 1cc6d0dcae8f097418b5ac6f208444be,
         type: 3}
+      propertyPath: InitialModule.startColor.maxGradient.key0.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2079133386939970310, guid: 1cc6d0dcae8f097418b5ac6f208444be,
+        type: 3}
+      propertyPath: InitialModule.startColor.maxGradient.key0.b
+      value: 0.008504391
+      objectReference: {fileID: 0}
+    - target: {fileID: 2079133386939970310, guid: 1cc6d0dcae8f097418b5ac6f208444be,
+        type: 3}
       propertyPath: InitialModule.startColor.maxGradient.key1.r
-      value: 0.990566
+      value: 0.73333335
       objectReference: {fileID: 0}
     - target: {fileID: 2079133386939970310, guid: 1cc6d0dcae8f097418b5ac6f208444be,
         type: 3}
       propertyPath: InitialModule.startColor.maxGradient.key1.b
-      value: 0.7335796
+      value: 0.8308588
       objectReference: {fileID: 0}
     - target: {fileID: 2079133386939970310, guid: 1cc6d0dcae8f097418b5ac6f208444be,
         type: 3}
       propertyPath: InitialModule.startColor.maxGradient.key1.g
-      value: 0.9889032
+      value: 0.99215686
       objectReference: {fileID: 0}
     - target: {fileID: 2079133386939970310, guid: 1cc6d0dcae8f097418b5ac6f208444be,
         type: 3}
@@ -5221,6 +5234,21 @@ PrefabInstance:
       propertyPath: SizeModule.curve.scalar
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 2079133386939970310, guid: 1cc6d0dcae8f097418b5ac6f208444be,
+        type: 3}
+      propertyPath: InitialModule.startColor.maxGradient.ctime1
+      value: 64957
+      objectReference: {fileID: 0}
+    - target: {fileID: 2079133386939970311, guid: 1cc6d0dcae8f097418b5ac6f208444be,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: a094dd0b71b847d45ba870de020e08cc, type: 2}
+    - target: {fileID: 2079133386939970311, guid: 1cc6d0dcae8f097418b5ac6f208444be,
+        type: 3}
+      propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: 2100000, guid: a094dd0b71b847d45ba870de020e08cc, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1cc6d0dcae8f097418b5ac6f208444be, type: 3}
 --- !u!4 &7516846655403513344 stripped
