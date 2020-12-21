@@ -15,6 +15,10 @@ namespace FrontPerson.Enemy.AI
         [SerializeField]
         private MovePattern MovePattern  = null;
 
+        [Header("半径からの距離")]
+        [SerializeField]
+        private float RadiusOffset = 0.3f;
+
         public void Set_MovePattern(MovePattern move_pattern)
         {
             MovePattern = move_pattern;
@@ -129,7 +133,9 @@ namespace FrontPerson.Enemy.AI
 
         protected override void OnChangeState_Yakuza()
         {
-            if (SearchArea.IsFound && (Player.IsStun == false && Player.IsInvincible == false))
+            if (Player.IsStun == true || Player.IsInvincible == true) return;
+
+            if (SearchArea.IsFound)
             {
                 SetMovePoint();
 
@@ -153,7 +159,7 @@ namespace FrontPerson.Enemy.AI
             Vector3 vec_enemy = transform.position - Player.transform.position;
             vec_enemy.y = 0f;
 
-            Vector3 vec_radius = Vector3.Normalize(vec_enemy) * (Player.GetComponent<NavMeshObstacle>().radius + 0.3f);
+            Vector3 vec_radius = Vector3.Normalize(vec_enemy) * (Player.GetComponent<NavMeshObstacle>().radius + RadiusOffset);
 
             ai.Goal = Player.transform;
             ai.Offset = vec_radius;
