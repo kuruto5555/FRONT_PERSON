@@ -44,6 +44,9 @@ namespace FrontPerson.Enemy
             }
             else
             {
+                // コンボの終了
+                ComboManager.Instance.LostCombo();
+
                 AudioManager.Instance.Play3DSE(transform.position, SEPath.GAME_SE_VOICE_MAN);
             }
         }
