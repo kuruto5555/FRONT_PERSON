@@ -175,9 +175,6 @@ namespace FrontPerson.Manager
             ComboNum += addComboNum;
             comboMidwayBonusCount_ += addComboNum;
 
-            // アニメーション再生
-            animator_.Play(popUpAnimHash);
-
             // バウンティーに現在のコンボ数を教える
             bountyManager_.SetNowCombo(comboNum_);
 
@@ -189,6 +186,9 @@ namespace FrontPerson.Manager
 
             // UIにコンボ情報を伝える
             comboUI_.SetComboNum();
+            
+            // アニメーション再生
+            animator_.Play(popUpAnimHash);
 
             // コルーチンでコンボのタイマーを開始
             // すでに動いていた場合特に何も起きない
@@ -304,6 +304,8 @@ namespace FrontPerson.Manager
 
                     // 毎フレームタイマーを減らす
                     ComboRemainingTime -= Time.deltaTime;
+                    // コンボ途中ボーナスタイマーを進める
+                    comboMidwayBonusTime_ += Time.deltaTime;
                 }
 
                 // ↓↓↓ コンボが途切れた時 ↓↓↓
