@@ -532,23 +532,13 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3622796609637628621, guid: 2033241cfdc272e4983d53b7447527d7,
         type: 3}
-      propertyPath: m_SizeDelta.x
-      value: 100
-      objectReference: {fileID: 0}
-    - target: {fileID: 3622796609637628621, guid: 2033241cfdc272e4983d53b7447527d7,
-        type: 3}
-      propertyPath: m_SizeDelta.y
-      value: 100
+      propertyPath: m_AnchoredPosition.x
+      value: -150
       objectReference: {fileID: 0}
     - target: {fileID: 4210649784458605641, guid: 2033241cfdc272e4983d53b7447527d7,
         type: 3}
-      propertyPath: m_SizeDelta.x
-      value: 100
-      objectReference: {fileID: 0}
-    - target: {fileID: 4210649784458605641, guid: 2033241cfdc272e4983d53b7447527d7,
-        type: 3}
-      propertyPath: m_SizeDelta.y
-      value: 100
+      propertyPath: m_AnchoredPosition.x
+      value: 150
       objectReference: {fileID: 0}
     - target: {fileID: 5168570216689685168, guid: 2033241cfdc272e4983d53b7447527d7,
         type: 3}
@@ -660,17 +650,7 @@ PrefabInstance:
       propertyPath: m_Name
       value: PickupItem
       objectReference: {fileID: 0}
-    - target: {fileID: 6239708558153881926, guid: 2033241cfdc272e4983d53b7447527d7,
-        type: 3}
-      propertyPath: m_SizeDelta.x
-      value: 100
-      objectReference: {fileID: 0}
-    - target: {fileID: 6239708558153881926, guid: 2033241cfdc272e4983d53b7447527d7,
-        type: 3}
-      propertyPath: m_SizeDelta.y
-      value: 100
-      objectReference: {fileID: 0}
-    - target: {fileID: 7423978779654812063, guid: 2033241cfdc272e4983d53b7447527d7,
+    - target: {fileID: 5168570216689685171, guid: 2033241cfdc272e4983d53b7447527d7,
         type: 3}
       propertyPath: m_IsActive
       value: 0

@@ -1,7 +1,10 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
+
+using FrontPerson.Constants;
 
 namespace FrontPerson.UI
 {
@@ -10,9 +13,15 @@ namespace FrontPerson.UI
         [SerializeField]
         private List<Image> ItemImages = new List<Image>();
 
+        [Tooltip("透明化、速度上昇、コンボ保険 の順番で設定して下さい")]
         [Header("アイテムのアイコン")]
         [SerializeField]
         private List<Sprite> ItemSprites = new List<Sprite>();
+
+        /// <summary>
+        /// 所持しているアイテム一覧
+        /// </summary>
+        private List<ITEM_STATUS> HaveItems = new List<ITEM_STATUS>() { ITEM_STATUS.NORMAL, ITEM_STATUS.NORMAL, ITEM_STATUS.NORMAL };
 
         private Animator Animator = null;
 
@@ -26,38 +35,20 @@ namespace FrontPerson.UI
         /// </summary>
         private int Before_ItemCnt = 0;
 
-        /// <summary>
-        /// 
-        /// </summary>
-        private bool flag = false;
-
         private readonly int PICKUP_ITEM_01 = Animator.StringToHash("PickupItem01");
         private readonly int PICKUP_ITEM_02 = Animator.StringToHash("PickupItem02");
         private readonly int PICKUP_ITEM_03 = Animator.StringToHash("PickupItem03");
 
-        private void OnEnable()
-        {
-            if(flag)
-            {
-                Animator?.Play(PICKUP_ITEM_01);
-
-                flag = false;
-            }
-        }
-
         void Start()
         {
-            flag = true;
-
             Animator = GetComponent<Animator>();
+        }
 
+        private void LateUpdate()
+        {
             PlayAnimation();
         }
 
-        private void Enable()
-        {
-            flag = true;
-        }
 
         /// <summary>
         /// アニメーションの再生関数
@@ -66,34 +57,137 @@ namespace FrontPerson.UI
         {
             if (Before_ItemCnt < ItemCnt)
             {
+                if (Animator.GetCurrentAnimatorStateInfo(0).normalizedTime < 1f)
+                {
+                    switch (ItemCnt)
+                    {
+                        case 1:
+                            Animator.Play(PICKUP_ITEM_01);
+                            break;
+
+                        case 2:
+                            Animator.Play(PICKUP_ITEM_02);
+                            break;
+
+                        case 3:
+                            Animator.Play(PICKUP_ITEM_03);
+                            break;
+
+                        default:
+                            break;
+                    }
+                }
+
+                Before_ItemCnt = ItemCnt;
+
                 switch (ItemCnt)
                 {
-                    case 0:
-                        break;
-
-                    case 1:
-                        Animator.Play(PICKUP_ITEM_01);
-                        break;
-
                     case 2:
-                        Animator.Play(PICKUP_ITEM_02);
+                        Animator.SetBool("Item_02", true);
+                        Animator.SetBool("Item_03", false);
                         break;
 
                     case 3:
-                        Animator.Play(PICKUP_ITEM_03);
+                        Animator.SetBool("Item_02", false);
+                        Animator.SetBool("Item_03", true);
                         break;
 
                     default:
                         break;
                 }
             }
+            else
+            {
+                if (1f == Animator.GetCurrentAnimatorStateInfo(0).normalizedTime)
+                {
+                    Animator.SetBool("Item_02", false);
+                    Animator.SetBool("Item_03", false);
+                }
+            }
         }
 
-        private void ChangeImage()
+        /// <summary>
+        /// アイテムの追加
+        /// </summary>
+        /// <param name="item_status"></param>
+        public void AddItem(ITEM_STATUS item_status)
         {
-            if (ItemCnt < Before_ItemCnt)
+            if (HaveItems.Contains(item_status)) return;
+
+            for (int i = 0; i < HaveItems.Count(); i++)
             {
-                
+                if (HaveItems[i] == ITEM_STATUS.NORMAL)
+                {
+                    switch (item_status)
+                    {
+                        case ITEM_STATUS.INVICIBLE:
+                            ItemImages[i].sprite = ItemSprites[0];
+                            HaveItems[i] = ITEM_STATUS.INVICIBLE;
+                            break;
+
+                        case ITEM_STATUS.SPEED_UP:
+                            ItemImages[i].sprite = ItemSprites[1];
+                            HaveItems[i] = ITEM_STATUS.SPEED_UP;
+                            break;
+
+                        case ITEM_STATUS.COMBO_INSURANCE:
+                            ItemImages[i].sprite = ItemSprites[2];
+                            HaveItems[i] = ITEM_STATUS.COMBO_INSURANCE;
+                            break;
+                    }
+
+                    // アイテムの取得数の加算
+                    ItemCnt++;
+                    break;
+                }
+            }
+        }
+
+        /// <summary>
+        /// アイテムの削除
+        /// </summary>
+        /// <param name="item_status"></param>
+        public void DeleteItem(ITEM_STATUS item_status)
+        {
+            if (!HaveItems.Contains(item_status)) return;
+
+            for (int i = 0; i < HaveItems.Count(); i++)
+            {
+                if (HaveItems[i] == item_status)
+                {
+                    HaveItems[i] = ITEM_STATUS.NORMAL;
+                    //ItemImages[i].sprite = null;
+
+                    // アイテムの取得数の減算
+                    ItemCnt--;
+
+                    switch(ItemCnt)
+                    {
+                        case 1:
+                            if(0 == i)
+                            {
+                                ItemImages[i].sprite = ItemImages[i + 1].sprite;
+                            }
+                            break;
+
+                        case 2:
+                            if (0 == i)
+                            {
+                                ItemImages[i].sprite = ItemImages[i + 1].sprite;
+                                ItemImages[i+ 1].sprite = ItemImages[i + 2].sprite;
+                            }
+                            if (1 == i)
+                            {
+                                ItemImages[i].sprite = ItemImages[i + 1].sprite;
+                            }
+                            break;
+
+                        default:
+                            break;
+                    }
+
+                    break;
+                }
             }
         }
     }
