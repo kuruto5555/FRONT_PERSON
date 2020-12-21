@@ -39,6 +39,16 @@ namespace FrontPerson.UI
         private readonly int PICKUP_ITEM_02 = Animator.StringToHash("PickupItem02");
         private readonly int PICKUP_ITEM_03 = Animator.StringToHash("PickupItem03");
 
+        private void Awake()
+        {
+            gameObject.SetActive(false);
+        }
+
+        private void OnEnable()
+        {
+            PlayAnimation();
+        }
+
         void Start()
         {
             Animator = GetComponent<Animator>();
@@ -113,6 +123,8 @@ namespace FrontPerson.UI
         public void AddItem(ITEM_STATUS item_status)
         {
             if (HaveItems.Contains(item_status)) return;
+
+            if(0 == ItemCnt) gameObject.SetActive(true);
 
             for (int i = 0; i < HaveItems.Count(); i++)
             {
@@ -189,6 +201,8 @@ namespace FrontPerson.UI
                     break;
                 }
             }
+
+            if (0 == ItemCnt) gameObject.SetActive(false);
         }
     }
 }
