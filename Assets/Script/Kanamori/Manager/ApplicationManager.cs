@@ -7,7 +7,7 @@ using FrontPerson.Data;
 
 namespace FrontPerson.Manager
 {
-    public class ApplicationManager : MonoBehaviour
+    public class ApplicationManager : SingletonMonoBehaviour<ApplicationManager>
     {
         /// <summary>
         /// 今回のスコア

@@ -21,7 +21,7 @@ namespace FrontPerson.UI
         /// <summary>
         /// 所持しているアイテム一覧
         /// </summary>
-        private List<ITEM_STATUS> HaveItems = null;
+        private List<ITEM_STATUS> HaveItems = new List<ITEM_STATUS>() { ITEM_STATUS.NORMAL, ITEM_STATUS.NORMAL, ITEM_STATUS.NORMAL };
 
         private Animator Animator = null;
 
@@ -35,26 +35,31 @@ namespace FrontPerson.UI
         /// </summary>
         private int Before_ItemCnt = 0;
 
+        /// <summary>
+        /// アニメーション中かを表すフラグ(true = 再生中)
+        /// </summary>
+        private bool PlayAnime = false;
+
         private readonly int PICKUP_ITEM_01 = Animator.StringToHash("PickupItem01");
         private readonly int PICKUP_ITEM_02 = Animator.StringToHash("PickupItem02");
         private readonly int PICKUP_ITEM_03 = Animator.StringToHash("PickupItem03");
 
-        private void Awake()
-        {
-            HaveItems = new List<ITEM_STATUS>() { ITEM_STATUS.NORMAL, ITEM_STATUS.NORMAL, ITEM_STATUS.NORMAL };
-
-            gameObject.SetActive(false);
-            if (null == Animator) Animator = GetComponent<Animator>();
-        }
-
-        private void OnEnable()
-        {
-            if(null == Animator) Animator = GetComponent<Animator>();
-        }
-
         void Start()
         {
             Animator = GetComponent<Animator>();
+
+            foreach(var item in ItemImages)
+            {
+                item.gameObject.SetActive(false);
+            }
+        }
+
+        private void Update()
+        {
+            //foreach (var item in ItemImages)
+            //{
+            //    Debug.Log(item.name + " " + item.color.ToString());
+            //}
         }
 
         private void LateUpdate()
@@ -68,9 +73,9 @@ namespace FrontPerson.UI
         /// </summary>
         private void PlayAnimation()
         {
-            if (Before_ItemCnt < ItemCnt)
+            if (Before_ItemCnt != ItemCnt)
             {
-                if (Animator.GetCurrentAnimatorStateInfo(0).normalizedTime < 1f)
+                if (false == PlayAnime)
                 {
                     switch (ItemCnt)
                     {
@@ -89,32 +94,40 @@ namespace FrontPerson.UI
                         default:
                             break;
                     }
-                }
 
-                Before_ItemCnt = ItemCnt;
+                    Before_ItemCnt = ItemCnt;
+                    PlayAnime = true;
 
-                switch (ItemCnt)
-                {
-                    case 2:
-                        Animator.SetBool("Item_02", true);
-                        Animator.SetBool("Item_03", false);
-                        break;
+                    switch (ItemCnt)
+                    {
+                        case 2:
+                            Animator.SetBool("Item_02", true);
+                            Animator.SetBool("Item_03", false);
+                            break;
 
-                    case 3:
-                        Animator.SetBool("Item_02", false);
-                        Animator.SetBool("Item_03", true);
-                        break;
+                        case 3:
+                            Animator.SetBool("Item_02", false);
+                            Animator.SetBool("Item_03", true);
+                            break;
 
-                    default:
-                        break;
+                        default:
+                            break;
+                    }
+
+                    for (int i = 0; i < ItemCnt; i++)
+                    {
+                        ItemImages[i].gameObject.SetActive(true);
+                    }
                 }
             }
             else
             {
-                if (1f == Animator.GetCurrentAnimatorStateInfo(0).normalizedTime)
+                if (1f <= Animator.GetCurrentAnimatorStateInfo(0).normalizedTime && PlayAnime)
                 {
                     Animator.SetBool("Item_02", false);
                     Animator.SetBool("Item_03", false);
+
+                    PlayAnime = false;
                 }
             }
         }
@@ -127,7 +140,7 @@ namespace FrontPerson.UI
         {
             if (HaveItems.Contains(item_status)) return;
 
-            if(0 == ItemCnt) gameObject.SetActive(true);
+            //if (0 == ItemCnt) ItemImages[0].gameObject.SetActive(true);
 
             for (int i = 0; i < HaveItems.Count(); i++)
             {
@@ -149,7 +162,12 @@ namespace FrontPerson.UI
                             ItemImages[i].sprite = ItemSprites[2];
                             HaveItems[i] = ITEM_STATUS.COMBO_INSURANCE;
                             break;
+
+                        default:
+                            return;
                     }
+
+                    ItemImages[i].gameObject.SetActive(true);
 
                     // アイテムの取得数の加算
                     ItemCnt++;
@@ -171,7 +189,7 @@ namespace FrontPerson.UI
                 if (HaveItems[i] == item_status)
                 {
                     HaveItems[i] = ITEM_STATUS.NORMAL;
-                    //ItemImages[i].sprite = null;
+                    ItemImages[i].gameObject.SetActive(false);
 
                     // アイテムの取得数の減算
                     ItemCnt--;
@@ -198,14 +216,20 @@ namespace FrontPerson.UI
                             break;
 
                         default:
-                            break;
+                            return;
                     }
 
                     break;
                 }
             }
 
-            if (0 == ItemCnt) gameObject.SetActive(false);
+            if (0 == ItemCnt)
+            {
+                foreach (var item in ItemImages)
+                {
+                    item.gameObject.SetActive(false);
+                }
+            }
         }
     }
 }
