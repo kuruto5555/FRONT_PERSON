@@ -64,7 +64,7 @@ namespace FrontPerson.Enemy.AI
 
             if (Player.IsStun || Player.IsInvincible)
             {
-                ChangeState<EnemyState_Search>();
+                ChangeState<EnemyState_Move>();
 
                 return;
             }

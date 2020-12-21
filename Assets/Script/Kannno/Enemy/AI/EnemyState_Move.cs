@@ -128,7 +128,7 @@ namespace FrontPerson.Enemy.AI
 
         protected override void OnChangeState_Yakuza()
         {
-            if (SearchArea.IsFound)
+            if (SearchArea.IsFound && (Player.IsStun == false && Player.IsInvincible == false))
             {
                 SetMovePoint();
 
