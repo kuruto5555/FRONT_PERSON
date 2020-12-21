@@ -158,6 +158,11 @@ namespace FrontPerson.Character
         private SpecialWeaponManager _weponManager = null;
 
         /// <summary>
+        /// コンボマネージャー参照
+        /// </summary>
+        private ComboManager _comboManager = null;
+
+        /// <summary>
         /// 視点感度変数
         /// </summary>
         int _viewRotetaSpeed = 0;
@@ -350,6 +355,8 @@ namespace FrontPerson.Character
             _audioManager = AudioManager.Instance;
 
             _canvas = GameObject.Find("GameUI_Canvas").transform;
+
+            _comboManager = ComboManager.Instance;
         }
 
         // Update is called once per frame
@@ -679,6 +686,8 @@ namespace FrontPerson.Character
             _bountyManager.PlayerDamage();
             _audioManager.Play3DSE(Position, SEPath.GAME_SE_STUN);
             _audioManager.Play3DSE(Position, SEPath.GAME_SE_DAMEGE);
+            _comboManager.LostCombo();
+
         }
 
         /// <summary>
