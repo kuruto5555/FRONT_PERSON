@@ -22,6 +22,9 @@ namespace FrontPerson.Weapon
 
         [SerializeField] ParticleSystem Particle_ = null;
 
+        [Header("爆発エフェクトプレハブ")]
+        [SerializeField] GameObject _BlastEffect = null;
+
         //発射されてからの時間
         private float _nowTime = 0.0f;
 
@@ -31,6 +34,8 @@ namespace FrontPerson.Weapon
         private LockOnUI _cursor = null;
 
         private bool _isHoming = false;
+
+        private bool _isTargerLost = false;
 
         Vector3 newPos;
 
@@ -45,6 +50,7 @@ namespace FrontPerson.Weapon
             newPos = transform.position + transform.forward * 25.0f;
             newPos.y = StartHeight_;
 
+            _isTargerLost = false;
         }
 
         // Update is called once per frame
@@ -54,15 +60,7 @@ namespace FrontPerson.Weapon
 
             _nowTime += Time.deltaTime;
 
-            TargetUpdate();
-        }
-
-        private void TargetUpdate()
-        {
-            //ターゲットがいなかったらターゲットの座標を更新しない
-            if (_target == null) return;
-
-            _targetPos = _target.position;
+            
         }
 
         public override void Move()
@@ -70,7 +68,7 @@ namespace FrontPerson.Weapon
             prevPos_ = transform.position;
             Rise();
             Homing();
-          
+            transform.position += transform.forward * speed_ * Time.deltaTime;
         }
 
         /// <summary>
@@ -101,6 +99,9 @@ namespace FrontPerson.Weapon
         private void Homing()
         {
             if (!_isHoming)  return;
+            if (IsTargetLost()) return;
+
+            _targetPos = _target.position;
 
             //ターゲットの方向ベクトル
             Vector3 vec = (_targetPos - transform.position).normalized;
@@ -110,7 +111,17 @@ namespace FrontPerson.Weapon
 
             transform.rotation = Quaternion.Slerp(transform.rotation, rot, TurnSpeed_);
 
-            transform.position += transform.forward * speed_ * Time.deltaTime;
+            
+        }
+
+        private bool IsTargetLost()
+        {
+            if (_target == null)
+            {
+                return true;
+            }
+
+            return false;
         }
 
         public void SetData(Transform data, LockOnUI cursor)
@@ -128,6 +139,9 @@ namespace FrontPerson.Weapon
                 _cursor.SetDead();
                 Particle_.transform.parent = null;
                 Particle_.loop = false;
+                Instantiate(_BlastEffect, transform.position, Quaternion.identity);
+                //obj.GetComponent<ParticleSystemRenderer>().material = _BlastEffect.GetComponent<ParticleSystemRenderer>().sharedMaterial;
+                _audioManager.Play3DSE(transform.position, SEPath.GAME_SE_LANDING_MISSILE);
                 Destroy(gameObject);
             }
         }

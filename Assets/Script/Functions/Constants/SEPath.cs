@@ -23,6 +23,8 @@ public static class SEPath
 	public const string GAME_SE_ITEM_DROP_A     ="SE/Game_SE_ItemDropA";
 	public const string GAME_SE_ITEM_DROP_BC    ="SE/Game_SE_ItemDropBC";
 	public const string GAME_SE_JUMP            ="SE/Game_SE_Jump";
+	public const string GAME_SE_LANDING         ="SE/Game_SE_Landing";
+	public const string GAME_SE_LANDING_MISSILE ="SE/Game_SE_LandingMissile";
 	public const string GAME_SE_LOCK_ON         ="SE/Game_SE_LockOn";
 	public const string GAME_SE_NO_AMMO         ="SE/Game_SE_NoAmmo";
 	public const string GAME_SE_PAUSE           ="SE/Game_SE_Pause";

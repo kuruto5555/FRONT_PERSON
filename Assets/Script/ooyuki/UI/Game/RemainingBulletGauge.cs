@@ -34,6 +34,40 @@ namespace FrontPerson.UI {
         [SerializeField]
         Animator MissileBulletGaugeAnimator_ = null;
 
+        // 残弾アニメーター
+        [SerializeField]
+        Animator handGunBulletGaugeLeftAnimator_ = null;
+        [SerializeField]
+        Animator handGunBulletGaugeRightAnimator_ = null;
+        [SerializeField]
+        Animator shotgunBulletGaugeLackAnimator_ = null;
+        [SerializeField]
+        Animator machineGunBulletGaugeLackAnimator_ = null;
+
+        [Header("残弾アニメーションを再生するタイミング")]
+        [SerializeField]
+        float handGunBulletGaugeLimit_ = 0f;
+        [SerializeField]
+        float shotgunBulletGaugeLimit_ = 0f;
+        [SerializeField]
+        float machineGunBulletGaugeLimit_ = 0f;
+
+        readonly int handGunLeftLimit_ = Animator.StringToHash("RemainingBulletGauge_Left");
+        readonly int handGunRightLimit_ = Animator.StringToHash("RemainingBulletGauge_Right");
+
+        readonly int shotgunLimit_ = Animator.StringToHash("RemainingBulletGauge_Shotgun");
+
+        readonly int machineGunLimit_ = Animator.StringToHash("RemainingBulletGauge_MachineGun");
+
+
+        /// <summary>
+        /// アニメーションが再生中かを表すフラグ(true = 再生中)
+        /// </summary>
+        bool isPlaying_handGunBulletGaugeLeft_ = false;
+        bool isPlaying_handGunBulletGaugeRight_ = false;
+        bool isPlaying_shotgunBulletGaugeLack_ = false;
+        bool isPlaying_machineGunBulletGaugeLack_ = false;
+
         /// <summary>
         /// プレイヤー
         /// </summary>
@@ -146,25 +180,74 @@ namespace FrontPerson.UI {
         /// </summary>
         void SetParameter()
         {
-            handGunBulletGaugeL_.rectTransform.localScale = new Vector2((float)player_.GunAmmoL / player_.GunAmmoMAX_L, 1.0f);
-            handGunBulletGaugeR_.rectTransform.localScale = new Vector2((float)player_.GunAmmoR / player_.GunAmmoMAX_R, 1.0f);
+            float xl_scale = (float)player_.GunAmmoL / player_.GunAmmoMAX_L;
+            float xr_scale = (float)player_.GunAmmoR / player_.GunAmmoMAX_R;
+
+            handGunBulletGaugeL_.rectTransform.localScale = new Vector2(xl_scale, 1.0f);
+            handGunBulletGaugeR_.rectTransform.localScale = new Vector2(xr_scale, 1.0f);
+
+            if (xl_scale <= handGunBulletGaugeLimit_ && !isPlaying_handGunBulletGaugeLeft_ && 0f <= xl_scale)
+            {
+                isPlaying_handGunBulletGaugeLeft_ = true;
+
+                handGunBulletGaugeLeftAnimator_.PlayInFixedTime(handGunLeftLimit_, 0, 0f);
+            }
+
+            if (xr_scale <= handGunBulletGaugeLimit_ && !isPlaying_handGunBulletGaugeRight_ && 0f <= xr_scale)
+            {
+                isPlaying_handGunBulletGaugeRight_ = true;
+
+                handGunBulletGaugeRightAnimator_.PlayInFixedTime(handGunRightLimit_, 0, 0f);
+            }
 
             if (player_.IsSpecialWeapon)
             {
+                xl_scale = (float)player_.GetWeaponList[2].Ammo / player_.GetWeaponList[2].MaxAmmo_;
+
                 switch (player_.GetWeaponList[2].GetWeaponType)
                 {
                     case WEAPON_TYPE.ASSAULT_RIFLE:
-                        machineGunBulletGauge_.rectTransform.localScale = new Vector2((float)player_.GetWeaponList[2].Ammo / player_.GetWeaponList[2].MaxAmmo_, 1.0f);
+                        machineGunBulletGauge_.rectTransform.localScale = new Vector2(xl_scale, 1.0f);
+
+                        if (xl_scale <= machineGunBulletGaugeLimit_ && !isPlaying_machineGunBulletGaugeLack_)
+                        {
+                            isPlaying_machineGunBulletGaugeLack_ = true;
+
+                            machineGunBulletGaugeLackAnimator_.PlayInFixedTime(machineGunLimit_, 0, 0f);
+                        }
+
                         break;
 
                     case WEAPON_TYPE.SHOT_GUN:
-                        shotgunBulletGauge_.rectTransform.localScale = new Vector2((float)player_.GetWeaponList[2].Ammo / player_.GetWeaponList[2].MaxAmmo_, 1.0f);
+                        shotgunBulletGauge_.rectTransform.localScale = new Vector2(xl_scale, 1.0f);
+
+                        if (xl_scale <= shotgunBulletGaugeLimit_ && !isPlaying_shotgunBulletGaugeLack_)
+                        {
+                            isPlaying_shotgunBulletGaugeLack_ = true;
+
+                            shotgunBulletGaugeLackAnimator_.PlayInFixedTime(shotgunLimit_, 0, 0f);
+                        }
+
                         break;
 
                     case WEAPON_TYPE.MISSILE:
-                        MissileBulletGauge_.rectTransform.localScale = new Vector2((float)player_.GetWeaponList[2].Ammo / player_.GetWeaponList[2].MaxAmmo_, 1.0f);
+                        MissileBulletGauge_.rectTransform.localScale = new Vector2(xl_scale, 1.0f);
                         break;
                 }
+            }
+
+            {
+                if (1f <= handGunBulletGaugeLeftAnimator_.GetCurrentAnimatorStateInfo(0).normalizedTime)
+                    isPlaying_handGunBulletGaugeLeft_ = false;
+
+                if (1f <= handGunBulletGaugeRightAnimator_.GetCurrentAnimatorStateInfo(0).normalizedTime)
+                    isPlaying_handGunBulletGaugeRight_ = false;
+
+                if (1f <= machineGunBulletGaugeLackAnimator_.GetCurrentAnimatorStateInfo(0).normalizedTime)
+                    isPlaying_machineGunBulletGaugeLack_ = false;
+
+                if (1f <= shotgunBulletGaugeLackAnimator_.GetCurrentAnimatorStateInfo(0).normalizedTime)
+                    isPlaying_shotgunBulletGaugeLack_ = false;
             }
         }
 
