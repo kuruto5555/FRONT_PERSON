@@ -48,16 +48,16 @@ namespace FrontPerson.Enemy.AI
 
         protected override void OnChangeState_OldBattleaxe()
         {
-            if (Mathf.Abs((Owner.transform.position - goal.position).magnitude) <= 3.0f)
+            if (Player.IsStun || Player.IsInvincible)
             {
-                ChangeState<EnemyState_Attack>();
+                ChangeState<EnemyState_Move>();
 
                 return;
             }
 
-            if(Player.IsStun || Player.IsInvincible)
+            if (Mathf.Abs((Owner.transform.position - goal.position).magnitude) <= 3.0f)
             {
-                ChangeState<EnemyState_Move>();
+                ChangeState<EnemyState_Attack>();
 
                 return;
             }
@@ -65,16 +65,16 @@ namespace FrontPerson.Enemy.AI
 
         protected override void OnChangeState_Yakuza()
         {
-            if (Mathf.Abs((Owner.transform.position - goal.position).magnitude) <= 3.0f)
+            if (Player.IsStun || Player.IsInvincible)
             {
-                ChangeState<EnemyState_Attack>();
+                ChangeState<EnemyState_Move>();
 
                 return;
             }
 
-            if (Player.IsStun || Player.IsInvincible)
+            if (Mathf.Abs((Owner.transform.position - goal.position).magnitude) <= 3.0f)
             {
-                ChangeState<EnemyState_Move>();
+                ChangeState<EnemyState_Attack>();
 
                 return;
             }
