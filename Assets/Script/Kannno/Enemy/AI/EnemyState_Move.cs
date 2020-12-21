@@ -119,6 +119,12 @@ namespace FrontPerson.Enemy.AI
         {
             OldBattleaxe enemy = Owner as OldBattleaxe;
 
+            if (Player.IsStun || Player.IsInvincible || Player.IsTransparent)
+            {
+                if (enemy.isHit) enemy.isHit = false;
+                return;
+            }
+
             if (enemy.isHit)
             {
                 SetMovePoint();
@@ -133,7 +139,7 @@ namespace FrontPerson.Enemy.AI
 
         protected override void OnChangeState_Yakuza()
         {
-            if (Player.IsStun == true || Player.IsInvincible == true) return;
+            if (Player.IsStun || Player.IsInvincible || Player.IsTransparent) return;
 
             if (SearchArea.IsFound)
             {
