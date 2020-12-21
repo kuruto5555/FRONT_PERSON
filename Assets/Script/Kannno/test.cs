@@ -13,6 +13,8 @@ public class test : MonoBehaviour
 
     private bool flag = false;
 
+    ParticleSystemRenderer ins;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -24,14 +26,20 @@ public class test : MonoBehaviour
     {
         if(Input.GetKeyDown(KeyCode.F1))
         {
-            Instantiate(obj, transform.position, Quaternion.identity);
+            var instanc = Instantiate(obj, transform.position, Quaternion.identity);
+
+            //renderer.material = new Material();
+
+            ins = instanc.GetComponent<ParticleSystemRenderer>();
+
+            ins.material = renderer.sharedMaterial;
 
             flag = true;
         }
 
         if (flag)
         {
-            renderer.sharedMaterial.SetFloat("Vector1_6A222455", time);
+            ins.material.SetFloat("Vector1_6A222455", time);
 
             time = Mathf.Min(time + Time.deltaTime * 0.5f, 0.8f);
 

@@ -117,7 +117,7 @@ namespace FrontPerson.Bounty
 
             if (_nowTime < 0)
             {
-                _isFinish = true;
+                MissionFailed();
             }
         }
 

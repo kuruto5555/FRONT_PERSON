@@ -112,7 +112,15 @@ namespace FrontPerson.Manager
         [SerializeField]
         UI_Combo comboUI_ = null;
 
+        /// <summary>
+        /// アニメーター
+        /// </summary>
+        Animator animator_ = null;
 
+        /// <summary>
+        /// ポップアップアニメーションのハッシュ
+        /// </summary>
+        readonly int popUpAnimHash = Animator.StringToHash("Combo");
 
 
         // Start is called before the first frame update
@@ -126,6 +134,8 @@ namespace FrontPerson.Manager
             // バウンティーマネージャー
             bountyManager_ = BountyManager._instance;
             bountyManager_.SetNowCombo(comboNum_);
+            //アニメーターの取得
+            animator_ = GetComponent<Animator>();
         }
 
 
@@ -164,6 +174,9 @@ namespace FrontPerson.Manager
             // コンボを加算
             ComboNum += addComboNum;
             comboMidwayBonusCount_ += addComboNum;
+
+            // アニメーション再生
+            animator_.Play(popUpAnimHash);
 
             // バウンティーに現在のコンボ数を教える
             bountyManager_.SetNowCombo(comboNum_);
