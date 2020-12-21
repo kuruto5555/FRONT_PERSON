@@ -49,6 +49,9 @@ namespace FrontPerson.Enemy
                 // 弾の種類と足りないビタミンが違う
                 isHit = true;
 
+                // コンボの終了
+                ComboManager.Instance.LostCombo();
+
                 AudioManager.Instance.Play3DSE(transform.position, SEPath.GAME_SE_VOICE_WOMAN);
             }
             else
