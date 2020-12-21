@@ -93,6 +93,11 @@ namespace FrontPerson.Character
         bool _isInvincible = false;
 
         /// <summary>
+        /// 透明化どうか
+        /// </summary>
+        bool _isTransparent = false;
+
+        /// <summary>
         /// サーチ中かどうか
         /// </summary>
         bool isSearch_ = false;
@@ -190,7 +195,7 @@ namespace FrontPerson.Character
         /// <summary>
         /// 透明化アイテムの時間
         /// </summary>
-        float _invicibleItemTime = 0.0f;
+        float _transparentItemTime = 0.0f;
 
         /// <summary>
         /// 足音を鳴らす間隔
@@ -272,6 +277,8 @@ namespace FrontPerson.Character
         /// 無敵かどうか
         /// </summary>
         public bool IsInvincible { get { return _isInvincible; } }
+
+        public bool IsTransparent { get { return _isTransparent; } }
 
         /// <summary>
         /// スペシャル武器を持っているかどうか
@@ -789,7 +796,7 @@ namespace FrontPerson.Character
             else
             {
                 AddMovementSpeedItemUpdate();
-                InvicibleItemUpdate();
+                TransparentItemUpdate();
             }
 
             
@@ -808,16 +815,16 @@ namespace FrontPerson.Character
             }
         }
 
-        private void InvicibleItemUpdate()
+        private void TransparentItemUpdate()
         {
             if (!_itemStatusFlag.HasFlag(ITEM_STATUS.INVICIBLE)) return;
 
-            _invicibleItemTime -= Time.deltaTime;
+            _transparentItemTime -= Time.deltaTime;
 
-            if(_invicibleItemTime < 0)
+            if(_transparentItemTime < 0)
             {
                 _itemStatusFlag &= ~ITEM_STATUS.INVICIBLE; //解除
-                _isInvincible = false;
+                _isTransparent = false;
                 Destroy(_invisibleObject);
             }
         }
@@ -869,14 +876,13 @@ namespace FrontPerson.Character
         }
 
         /// <summary>
-        /// 無敵にする時呼ぶ
+        /// 透明化アイテムを取得した時呼ぶ
         /// </summary>
-        /// <param name="time">効果時間</param>
-        public void SetInvincible(float time)
+        public void PickUpTransparent(float time)
         {
-            _isInvincible = true;
+            _transparentItemTime = time;
 
-            _invicibleItemTime = time;
+            _isTransparent = true;
 
             _itemStatusFlag |= ITEM_STATUS.INVICIBLE;
 
@@ -894,7 +900,7 @@ namespace FrontPerson.Character
             }
             if (Input.GetKeyDown(KeyCode.O))
             {
-                SetInvincible(10.0f);
+                PickUpTransparent(10.0f);
             }
 
             if (Input.GetKeyDown(KeyCode.Alpha1)) WeaponUpgrade(0);
