@@ -886,7 +886,11 @@ namespace FrontPerson.Character
 
             _itemStatusFlag |= ITEM_STATUS.INVICIBLE;
 
-            _invisibleObject = Instantiate(InvisibleEffect_, _canvas.transform);
+            if (_invisibleObject == null)
+            {
+                _invisibleObject = Instantiate(InvisibleEffect_, _canvas.transform);
+                _invisibleObject.transform.SetAsFirstSibling();
+            }
         }
 
         private void DebugUpdeta()
