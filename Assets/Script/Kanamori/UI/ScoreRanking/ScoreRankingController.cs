@@ -34,8 +34,6 @@ namespace FrontPerson.UI
                 ranking_data_[i].score_value_.text = manager.save_data_.RankingScore[i].ToString();
                 ranking_data_[i].combo_value_.text = manager.save_data_.RankingComboNum[i].ToString();
             }
-
-            
         }
     }
 }

@@ -10,12 +10,13 @@ namespace FrontPerson.Manager
     {
         /// <summary>
         /// 前回のシーン
+        /// タイトルシーンからゲームが始まるはずなので、初期値はタイトルシーンを入れておきます
         /// </summary>
-        public string last_scene_name_ { get; private set; } = null;
+        public string last_scene_name_ { get; private set; } = Constants.SceneName.TITLE_SCENE;
 
         /// <summary>
         /// 現在のシーン
-        /// タイトルシーンからゲームが始まるはずなので、初期値はタイトルシーンを入れておきます。
+        /// タイトルシーンからゲームが始まるはずなので、
         /// </summary>
         public string current_scene_name_ { get; private set; } = Constants.SceneName.TITLE_SCENE;
 
