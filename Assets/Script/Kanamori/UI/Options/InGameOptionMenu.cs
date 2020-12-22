@@ -106,6 +106,7 @@ namespace FrontPerson.UI
             return_to_title_button_.onClick.AddListener(
                 () =>
                 {
+                    Time.timeScale = 1f;
                     // タイトルシーンを呼ぶ
                     Manager.SceneManager.Instance.SceneChange(Constants.SceneName.TITLE_SCENE, .1f);
                 }
