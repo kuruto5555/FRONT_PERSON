@@ -29,6 +29,8 @@ namespace FrontPerson.UI
         [SerializeField]
         private Button return_to_title_button_ = null;
 
+        public bool MenuActive { get; private set; } = false;
+
         private EventSystem event_system_;
 
         // Start is called before the first frame update
@@ -53,6 +55,8 @@ namespace FrontPerson.UI
             }
 
             FirstTouchSelectable();
+
+            MenuActive = true;
         }
 
         /// <summary>
@@ -68,6 +72,7 @@ namespace FrontPerson.UI
                     foreach (var menu in opened_menu_)
                     {
                         menu.SetActive(false);
+                        MenuActive = false;
                     }
                 }
                 );
