@@ -9,6 +9,7 @@ public static class LayerNumber
 	public const int BULLET           =9;
 	public const int DEFAULT          =0;
 	public const int ENEMY            =11;
+	public const int FIELD_ARIA       =14;
 	public const int FIELD_OBJECT     =12;
 	public const int ITEM             =13;
 	public const int PLAYER           =8;
