@@ -29,7 +29,8 @@ namespace FrontPerson.UI
         [SerializeField]
         private Button return_to_title_button_ = null;
 
-        public bool MenuActive { get; private set; } = false;
+        [SerializeField]
+        private Title TitleMenu = null;
 
         private EventSystem event_system_;
 
@@ -55,8 +56,6 @@ namespace FrontPerson.UI
             }
 
             FirstTouchSelectable();
-
-            MenuActive = true;
         }
 
         /// <summary>
@@ -72,12 +71,12 @@ namespace FrontPerson.UI
                     foreach (var menu in opened_menu_)
                     {
                         menu.SetActive(false);
-                        MenuActive = false;
+                        TitleMenu.OpenMenu();
                     }
                 }
                 );
 
-            FirstTouchSelectable();
+            //FirstTouchSelectable();
 
             foreach (var ui in ui_controllers_)
             {
