@@ -108,9 +108,11 @@ namespace FrontPerson.Manager
             //ここで総合評価を求める
             rank_ = GetRank(youScore);
 
-
             // ランキング更新
             UpdateRanking(youScore, youComboNum, youMissionClearNum);
+
+            //いちようカーソル有効か
+            CursorManager.CursorUnlock();
 
             // BGM再生して一回ポーズ
             AudioManager.Instance.PlayBGM(gameObject, BGMPath.RESULT_BGM_MAIN, 2.0f);
