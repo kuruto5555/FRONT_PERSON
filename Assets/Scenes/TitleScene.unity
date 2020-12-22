@@ -1191,7 +1191,7 @@ PrefabInstance:
     - target: {fileID: 3493637037992663750, guid: dfdc46580a7ab7644aca016e950d7bff,
         type: 3}
       propertyPath: m_Name
-      value: MovePoint (1)
+      value: MovePoint (4)
       objectReference: {fileID: 0}
     - target: {fileID: 3493637037992663751, guid: dfdc46580a7ab7644aca016e950d7bff,
         type: 3}
@@ -1231,7 +1231,7 @@ PrefabInstance:
     - target: {fileID: 3493637037992663751, guid: dfdc46580a7ab7644aca016e950d7bff,
         type: 3}
       propertyPath: m_RootOrder
-      value: 0
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 3493637037992663751, guid: dfdc46580a7ab7644aca016e950d7bff,
         type: 3}
@@ -2621,7 +2621,7 @@ PrefabInstance:
     - target: {fileID: 3493637037992663750, guid: dfdc46580a7ab7644aca016e950d7bff,
         type: 3}
       propertyPath: m_Name
-      value: MovePoint (4)
+      value: MovePoint (3)
       objectReference: {fileID: 0}
     - target: {fileID: 3493637037992663751, guid: dfdc46580a7ab7644aca016e950d7bff,
         type: 3}
@@ -2661,7 +2661,7 @@ PrefabInstance:
     - target: {fileID: 3493637037992663751, guid: dfdc46580a7ab7644aca016e950d7bff,
         type: 3}
       propertyPath: m_RootOrder
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 3493637037992663751, guid: dfdc46580a7ab7644aca016e950d7bff,
         type: 3}
@@ -5080,7 +5080,7 @@ PrefabInstance:
     - target: {fileID: 3493637037992663750, guid: dfdc46580a7ab7644aca016e950d7bff,
         type: 3}
       propertyPath: m_Name
-      value: MovePoint (3)
+      value: MovePoint (2)
       objectReference: {fileID: 0}
     - target: {fileID: 3493637037992663751, guid: dfdc46580a7ab7644aca016e950d7bff,
         type: 3}
@@ -5120,7 +5120,7 @@ PrefabInstance:
     - target: {fileID: 3493637037992663751, guid: dfdc46580a7ab7644aca016e950d7bff,
         type: 3}
       propertyPath: m_RootOrder
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3493637037992663751, guid: dfdc46580a7ab7644aca016e950d7bff,
         type: 3}
@@ -5315,7 +5315,7 @@ PrefabInstance:
     - target: {fileID: 3493637037992663750, guid: dfdc46580a7ab7644aca016e950d7bff,
         type: 3}
       propertyPath: m_Name
-      value: MovePoint (2)
+      value: MovePoint (1)
       objectReference: {fileID: 0}
     - target: {fileID: 3493637037992663751, guid: dfdc46580a7ab7644aca016e950d7bff,
         type: 3}
@@ -5355,7 +5355,7 @@ PrefabInstance:
     - target: {fileID: 3493637037992663751, guid: dfdc46580a7ab7644aca016e950d7bff,
         type: 3}
       propertyPath: m_RootOrder
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3493637037992663751, guid: dfdc46580a7ab7644aca016e950d7bff,
         type: 3}
@@ -5633,7 +5633,7 @@ Light:
   m_RenderingLayerMask: 1
   m_Lightmapping: 4
   m_LightShadowCasterMode: 2
-  m_AreaSize: {x: 1, y: 1}
+  m_AreaSize: {x: 0.5, y: 0.5}
   m_BounceIntensity: 1
   m_ColorTemperature: 6570
   m_UseColorTemperature: 0

@@ -23,6 +23,10 @@ namespace FrontPerson.UI
         [SerializeField]
         private Button StartButton = null;
 
+        [Header("ランキングボタン")]
+        [SerializeField]
+        private Button RankingButton = null;
+
         [Header("オプションボタン")]
         [SerializeField]
         private Button OptionButton = null;
@@ -57,7 +61,7 @@ namespace FrontPerson.UI
         void Start()
         {
 #if UNITY_EDITOR
-            if (null == StartButton || null == OptionButton || null == ExitButton)
+            if (null == StartButton || null == RankingButton || null == OptionButton || null == ExitButton)
             {
                 Debug.LogError("Buttonオブジェクトが設定されていません");
                 return;
@@ -88,6 +92,11 @@ namespace FrontPerson.UI
                 SceneManager.Instance.SceneChange(SceneName.GAME_SCENE, FadeTime);
                 DecisionSound();
                 });
+
+            RankingButton.onClick.AddListener(() => {
+                //SceneManager.Instance.SceneChange(SceneName.GAME_SCENE, FadeTime);
+                DecisionSound();
+            });
 
             OptionButton.onClick.AddListener(() => {
                 TitleMenu.SetActive(false);
