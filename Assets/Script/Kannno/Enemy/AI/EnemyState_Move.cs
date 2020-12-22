@@ -74,27 +74,10 @@ namespace FrontPerson.Enemy.AI
         private void Set_MovePoint()
         {
             var list = new List<MovePoint>();
-            var point_list = new List<Vector3>();
-
-            //var move_points = MovePattern.GetComponentsInChildren<MovePoint>();
 
             list.AddRange(MovePattern.GetComponentsInChildren<MovePoint>());
 
             list.Sort((a, b) => a.Index - b.Index);
-
-            //for (int i = 0; i < move_points.Length; i++)
-            //{
-            //    list.Add(move_points[i].transform.position);
-            //}
-
-            foreach (var obj in list)
-            {
-                point_list.Add(obj.transform.position);
-            }
-
-            //list.AddRange(MovePattern.GetComponentsInChildren<MovePoint>());
-
-            //list.Sort((a, b) => a.Index - b.Index);
 
             if (null == list)
             {
@@ -102,9 +85,9 @@ namespace FrontPerson.Enemy.AI
                 return;
             }
 
-            foreach (var obj in point_list)
+            foreach (var obj in list)
             {
-                MovePoint_List.Add(obj);
+                MovePoint_List.Add(obj.transform.position);
             }
         }
 
@@ -121,14 +104,18 @@ namespace FrontPerson.Enemy.AI
             if (null == MovePoint_List || 0 == MovePoint_List.Count) return;
 #endif
 
-            // 目的地についていたら次の目的地の方に行く
-            if (Owner.Agent.remainingDistance <= 1f)
+            // 経路探索中なら、調べない
+            if (false == Owner.Agent.pathPending)
             {
-                Vector3 destination = MovePoint_List[(MovePointIndex + 1) % MovePoint_List.Count];
+                // 目的地についていたら次の目的地の方に行く
+                if (Owner.Agent.remainingDistance <= 1f)
+                {
+                    Vector3 destination = MovePoint_List[(MovePointIndex + 1) % MovePoint_List.Count];
 
-                Owner.SetTarget(destination);
+                    Owner.SetTarget(destination);
 
-                MovePointIndex = (MovePointIndex + 1) % MovePoint_List.Count;
+                    MovePointIndex = (MovePointIndex + 1) % MovePoint_List.Count;
+                }
             }
         }
 
