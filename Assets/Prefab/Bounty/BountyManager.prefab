@@ -48,6 +48,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fca437eaf9c5c1f4f8715027ba430916, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  GET_WEAPON_MISSON_NUM: 3
   MissionPrefabList:
   - {fileID: 7152460719995171007, guid: 7d406e590fa93d5488cc9cc83ab2dc06, type: 3}
   - {fileID: 9011910422994990176, guid: 21338d146c05e5c4f94e882c0bb29000, type: 3}

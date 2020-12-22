@@ -3188,6 +3188,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1320749166092626202, guid: ad254301988cda34d802bd0a165ee76d,
+        type: 3}
+      propertyPath: GET_WEAPON_MISSON_NUM
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 1320749166092626203, guid: ad254301988cda34d802bd0a165ee76d,
         type: 3}
       propertyPath: m_LocalPosition.x
