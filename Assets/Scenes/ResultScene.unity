@@ -167,6 +167,7 @@ MonoBehaviour:
   missionClearNumGraph_: {fileID: 1430366604}
   totalScore_: {fileID: 1715519043}
   backButton_: {fileID: 1036791991}
+  totalScoreGuideline_: a086010020a1070040420f00
 --- !u!4 &323177212
 Transform:
   m_ObjectHideFlags: 0

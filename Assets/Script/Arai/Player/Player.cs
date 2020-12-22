@@ -58,6 +58,10 @@ namespace FrontPerson.Character
         [SerializeField, Range(0.1f, 1.0f)]
         float DashSoundRate = 1.0f;
 
+        [Header("透明中画面エフェクト")]
+        [SerializeField] 
+        GameObject InvisibleEffect_ = null;
+
         /// <summary>
         /// スペシャル武器
         /// </summary>
@@ -87,6 +91,11 @@ namespace FrontPerson.Character
         /// 無敵かどうか
         /// </summary>
         bool _isInvincible = false;
+
+        /// <summary>
+        /// 透明化どうか
+        /// </summary>
+        bool _isTransparent = false;
 
         /// <summary>
         /// サーチ中かどうか
@@ -154,6 +163,11 @@ namespace FrontPerson.Character
         private SpecialWeaponManager _weponManager = null;
 
         /// <summary>
+        /// コンボマネージャー参照
+        /// </summary>
+        private ComboManager _comboManager = null;
+
+        /// <summary>
         /// 視点感度変数
         /// </summary>
         int _viewRotetaSpeed = 0;
@@ -181,17 +195,28 @@ namespace FrontPerson.Character
         /// <summary>
         /// 透明化アイテムの時間
         /// </summary>
-        float _invicibleItemTime = 0.0f;
+        float _transparentItemTime = 0.0f;
 
         /// <summary>
         /// 足音を鳴らす間隔
         /// </summary>
         float _nowDashSoundRate = 0.0f;
 
-
-        
-
+        /// <summary>
+        /// オーディオマネージャー参照
+        /// </summary>
         AudioManager _audioManager = null;
+
+        /// <summary>
+        /// 透明化中のエフェクトの参照
+        /// </summary>
+        GameObject _invisibleObject = null;
+
+        /// <summary>
+        /// UI用キャンバス参照
+        /// </summary>
+        Transform _canvas = null;
+
 
 
         /*---- プロパティ ----*/
@@ -254,6 +279,8 @@ namespace FrontPerson.Character
         /// 無敵かどうか
         /// </summary>
         public bool IsInvincible { get { return _isInvincible; } }
+
+        public bool IsTransparent { get { return _isTransparent; } }
 
         /// <summary>
         /// スペシャル武器を持っているかどうか
@@ -335,6 +362,10 @@ namespace FrontPerson.Character
             _nowDashSoundRate = 1.0f;
 
             _audioManager = AudioManager.Instance;
+
+            _canvas = GameObject.Find("GameUI_Canvas").transform;
+
+            _comboManager = ComboManager.Instance;
         }
 
         // Update is called once per frame
@@ -664,6 +695,8 @@ namespace FrontPerson.Character
             _bountyManager.PlayerDamage();
             _audioManager.Play3DSE(Position, SEPath.GAME_SE_STUN);
             _audioManager.Play3DSE(Position, SEPath.GAME_SE_DAMEGE);
+            _comboManager.LostCombo();
+
         }
 
         /// <summary>
@@ -683,6 +716,7 @@ namespace FrontPerson.Character
             {
                 _nowInvincibleTime = 0.0f;
                 _isInvincible = false;
+                 
             }
         }
 
@@ -764,7 +798,7 @@ namespace FrontPerson.Character
             else
             {
                 AddMovementSpeedItemUpdate();
-                InvicibleItemUpdate();
+                TransparentItemUpdate();
             }
 
             
@@ -778,21 +812,26 @@ namespace FrontPerson.Character
 
             if (_movementSpeedUpTime < 0)
             {
-                _itemStatusFlag &= ITEM_STATUS.SPEED_UP; //解除
+                _itemStatusFlag &= ~ITEM_STATUS.SPEED_UP; //解除
                 _addSpeed = 1.0f; //等倍に戻す
+                var obj = GameObject.FindGameObjectWithTag(TagName.GAME_CONTROLLER).GetComponent<UI.PickupItemUI>();
+                obj.DeleteItem(ITEM_STATUS.SPEED_UP);
             }
         }
 
-        private void InvicibleItemUpdate()
+        private void TransparentItemUpdate()
         {
             if (!_itemStatusFlag.HasFlag(ITEM_STATUS.INVICIBLE)) return;
 
-            _invicibleItemTime -= Time.deltaTime;
+            _transparentItemTime -= Time.deltaTime;
 
-            if(_invicibleItemTime < 0)
+            if(_transparentItemTime < 0)
             {
-                _itemStatusFlag &= ITEM_STATUS.INVICIBLE; //解除
-                _isInvincible = false;
+                _itemStatusFlag &= ~ITEM_STATUS.INVICIBLE; //解除
+                _isTransparent = false;
+                Destroy(_invisibleObject);
+                var obj = GameObject.FindGameObjectWithTag(TagName.GAME_CONTROLLER).GetComponent<UI.PickupItemUI>();
+                obj.DeleteItem(ITEM_STATUS.INVICIBLE);
             }
         }
 
@@ -843,16 +882,21 @@ namespace FrontPerson.Character
         }
 
         /// <summary>
-        /// 無敵にする時呼ぶ
+        /// 透明化アイテムを取得した時呼ぶ
         /// </summary>
-        /// <param name="time">効果時間</param>
-        public void SetInvincible(float time)
+        public void PickUpTransparent(float time)
         {
-            _isInvincible = true;
+            _transparentItemTime = time;
 
-            _invicibleItemTime = time;
+            _isTransparent = true;
 
             _itemStatusFlag |= ITEM_STATUS.INVICIBLE;
+
+            if (_invisibleObject == null)
+            {
+                _invisibleObject = Instantiate(InvisibleEffect_, _canvas.transform);
+                _invisibleObject.transform.SetAsFirstSibling();
+            }
         }
 
         private void DebugUpdeta()
@@ -866,7 +910,7 @@ namespace FrontPerson.Character
             }
             if (Input.GetKeyDown(KeyCode.O))
             {
-                SetInvincible(10.0f);
+                PickUpTransparent(10.0f);
             }
 
             if (Input.GetKeyDown(KeyCode.Alpha1)) WeaponUpgrade(0);

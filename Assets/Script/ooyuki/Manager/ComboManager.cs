@@ -5,6 +5,7 @@ using FrontPerson.common;
 using FrontPerson.Enemy;
 using System.ComponentModel;
 using FrontPerson.Constants;
+using FrontPerson.UI;
 
 namespace FrontPerson.Manager
 {
@@ -175,9 +176,6 @@ namespace FrontPerson.Manager
             ComboNum += addComboNum;
             comboMidwayBonusCount_ += addComboNum;
 
-            // アニメーション再生
-            animator_.Play(popUpAnimHash);
-
             // バウンティーに現在のコンボ数を教える
             bountyManager_.SetNowCombo(comboNum_);
 
@@ -189,6 +187,9 @@ namespace FrontPerson.Manager
 
             // UIにコンボ情報を伝える
             comboUI_.SetComboNum();
+            
+            // アニメーション再生
+            animator_.Play(popUpAnimHash);
 
             // コルーチンでコンボのタイマーを開始
             // すでに動いていた場合特に何も起きない
@@ -205,6 +206,8 @@ namespace FrontPerson.Manager
         /// </summary>
         public void LostCombo()
         {
+            if (UseComboInsurance()) return;
+
             IsCombo = false;
 
             // コンボ途切れボーナス加算
@@ -304,6 +307,8 @@ namespace FrontPerson.Manager
 
                     // 毎フレームタイマーを減らす
                     ComboRemainingTime -= Time.deltaTime;
+                    // コンボ途中ボーナスタイマーを進める
+                    comboMidwayBonusTime_ += Time.deltaTime;
                 }
 
                 // ↓↓↓ コンボが途切れた時 ↓↓↓
@@ -345,6 +350,7 @@ namespace FrontPerson.Manager
             // コンボ保険を持っていたら消費して成功を返す
             else
             {
+                GameObject.FindGameObjectWithTag(TagName.GAME_CONTROLLER).GetComponent<PickupItemUI>().DeleteItem(ITEM_STATUS.COMBO_INSURANCE);
                 IsComboInsurance = false;
                 return true;
             }

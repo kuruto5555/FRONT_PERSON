@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.AI;
 
 using FrontPerson.Manager;
 using FrontPerson.Constants;
@@ -13,6 +14,10 @@ namespace FrontPerson.Enemy.AI
         [Header("移動ルート")]
         [SerializeField]
         private MovePattern MovePattern  = null;
+
+        [Header("半径からの距離")]
+        [SerializeField]
+        private float RadiusOffset = 0.3f;
 
         public void Set_MovePattern(MovePattern move_pattern)
         {
@@ -112,7 +117,15 @@ namespace FrontPerson.Enemy.AI
 
         protected override void OnChangeState_OldBattleaxe()
         {
+            if (null == Player) return;
+
             OldBattleaxe enemy = Owner as OldBattleaxe;
+
+            if (Player.IsStun || Player.IsInvincible || Player.IsTransparent)
+            {
+                if (enemy.isHit) enemy.isHit = false;
+                return;
+            }
 
             if (enemy.isHit)
             {
@@ -122,13 +135,17 @@ namespace FrontPerson.Enemy.AI
 
                 var ai = Owner.state_AI as EnemyState_Close;
 
-                ai.Goal = Player.transform;
+                ClalPosition();
             }
         }
 
         protected override void OnChangeState_Yakuza()
         {
-            if (SearchArea.IsFound && (Player.IsStun == false && Player.IsInvincible == false))
+            if (null == Player) return;
+
+            if (Player.IsStun || Player.IsInvincible || Player.IsTransparent) return;
+
+            if (SearchArea.IsFound)
             {
                 SetMovePoint();
 
@@ -136,10 +153,26 @@ namespace FrontPerson.Enemy.AI
 
                 var ai = Owner.state_AI as EnemyState_Close;
 
-                ai.Goal = Player.transform;
+                ClalPosition();
 
                 AudioManager.Instance.Play3DSE(Owner.transform.position, SEPath.GAME_SE_VOICE_YAKUZA);
             }
+        }
+
+        /// <summary>
+        /// 半径(ナビゲーション)分のオフセットを計算
+        /// </summary>
+        private void ClalPosition()
+        {
+            var ai = Owner.state_AI as EnemyState_Close;
+
+            Vector3 vec_enemy = transform.position - Player.transform.position;
+            vec_enemy.y = 0f;
+
+            Vector3 vec_radius = Vector3.Normalize(vec_enemy) * (Player.GetComponent<NavMeshObstacle>().radius + RadiusOffset);
+
+            ai.Goal = Player.transform;
+            ai.Offset = vec_radius;
         }
     }
 }

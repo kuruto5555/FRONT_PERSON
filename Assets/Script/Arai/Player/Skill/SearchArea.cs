@@ -18,6 +18,14 @@ namespace FrontPerson.Character.Skill
         [SerializeField, Range(1f, 100f)]
         float areaSizeMAX_ = 50f;
 
+        [Header("サーチ使用のインターバル")]
+        [SerializeField, Range(1f, 30f)]
+        float skillIntervalTime_ = 15f;
+
+        [Header("サーチをやめたときの効果時間")]
+        [SerializeField, Range(1f, 20f)]
+        float skillEffectTime_ = 10f;
+
         [Header("足りないビタミンがCの時のマテリアル")]
         [SerializeField]
         Material vitaminCMat_ = null;
@@ -32,7 +40,7 @@ namespace FrontPerson.Character.Skill
         SphereCollider eria_ =null;
 
         /// <summary>
-        /// メッシュレンダラー
+        /// サーチエリアのメッシュレンダラー
         /// </summary>
         MeshRenderer mesh_ = null;
 
@@ -47,12 +55,23 @@ namespace FrontPerson.Character.Skill
         /// </summary>
         List<Renderer> rendererList_;
 
+        /// <summary>
+        /// 敵ごとのスキル効果時間
+        /// </summary>
+        List<float> skillEffectTime_of_Enemys_;
+
+        /// <summary>
+        /// スキルのインターバルの計測用変数
+        /// </summary>
+        float skillIntervalTimeCount_ = 0f;
+
 
         // Start is called before the first frame update
         void Start()
         {
             initMaterialsList_ = new List<Material[]>();
             rendererList_ = new List<Renderer>();
+            skillEffectTime_of_Enemys_ = new List<float>();
 
             eria_ = GetComponent<SphereCollider>();
             eria_.enabled = false;
@@ -65,30 +84,53 @@ namespace FrontPerson.Character.Skill
         // Update is called once per frame
         void Update()
         {
-            // エリアが無効のなら帰る
-            if (!eria_.enabled) return;
-
-            // リストのやつが元気になったらリストから外す
-            for (int i = 0; i < rendererList_.Count; i++)
+            // スキルのインターバル更新
+            if(skillIntervalTimeCount_ > 0)
             {
-                // 元気じゃないならコンティニュー
-                if (!rendererList_[i].gameObject.GetComponent<Enemy>().isDown)
-                    continue;
-
-                // 元気だったらマテリアル戻してリストから削除
-                rendererList_[i].materials = initMaterialsList_[i];
-                rendererList_.RemoveAt(i);
-                initMaterialsList_.RemoveAt(i);
-                break;
+                skillIntervalTimeCount_ -= Time.deltaTime;
             }
 
-            // エリアサイズが最大以上だったら変える
+
+            // リストのやつの状態を確認
+            for (int i = 0; i < rendererList_.Count; i++)
+            {
+                // 元気だったら
+                if (rendererList_[i].gameObject.GetComponent<Enemy>().isDown)
+                {
+                    // マテリアル戻してリストから削除
+                    ReleaseMaterial(i);
+                    continue;
+                }
+
+                // スキル効果時間が０より大きかったら更新する
+                else if(skillEffectTime_of_Enemys_[i] > 0f)
+                {
+                    // 効果時間を減らす
+                    skillEffectTime_of_Enemys_[i] -= Time.deltaTime;
+
+                    // 効果時間が切れたら
+                    if(skillEffectTime_of_Enemys_[i] <= 0f)
+                    {
+                        // マテリアル戻してリストから削除
+                        ReleaseMaterial(i);
+                        continue;
+                    }
+                }
+            }
+
+
+            // エリアが無効なら帰る
+            if (!eria_.enabled) return;
+
+            // エリアサイズが最大以上だったら帰る
             if (transform.localScale.x >= areaSizeMAX_) return;
 
+            // エリアサイズ更新
             Vector3 scl = Vector3.zero;
             scl.x = scl.y = scl.z = speed_ * Time.deltaTime;
             transform.localScale += scl;
 
+            // エリアサイズが最大値を超えたら最大値に矯正
             if(transform.localScale.x >= areaSizeMAX_)
             {
                 scl.x = scl.y = scl.z = areaSizeMAX_;
@@ -103,8 +145,13 @@ namespace FrontPerson.Character.Skill
         /// </summary>
         public void Search()
         {
+            // スキルのインターバルが回復していなけらば帰る
+            if (skillIntervalTimeCount_ > 0) return;
+
+            // 発動
             eria_.enabled = true;
             mesh_.enabled = true;
+            skillIntervalTimeCount_ = skillIntervalTime_;
         }
 
 
@@ -118,16 +165,16 @@ namespace FrontPerson.Character.Skill
             mesh_.enabled = false;
             transform.localScale = new Vector3(0.001f, 0.001f, 0.001f);
 
-            //マテリアルを戻す
-            if (initMaterialsList_.Count == 0) return;
-            for (int i = 0; i < initMaterialsList_.Count; i++)
+            // スキル効果時間の設定
+            for(int i=0;i< rendererList_.Count; i++)
             {
-                if (rendererList_[i].gameObject.GetComponent<Enemy>().isDown) continue;
-                rendererList_[i].materials = initMaterialsList_[i];
-            }
+                // 既に効果時間が設定されているものはパス
+                if (skillEffectTime_of_Enemys_[i] > 0f)
+                    continue;
 
-            rendererList_.Clear();
-            initMaterialsList_.Clear();
+                // そうでなければスキル効果時間を設定
+                skillEffectTime_of_Enemys_[i] = skillEffectTime_;
+            }
         }
 
 
@@ -140,29 +187,32 @@ namespace FrontPerson.Character.Skill
             // エリアに入ったやつがEnemyじゃなかったら帰る
             if (other.tag != TagName.ENEMY) return;
 
-            //バグ対策
-            foreach (Renderer render in rendererList_)
-            {
-                //同じオブジェクトがもしあった場合帰る
-                if (render.gameObject == other.gameObject) return;
-            }
-
             // EnemyComponentの取得
             Enemy enemy = other.GetComponent<Enemy>();
             // エネミーがすでに元気になっていたら帰る
             if (enemy.isDown) return;
+            
+            
+            //同じオブジェクトがもしあった場合効果時間を更新して帰る
+            for (int i = 0; i < rendererList_.Count;i++)
+            {
+                if (rendererList_[i].gameObject == other.gameObject)
+                {
+                    skillEffectTime_of_Enemys_[i] = skillEffectTime_;
+                    return;
+                }
+            }
+
+            // リストになかったので追加
             initMaterialsList_.Add(other.GetComponent<Renderer>().materials);
             rendererList_.Add(other.GetComponent<Renderer>());
+            skillEffectTime_of_Enemys_.Add(0f);
 
             // エネミーの足りないビタミンの種類によってセットするMaterialを変える
             Renderer renderer = other.GetComponent<Renderer>();
             Material[] materials = renderer.materials;
             for (int i=0; i < other.GetComponent<Renderer>().materials.Length; i++)
-            {
-                // とりあえずビタミンCのいろにしちゃう
-                //materials[i] = vitaminCMat_;
-
-                
+            {                
                 if(enemy.LackVitamins == NUTRIENTS_TYPE._A)
                 {
                     materials[i] = vitaminCMat_;
@@ -190,14 +240,44 @@ namespace FrontPerson.Character.Skill
                 if (rendererList_[i].gameObject != other.gameObject)
                     continue;
 
-                // 一緒だったらマテリアル戻してリストから削除
-                rendererList_[i].materials = initMaterialsList_[i];
-                rendererList_.RemoveAt(i);
-                initMaterialsList_.RemoveAt(i);
+                // 一緒だったらスキルの効果時間を設定
+                skillEffectTime_of_Enemys_[i] = skillEffectTime_;
                 break;
             }
         }
 
 
+        void ReleaseMaterial(int index)
+        {
+            // マテリアル戻してリストから削除
+            rendererList_[index].materials = initMaterialsList_[index];
+            rendererList_.RemoveAt(index);
+            initMaterialsList_.RemoveAt(index);
+            skillEffectTime_of_Enemys_.RemoveAt(index);
+        }
+
+
+        private IEnumerator ReleaseMaterials(float skillEfectTime)
+        {
+            while (skillEfectTime <= 0)
+            {
+                yield return null;
+                skillEfectTime -= Time.deltaTime;
+            }
+
+            //マテリアルを戻す
+            if (initMaterialsList_.Count != 0)
+            {
+                for (int i = 0; i < initMaterialsList_.Count; i++)
+                {
+                    if (rendererList_[i].gameObject.GetComponent<Enemy>().isDown) continue;
+                    rendererList_[i].materials = initMaterialsList_[i];
+                }
+
+                rendererList_.Clear();
+                initMaterialsList_.Clear();
+                skillEffectTime_of_Enemys_.Clear();
+            }
+        }
     }
 }
