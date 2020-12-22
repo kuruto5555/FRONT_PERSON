@@ -2599,6 +2599,18 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 1864923551}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &882703435 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8750458411038031780, guid: 18bba964e210b694dbe3940027b58f42,
+    type: 3}
+  m_PrefabInstance: {fileID: 8750458411330475912}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f31e32261f7cf9b478f6c127ed0c7dfb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &897110111
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4966,6 +4978,11 @@ PrefabInstance:
       propertyPath: m_Pivot.y
       value: 0.5
       objectReference: {fileID: 0}
+    - target: {fileID: 4075242570237487753, guid: 69875924013616f4f98af15ba30854d5,
+        type: 3}
+      propertyPath: TitleMenu
+      value: 
+      objectReference: {fileID: 882703435}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 69875924013616f4f98af15ba30854d5, type: 3}
 --- !u!1 &1872242976
@@ -6287,6 +6304,11 @@ PrefabInstance:
       propertyPath: OptionMenu
       value: 
       objectReference: {fileID: 872973017}
+    - target: {fileID: 8750458411038031780, guid: 18bba964e210b694dbe3940027b58f42,
+        type: 3}
+      propertyPath: Canvas
+      value: 
+      objectReference: {fileID: 2144731958}
     - target: {fileID: 9151525668687118324, guid: 18bba964e210b694dbe3940027b58f42,
         type: 3}
       propertyPath: m_LocalPosition.x
