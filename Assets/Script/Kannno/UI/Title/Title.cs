@@ -66,6 +66,9 @@ namespace FrontPerson.UI
             event_system = EventSystem.current;
 
             audio_manager = AudioManager.Instance;
+
+            // BGMの再生
+            audio_manager.PlayBGM(gameObject, BGMPath.TITLE_BGM_MAIN, 1f);
         }
 
         private void Update()
