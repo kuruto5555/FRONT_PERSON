@@ -1,12 +1,10 @@
-﻿using System.Collections;
+﻿using System.Linq;
 using System.Collections.Generic;
 using UnityEngine;
 using FrontPerson.UI;
-using UnityEngine.UI;
 using FrontPerson.Constants;
-using FrontPerson.Data;
-using System;
-using System.Linq;
+
+
 
 namespace FrontPerson.Manager
 {
@@ -239,7 +237,8 @@ namespace FrontPerson.Manager
         /// </summary>
         public struct RankingData
         {
-            public RankingData(int comboNum, int missionClearNum) { ComboNum = comboNum; MissionClearNum = missionClearNum;  }
+            public RankingData(int score, int comboNum, int missionClearNum) { Score = score; ComboNum = comboNum; MissionClearNum = missionClearNum;  }
+            public int Score;
             public int ComboNum;
             public int MissionClearNum;
         }
@@ -255,26 +254,26 @@ namespace FrontPerson.Manager
             var saveData = appManager_.save_data_;
 
             // ソートするためにデータを格納
-            var sortScoreData = new Dictionary<int, RankingData>()
+            var sortScoreData = new List<RankingData>()
             {
-                { saveData.RankingScore[0], new RankingData(saveData.RankingComboNum[0], saveData.RankingClearMissionNum[0]) },
-                { saveData.RankingScore[1], new RankingData(saveData.RankingComboNum[1], saveData.RankingClearMissionNum[1]) },
-                { saveData.RankingScore[2], new RankingData(saveData.RankingComboNum[2], saveData.RankingClearMissionNum[2]) },
-                { saveData.RankingScore[3], new RankingData(saveData.RankingComboNum[3], saveData.RankingClearMissionNum[3]) },
-                { saveData.RankingScore[4], new RankingData(saveData.RankingComboNum[4], saveData.RankingClearMissionNum[4]) },
-                { nowScore                , new RankingData(nowComboNum                , nowMissionClearNum                ) }
+                { new RankingData(saveData.RankingScore[0], saveData.RankingComboNum[0], saveData.RankingClearMissionNum[0]) },
+                { new RankingData(saveData.RankingScore[1], saveData.RankingComboNum[1], saveData.RankingClearMissionNum[1]) },
+                { new RankingData(saveData.RankingScore[2], saveData.RankingComboNum[2], saveData.RankingClearMissionNum[2]) },
+                { new RankingData(saveData.RankingScore[3], saveData.RankingComboNum[3], saveData.RankingClearMissionNum[3]) },
+                { new RankingData(saveData.RankingScore[4], saveData.RankingComboNum[4], saveData.RankingClearMissionNum[4]) },
+                { new RankingData(nowScore                , nowComboNum                , nowMissionClearNum                ) }
             };
 
             // ソート
-            sortScoreData.OrderByDescending((x) => x.Key);
+            sortScoreData.Sort((a, b) => b.Score - a.Score);
 
             // 値を入れる
             int i = 0;
-            foreach(var scoreData in sortScoreData.OrderByDescending((x) => x.Key))
+            foreach(var scoreData in sortScoreData)
             {
-                saveData.RankingScore[i] = scoreData.Key;
-                saveData.RankingComboNum[i] = scoreData.Value.ComboNum;
-                saveData.RankingClearMissionNum[i] = scoreData.Value.MissionClearNum;
+                saveData.RankingScore[i] = scoreData.Score;
+                saveData.RankingComboNum[i] = scoreData.ComboNum;
+                saveData.RankingClearMissionNum[i] = scoreData.MissionClearNum;
                 i++;
                 if (i >= 5) break;
             }
