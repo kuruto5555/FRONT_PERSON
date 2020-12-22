@@ -11,6 +11,14 @@ namespace FrontPerson.UI
 {
     public class Title : MonoBehaviour
     {
+        [Header("タイトルのオブジェクト")]
+        [SerializeField]
+        private GameObject TitleMenu = null;
+
+        [Header("オプションのオブジェクト")]
+        [SerializeField]
+        private GameObject OptionMenu = null;
+
         [Header("スタートボタン")]
         [SerializeField]
         private Button StartButton = null;
@@ -44,13 +52,26 @@ namespace FrontPerson.UI
                 Debug.LogError("Buttonオブジェクトが設定されていません");
                 return;
             }
+
+            if(null == TitleMenu || null == OptionMenu)
+            {
+                Debug.LogError("タイトルオブジェクト or オプションオブジェクト が設定されていません");
+                return;
+            }
 #endif
+            TitleMenu.SetActive(true);
+            OptionMenu.SetActive(false);
+
             StartButton.onClick.AddListener( () => { 
                 SceneManager.Instance.SceneChange(SceneName.GAME_SCENE, FadeTime);
                 DecisionSound();
                 });
 
-            OptionButton.onClick.AddListener(() => { DecisionSound(); });
+            OptionButton.onClick.AddListener(() => {
+                TitleMenu.SetActive(false);
+                OptionMenu.SetActive(true);
+                DecisionSound();
+            });
 
             ExitButton.onClick.AddListener(() => {
                 DecisionSound();
