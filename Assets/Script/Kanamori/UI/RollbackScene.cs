@@ -18,7 +18,7 @@ namespace FrontPerson.UI
                 back_button_.onClick.AddListener(
                     () =>
                     {
-                        Manager.SceneManager.Instance.SceneChange(Manager.SceneManager.Instance.last_scene_name_, 0.5f);
+                        Manager.SceneManager.Instance.SceneChange(Constants.SceneName.TITLE_SCENE, 0.5f);
                     }
                     );
             }
