@@ -74,10 +74,27 @@ namespace FrontPerson.Enemy.AI
         private void Set_MovePoint()
         {
             var list = new List<MovePoint>();
+            var point_list = new List<Vector3>();
+
+            //var move_points = MovePattern.GetComponentsInChildren<MovePoint>();
 
             list.AddRange(MovePattern.GetComponentsInChildren<MovePoint>());
 
             list.Sort((a, b) => a.Index - b.Index);
+
+            //for (int i = 0; i < move_points.Length; i++)
+            //{
+            //    list.Add(move_points[i].transform.position);
+            //}
+
+            foreach (var obj in list)
+            {
+                point_list.Add(obj.transform.position);
+            }
+
+            //list.AddRange(MovePattern.GetComponentsInChildren<MovePoint>());
+
+            //list.Sort((a, b) => a.Index - b.Index);
 
             if (null == list)
             {
@@ -85,9 +102,9 @@ namespace FrontPerson.Enemy.AI
                 return;
             }
 
-            foreach (var obj in list)
+            foreach (var obj in point_list)
             {
-                MovePoint_List.Add(obj.transform.position);
+                MovePoint_List.Add(obj);
             }
         }
 
@@ -100,6 +117,10 @@ namespace FrontPerson.Enemy.AI
 
         protected override void OnUpdate()
         {
+#if UNITY_EDITOR
+            if (null == MovePoint_List || 0 == MovePoint_List.Count) return;
+#endif
+
             // 目的地についていたら次の目的地の方に行く
             if (Owner.Agent.remainingDistance <= 1f)
             {
