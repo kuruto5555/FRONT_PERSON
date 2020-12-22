@@ -11,6 +11,15 @@ namespace FrontPerson.UI
     {
         bool isCrick = false;
 
+        void Update()
+        {
+            if (Input.GetButtonDown(InputName.SUBMIT))
+            {
+                OnCrick();
+            }
+        }
+
+
         public void OnCrick()
         {
             if (isCrick) return;

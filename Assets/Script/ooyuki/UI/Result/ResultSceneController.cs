@@ -44,6 +44,11 @@ namespace FrontPerson.Manager
         [SerializeField]
         GameObject backButton_ = null;
 
+        [Header("ランキングへボタン")]
+        [SerializeField]
+        GameObject rabkingButton_ = null;
+
+
         [Header("トータルスコアの目安")]
         [Tooltip("上から、B、A、S、\nBより小さければC")]
         [SerializeField]
@@ -54,7 +59,7 @@ namespace FrontPerson.Manager
         /// </summary>
         ApplicationManager appManager_ = null;
 
-        int youScore = 1500000;
+        int youScore = 95000000;
         int averageScore = 0;
         int numberOneScore = 0;
 
@@ -78,6 +83,8 @@ namespace FrontPerson.Manager
             state_ = RESULT_SCENE_STATE.FADE_IN;
 
             backButton_.SetActive(false);
+            rabkingButton_.SetActive(false);
+
 
             appManager_ = FindObjectOfType<ApplicationManager>();
             appManager_.SetIsGamePlay(false);
@@ -85,7 +92,7 @@ namespace FrontPerson.Manager
 
             
             // 今回の戦績
-            //youScore = appManager_.Score;
+            youScore = appManager_.Score;
             youComboNum = appManager_.ComboNum;
             youMissionClearNum = appManager_.ClearMissionNum;
 
@@ -221,6 +228,7 @@ namespace FrontPerson.Manager
             if (totalScore_.IsAnimFinish_)
             {
                 backButton_.SetActive(true);
+                rabkingButton_.SetActive(true);
                 state_ = RESULT_SCENE_STATE.PLAYER_INPUT;
             }
         }
