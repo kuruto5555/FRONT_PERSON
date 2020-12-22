@@ -35,6 +35,11 @@ namespace FrontPerson.UI
         [SerializeField]
         private float FadeTime = 0f;
 
+        [Tooltip("オーディオソースの為")]
+        [Header("キャンバス")]
+        [SerializeField]
+        private GameObject Canvas = null;
+
         /// <summary>
         /// イベントシステム
         /// </summary>
@@ -43,6 +48,11 @@ namespace FrontPerson.UI
         private AudioManager audio_manager = null;
 
         private GameObject current_buttom = null;
+
+        /// <summary>
+        /// オプション
+        /// </summary>
+        private InTitleOption menu = null;
 
         void Start()
         {
@@ -55,12 +65,24 @@ namespace FrontPerson.UI
 
             if(null == TitleMenu || null == OptionMenu)
             {
-                Debug.LogError("タイトルオブジェクト or オプションオブジェクト が設定されていません");
+                Debug.LogError("タイトルオブジェクト or オプションオブジェクトが設定されていません");
+                return;
+            }
+
+            if(null == Canvas)
+            {
+                Debug.LogError("キャンバスオブジェクトが設定されていません");
                 return;
             }
 #endif
+
+            menu = OptionMenu.GetComponent<InTitleOption>();
+
+            event_system = EventSystem.current;
+
+            audio_manager = AudioManager.Instance;
+
             TitleMenu.SetActive(true);
-            OptionMenu.SetActive(false);
 
             StartButton.onClick.AddListener( () => { 
                 SceneManager.Instance.SceneChange(SceneName.GAME_SCENE, FadeTime);
@@ -69,7 +91,7 @@ namespace FrontPerson.UI
 
             OptionButton.onClick.AddListener(() => {
                 TitleMenu.SetActive(false);
-                OptionMenu.SetActive(true);
+                menu.OpenMenu();
                 DecisionSound();
             });
 
@@ -83,13 +105,10 @@ namespace FrontPerson.UI
             });
 
             current_buttom = StartButton.gameObject;
-
-            event_system = EventSystem.current;
-
-            audio_manager = AudioManager.Instance;
+            event_system.SetSelectedGameObject(StartButton.gameObject);
 
             // BGMの再生
-            audio_manager.PlayBGM(gameObject, BGMPath.TITLE_BGM_MAIN, 1f);
+            audio_manager.PlayBGM(Canvas, BGMPath.TITLE_BGM_MAIN, 1f);
         }
 
         private void Update()
@@ -109,6 +128,14 @@ namespace FrontPerson.UI
         private void DecisionSound()
         {
             audio_manager.Play2DSE(gameObject, SEPath.COMMON_SE_DECISION);
+        }
+
+        public void OpenMenu()
+        {
+            TitleMenu.SetActive(true);
+
+            event_system.SetSelectedGameObject(StartButton.gameObject);
+            current_buttom = StartButton.gameObject;
         }
     }
 }
