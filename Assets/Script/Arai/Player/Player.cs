@@ -217,6 +217,8 @@ namespace FrontPerson.Character
         /// </summary>
         Transform _canvas = null;
 
+
+
         /*---- プロパティ ----*/
         /// <summary>
         /// プレイヤーのポジション
@@ -812,6 +814,8 @@ namespace FrontPerson.Character
             {
                 _itemStatusFlag &= ~ITEM_STATUS.SPEED_UP; //解除
                 _addSpeed = 1.0f; //等倍に戻す
+                var obj = GameObject.FindGameObjectWithTag(TagName.GAME_CONTROLLER).GetComponent<UI.PickupItemUI>();
+                obj.DeleteItem(ITEM_STATUS.SPEED_UP);
             }
         }
 
@@ -826,6 +830,8 @@ namespace FrontPerson.Character
                 _itemStatusFlag &= ~ITEM_STATUS.INVICIBLE; //解除
                 _isTransparent = false;
                 Destroy(_invisibleObject);
+                var obj = GameObject.FindGameObjectWithTag(TagName.GAME_CONTROLLER).GetComponent<UI.PickupItemUI>();
+                obj.DeleteItem(ITEM_STATUS.INVICIBLE);
             }
         }
 
