@@ -1,23 +1,12 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 namespace FrontPerson.UI
 {
-    [Serializable]
-    public class UIController
-    {
-        [Tooltip("指定したメニュー画面を開くボタン")]
-        public Button button_to_open_the_menu_;
-
-        [Tooltip("上で指定したメニュー画面")]
-        public GameObject menu_;
-    }
-
-    public class InGameOptionMenu : MonoBehaviour
+    public class InTitleOption : MonoBehaviour
     {
         /// <summary>
         /// メニュー画面のコントローラ
@@ -42,59 +31,28 @@ namespace FrontPerson.UI
 
         private EventSystem event_system_;
 
-        /// <summary>
-        /// 開いたオプション画面をとじれるかどうか（閉じれる <=> 閉じれない）
-        /// </summary>
-        private bool is_opened_and_closed_ = true;
-
-        public bool IsOpen { get; private set; } = false;
-
         // Start is called before the first frame update
         private void Start()
         {
             event_system_ = EventSystem.current;
-            event_system_.SetSelectedGameObject(ui_controllers_[0].button_to_open_the_menu_.gameObject);
-
+            
             SelectedOptionButtonSettings();
         }
 
         // Update is called once per frame
         private void Update()
         {
-            // メニュー開閉
-            if (Input.GetButtonDown(Constants.InputName.PAUSE) && is_opened_and_closed_)
-            {
-                // メニュー画面を開いている間、時間を止める
-                Time.timeScale = (opened_menu_[0].activeSelf) ? 1f : 0f;
-                print(Time.timeScale);
-
-                // メニューを開いている場合は閉じる、閉じている場合は開く
-                foreach (var menu in opened_menu_)
-                {
-                    menu.SetActive(!menu.activeSelf);
-                    IsOpen = menu.activeSelf;
-                }
-
-                FirstTouchSelectable();
-            }
         }
 
-        /// <summary>
-        /// メニューを閉じれるようにする
-        /// </summary>
-        public void AllowsTheMenuClose()
+        public void OpenMenu()
         {
-            is_opened_and_closed_ = true;
+            // メニューを開く
+            foreach (var menu in opened_menu_)
+            {
+                menu.SetActive(true);
+            }
 
             FirstTouchSelectable();
-        }
-
-        /// <summary>
-        /// メニューを閉じれないようにする
-        /// </summary>
-        private void PreventMenusClosing()
-        {
-            is_opened_and_closed_ = false;
         }
 
         /// <summary>
@@ -106,8 +64,11 @@ namespace FrontPerson.UI
             return_to_title_button_.onClick.AddListener(
                 () =>
                 {
-                    // タイトルシーンを呼ぶ
-                    Manager.SceneManager.Instance.SceneChange(Constants.SceneName.TITLE_SCENE, .1f);
+                    // メニューを閉じる
+                    foreach (var menu in opened_menu_)
+                    {
+                        menu.SetActive(false);
+                    }
                 }
                 );
 
@@ -124,9 +85,6 @@ namespace FrontPerson.UI
 
                         // ボタンに対応したメニューを開く
                         ui.menu_.SetActive(true);
-
-                        // ポーズボタンとBボタンでメニュー画面を閉じれなくする
-                        PreventMenusClosing();
                     }
                     );
             }

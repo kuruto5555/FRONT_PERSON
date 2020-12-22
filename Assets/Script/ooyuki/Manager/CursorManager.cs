@@ -5,19 +5,19 @@ using UnityEngine;
 
 namespace FrontPerson.Manager
 {
-    public class CursorManager : SingletonMonoBehaviour<CursorManager>
+    public class CursorManager
     {
-        public void CursorLock()
+        static public void CursorLock()
         {
-            Cursor.visible = false;
             Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
         }
 
 
-        public void CurcorUnlock()
+        static public void CursorUnlock()
         {
+            Cursor.lockState = CursorLockMode.Confined;
             Cursor.visible = true;
-            Cursor.lockState = CursorLockMode.None;
         }
     }
 }
