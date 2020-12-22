@@ -5,6 +5,7 @@ using FrontPerson.common;
 using FrontPerson.Enemy;
 using System.ComponentModel;
 using FrontPerson.Constants;
+using FrontPerson.UI;
 
 namespace FrontPerson.Manager
 {
@@ -205,6 +206,8 @@ namespace FrontPerson.Manager
         /// </summary>
         public void LostCombo()
         {
+            if (UseComboInsurance()) return;
+
             IsCombo = false;
 
             // コンボ途切れボーナス加算
@@ -347,6 +350,7 @@ namespace FrontPerson.Manager
             // コンボ保険を持っていたら消費して成功を返す
             else
             {
+                GameObject.FindGameObjectWithTag(TagName.GAME_CONTROLLER).GetComponent<PickupItemUI>().DeleteItem(ITEM_STATUS.COMBO_INSURANCE);
                 IsComboInsurance = false;
                 return true;
             }
