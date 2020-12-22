@@ -117,6 +117,8 @@ namespace FrontPerson.Enemy.AI
 
         protected override void OnChangeState_OldBattleaxe()
         {
+            if (null == Player) return;
+
             OldBattleaxe enemy = Owner as OldBattleaxe;
 
             if (Player.IsStun || Player.IsInvincible || Player.IsTransparent)
@@ -139,6 +141,8 @@ namespace FrontPerson.Enemy.AI
 
         protected override void OnChangeState_Yakuza()
         {
+            if (null == Player) return;
+
             if (Player.IsStun || Player.IsInvincible || Player.IsTransparent) return;
 
             if (SearchArea.IsFound)
