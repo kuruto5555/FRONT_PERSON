@@ -47,6 +47,8 @@ namespace FrontPerson.UI
         /// </summary>
         private bool is_opened_and_closed_ = true;
 
+        public bool IsOpen { get; private set; } = false;
+
         // Start is called before the first frame update
         private void Start()
         {
@@ -70,6 +72,7 @@ namespace FrontPerson.UI
                 foreach (var menu in opened_menu_)
                 {
                     menu.SetActive(!menu.activeSelf);
+                    IsOpen = menu.activeSelf;
                 }
 
                 FirstTouchSelectable();
