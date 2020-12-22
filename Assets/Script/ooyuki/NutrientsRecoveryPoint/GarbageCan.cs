@@ -14,7 +14,7 @@ namespace FrontPerson.Gimmick
         /// <summary>
         /// 一度使っているかどうか
         /// </summary>
-        public bool IsUsed { get; private set; } = true;
+        public bool IsUsed { get; private set; } = false;
 
 
         /// <summary>
