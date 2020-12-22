@@ -16,7 +16,7 @@ namespace FrontPerson.Manager
 
         static public void CursorUnlock()
         {
-            Cursor.lockState = CursorLockMode.Confined;
+            Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;
         }
     }
