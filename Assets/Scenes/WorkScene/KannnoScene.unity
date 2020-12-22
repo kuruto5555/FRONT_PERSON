@@ -1858,6 +1858,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MovePattern: {fileID: 623765245}
+  RadiusOffset: 0.3
 --- !u!1001 &1062460068
 PrefabInstance:
   m_ObjectHideFlags: 0
