@@ -22,8 +22,8 @@ namespace FrontPerson.Anim
         /// <summary>
         /// ポップアップアニメーションのハッシュ
         /// </summary>
-        readonly int changeBounty_FailedAnimHash = Animator.StringToHash("BountyMission_Change");
-        readonly int changeBounty_CLearAnimHash = Animator.StringToHash("BountyMission_Change_Clear");
+        readonly int changeBounty_FailedAnimHash = Animator.StringToHash("BountyChange_Failed");
+        readonly int changeBounty_CLearAnimHash = Animator.StringToHash("BountyChange_Clear");
 
         // Start is called before the first frame update
         void Start()
