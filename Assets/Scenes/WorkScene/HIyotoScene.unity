@@ -4368,6 +4368,11 @@ PrefabInstance:
       propertyPath: iconChengeValue_.Array.data[4]
       value: 50
       objectReference: {fileID: 0}
+    - target: {fileID: 359286244686950295, guid: 4ac8071099f43f6428587e37f24d8295,
+        type: 3}
+      propertyPath: number
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 381396662027577977, guid: 4ac8071099f43f6428587e37f24d8295,
         type: 3}
       propertyPath: m_IsActive
@@ -4721,6 +4726,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_FontData.m_FontSize
       value: 34
+      objectReference: {fileID: 0}
+    - target: {fileID: 6548941243718065180, guid: 4ac8071099f43f6428587e37f24d8295,
+        type: 3}
+      propertyPath: number
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7037653430368413086, guid: 4ac8071099f43f6428587e37f24d8295,
         type: 3}
