@@ -70,6 +70,7 @@ namespace FrontPerson.UI
             OptionButton.onClick.AddListener(() => {
                 TitleMenu.SetActive(false);
                 OptionMenu.SetActive(true);
+                OptionMenu.GetComponent<InTitleOption>().OpenMenu();
                 DecisionSound();
             });
 
