@@ -702,6 +702,31 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 546606992}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &333952645 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5008039636571061990, guid: fdae484d2cfb5bf4ba20052d502c5ebb,
+    type: 3}
+  m_PrefabInstance: {fileID: 1901901990}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &333952647
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 333952645}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 3270de39754a4d344bcbe21bf320b4ef, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!4 &335321477 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 429424801789044209, guid: d2eba39b6db42a74bb94c1ad6b593b62,
@@ -4564,7 +4589,7 @@ PrefabInstance:
     - target: {fileID: 866298291008192280, guid: 04808913b4eff664985db5b8a6d8944d,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2943849987113164688, guid: 04808913b4eff664985db5b8a6d8944d,
         type: 3}
@@ -5663,7 +5688,7 @@ PrefabInstance:
     - target: {fileID: 5008039636571061990, guid: fdae484d2cfb5bf4ba20052d502c5ebb,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5677896911954420828, guid: fdae484d2cfb5bf4ba20052d502c5ebb,
         type: 3}
@@ -6301,6 +6326,7 @@ MonoBehaviour:
   missionDrawUI_: {fileID: 1451080149}
   timeUp_: {fileID: 0}
   remainingBulletGauge_: {fileID: 1580964763}
+  optionMenu_: {fileID: 0}
 --- !u!4 &2015289604
 Transform:
   m_ObjectHideFlags: 0
@@ -6453,6 +6479,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_TagString
       value: BountyManager
+      objectReference: {fileID: 0}
+    - target: {fileID: 1320749166092626204, guid: ad254301988cda34d802bd0a165ee76d,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ad254301988cda34d802bd0a165ee76d, type: 3}

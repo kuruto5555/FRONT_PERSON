@@ -16,55 +16,53 @@ namespace FrontPerson.Manager
     {
         [Header("マスタ音量")]
         [SerializeField, Range(0f, 1f)]
-        private float volume_ = 1f;
+        public float volume_ = 1f;
 
         [Header("BGM音量")]
         [SerializeField, Range(0f, 1f)]
-        private float bgm_volume_ = 1f;
+        public float bgm_volume_ = 1f;
 
         [Header("SE音量")]
         [SerializeField, Range(0f, 1f)]
-        private float se_volume_ = 1f;
+        public float se_volume_ = 1f;
 
-
-
-        public float Volume
-        {
-            set
-            {
-                volume_ = Mathf.Clamp01(value * 0.1f);
-                bgm_volume_ = bgm_volume_ * volume_;
-                se_volume_ = se_volume_ * volume_;
-            }
-            get
-            {
-                return volume_;
-            }
-        }
-        public float BGMVolume
-        {
-            set
-            {
-                bgm_volume_ = Mathf.Clamp01(value * 0.1f);
-                bgm_volume_ = bgm_volume_ * volume_;
-            }
-            get
-            {
-                return bgm_volume_;
-            }
-        }
-        public float SEVolume
-        {
-            set
-            {
-                se_volume_ = Mathf.Clamp01(value * 0.1f);
-                se_volume_ = se_volume_ * volume_;
-            }
-            get
-            {
-                return se_volume_;
-            }
-        }
+        //public float Volume
+        //{
+        //    set
+        //    {
+        //        volume_ = Mathf.Clamp01(value * 0.1f);
+        //        bgm_volume_ = bgm_volume_ * volume_;
+        //        se_volume_ = se_volume_ * volume_;
+        //    }
+        //    get
+        //    {
+        //        return volume_;
+        //    }
+        //}
+        //public float BGMVolume
+        //{
+        //    set
+        //    {
+        //        bgm_volume_ = Mathf.Clamp01(value * 0.1f);
+        //        bgm_volume_ = bgm_volume_ * volume_;
+        //    }
+        //    get
+        //    {
+        //        return bgm_volume_;
+        //    }
+        //}
+        //public float SEVolume
+        //{
+        //    set
+        //    {
+        //        se_volume_ = Mathf.Clamp01(value * 0.1f);
+        //        se_volume_ = se_volume_ * volume_;
+        //    }
+        //    get
+        //    {
+        //        return se_volume_;
+        //    }
+        //}
 
         /// <summary>
         /// セーブデータができるまで
@@ -152,7 +150,7 @@ namespace FrontPerson.Manager
         private bool fade_out = false;
 
         /// <summary>
-        /// オーディオミキサーの最高音量
+        /// オーディオミキサーの最高音量(db表示)
         /// ここ変えれば100％時の音量上限が変わる
         /// </summary>
         private float bgm_mixer_max_volume = 10f;
@@ -160,12 +158,55 @@ namespace FrontPerson.Manager
         /// <summary>
         /// オーディオミキサーの最低音量(db表示)
         /// </summary>
-        private const float bgm_mixer_min_volume = 80f; 
+        private const float bgm_mixer_min_volume = 80f;
+
+        /// <summary>
+        /// SEのボリューム
+        /// </summary>
+        private float se_volume = 1f;
 
         /// <summary>
         /// BGMフェード完了時間
         /// </summary>
         private  float fade_time = 1f;
+
+        public float Volume
+        {
+            set
+            {
+                audio_volume_.volume_ = Mathf.Clamp01(value * 0.1f);
+                bgm_audiosource.volume = BGMVolume * audio_volume_.volume_;
+                se_volume = SEVolume * audio_volume_.volume_;
+            }
+            get
+            {
+                return audio_volume_.volume_;
+            }
+        }
+        public float BGMVolume
+        {
+            set
+            {
+                audio_volume_.bgm_volume_ = Mathf.Clamp01(value * 0.1f);
+                bgm_audiosource.volume = BGMVolume *Volume;
+            }
+            get
+            {
+                return audio_volume_.bgm_volume_;
+            }
+        }
+        public float SEVolume
+        {
+            set
+            {
+                audio_volume_.se_volume_ = Mathf.Clamp01(value * 0.1f);
+                se_volume = SEVolume *Volume;
+            }
+            get
+            {
+                return audio_volume_.se_volume_;
+            }
+        }
 
         public void Init()
         {
@@ -197,10 +238,12 @@ namespace FrontPerson.Manager
 
         void LateUpdate()
         {
-            if (bgm_audiosource != null)
-            {
-                bgm_audiosource.volume = DEFAULT_SOUND_VOLUME * AudioManager.Instance.audio_volume_.BGMVolume;
-            }
+            //if (bgm_audiosource != null)
+            //{
+                
+            //}
+
+            //bgm_audiosource.volume = DEFAULT_SOUND_VOLUME * BGMVolume;
 
             if (fade_out)
             {
@@ -236,7 +279,7 @@ namespace FrontPerson.Manager
             foreach (AudioInfo info in sound_info_list)
             {
                 {
-                    info.source.PlayOneShot(info.clip, DEFAULT_SOUND_VOLUME * AudioManager.Instance.audio_volume_.SEVolume);
+                    info.source.PlayOneShot(info.clip, DEFAULT_SOUND_VOLUME * se_volume);
                 }
             }
 
