@@ -11,14 +11,6 @@ public class RankingButton : MonoBehaviour
     bool isCrick = false;
 
 
-    void Update()
-    {
-        if (Input.GetButtonDown(InputName.CANCEL))
-        {
-            OnCrick();
-        }
-    }
-
     public void OnCrick()
     {
         if (isCrick) return;
