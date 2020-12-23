@@ -37,6 +37,7 @@ namespace FrontPerson.Gimmick
         public override int Charge(int value)
         {
             if (IsUsed) return 0;
+            if (value == 0) return 0;
 
             bountyManager_.NutritionCharge();
             IsUsed = true;
