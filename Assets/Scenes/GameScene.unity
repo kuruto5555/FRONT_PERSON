@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 131.16855, g: 162.52502, b: 215.10977, a: 1}
+  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -4865,6 +4865,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 813902046946508358, guid: 4ac8071099f43f6428587e37f24d8295,
+        type: 3}
+      propertyPath: comboDuration_
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 3538857796950533616, guid: 4ac8071099f43f6428587e37f24d8295,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -4984,6 +4989,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8773701040825813159, guid: 4ac8071099f43f6428587e37f24d8295,
+        type: 3}
+      propertyPath: textColorChangeTimeList_.Array.data[1]
+      value: 120
+      objectReference: {fileID: 0}
+    - target: {fileID: 8773701040825813159, guid: 4ac8071099f43f6428587e37f24d8295,
+        type: 3}
+      propertyPath: textColorChangeTimeList_.Array.data[2]
+      value: 30
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4ac8071099f43f6428587e37f24d8295, type: 3}
