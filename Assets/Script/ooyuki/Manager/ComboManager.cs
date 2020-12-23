@@ -273,7 +273,8 @@ namespace FrontPerson.Manager
         {
             if(IsComboInsurance)
 
-            //コンボ数が0なのにどうやってここに来るんだよ
+            // コンボ数が0なのにどうやってここに来るんだよ
+            // 正解は、0コンボで間違った敵を撃った時だよ
             if (ComboNum == 0) return;
 
 

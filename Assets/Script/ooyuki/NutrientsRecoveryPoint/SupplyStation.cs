@@ -60,6 +60,7 @@ namespace FrontPerson.Gimmick
         public override int Charge(int value)
         {
             if (!IsCharge) return 0;
+            if (value == 0) return 0;
 
             //bountyManager_.NutritionCharge();
             time_ = interval_;
