@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using FrontPerson.Enemy;
 using FrontPerson.Constants;
+using FrontPerson.Manager;
 
 
 namespace FrontPerson.Character.Skill
@@ -33,6 +33,20 @@ namespace FrontPerson.Character.Skill
         [Header("足りないビタミンがDの時のマテリアル")]
         [SerializeField]
         Material vitaminDMat_ = null;
+
+        /// <summary>
+        /// Search中かどうか
+        /// true -> サーチ中
+        /// false -> サーチしていない
+        /// </summary>
+        public bool IsSearch { get; private set; } = false;
+
+        /// <summary>
+        /// 使えるかどうか
+        /// true -> 使える
+        /// false -> 使えない
+        /// </summary>
+        public bool IsUse { get; private set; } = true;
 
         /// <summary>
         /// サーチエリアのコライダー
@@ -69,6 +83,9 @@ namespace FrontPerson.Character.Skill
         // Start is called before the first frame update
         void Start()
         {
+            IsSearch = false;
+            IsUse = true;
+
             initMaterialsList_ = new List<Material[]>();
             rendererList_ = new List<Renderer>();
             skillEffectTime_of_Enemys_ = new List<float>();
@@ -88,6 +105,8 @@ namespace FrontPerson.Character.Skill
             if(skillIntervalTimeCount_ > 0)
             {
                 skillIntervalTimeCount_ -= Time.deltaTime;
+                if (skillIntervalTimeCount_ <= 0)
+                    IsUse = true;
             }
 
 
@@ -146,12 +165,20 @@ namespace FrontPerson.Character.Skill
         public void Search()
         {
             // スキルのインターバルが回復していなけらば帰る
-            if (skillIntervalTimeCount_ > 0) return;
+            if (skillIntervalTimeCount_ > 0 || !IsUse)
+            {
+                AudioManager.Instance.Play3DSE(transform.position, SEPath.GAME_SE_SCAN_ERROR);
+                return;
+            }
+
 
             // 発動
+            IsUse = false;
+            IsSearch = true;
             eria_.enabled = true;
             mesh_.enabled = true;
             skillIntervalTimeCount_ = skillIntervalTime_;
+            AudioManager.Instance.Play3DSE(transform.position, SEPath.GAME_SE_SCAN);
         }
 
 
@@ -160,10 +187,15 @@ namespace FrontPerson.Character.Skill
         /// </summary>
         public void Stop()
         {
+            if (IsUse) return;
+            if (!IsSearch) return;
+
             //コライダーを無効にする
             eria_.enabled = false;
             mesh_.enabled = false;
             transform.localScale = new Vector3(0.001f, 0.001f, 0.001f);
+
+            IsSearch = false;
 
             // スキル効果時間の設定
             for(int i=0;i< rendererList_.Count; i++)

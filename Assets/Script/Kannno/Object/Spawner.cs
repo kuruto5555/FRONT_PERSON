@@ -108,6 +108,10 @@ namespace FrontPerson.Enemy
             ProbabilityList = new List<float> { Probability_OrdinaryPeople, Probability_OldBattleaxe, Probability_Yakuza };
             ProbabilityList.Sort((a, b) => a.CompareTo(b));
 
+            Sum_OrdinaryPeople = 0;
+            Sum_OldBattleaxe = 0;
+            Sum_Yakuza = 0;
+
             SumEnemy();
 
             Spawn();

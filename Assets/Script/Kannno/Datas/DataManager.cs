@@ -7,7 +7,6 @@ using System.Text;
 using System.Runtime.Serialization.Formatters.Binary;
 using UnityEngine;
 
-using FrontPerson.Data;
 
 namespace FrontPerson.Manager
 {

@@ -11,11 +11,21 @@ namespace FrontPerson.UI
     {
         bool isCrick = false;
 
+        void Update()
+        {
+            if (Input.GetButtonDown(InputName.SUBMIT))
+            {
+                OnCrick();
+            }
+        }
+
+
         public void OnCrick()
         {
             if (isCrick) return;
 
             GetComponent<Button>().enabled = false;
+            AudioManager.Instance.Play2DSE(gameObject, SEPath.COMMON_SE_BACK);
             SceneManager.Instance.SceneChange(SceneName.TITLE_SCENE, 2.0f, Color.black);
             isCrick = true;
         }

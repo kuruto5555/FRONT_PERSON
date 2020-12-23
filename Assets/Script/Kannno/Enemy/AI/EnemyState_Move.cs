@@ -100,14 +100,22 @@ namespace FrontPerson.Enemy.AI
 
         protected override void OnUpdate()
         {
-            // 目的地についていたら次の目的地の方に行く
-            if (Owner.Agent.remainingDistance <= 1f)
+#if UNITY_EDITOR
+            if (null == MovePoint_List || 0 == MovePoint_List.Count) return;
+#endif
+
+            // 経路探索中なら、調べない
+            if (false == Owner.Agent.pathPending)
             {
-                Vector3 destination = MovePoint_List[(MovePointIndex + 1) % MovePoint_List.Count];
+                // 目的地についていたら次の目的地の方に行く
+                if (Owner.Agent.remainingDistance <= 1f)
+                {
+                    Vector3 destination = MovePoint_List[(MovePointIndex + 1) % MovePoint_List.Count];
 
-                Owner.SetTarget(destination);
+                    Owner.SetTarget(destination);
 
-                MovePointIndex = (MovePointIndex + 1) % MovePoint_List.Count;
+                    MovePointIndex = (MovePointIndex + 1) % MovePoint_List.Count;
+                }
             }
         }
 
@@ -117,6 +125,8 @@ namespace FrontPerson.Enemy.AI
 
         protected override void OnChangeState_OldBattleaxe()
         {
+            if (null == Player) return;
+
             OldBattleaxe enemy = Owner as OldBattleaxe;
 
             if (Player.IsStun || Player.IsInvincible || Player.IsTransparent)
@@ -139,6 +149,8 @@ namespace FrontPerson.Enemy.AI
 
         protected override void OnChangeState_Yakuza()
         {
+            if (null == Player) return;
+
             if (Player.IsStun || Player.IsInvincible || Player.IsTransparent) return;
 
             if (SearchArea.IsFound)

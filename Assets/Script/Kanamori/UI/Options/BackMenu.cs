@@ -20,7 +20,11 @@ namespace FrontPerson.UI
             {
                 gameObject.SetActive(false);
                 menu_.SetActive(true);
-                menu_cs_.AllowsTheMenuClose();
+
+                if(menu_cs_ != null)
+                {
+                    menu_cs_.AllowsTheMenuClose();
+                }
             }
         }
     }

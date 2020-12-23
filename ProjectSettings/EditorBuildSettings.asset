@@ -5,7 +5,7 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/WorkScene/Kanamori/Kanamori.unity
     guid: b5ad2d25c85843a4c8d380e335f34978
   - enabled: 1
@@ -17,4 +17,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/GameScene.unity
     guid: 2669d16751e43a9408fa08a9053b55be
+  - enabled: 1
+    path: Assets/Scenes/RankingScene.unity
+    guid: a3b2f4bdd01a3e942b6575db9fc20388
   m_configObjects: {}

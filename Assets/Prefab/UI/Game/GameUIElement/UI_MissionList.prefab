@@ -90,7 +90,7 @@ GameObject:
   - component: {fileID: 8894383626681893883}
   - component: {fileID: 1118790939761759685}
   m_Layer: 5
-  m_Name: MissionList
+  m_Name: UI_MissionList
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -171,6 +171,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 344187635078805228}
     m_Modifications:
+    - target: {fileID: 1808925208620171953, guid: 1111cb24d07b00c4cba738227cb5f855,
+        type: 3}
+      propertyPath: number
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7240465482851925074, guid: 1111cb24d07b00c4cba738227cb5f855,
         type: 3}
       propertyPath: m_Name
@@ -493,6 +498,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 344187635078805228}
     m_Modifications:
+    - target: {fileID: 1808925208620171953, guid: 1111cb24d07b00c4cba738227cb5f855,
+        type: 3}
+      propertyPath: number
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 7240465482851925074, guid: 1111cb24d07b00c4cba738227cb5f855,
         type: 3}
       propertyPath: m_Name

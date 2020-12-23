@@ -121,6 +121,12 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &50809542 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6027212255266759654, guid: d6230c432fce9334c83ab85b8cff9c24,
+    type: 3}
+  m_PrefabInstance: {fileID: 1488756713}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &170680196 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 1383285351850141527, guid: d6230c432fce9334c83ab85b8cff9c24,
@@ -167,6 +173,7 @@ MonoBehaviour:
   missionClearNumGraph_: {fileID: 1430366604}
   totalScore_: {fileID: 1715519043}
   backButton_: {fileID: 1036791991}
+  rabkingButton_: {fileID: 50809542}
   totalScoreGuideline_: a086010020a1070040420f00
 --- !u!4 &323177212
 Transform:
@@ -528,6 +535,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5190486413065763720, guid: d6230c432fce9334c83ab85b8cff9c24,
         type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5190486413065763720, guid: d6230c432fce9334c83ab85b8cff9c24,
+        type: 3}
       propertyPath: m_Colors.m_DisabledColor.r
       value: 1
       objectReference: {fileID: 0}
@@ -545,6 +557,31 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Colors.m_DisabledColor.a
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5190486413065763720, guid: d6230c432fce9334c83ab85b8cff9c24,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5190486413065763720, guid: d6230c432fce9334c83ab85b8cff9c24,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5190486413065763720, guid: d6230c432fce9334c83ab85b8cff9c24,
+        type: 3}
+      propertyPath: m_Interactable
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5190486413065763720, guid: d6230c432fce9334c83ab85b8cff9c24,
+        type: 3}
+      propertyPath: m_Transition
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5190486413065763720, guid: d6230c432fce9334c83ab85b8cff9c24,
+        type: 3}
+      propertyPath: m_Navigation.m_Mode
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 5192146305451135455, guid: d6230c432fce9334c83ab85b8cff9c24,
         type: 3}
@@ -933,6 +970,51 @@ MonoBehaviour:
       data1: 0
       data2: 0
   defaultFrameSettings: 0
+--- !u!1 &1708803347
+GameObject:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1708803349}
+  - component: {fileID: 1708803348}
+  m_Layer: 0
+  m_Name: StaticLightingSky
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1708803348
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1708803347}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 441482e8936e35048a1dffac814e3ef8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Profile: {fileID: 0}
+  m_StaticLightingSkyUniqueID: 0
+--- !u!4 &1708803349
+Transform:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1708803347}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1715519043 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 3105781155755925927, guid: d6230c432fce9334c83ab85b8cff9c24,

@@ -98,26 +98,26 @@ namespace FrontPerson.UI
                     Before_ItemCnt = ItemCnt;
                     PlayAnime = true;
 
-                    switch (ItemCnt)
-                    {
-                        case 2:
-                            Animator.SetBool("Item_02", true);
-                            Animator.SetBool("Item_03", false);
-                            break;
-
-                        case 3:
-                            Animator.SetBool("Item_02", false);
-                            Animator.SetBool("Item_03", true);
-                            break;
-
-                        default:
-                            break;
-                    }
-
                     for (int i = 0; i < ItemCnt; i++)
                     {
                         ItemImages[i].gameObject.SetActive(true);
                     }
+                }
+
+                switch (ItemCnt)
+                {
+                    case 2:
+                        Animator.SetBool("Item_02", true);
+                        Animator.SetBool("Item_03", false);
+                        break;
+
+                    case 3:
+                        Animator.SetBool("Item_02", false);
+                        Animator.SetBool("Item_03", true);
+                        break;
+
+                    default:
+                        break;
                 }
             }
             else
@@ -149,17 +149,17 @@ namespace FrontPerson.UI
                     switch (item_status)
                     {
                         case ITEM_STATUS.INVICIBLE:
-                            ItemImages[i].sprite = ItemSprites[0];
+                            ItemImages[i].sprite = GetSprite(ITEM_STATUS.INVICIBLE);
                             HaveItems[i] = ITEM_STATUS.INVICIBLE;
                             break;
 
                         case ITEM_STATUS.SPEED_UP:
-                            ItemImages[i].sprite = ItemSprites[1];
+                            ItemImages[i].sprite = GetSprite(ITEM_STATUS.SPEED_UP);
                             HaveItems[i] = ITEM_STATUS.SPEED_UP;
                             break;
 
                         case ITEM_STATUS.COMBO_INSURANCE:
-                            ItemImages[i].sprite = ItemSprites[2];
+                            ItemImages[i].sprite = GetSprite(ITEM_STATUS.COMBO_INSURANCE);
                             HaveItems[i] = ITEM_STATUS.COMBO_INSURANCE;
                             break;
 
@@ -182,7 +182,7 @@ namespace FrontPerson.UI
         /// <param name="item_status"></param>
         public void DeleteItem(ITEM_STATUS item_status)
         {
-            if (!HaveItems.Contains(item_status)) return;
+             if (!HaveItems.Contains(item_status)) return;
 
             for (int i = 0; i < HaveItems.Count(); i++)
             {
@@ -193,25 +193,47 @@ namespace FrontPerson.UI
 
                     // アイテムの取得数の減算
                     ItemCnt--;
+                    Before_ItemCnt = ItemCnt;
 
-                    switch(ItemCnt)
+                    switch (ItemCnt)
                     {
                         case 1:
                             if(0 == i)
                             {
-                                ItemImages[i].sprite = ItemImages[i + 1].sprite;
+                                ItemImages[i].sprite = GetSprite(HaveItems[i + 1]);
+                                ItemImages[i + 1].gameObject.SetActive(false);
+
+                                ItemImages[i].gameObject.SetActive(true);
+
+                                HaveItems[i] = HaveItems[i + 1];
+                                HaveItems[i + 1] = ITEM_STATUS.NORMAL;
                             }
                             break;
 
                         case 2:
                             if (0 == i)
                             {
-                                ItemImages[i].sprite = ItemImages[i + 1].sprite;
-                                ItemImages[i+ 1].sprite = ItemImages[i + 2].sprite;
+                                ItemImages[i].sprite = GetSprite(HaveItems[i + 1]);
+                                ItemImages[i+ 1].sprite = GetSprite(HaveItems[i + 2]);
+                                ItemImages[i + 2].gameObject.SetActive(false);
+
+                                ItemImages[i].gameObject.SetActive(true);
+                                ItemImages[i + 1].gameObject.SetActive(true);
+
+                                HaveItems[i] = HaveItems[i + 1];
+                                HaveItems[i + 1] = HaveItems[i + 2];
+                                HaveItems[i + 2] = ITEM_STATUS.NORMAL;
                             }
                             if (1 == i)
                             {
-                                ItemImages[i].sprite = ItemImages[i + 1].sprite;
+                                ItemImages[i].sprite = GetSprite(HaveItems[i + 1]);
+                                ItemImages[i + 1].gameObject.SetActive(false);
+
+                                ItemImages[i - 1].gameObject.SetActive(true);
+                                ItemImages[i].gameObject.SetActive(true);
+
+                                HaveItems[i] = HaveItems[i + 1];
+                                HaveItems[i + 1] = ITEM_STATUS.NORMAL;
                             }
                             break;
 
@@ -229,6 +251,24 @@ namespace FrontPerson.UI
                 {
                     item.gameObject.SetActive(false);
                 }
+            }
+        }
+
+        private Sprite GetSprite(ITEM_STATUS item_status)
+        {
+            switch (item_status)
+            {
+                case ITEM_STATUS.INVICIBLE:
+                    return ItemSprites[0];
+
+                case ITEM_STATUS.SPEED_UP:
+                    return ItemSprites[1];
+
+                case ITEM_STATUS.COMBO_INSURANCE:
+                    return ItemSprites[2];
+
+                default:
+                    return null;
             }
         }
     }
