@@ -58,6 +58,8 @@ namespace FrontPerson.UI
         /// </summary>
         private InTitleOption menu = null;
 
+        private ApplicationManager ApplicationManager = null;
+
         void Start()
         {
 #if UNITY_EDITOR
@@ -86,22 +88,33 @@ namespace FrontPerson.UI
 
             audio_manager = AudioManager.Instance;
 
+            ApplicationManager = ApplicationManager.Instance;
+
             TitleMenu.SetActive(true);
 
-            StartButton.onClick.AddListener( () => { 
-                SceneManager.Instance.SceneChange(SceneName.GAME_SCENE, FadeTime);
-                DecisionSound();
-                });
+            StartButton.onClick.AddListener( () => {
+                if (ApplicationManager.IsInput)
+                {
+                    SceneManager.Instance.SceneChange(SceneName.GAME_SCENE, FadeTime);
+                    DecisionSound();
+                }
+            });
 
             RankingButton.onClick.AddListener(() => {
-                //SceneManager.Instance.SceneChange(SceneName.GAME_SCENE, FadeTime);
-                DecisionSound();
+                if (ApplicationManager.IsInput)
+                {
+                    SceneManager.Instance.SceneChange(SceneName.RESULT_SCENE, FadeTime);
+                    DecisionSound();
+                }
             });
 
             OptionButton.onClick.AddListener(() => {
-                TitleMenu.SetActive(false);
-                menu.OpenMenu();
-                DecisionSound();
+                if (ApplicationManager.IsInput)
+                {
+                    TitleMenu.SetActive(false);
+                    menu.OpenMenu();
+                    DecisionSound();
+                }
             });
 
             ExitButton.onClick.AddListener(() => {
@@ -122,12 +135,15 @@ namespace FrontPerson.UI
 
         private void Update()
         {
-            // 選択しているものが違う
-            if (event_system.currentSelectedGameObject != current_buttom)
+            if (ApplicationManager.IsInput)
             {
-                current_buttom = event_system.currentSelectedGameObject;
+                // 選択しているものが違う
+                if (event_system.currentSelectedGameObject != current_buttom)
+                {
+                    current_buttom = event_system.currentSelectedGameObject;
 
-                audio_manager.Play2DSE(gameObject, SEPath.COMMON_SE_CURSOR);
+                    audio_manager.Play2DSE(gameObject, SEPath.COMMON_SE_CURSOR);
+                }
             }
         }
 
