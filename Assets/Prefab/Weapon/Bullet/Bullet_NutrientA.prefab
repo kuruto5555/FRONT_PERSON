@@ -30,7 +30,7 @@ Transform:
   m_GameObject: {fileID: 1171001628440052897}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
+  m_LocalScale: {x: 0.18, y: 0.18, z: 0.18}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -128,3 +128,4 @@ MonoBehaviour:
   power_: 35
   splashParticle_: {fileID: 7335020722401341361, guid: 31bd3ee11cd3c5e47b21d30b96e211b8,
     type: 3}
+  _range: 50
