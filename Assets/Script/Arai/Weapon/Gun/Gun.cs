@@ -141,8 +141,9 @@ namespace FrontPerson.Weapon
             shotTime_ = 1.0f / rate_;
             ammo_--;
             _bountyManager.FireCount();
-            Instantiate(MuzzleFlash, Muzzle.transform);
+            Instantiate(MuzzleFlash, Muzzle.transform.position, Muzzle.transform.rotation);
             _audioManager.Play3DSE(transform.position, _shotSoundPath);
+            _animator.Play("Shot", 0, 0);
         }
 
         /// <summary>
@@ -202,6 +203,8 @@ namespace FrontPerson.Weapon
 
         private void OnEnable()
         {
+            _isAnimation = true;
+
             if (Reticle_ != null)
             {
                 _reticle = Instantiate(Reticle_, _canvas.transform);

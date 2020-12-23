@@ -48,6 +48,7 @@ namespace FrontPerson.Weapon
             _bountyManager.FireCount();
             Instantiate(MuzzleFlash, Muzzle.transform);
             _audioManager.Play3DSE(transform.position, _shotSoundPath);
+            _animator.Play("Shot", 0, 0);
         }
     }
 }
