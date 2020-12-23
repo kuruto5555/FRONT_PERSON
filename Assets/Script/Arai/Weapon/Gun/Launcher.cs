@@ -138,6 +138,8 @@ namespace FrontPerson.Weapon
         // Update is called once per frame
         void Update()
         {
+            if (_isAnimation) return;
+
             base.Update();
             EnemyListUpdate();
             LockOnStart();
@@ -383,6 +385,16 @@ namespace FrontPerson.Weapon
 
                 Destroy(gameObject);
             }
+        }
+
+        public override void PutAnimation()
+        {
+            foreach (var it in _lockOnTargetList)
+            {
+                it.Value.GetCursor().SetDead();
+            }
+
+            Destroy(gameObject);
         }
 
         public override void WeaponForcedChange()

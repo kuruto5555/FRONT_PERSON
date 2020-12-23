@@ -217,6 +217,8 @@ namespace FrontPerson.Character
         /// </summary>
         Transform _canvas = null;
 
+        Animator _weaponAnim = null;
+
 
 
         /*---- プロパティ ----*/
@@ -348,7 +350,7 @@ namespace FrontPerson.Character
 
             _weponManager = SpecialWeaponManager._instance;
 
-            _viewRotetaSpeed = RotationSpeed_;
+            //_viewRotetaSpeed = RotationSpeed_;
 
             _weaponList = new List<Gun>();
 
@@ -392,8 +394,10 @@ namespace FrontPerson.Character
             Move();
             Shot();
             Jump();
-            
-            
+            WeaponStatus();
+            WeaponChangeUpdate();
+
+
 
             transform.position = position_;
         }
@@ -403,8 +407,8 @@ namespace FrontPerson.Character
         /// </summary>
         private void ViewPointMove()
         {
-            float Y_Rotation = Input.GetAxis(Constants.InputName.VERTICAL2) * RotationSpeed_ * 30 * Time.deltaTime;
-            float X_Rotation = Input.GetAxis(Constants.InputName.HORIZONTAL2) * RotationSpeed_ * 30 * Time.deltaTime;
+            float Y_Rotation = Input.GetAxis(Constants.InputName.VERTICAL2)   * _viewRotetaSpeed * 30 * Time.deltaTime;
+            float X_Rotation = Input.GetAxis(Constants.InputName.HORIZONTAL2) * _viewRotetaSpeed * 30 * Time.deltaTime;
             
             transform.Rotate(0, X_Rotation, 0);
 
@@ -418,8 +422,8 @@ namespace FrontPerson.Character
                 cameraTransform_.localEulerAngles = _xAxiz;
             }
 
-            Cursor.lockState = CursorLockMode.Locked;
-            Cursor.visible = false;
+            //Cursor.visible = false;
+            //Cursor.lockState = CursorLockMode.Locked;
         }
 
         private void Move()
@@ -731,7 +735,9 @@ namespace FrontPerson.Character
             if (Weapon.Ammo <= 0 )
             {
                 //武器のアニメーションスタート
-                //Weapon.
+                WeaponChangeAnimationStart();
+                _weaponAnim = Weapon.GetComponent<Animator>();
+                Weapon.ChangeAnimationStart("Put");
             }
             
         }
@@ -753,6 +759,49 @@ namespace FrontPerson.Character
         }
 
         /// <summary>
+        /// 下の関数だけしか使わない
+        /// </summary>
+        private bool isOne = false;
+
+        private void WeaponChangeUpdate()
+        {
+            if (!_isWeaponChangeAnimation) return;
+            if (_weaponAnim == null) return;
+            //数フレーム待つ
+            if (!isOne)
+            {
+                isOne = true;
+                return;
+            }
+            if (_weaponAnim.GetCurrentAnimatorStateInfo(0).normalizedTime < 0.9f) return;
+
+            WeaponChangeAnimationFinish();
+
+            //弾切れでchangeした場合
+            if(Weapon == null)
+            {
+                SetWeapon();
+                
+            }
+            else
+            {
+                if (Weapon.Ammo <= 0)
+                {
+                    gunL_.gameObject.SetActive(true);
+                    gunR_.gameObject.SetActive(true);
+                }
+                else
+                {
+                    SetWeapon();
+                }
+            }
+            
+            isOne = false;
+            _weaponAnim = null;
+
+        }
+
+        /// <summary>
         /// 武器を入手する時に呼ぶ
         /// WeaponManagerの引数番目を生成して持たせる
         /// </summary>
@@ -762,22 +811,28 @@ namespace FrontPerson.Character
             gunL_.Reload();
             gunR_.Reload();
 
+            WeaponChangeAnimationStart();
+
             if (IsSpecialWeapon)
             {
-                Weapon.WeaponForcedChange();
+                //Weapon.WeaponForcedChange();
                 //武器チェンジアニメーションスタート
+                Weapon.ChangeAnimationStart("Put");
+                _weaponAnim = Weapon.GetComponent<Animator>();
             }
             else
             {
                 //ハンドガンを下に下げるアニメーションを呼ぶ
-                //WeaponChangeAnimationStart();
+                gunL_.ChangeAnimationStart("Put");
+                gunR_.ChangeAnimationStart("Put");
+                _weaponAnim = gunL_.GetComponent<Animator>();
             }
 
             _weaponType = type;
 
             //下２行アニメーションが出来次第消す
-            Weapon = Instantiate(_weponManager.WeaponPrefabList[type], cameraTransform_).GetComponent<Weapon.SpecialWeapon>();
-            _weaponList[2] = Weapon;
+            //Weapon = Instantiate(_weponManager.WeaponPrefabList[type], cameraTransform_).GetComponent<Weapon.SpecialWeapon>();
+            //_weaponList[2] = Weapon;
         }
 
         /// <summary>

@@ -16,7 +16,7 @@ namespace FrontPerson.Weapon
         protected void Update()
         {
             base.Update();
-            ChangeWeapon();
+            //ChangeWeapon();
         }
 
         public virtual void ChangeWeapon()
@@ -28,6 +28,11 @@ namespace FrontPerson.Weapon
 
             //アニメーション開始
             //_isAnimation = true;
+        }
+
+        public override void PutAnimation()
+        {
+            Destroy(gameObject);
         }
 
         /// <summary>

@@ -32,6 +32,7 @@ namespace FrontPerson.Weapon
         {
             if (shotTime_ > 0.0f) return;
             if (Ammo < 1) return;
+            if (_isAnimation) return;
 
             for(int i = 0; i < PelletNum; i++)
             { 
