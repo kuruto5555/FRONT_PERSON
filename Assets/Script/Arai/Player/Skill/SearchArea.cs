@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using FrontPerson.Enemy;
 using FrontPerson.Constants;
+using FrontPerson.Manager;
 
 
 namespace FrontPerson.Character.Skill
@@ -146,12 +146,18 @@ namespace FrontPerson.Character.Skill
         public void Search()
         {
             // スキルのインターバルが回復していなけらば帰る
-            if (skillIntervalTimeCount_ > 0) return;
+            if (skillIntervalTimeCount_ > 0)
+            {
+                AudioManager.Instance.Play3DSE(transform.position, SEPath.GAME_SE_SCAN_ERROR);
+                return;
+            }
+
 
             // 発動
             eria_.enabled = true;
             mesh_.enabled = true;
             skillIntervalTimeCount_ = skillIntervalTime_;
+            AudioManager.Instance.Play3DSE(transform.position, SEPath.GAME_SE_SCAN);
         }
 
 
