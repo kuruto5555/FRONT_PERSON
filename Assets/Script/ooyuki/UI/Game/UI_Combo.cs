@@ -107,9 +107,8 @@ public class UI_Combo : MonoBehaviour
     {
         if (comboNum_ <= 0) return;
 
-        comboTimeLimitGauge_.rectTransform.anchorMax =
-            new Vector2((comboManager_.ComboRemainingTime / comboManager_.ComboDuration),
-                        comboTimeLimitGauge_.rectTransform.anchorMax.y );
+        comboTimeLimitGauge_.fillAmount = comboManager_.ComboRemainingTime / comboManager_.ComboDuration;
+
     }
 
 
@@ -122,7 +121,7 @@ public class UI_Combo : MonoBehaviour
         comboNumText_.text = "0".ToString();
         comboIconType_ = 0;
         SetColor();
-        comboTimeLimitGauge_.rectTransform.anchorMax = new Vector2(1.0f, comboTimeLimitGauge_.rectTransform.anchorMax.y);
+        comboTimeLimitGauge_.fillAmount = 0f;
         gameObject.SetActive(false);
     }
 

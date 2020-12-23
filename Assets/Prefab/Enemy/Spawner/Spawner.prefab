@@ -25,7 +25,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7869129166089239698}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -48,9 +48,9 @@ MonoBehaviour:
   OldBattleaxe: {fileID: 2059869559280428493, guid: 3cb22b0dcae36544980f8628d54fc7f7,
     type: 3}
   Yakuza: {fileID: 7092531068719793732, guid: 2d8b76e7ce591474d86d0d2bf8e36e09, type: 3}
-  Probability_OrdinaryPeople: 0.5
-  Probability_OldBattleaxe: 0.3
-  Probability_Yakuza: 0.2
+  Probability_OrdinaryPeople: 0.6
+  Probability_OldBattleaxe: 0.25
+  Probability_Yakuza: 0.15
   OrdinaryPeople_MovePatternList:
   - {fileID: 0}
   OldBattleaxe_MovePatternList:

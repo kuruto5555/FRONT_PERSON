@@ -1,9 +1,10 @@
-﻿using System.Collections;
+﻿using System.Linq;
 using System.Collections.Generic;
 using UnityEngine;
 using FrontPerson.UI;
-using UnityEngine.UI;
 using FrontPerson.Constants;
+
+
 
 namespace FrontPerson.Manager
 {
@@ -41,12 +42,22 @@ namespace FrontPerson.Manager
         [SerializeField]
         GameObject backButton_ = null;
 
+        [Header("ランキングへボタン")]
+        [SerializeField]
+        GameObject rabkingButton_ = null;
+
+
+        [Header("トータルスコアの目安")]
+        [Tooltip("上から、B、A、S、\nBより小さければC")]
+        [SerializeField]
+        List<int> totalScoreGuideline_ = null;
+
         /// <summary>
         /// アプリケーションマネージャー
         /// </summary>
         ApplicationManager appManager_ = null;
 
-        int youScore = 0;
+        int youScore = 95000000;
         int averageScore = 0;
         int numberOneScore = 0;
 
@@ -70,11 +81,14 @@ namespace FrontPerson.Manager
             state_ = RESULT_SCENE_STATE.FADE_IN;
 
             backButton_.SetActive(false);
+            rabkingButton_.SetActive(false);
+
 
             appManager_ = FindObjectOfType<ApplicationManager>();
             appManager_.SetIsGamePlay(false);
             appManager_.SetIsInput(false);
 
+            
             // 今回の戦績
             youScore = appManager_.Score;
             youComboNum = appManager_.ComboNum;
@@ -84,19 +98,28 @@ namespace FrontPerson.Manager
             for (int i = 0; i < appManager_.save_data_.RankingScore.Count; i++)
             {
                 averageScore += appManager_.save_data_.RankingScore[i];
-                //averageComboNum += appManager_.save_data_.RankingComboNum[i]
-                //averageMissionClearNum += appManager_.save_data_.RankingMissionClearNum[i]
+                averageComboNum += appManager_.save_data_.RankingComboNum[i];
+                averageMissionClearNum += appManager_.save_data_.RankingClearMissionNum[i];
             }
+            averageScore /= appManager_.save_data_.RankingScore.Count;
+            averageComboNum /= appManager_.save_data_.RankingScore.Count;
+            averageMissionClearNum /= appManager_.save_data_.RankingScore.Count;
 
             // 一位のデータ
             numberOneScore = appManager_.save_data_.RankingScore[0];
-            //numberOneCmnboNum = appManager_.save_data_.RankingConboNum[0];
-            //numberOneMissionClearNum = appManager_.save_data_.RankingMissionClearNum[0];
+            numberOneCmnboNum = appManager_.save_data_.RankingComboNum[0];
+            numberOneMissionClearNum = appManager_.save_data_.RankingClearMissionNum[0];
 
             //ここで総合評価を求める
-            //rank_ =
+            rank_ = GetRank(youScore);
 
+            // ランキング更新
+            UpdateRanking(youScore, youComboNum, youMissionClearNum);
 
+            //いちようカーソル有効か
+            CursorManager.CursorUnlock();
+
+            // BGM再生して一回ポーズ
             AudioManager.Instance.PlayBGM(gameObject, BGMPath.RESULT_BGM_MAIN, 2.0f);
             AudioManager.Instance.PauseBGM();
         }
@@ -146,8 +169,8 @@ namespace FrontPerson.Manager
         {
             if(!FadeManager.Instance.IsFade)
             {
-                scoreGraph_.StartAnimation(youScore, 5000, 20000);
-                //scoreGraph_.StartAnimation(youScore, averageScore, numberOneScore);
+                //scoreGraph_.StartAnimation(youScore, 5000, 20000);
+                scoreGraph_.StartAnimation(youScore, averageScore, numberOneScore);
                 appManager_.SetIsInput(true);
                 state_ = RESULT_SCENE_STATE.DRAW_SCORE;
             }
@@ -161,8 +184,8 @@ namespace FrontPerson.Manager
         {
             if (scoreGraph_.IsFinish)
             {
-                comboNumGraph_.StartAnimation(youComboNum, 50, 150);
-                //comboNumGraph_.StartAnimation(youComboNum, averageComboNum, numberOneCmnboNum);
+                //comboNumGraph_.StartAnimation(youComboNum, 50, 150);
+                comboNumGraph_.StartAnimation(youComboNum, averageComboNum, numberOneCmnboNum);
                 state_ = RESULT_SCENE_STATE.DRAW_COMBO_NUM;
             }
         }
@@ -175,8 +198,8 @@ namespace FrontPerson.Manager
         {
             if (comboNumGraph_.IsFinish)
             {
-                missionClearNumGraph_.StartAnimation(youMissionClearNum, 10, 50);
-                //missionClearNumGraph_.StartAnimation(youMissionClearNum, averageMissionClearNum, numberOneMissionClearNum);
+                //missionClearNumGraph_.StartAnimation(youMissionClearNum, 10, 50);
+                missionClearNumGraph_.StartAnimation(youMissionClearNum, averageMissionClearNum, numberOneMissionClearNum);
                 state_ = RESULT_SCENE_STATE.DRAW_MISSION_CLEAR_NUM;
             }
         }
@@ -203,8 +226,66 @@ namespace FrontPerson.Manager
             if (totalScore_.IsAnimFinish_)
             {
                 backButton_.SetActive(true);
+                rabkingButton_.SetActive(true);
                 state_ = RESULT_SCENE_STATE.PLAYER_INPUT;
             }
+        }
+
+
+        /// <summary>
+        /// ランキングデータ更新用
+        /// </summary>
+        public struct RankingData
+        {
+            public RankingData(int score, int comboNum, int missionClearNum) { Score = score; ComboNum = comboNum; MissionClearNum = missionClearNum;  }
+            public int Score;
+            public int ComboNum;
+            public int MissionClearNum;
+        }
+        /// <summary>
+        /// ランキングデータ更新
+        /// </summary>
+        /// <param name="nowScore">今回のスコア</param>
+        /// <param name="nowComboNum">今回のコンボ数</param>
+        /// <param name="nowMissionClearNum">今回のミッションクリア回数</param>
+        void UpdateRanking(int nowScore, int nowComboNum, int nowMissionClearNum)
+        {
+            // セーブデータ取得
+            var saveData = appManager_.save_data_;
+
+            // ソートするためにデータを格納
+            var sortScoreData = new List<RankingData>()
+            {
+                { new RankingData(saveData.RankingScore[0], saveData.RankingComboNum[0], saveData.RankingClearMissionNum[0]) },
+                { new RankingData(saveData.RankingScore[1], saveData.RankingComboNum[1], saveData.RankingClearMissionNum[1]) },
+                { new RankingData(saveData.RankingScore[2], saveData.RankingComboNum[2], saveData.RankingClearMissionNum[2]) },
+                { new RankingData(saveData.RankingScore[3], saveData.RankingComboNum[3], saveData.RankingClearMissionNum[3]) },
+                { new RankingData(saveData.RankingScore[4], saveData.RankingComboNum[4], saveData.RankingClearMissionNum[4]) },
+                { new RankingData(nowScore                , nowComboNum                , nowMissionClearNum                ) }
+            };
+
+            // ソート
+            sortScoreData.Sort((a, b) => b.Score - a.Score);
+
+            // 値を入れる
+            int i = 0;
+            foreach(var scoreData in sortScoreData)
+            {
+                saveData.RankingScore[i] = scoreData.Score;
+                saveData.RankingComboNum[i] = scoreData.ComboNum;
+                saveData.RankingClearMissionNum[i] = scoreData.MissionClearNum;
+                i++;
+                if (i >= 5) break;
+            }
+        }
+
+
+        Rank GetRank(int nowScore)
+        {
+            if (totalScoreGuideline_[0] > nowScore) return Rank.C;
+            if (totalScoreGuideline_[1] > nowScore) return Rank.B;
+            if (totalScoreGuideline_[2] > nowScore) return Rank.A;
+            return Rank.S;
         }
     }
 }

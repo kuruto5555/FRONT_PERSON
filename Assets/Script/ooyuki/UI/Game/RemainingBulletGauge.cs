@@ -237,17 +237,20 @@ namespace FrontPerson.UI {
             }
 
             {
-                if (1f <= handGunBulletGaugeLeftAnimator_.GetCurrentAnimatorStateInfo(0).normalizedTime)
-                    isPlaying_handGunBulletGaugeLeft_ = false;
+                if(isPlaying_handGunBulletGaugeLeft_ == true)
+                    if (1f <= handGunBulletGaugeLeftAnimator_.GetCurrentAnimatorStateInfo(0).normalizedTime)
+                        isPlaying_handGunBulletGaugeLeft_ = false;
 
-                if (1f <= handGunBulletGaugeRightAnimator_.GetCurrentAnimatorStateInfo(0).normalizedTime)
-                    isPlaying_handGunBulletGaugeRight_ = false;
+                if(isPlaying_handGunBulletGaugeRight_ == true)
+                    if (1f <= handGunBulletGaugeRightAnimator_.GetCurrentAnimatorStateInfo(0).normalizedTime)
+                        isPlaying_handGunBulletGaugeRight_ = false;
 
-                if (1f <= machineGunBulletGaugeLackAnimator_.GetCurrentAnimatorStateInfo(0).normalizedTime)
-                    isPlaying_machineGunBulletGaugeLack_ = false;
-
-                if (1f <= shotgunBulletGaugeLackAnimator_.GetCurrentAnimatorStateInfo(0).normalizedTime)
-                    isPlaying_shotgunBulletGaugeLack_ = false;
+                if(isPlaying_machineGunBulletGaugeLack_ == true)
+                    if (1f <= machineGunBulletGaugeLackAnimator_.GetCurrentAnimatorStateInfo(0).normalizedTime)
+                        isPlaying_machineGunBulletGaugeLack_ = false;
+                if(isPlaying_shotgunBulletGaugeLack_ == true)
+                    if (1f <= shotgunBulletGaugeLackAnimator_.GetCurrentAnimatorStateInfo(0).normalizedTime)
+                        isPlaying_shotgunBulletGaugeLack_ = false;
             }
         }
 

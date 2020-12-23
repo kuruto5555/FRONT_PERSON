@@ -23,7 +23,6 @@ namespace FrontPerson
         /// </summary>
         bool enable = true;
 
-#if UNITY_EDITOR
         void Start()
         {
             if(null == targetCamera)
@@ -31,7 +30,7 @@ namespace FrontPerson
                 targetCamera = GameObject.FindGameObjectWithTag(Constants.TagName.MAIN_CAMERA).GetComponent<Camera>();
             }
         }
-#endif
+
 
         void Update()
         {

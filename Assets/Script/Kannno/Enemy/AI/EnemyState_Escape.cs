@@ -50,10 +50,14 @@ namespace FrontPerson.Enemy.AI
 
         protected override void OnUpdate()
         {
-            // 目的地についていたら敵の消す
-            if (Owner.Agent.remainingDistance <= 5f)
+            // 経路探索中なら、調べない
+            if (false == Owner.Agent.pathPending)
             {
-                Owner.SetDead();
+                // 目的地についていたら敵の消す
+                if (Owner.Agent.remainingDistance <= 5f)
+                {
+                    Owner.SetDead();
+                }
             }
         }
 

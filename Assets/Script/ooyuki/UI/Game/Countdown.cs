@@ -12,7 +12,7 @@ namespace FrontPerson.UI
     {
         [Header("カウントダウンアニメーター")]
         [SerializeField]
-        Animator animator_;
+        Animator animator_ = null;
 
         [Header("カウントダウンのテキスト")]
         [SerializeField]

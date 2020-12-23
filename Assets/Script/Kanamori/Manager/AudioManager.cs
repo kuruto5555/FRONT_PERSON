@@ -197,7 +197,10 @@ namespace FrontPerson.Manager
 
         void LateUpdate()
         {
-            bgm_audiosource.volume = DEFAULT_SOUND_VOLUME * AudioManager.Instance.audio_volume_.BGMVolume;
+            if (bgm_audiosource != null)
+            {
+                bgm_audiosource.volume = DEFAULT_SOUND_VOLUME * AudioManager.Instance.audio_volume_.BGMVolume;
+            }
 
             if (fade_out)
             {

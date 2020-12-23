@@ -1,26 +1,26 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace FrontPerson.UI
 {
     public class RollbackScene : MonoBehaviour
     {
         [SerializeField]
-        private string input_button_ = null;
+        private Button back_button_ = null;
 
         // Start is called before the first frame update
         void Start()
         {
-
-        }
-
-        // Update is called once per frame
-        void Update()
-        {
-            if (Input.GetButtonDown(input_button_))
+            if(back_button_ != null)
             {
-                Manager.SceneManager.Instance.SceneChange(Manager.SceneManager.Instance.last_scene_name_, 0.5f);
+                back_button_.onClick.AddListener(
+                    () =>
+                    {
+                        Manager.SceneManager.Instance.SceneChange(Constants.SceneName.TITLE_SCENE, 0.5f);
+                    }
+                    );
             }
         }
     }
