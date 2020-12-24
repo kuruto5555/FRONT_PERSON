@@ -201,6 +201,30 @@ namespace FrontPerson.Manager
         }
 
 
+        public void FinishGame()
+        {
+            IsCombo = false;
+
+            // コンボ途切れボーナス加算
+            LostComboBonus();
+
+            // コンボ中に倒した敵の数を初期化
+            ordinaryPeopleNum_ = 0;
+            oldBattleaxeNum_ = 0;
+            yakuzaNum_ = 0;
+
+            // コンボ数を初期化
+            ComboNum = 0;
+
+            // コンボ残り時間を初期化
+            ComboRemainingTime = 0f;
+
+            // 途中コンボボーナスの用の変数を初期化
+            comboMidwayBonusTime_ = 0f;
+            comboMidwayBonusCount_ = 0;
+        }
+
+
         /// <summary>
         /// コンボ途切れ
         /// </summary>
