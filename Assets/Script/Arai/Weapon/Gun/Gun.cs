@@ -78,7 +78,7 @@ namespace FrontPerson.Weapon
         {
             _bountyManager = BountyManager._instance;
 
-            _canvas = GameObject.Find("GameUI_Canvas");
+            _canvas = GameObject.Find("WeaponUI");
         }
 
         // Start is called before the first frame update
