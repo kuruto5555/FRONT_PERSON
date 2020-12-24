@@ -15,7 +15,7 @@ namespace FrontPerson.Weapon
         [SerializeField, Range(0.0f, 10.0f)] float Angle = 0.0f;
 
         // Start is called before the first frame update
-        void Start()
+        new void Start()
         {
             base.Start();
             _type = Constants.WEAPON_TYPE.SHOT_GUN;
@@ -23,7 +23,7 @@ namespace FrontPerson.Weapon
         }
 
         // Update is called once per frame
-        void Update()
+        new void Update()
         {
             base.Update();
         }
@@ -32,6 +32,7 @@ namespace FrontPerson.Weapon
         {
             if (shotTime_ > 0.0f) return;
             if (Ammo < 1) return;
+            if (_isAnimation) return;
 
             for(int i = 0; i < PelletNum; i++)
             { 
@@ -45,8 +46,9 @@ namespace FrontPerson.Weapon
             shotTime_ = 1.0f / rate_;
             ammo_--;
             _bountyManager.FireCount();
-            Instantiate(MuzzleFlash, Muzzle.transform);
+            Instantiate(MuzzleFlash, Muzzle.transform.position, Muzzle.transform.rotation);
             _audioManager.Play3DSE(transform.position, _shotSoundPath);
+            _animator.Play("Shot", 0, 0);
         }
     }
 }

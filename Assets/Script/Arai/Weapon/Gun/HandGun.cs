@@ -9,9 +9,9 @@ namespace FrontPerson.Weapon
 
     public class HandGun : Gun
     {
-        private 
+        private
         // Start is called before the first frame update
-        void Start()
+        new void Start()
         {
             base.Start();
             _type = Constants.WEAPON_TYPE.HANDGUN;
@@ -19,7 +19,7 @@ namespace FrontPerson.Weapon
         }
 
         // Update is called once per frame
-        void Update()
+        new void Update()
         {
             base.Update();
         }

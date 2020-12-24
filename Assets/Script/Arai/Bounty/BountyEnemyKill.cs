@@ -24,7 +24,7 @@ namespace FrontPerson.Bounty
         public int GetKillCnt { get { return _killCnt; } }
 
         // Start is called before the first frame update
-        void Start()
+        new void Start()
         {
             base.Start();
    
@@ -38,9 +38,9 @@ namespace FrontPerson.Bounty
         }
 
         // Update is called once per frame
-        void Update()
+        public override void CheckUpdate()
         {
-            base.Update();
+            base.CheckUpdate();
 
             if(rand == 0)
             {

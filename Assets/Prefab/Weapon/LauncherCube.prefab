@@ -44,7 +44,7 @@ GameObject:
   - component: {fileID: 2181125802283923651}
   - component: {fileID: 5038868019976092618}
   m_Layer: 0
-  m_Name: Launcher
+  m_Name: LauncherCube
   m_TagString: Gun
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -135,6 +135,7 @@ MonoBehaviour:
   LockOnTime: 0.1
   TargerLostTime: 30
   Cursor_: {fileID: 3163502147343172641, guid: 8e72371abbd26034e9b3af3d53b40146, type: 3}
+  Angle: 0
 --- !u!65 &5038868019976092618
 BoxCollider:
   m_ObjectHideFlags: 0

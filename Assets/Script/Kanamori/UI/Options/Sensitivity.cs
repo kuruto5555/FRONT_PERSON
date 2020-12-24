@@ -14,18 +14,11 @@ namespace FrontPerson.UI
         // Start is called before the first frame update
         void Start()
         {
-            // ごめんなさい。
-            var obj = GameObject.FindGameObjectWithTag(Constants.TagName.PLAYER);
+            // センシの初期値を代入
+            sensi_slider_.value = Character.Player.ViewRotetaSpeed;
 
-            if (obj)
-            {
-                player_ = obj.GetComponent<Character.Player>();
-            }
-
-            if (player_)
-            {
-                sensi_slider_.onValueChanged.AddListener((value) => player_.SetViewRotateSpeed((int)value));
-            }
+            // スライダーの値を変更したらセンシも変更する
+            sensi_slider_.onValueChanged.AddListener((value) => Character.Player.ViewRotetaSpeed =(int)value);
         }
     }
 }

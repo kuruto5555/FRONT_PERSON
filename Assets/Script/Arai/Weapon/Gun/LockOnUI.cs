@@ -22,12 +22,11 @@ namespace FrontPerson.Weapon
         private bool _isDead = false;
 
         // Start is called before the first frame update
-        void Start()
+        new void Start()
         {
             _targetCamera = Camera.main;
             _rect = GetComponent<RectTransform>();
-            _canvas = transform.parent.GetComponent<Canvas>();
-            _canvasRect = _canvas.GetComponent<RectTransform>();
+            
             _ui = GetComponent<Image>();
 
             _copyColor = new Vector4(_ui.color.r, _ui.color.g, _ui.color.b, _ui.color.a);
@@ -36,7 +35,7 @@ namespace FrontPerson.Weapon
         }
 
         // Update is called once per frame
-        void Update()
+        new void Update()
         {
             TargetLost();
             DisplayDraw();
@@ -71,8 +70,10 @@ namespace FrontPerson.Weapon
 
         }
 
-        public void SetData(Transform pos)
+        public void SetData(Transform pos, Canvas canvas)
         {
+            _canvas = canvas;
+            _canvasRect = _canvas.GetComponent<RectTransform>();
             _target = pos;
             _enemyData = _target.gameObject.GetComponent<Character.Enemy>();
         }

@@ -64,7 +64,7 @@ namespace FrontPerson.Weapon
         /// <summary>
         /// アニメーション中かどうか 初期値はtrue 武器は構えないと使えない
         /// </summary>
-        protected bool _isAnimation = false;
+        protected bool _isAnimation = true;
 
         public bool IsAnimation { get { return _isAnimation; } }
 
@@ -78,7 +78,7 @@ namespace FrontPerson.Weapon
         {
             _bountyManager = BountyManager._instance;
 
-            _canvas = GameObject.Find("GameUI_Canvas");
+            _canvas = GameObject.Find("WeaponUI");
         }
 
         // Start is called before the first frame update
@@ -90,7 +90,9 @@ namespace FrontPerson.Weapon
             _bountyManager = BountyManager._instance;
             _audioManager = AudioManager.Instance;
             
-            //_animator = GetComponent<Animator>();
+            _animator = GetComponent<Animator>();
+ 
+            _isAnimation = true;
 
         }
 
@@ -99,7 +101,10 @@ namespace FrontPerson.Weapon
         {
             UpdateShotTime();
 
-
+            if (Input.GetKeyDown(KeyCode.N))
+            {
+                _animator.Play("Put");
+            }
         }
 
         private void UpdateShotTime()
@@ -107,6 +112,12 @@ namespace FrontPerson.Weapon
             if (shotTime_ > 0.0f) shotTime_ -= Time.deltaTime;
         }
 
+        public void ChangeAnimationStart(string name)
+        {
+            _animator.Play(name);
+            _isAnimation = true;
+            
+        }
 
         /// <summary>
         /// 撃つ
@@ -114,6 +125,7 @@ namespace FrontPerson.Weapon
         public virtual void Shot()
         {
             if (shotTime_ > 0.0f) return;
+            if (_isAnimation) return;
 
             //弾切れ処理
             if (ammo_ < 1) 
@@ -129,8 +141,9 @@ namespace FrontPerson.Weapon
             shotTime_ = 1.0f / rate_;
             ammo_--;
             _bountyManager.FireCount();
-            Instantiate(MuzzleFlash, Muzzle.transform);
+            Instantiate(MuzzleFlash, Muzzle.transform.position, Muzzle.transform.rotation);
             _audioManager.Play3DSE(transform.position, _shotSoundPath);
+            _animator.Play("Shot", 0, 0);
         }
 
         /// <summary>
@@ -169,6 +182,11 @@ namespace FrontPerson.Weapon
             _isAnimation = false;
         }
 
+        public virtual void PutAnimation()
+        {
+            gameObject.SetActive(false);
+        }
+
         private void OnDestroy()
         {
             if (_reticle == null) return;
@@ -176,7 +194,7 @@ namespace FrontPerson.Weapon
             Destroy(_reticle);
         }
 
-        private void OnDisable()
+        public void OnDisable()
         {
             if (_reticle == null) return;
 
@@ -185,6 +203,8 @@ namespace FrontPerson.Weapon
 
         private void OnEnable()
         {
+            _isAnimation = true;
+
             if (Reticle_ != null)
             {
                 _reticle = Instantiate(Reticle_, _canvas.transform);

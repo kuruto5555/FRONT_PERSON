@@ -15,7 +15,7 @@ namespace FrontPerson.Bounty
         public int GetComboMax { get { return ComboMax; } }
 
         // Start is called before the first frame update
-        void Start()
+        new void Start()
         {
             base.Start();
 
@@ -26,9 +26,9 @@ namespace FrontPerson.Bounty
         }
 
         // Update is called once per frame
-        void Update()
+        public override void CheckUpdate()
         {
-            base.Update();
+            base.CheckUpdate();
 
             int nowCombo = _Bmanager.GetNowCombo();
 

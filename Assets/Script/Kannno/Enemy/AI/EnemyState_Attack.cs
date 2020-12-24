@@ -30,6 +30,7 @@ namespace FrontPerson.Enemy.AI
                 OldBattleaxe enemy = Owner as OldBattleaxe;
 
                 enemy.isHit = false;
+                return;
             }
 
             Player.Stun();
@@ -40,6 +41,7 @@ namespace FrontPerson.Enemy.AI
             if (!searchArea.IsFound || Player.IsStun || Player.IsTransparent)
             {
                 ChangeState<EnemyState_Move>();
+                return;
             }
 
             Player.Stun();

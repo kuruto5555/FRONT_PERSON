@@ -55,6 +55,7 @@ GameObject:
   - component: {fileID: 2285132583048161405}
   - component: {fileID: 5152411226191015201}
   - component: {fileID: 3033878892709157265}
+  - component: {fileID: 6629921823696920639}
   m_Layer: 0
   m_Name: ShotGun
   m_TagString: Untagged
@@ -149,3 +150,22 @@ MonoBehaviour:
     type: 3}
   PelletNum: 12
   Angle: 2
+--- !u!95 &6629921823696920639
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 866298291008192280}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 3936a8716d2a9cd4495dd8062247f51a, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0

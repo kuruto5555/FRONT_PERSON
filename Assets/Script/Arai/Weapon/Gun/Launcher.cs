@@ -37,6 +37,8 @@ namespace FrontPerson.Weapon
         /// </summary>
         private bool _isFire = false;
 
+        private Canvas _gameUI = null;
+
         /// <summary>
         /// ロックオンで使う情報
         /// </summary>
@@ -111,17 +113,17 @@ namespace FrontPerson.Weapon
         /// </summary>
         private Camera _targetCamera = null;
 
-        private void Awake()
+        private new void Awake()
         {
             _enemyList = new List<Transform>();
 
             _lockOnTargetList = new Dictionary<Transform, LockOnInfo>();
 
-            _canvas = GameObject.Find("GameUI_Canvas");
+            _canvas = GameObject.Find("WeaponUI");
         }
 
         // Start is called before the first frame update
-        void Start()
+        new void Start()
         {
             base.Start();
 
@@ -133,11 +135,15 @@ namespace FrontPerson.Weapon
             _targetCamera = Camera.main;
 
             _shotSoundPath = SEPath.GAME_SE_FIRE_LANCHER;
+
+            _gameUI = GameObject.Find("GameUI_Canvas").GetComponent<Canvas>();
         }
 
         // Update is called once per frame
-        void Update()
+        new void Update()
         {
+            if (_isAnimation) return;
+
             base.Update();
             EnemyListUpdate();
             LockOnStart();
@@ -187,9 +193,10 @@ namespace FrontPerson.Weapon
             _bountyManager.FireCount();
 
             _lockOnTargetList.Remove(_lockOnTargetList.FirstOrDefault().Key);
-            Instantiate(MuzzleFlash, Muzzle.transform);
+            Instantiate(MuzzleFlash, Muzzle.transform.position, Muzzle.transform.rotation);
 
             _audioManager.Play3DSE(transform.position, _shotSoundPath);
+            _animator.Play("Shot", 0, 0);
         }
 
         private void UpdateLockOn()
@@ -257,7 +264,7 @@ namespace FrontPerson.Weapon
 
             LockOnUI ui = Instantiate(Cursor_, _canvas.transform).GetComponent<LockOnUI>();
 
-            ui.SetData(_lockOnTarget);
+            ui.SetData(_lockOnTarget, _gameUI);
 
             
             _lockOnTargetList[_lockOnTarget].SetLockOnCursor(ui);
@@ -383,6 +390,16 @@ namespace FrontPerson.Weapon
 
                 Destroy(gameObject);
             }
+        }
+
+        public override void PutAnimation()
+        {
+            foreach (var it in _lockOnTargetList)
+            {
+                it.Value.GetCursor().SetDead();
+            }
+
+            Destroy(gameObject);
         }
 
         public override void WeaponForcedChange()
