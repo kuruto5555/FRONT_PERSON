@@ -79,11 +79,13 @@ namespace FrontPerson.Enemy.AI
 
             list.Sort((a, b) => a.Index - b.Index);
 
+#if UNITY_EDITOR
             if (null == list)
             {
                 Debug.LogError("MovePoint が存在しません");
                 return;
             }
+#endif
 
             foreach (var obj in list)
             {

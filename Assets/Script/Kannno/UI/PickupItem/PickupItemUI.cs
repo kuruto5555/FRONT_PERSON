@@ -54,14 +54,6 @@ namespace FrontPerson.UI
             }
         }
 
-        private void Update()
-        {
-            //foreach (var item in ItemImages)
-            //{
-            //    Debug.Log(item.name + " " + item.color.ToString());
-            //}
-        }
-
         private void LateUpdate()
         {
             PlayAnimation();
