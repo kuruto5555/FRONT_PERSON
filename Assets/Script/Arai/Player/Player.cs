@@ -100,7 +100,7 @@ namespace FrontPerson.Character
         /// <summary>
         /// サーチ中かどうか
         /// </summary>
-        bool isSearch_ = false;
+        //bool isSearch_ = false;
 
         /// <summary>
         /// ジャンプしてるかどうか
@@ -219,7 +219,10 @@ namespace FrontPerson.Character
 
         Animator _weaponAnim = null;
 
-
+        /// <summary>
+        /// 現在触れている補給ポイント
+        /// </summary>
+        NutrientsRecoveryPoint nutrientsRecoveryPoint_ = null;
 
         /*---- プロパティ ----*/
         /// <summary>
@@ -397,7 +400,7 @@ namespace FrontPerson.Character
             WeaponStatus();
             WeaponChangeUpdate();
 
-
+            Reload(nutrientsRecoveryPoint_);
 
             transform.position = position_;
         }
@@ -553,7 +556,7 @@ namespace FrontPerson.Character
         void Shot()
         {
             if (IsDash) return;
-            if (isSearch_) return;
+            if (searchArea.IsSearch) return;
             if (_isWeaponChangeAnimation) return;
 
             //左クリック
@@ -599,7 +602,7 @@ namespace FrontPerson.Character
         void Reload()
         {
             if (IsDash) return;
-            if (isSearch_) return;
+            if (searchArea.IsSearch) return;
 
             if (!Input.GetButton(Constants.InputName.RELOAD)) return;
 
@@ -617,8 +620,9 @@ namespace FrontPerson.Character
         {
             if (!Input.GetButtonDown(Constants.InputName.RELOAD)) return;
             if (IsDash) return;
-            if (isSearch_) return;
+            if (searchArea.IsSearch) return;
             if (IsSpecialWeapon) return;
+            if (!nutrientsRecoveryPoint_) return;
 
             switch (vrp.VitaminType)
             {
@@ -635,6 +639,8 @@ namespace FrontPerson.Character
                     gunR_.Reload(vrp.Charge(GunAmmoMAX_R - GunAmmoR));
                     break;
             }
+
+            nutrientsRecoveryPoint_ = null;
         }
 
 
@@ -647,20 +653,15 @@ namespace FrontPerson.Character
             if (IsDash) return;
 
             if (!Input.GetButtonDown(Constants.InputName.SCAN)) return;
-                
-            if(isSearch_ == false)
+
+            if (!searchArea.IsSearch)
             {
-                isSearch_ = true;
                 searchArea.Search();
-                _audioManager.Play3DSE(Position, SEPath.GAME_SE_SCAN);
             }
             else
             {
-                isSearch_ = false;
                 searchArea.Stop();
             }
-
-
         }
 
         /// <summary>
@@ -744,12 +745,15 @@ namespace FrontPerson.Character
 
         
 
-        private void OnTriggerStay(Collider other)
+        private void OnTriggerEnter(Collider other)
         {
             switch (other.tag)
             {
                 case TagName.RECOVERY_POINT:
-                    Reload(other.GetComponent<NutrientsRecoveryPoint>());
+                    if (nutrientsRecoveryPoint_ == null)
+                    {
+                        nutrientsRecoveryPoint_ = other.GetComponent<NutrientsRecoveryPoint>();
+                    }
                     break;
 
                 case TagName.ENEMY:
