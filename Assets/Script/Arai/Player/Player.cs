@@ -62,6 +62,10 @@ namespace FrontPerson.Character
         [SerializeField] 
         GameObject InvisibleEffect_ = null;
 
+        [Header("スタンエフェクト")]
+        [SerializeField]
+        GameObject StunEffect_ = null;
+
         /// <summary>
         /// スペシャル武器
         /// </summary>
@@ -213,6 +217,11 @@ namespace FrontPerson.Character
         /// 入手した武器の番号
         /// </summary>
         private int _weaponType = 0;
+
+        /// <summary>
+        /// 生成したスタン
+        /// </summary>
+        private GameObject _stunEffect = null;
 
 
         /*---- プロパティ ----*/
@@ -628,6 +637,8 @@ namespace FrontPerson.Character
                 //無敵開始
                 IsInvincible = true;
 
+                Destroy(_stunEffect);
+
                 //ぴよぴよ音止める処理欲しい
             }
             
@@ -646,6 +657,11 @@ namespace FrontPerson.Character
             _audioManager.Play3DSE(Position, SEPath.GAME_SE_DAMEGE);
             _comboManager.LostCombo();
 
+            if(_stunEffect == null)
+            {
+                _stunEffect = Instantiate(StunEffect_, transform);
+            }
+            
         }
 
 
