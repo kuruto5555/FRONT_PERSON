@@ -72,6 +72,7 @@ namespace FrontPerson.Manager
         /// </summary>
         private void OnApplicationQuit()
         {
+            Save();
         }
 
         /// <summary>
