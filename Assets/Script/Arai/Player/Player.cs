@@ -170,7 +170,7 @@ namespace FrontPerson.Character
         /// <summary>
         /// 視点感度変数
         /// </summary>
-        int _viewRotetaSpeed = 0;
+        int _viewRotetaSpeed = 5;
 
         /// <summary>
         /// 武器切り替えのアニメーションが再生されてるかどうか

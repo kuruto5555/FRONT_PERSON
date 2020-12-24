@@ -37,6 +37,8 @@ namespace FrontPerson.Weapon
         /// </summary>
         private bool _isFire = false;
 
+        private Canvas _gameUI = null;
+
         /// <summary>
         /// ロックオンで使う情報
         /// </summary>
@@ -117,7 +119,7 @@ namespace FrontPerson.Weapon
 
             _lockOnTargetList = new Dictionary<Transform, LockOnInfo>();
 
-            _canvas = GameObject.Find("GameUI_Canvas");
+            _canvas = GameObject.Find("WeaponUI");
         }
 
         // Start is called before the first frame update
@@ -133,6 +135,8 @@ namespace FrontPerson.Weapon
             _targetCamera = Camera.main;
 
             _shotSoundPath = SEPath.GAME_SE_FIRE_LANCHER;
+
+            _gameUI = GameObject.Find("GameUI_Canvas").GetComponent<Canvas>();
         }
 
         // Update is called once per frame
@@ -260,7 +264,7 @@ namespace FrontPerson.Weapon
 
             LockOnUI ui = Instantiate(Cursor_, _canvas.transform).GetComponent<LockOnUI>();
 
-            ui.SetData(_lockOnTarget);
+            ui.SetData(_lockOnTarget, _gameUI);
 
             
             _lockOnTargetList[_lockOnTarget].SetLockOnCursor(ui);
