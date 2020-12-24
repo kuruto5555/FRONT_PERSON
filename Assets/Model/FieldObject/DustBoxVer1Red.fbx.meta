@@ -3,7 +3,12 @@ guid: 0d74d72b23daa754e869cc3e42f01731
 ModelImporter:
   serializedVersion: 19301
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: DustBox_srd1
+    second: {fileID: 2100000, guid: 0e75c2896883c8945925971e13f0ed97, type: 2}
   materials:
     materialImportMode: 1
     materialName: 0
