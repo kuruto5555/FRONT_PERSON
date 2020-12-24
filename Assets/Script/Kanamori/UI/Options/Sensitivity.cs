@@ -24,6 +24,10 @@ namespace FrontPerson.UI
 
             if (player_)
             {
+                // センシの初期値を代入
+                sensi_slider_.value = player_.GetViewRotateSpeed();
+
+                // スライダーの値を変更したらセンシも変更する
                 sensi_slider_.onValueChanged.AddListener((value) => player_.SetViewRotateSpeed((int)value));
             }
         }
