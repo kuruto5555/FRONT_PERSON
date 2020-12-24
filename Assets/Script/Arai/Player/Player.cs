@@ -38,7 +38,7 @@ namespace FrontPerson.Character
 
         [Header("視点感度")]
         [SerializeField, Range(1, 14)]
-        int RotationSpeed_ = 7;
+        static int RotationSpeed_ = 5;
 
         [Header("視点角度制限")]
         [SerializeField, Range(30.0f, 90.0f)]
@@ -83,26 +83,6 @@ namespace FrontPerson.Character
         Vector3 position_;
 
         /// <summary>
-        /// ぴよってるかどうか
-        /// </summary>
-        bool _isStun = false;
-
-        /// <summary>
-        /// 無敵かどうか
-        /// </summary>
-        bool _isInvincible = false;
-
-        /// <summary>
-        /// 透明化どうか
-        /// </summary>
-        bool _isTransparent = false;
-
-        /// <summary>
-        /// サーチ中かどうか
-        /// </summary>
-        //bool isSearch_ = false;
-
-        /// <summary>
         /// ジャンプしてるかどうか
         /// </summary>
         bool _isJump = false;
@@ -120,7 +100,7 @@ namespace FrontPerson.Character
         /// <summary>
         /// 止まっているかどうか
         /// </summary>
-        bool _isStop = false;
+        bool IsStop = false;
 
         /// <summary>
         /// ジャンプの余力
@@ -166,11 +146,6 @@ namespace FrontPerson.Character
         /// コンボマネージャー参照
         /// </summary>
         private ComboManager _comboManager = null;
-
-        /// <summary>
-        /// 視点感度変数
-        /// </summary>
-        int _viewRotetaSpeed = 5;
 
         /// <summary>
         /// 武器切り替えのアニメーションが再生されてるかどうか
@@ -224,6 +199,22 @@ namespace FrontPerson.Character
         /// </summary>
         NutrientsRecoveryPoint nutrientsRecoveryPoint_ = null;
 
+        /// <summary>
+        /// アプリケーションマネージャー参照
+        /// </summary>
+        private ApplicationManager _appManager = null;
+
+        /// <summary>
+        /// 所持してる武器一覧
+        /// </summary>
+        private List<Gun> _weaponList;
+
+        /// <summary>
+        /// 入手した武器の番号
+        /// </summary>
+        private int _weaponType = 0;
+
+
         /*---- プロパティ ----*/
         /// <summary>
         /// プレイヤーのポジション
@@ -261,55 +252,37 @@ namespace FrontPerson.Character
         public bool IsWalk { get { return moveSpeed_ == walkSpeed_; } }
 
         /// <summary>
-        /// 止まっているかどうか
-        /// </summary>
-        public bool IsStop { get { return _isStop; } }
-
-        /// <summary>
-        /// ジャンプしているかどうか
-        /// </summary>
-        public bool IsJump { get { return _isJump; } }
-
-        /// <summary>
         /// 空中にいるかどうか
         /// </summary>
         public bool IsAir { get { return position_.y > _nowGrandHeigh; } }
 
         /// <summary>
-        /// 気絶してるかどうか
+        /// ぴよってるかどうか
         /// </summary>
-        public bool IsStun { get { return _isStun; } }
+        public bool IsStun { get; private set; } = false;
 
         /// <summary>
         /// 無敵かどうか
         /// </summary>
-        public bool IsInvincible { get { return _isInvincible; } }
+        public bool IsInvincible { get; private set; } = false;
 
-        public bool IsTransparent { get { return _isTransparent; } }
+        /// <summary>
+        /// 透明化どうか
+        /// </summary>
+        public bool IsTransparent { get; private set; } = false;
 
         /// <summary>
         /// スペシャル武器を持っているかどうか
         /// </summary>
         public bool IsSpecialWeapon { get { return Weapon != null; } }
 
-        public bool IsLeftTrigger { get { return _isFireLHand; } }
-
-        public bool IsRightTrigger { get { return _isFireRHand; } }
-
         /// <summary>
-        /// アプリケーションマネージャー参照
+        /// 視点感度
         /// </summary>
-        private ApplicationManager _appManager = null;
+        static public int ViewRotetaSpeed { get { return RotationSpeed_; } set { RotationSpeed_ = Mathf.Clamp(value, 1, 14); } }
 
-        /// <summary>
-        /// 所持してる武器一覧
-        /// </summary>
-        private List<Gun> _weaponList;
 
-        /// <summary>
-        /// 入手した武器の番号
-        /// </summary>
-        private int _weaponType = 0;
+
 
         /// <summary>
         /// 所持してる武器のList
@@ -317,23 +290,6 @@ namespace FrontPerson.Character
         /// </summary>
         public List<Gun> GetWeaponList { get { return _weaponList; } }
 
-        /// <summary>
-        /// 視点感度取得関数
-        /// </summary>
-        /// <returns></returns>
-        public int GetViewRotateSpeed()
-        {
-            return _viewRotetaSpeed;
-        }
-
-        /// <summary>
-        /// 視点感度代入関数
-        /// </summary>
-        /// <param name="speed"></param>
-        public void SetViewRotateSpeed(int speed)
-        {
-            _viewRotetaSpeed = speed;
-        }
 
         // Start is called before the first frame update
         void Start()
@@ -380,7 +336,7 @@ namespace FrontPerson.Character
 
             _isFireLHand = _isFireRHand = false;
 
-            if (_isStun)
+            if (IsStun)
             {
                 StunStatus();
 
@@ -410,8 +366,8 @@ namespace FrontPerson.Character
         /// </summary>
         private void ViewPointMove()
         {
-            float Y_Rotation = Input.GetAxis(Constants.InputName.VERTICAL2)   * _viewRotetaSpeed * 30 * Time.deltaTime;
-            float X_Rotation = Input.GetAxis(Constants.InputName.HORIZONTAL2) * _viewRotetaSpeed * 30 * Time.deltaTime;
+            float Y_Rotation = Input.GetAxis(Constants.InputName.VERTICAL2)   * ViewRotetaSpeed * 30 * Time.deltaTime;
+            float X_Rotation = Input.GetAxis(Constants.InputName.HORIZONTAL2) * ViewRotetaSpeed * 30 * Time.deltaTime;
             
             transform.Rotate(0, X_Rotation, 0);
 
@@ -441,11 +397,11 @@ namespace FrontPerson.Character
             //移動中だけ音を鳴らす
             if(direction == Vector3.zero)
             {
-                _isStop = true;
+                IsStop = true;
             }
             else
             {
-                _isStop = false;
+                IsStop = false;
             }
         }
 
@@ -455,7 +411,7 @@ namespace FrontPerson.Character
         /// </summary>
         void Dash()
         {
-            if (IsJump) return;
+            if (_isJump) return;
             if (IsStop)
             {
                 moveSpeed_ = walkSpeed_;
@@ -490,7 +446,7 @@ namespace FrontPerson.Character
 
             if (Input.GetButtonDown(Constants.InputName.JUMP))
             {
-                if(!IsJump) //ジャンプが始まる瞬間
+                if(!_isJump) //ジャンプが始まる瞬間
                 {
                     _isJump = true;
                     _jumpForce = jumpPower;
@@ -596,20 +552,6 @@ namespace FrontPerson.Character
             }
         }
 
-        /// <summary>
-        /// 弾の補充（補給所）
-        /// </summary>
-        void Reload()
-        {
-            if (IsDash) return;
-            if (searchArea.IsSearch) return;
-
-            if (!Input.GetButton(Constants.InputName.RELOAD)) return;
-
-            gunL_.Reload();
-            gunR_.Reload();
-        }
-
 
         /// <summary>
         /// 弾の補充（野生のフルーツ）
@@ -649,7 +591,7 @@ namespace FrontPerson.Character
         /// </summary>
         void Search()
         {
-            if (IsJump) return;
+            if (_isJump) return;
             if (IsDash) return;
 
             if (!Input.GetButtonDown(Constants.InputName.SCAN)) return;
@@ -664,12 +606,13 @@ namespace FrontPerson.Character
             }
         }
 
+
         /// <summary>
         /// スタン中の処理
         /// </summary>
         void StunStatus()
         {
-            if (!_isStun) return;
+            if (!IsStun) return;
 
             //スタン中だったら
             if(stunTime > _nowStunTime)
@@ -680,15 +623,16 @@ namespace FrontPerson.Character
             {
                 _nowStunTime = 0.0f;
 
-                _isStun = false;
+                IsStun = false;
 
                 //無敵開始
-                _isInvincible = true;
+                IsInvincible = true;
 
                 //ぴよぴよ音止める処理欲しい
             }
             
         }
+
 
         /// <summary>
         /// スタンさせる
@@ -696,7 +640,7 @@ namespace FrontPerson.Character
         public void Stun()
         {
             if (_itemStatusFlag.HasFlag(ITEM_STATUS.INVICIBLE)) return;
-            _isStun = true;
+            IsStun = true;
             _bountyManager.PlayerDamage();
             _audioManager.Play3DSE(Position, SEPath.GAME_SE_STUN);
             _audioManager.Play3DSE(Position, SEPath.GAME_SE_DAMEGE);
@@ -704,13 +648,14 @@ namespace FrontPerson.Character
 
         }
 
+
         /// <summary>
         /// 無敵中の処理
         /// </summary>
         void InvincibleStatus()
         {
             //無敵ではなかったら終わり
-            if (!_isInvincible) return;
+            if (!IsInvincible) return;
 
             //無敵タイム中
             if(_nowInvincibleTime < invincibleTime)
@@ -720,10 +665,11 @@ namespace FrontPerson.Character
             else //無敵終了
             {
                 _nowInvincibleTime = 0.0f;
-                _isInvincible = false;
+                IsInvincible = false;
                  
             }
         }
+
 
         /// <summary>
         /// 毎フレームスペシャル武器の状態をチェックする
@@ -762,10 +708,23 @@ namespace FrontPerson.Character
             }
         }
 
+
+        private void OnTriggerExit(Collider other)
+        {
+            switch (other.tag)
+            {
+                case TagName.RECOVERY_POINT:
+                    nutrientsRecoveryPoint_ = null;
+                    break;
+            }
+        }
+
+
         /// <summary>
         /// 下の関数だけしか使わない
         /// </summary>
         private bool isOne = false;
+
 
         private void WeaponChangeUpdate()
         {
@@ -804,6 +763,7 @@ namespace FrontPerson.Character
             _weaponAnim = null;
 
         }
+
 
         /// <summary>
         /// 武器を入手する時に呼ぶ
@@ -887,7 +847,7 @@ namespace FrontPerson.Character
             if(_transparentItemTime < 0)
             {
                 _itemStatusFlag &= ~ITEM_STATUS.INVICIBLE; //解除
-                _isTransparent = false;
+                IsTransparent = false;
                 Destroy(_invisibleObject);
                 var obj = GameObject.FindGameObjectWithTag(TagName.GAME_CONTROLLER).GetComponent<UI.PickupItemUI>();
                 obj.DeleteItem(ITEM_STATUS.INVICIBLE);
@@ -947,7 +907,7 @@ namespace FrontPerson.Character
         {
             _transparentItemTime = time;
 
-            _isTransparent = true;
+            IsTransparent = true;
 
             _itemStatusFlag |= ITEM_STATUS.INVICIBLE;
 
