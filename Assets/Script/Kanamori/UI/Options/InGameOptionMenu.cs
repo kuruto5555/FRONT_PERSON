@@ -41,6 +41,7 @@ namespace FrontPerson.UI
             return_to_title_button_.onClick.AddListener(
                 () =>
                 {
+                    Time.timeScale = 1f;
                     Manager.SceneManager.Instance.SceneChange(Constants.SceneName.TITLE_SCENE, 0.5f);
                 }
                 );

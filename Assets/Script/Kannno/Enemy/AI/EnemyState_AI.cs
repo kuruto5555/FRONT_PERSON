@@ -27,16 +27,6 @@ namespace FrontPerson.Enemy.AI
         /// </summary>
         protected SearchArea SearchArea = null;
 
-        /// <summary>
-        /// MovePointIndexをステートが変わっても保存する為の変数
-        //// </summary>
-        protected int MoveIndex = 0;
-
-        /// <summary>
-        /// 移動先の一覧をステートが変わっても保存する為の変数
-        /// </summary>
-        protected List<Vector3> MoveList = new List<Vector3>();
-
         private void Start()
         {
             Player = GameObject.FindGameObjectWithTag(Constants.TagName.PLAYER)?.GetComponent<Player>();
@@ -96,14 +86,6 @@ namespace FrontPerson.Enemy.AI
             Owner.state_AI.SetOwner(Owner);
             Owner.state_AI.OnStart();
 
-            Owner.state_AI.Save_MovePoint(MoveIndex, MoveList);
-
-            if(null != Owner.state_AI as EnemyState_Move)
-            {
-                // EnemyState_Move なら MovetList を復元する
-                Owner.state_AI.Load_MovePoint(MoveIndex, MoveList);
-            }
-
 //デバッグ用
 #if UNITY_EDITOR
 
@@ -134,32 +116,7 @@ namespace FrontPerson.Enemy.AI
                 case EnemyType.YAKUZA:
                     OnChangeState_Yakuza();
                     break;
-
-#if UNITY_EDITOR
-                default:
-                    Debug.LogError("Owner.Type : 不正な値です");
-                    break;
-#endif
             }
-        }
-
-        /// <summary>
-        /// MovePointをステートが変わっても保存する
-        /// </summary>
-        private void Save_MovePoint(int MovePointIndex, List<Vector3> MovePoint_List)
-        {
-            MoveIndex = MovePointIndex;
-
-            MoveList = MovePoint_List;
-        }
-
-        public void Load_MovePoint(int MovePointIndex, List<Vector3> MovePoint_List)
-        {
-            EnemyState_Move ai = this as EnemyState_Move;
-
-            ai.MoveIndex = MovePointIndex;
-
-            ai.MoveList = MovePoint_List;
         }
     }
 }

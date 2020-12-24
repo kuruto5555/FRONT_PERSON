@@ -726,14 +726,34 @@ namespace FrontPerson.Character
             switch (other.tag)
             {
                 case TagName.RECOVERY_POINT:
-                    if (nutrientsRecoveryPoint_ == null)
-                    {
-                        nutrientsRecoveryPoint_ = other.GetComponent<NutrientsRecoveryPoint>();
-                    }
+                    // 補給所がnullじゃないなら処理する必要がない
+                    if (nutrientsRecoveryPoint_ != null) break;
+                    
+                    // 触れた補給所が使えなかったら処理する必要がない
+                    var nutrientsRecoveryPoint = other.GetComponent<NutrientsRecoveryPoint>();
+                    if (!nutrientsRecoveryPoint.IsCharge) break;
+
+                    // 補給所獲得
+                    nutrientsRecoveryPoint_ = nutrientsRecoveryPoint;
                     break;
+            }
+        }
 
-                case TagName.ENEMY:
 
+        private void OnTriggerStay(Collider other)
+        {
+            switch (other.tag)
+            {
+                case TagName.RECOVERY_POINT:
+                    // 補給所がnullじゃないなら処理する必要がない
+                    if (nutrientsRecoveryPoint_ != null) break;
+
+                    // 触れた補給所が使えなかったら処理する必要がない
+                    var nutrientsRecoveryPoint = other.GetComponent<NutrientsRecoveryPoint>();
+                    if (!nutrientsRecoveryPoint.IsCharge) break;
+
+                    // 補給所獲得
+                    nutrientsRecoveryPoint_ = nutrientsRecoveryPoint;
                     break;
             }
         }
