@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using FrontPerson.UI;
 using FrontPerson.Constants;
-
-
+using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 namespace FrontPerson.Manager
 {
@@ -40,11 +40,11 @@ namespace FrontPerson.Manager
 
         [Header("戻るボタン")]
         [SerializeField]
-        GameObject backButton_ = null;
+        Button backButton_ = null;
 
         [Header("ランキングへボタン")]
         [SerializeField]
-        GameObject rabkingButton_ = null;
+        Button rabkingButton_ = null;
 
 
         [Header("トータルスコアの目安")]
@@ -80,8 +80,8 @@ namespace FrontPerson.Manager
         {
             state_ = RESULT_SCENE_STATE.FADE_IN;
 
-            backButton_.SetActive(false);
-            rabkingButton_.SetActive(false);
+            backButton_.gameObject.SetActive(false);
+            rabkingButton_.gameObject.SetActive(false);
 
 
             appManager_ = FindObjectOfType<ApplicationManager>();
@@ -225,8 +225,10 @@ namespace FrontPerson.Manager
         {
             if (totalScore_.IsAnimFinish_)
             {
-                backButton_.SetActive(true);
-                rabkingButton_.SetActive(true);
+                backButton_.gameObject.SetActive(true);
+                rabkingButton_.gameObject.SetActive(true);
+                FirstTouchSelectable.Select(EventSystem.current, backButton_);
+
                 state_ = RESULT_SCENE_STATE.PLAYER_INPUT;
             }
         }
