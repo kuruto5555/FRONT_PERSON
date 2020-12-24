@@ -26,9 +26,9 @@ namespace FrontPerson.Bounty
         }
 
         // Update is called once per frame
-        void Update()
+        public override void CheckUpdate()
         {
-            base.Update();
+            base.CheckUpdate();
 
             int nowCombo = _Bmanager.GetNowCombo();
 

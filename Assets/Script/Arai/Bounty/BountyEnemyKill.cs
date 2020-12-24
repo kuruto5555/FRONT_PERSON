@@ -38,9 +38,9 @@ namespace FrontPerson.Bounty
         }
 
         // Update is called once per frame
-        void Update()
+        public override void CheckUpdate()
         {
-            base.Update();
+            base.CheckUpdate();
 
             if(rand == 0)
             {
