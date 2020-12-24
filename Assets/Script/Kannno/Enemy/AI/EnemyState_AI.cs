@@ -94,6 +94,7 @@ namespace FrontPerson.Enemy.AI
             Destroy(Owner.state_AI);
             Owner.state_AI = Owner.gameObject.AddComponent<T>();
             Owner.state_AI.SetOwner(Owner);
+            Owner.state_AI.OnStart();
 
             Owner.state_AI.Save_MovePoint(MoveIndex, MoveList);
 
