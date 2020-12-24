@@ -16,6 +16,13 @@ namespace FrontPerson.Gimmick
         protected GameObject icon_ = null;
 
         /// <summary>
+        /// 使えるかどうか
+        /// true  -> チャージできる
+        /// false -> チャージできない
+        /// </summary>
+        public bool IsCharge { get; protected set; } = true;
+
+        /// <summary>
         /// 取り扱っているビタミンの種類
         /// </summary>
         public NUTRIENTS_TYPE VitaminType { get { return nutrientsType_; } }

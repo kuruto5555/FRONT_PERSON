@@ -11,11 +11,6 @@ namespace FrontPerson.Gimmick
         [SerializeField, Range(1, 100)]
         private int recoveryValue_ = 1;
 
-        /// <summary>
-        /// 一度使っているかどうか
-        /// </summary>
-        public bool IsUsed { get; private set; } = false;
-
 
         /// <summary>
         /// バウンティマネージャー
@@ -36,11 +31,11 @@ namespace FrontPerson.Gimmick
         /// <returns>もらえる弾の量</returns>
         public override int Charge(int value)
         {
-            if (IsUsed) return 0;
+            if (!IsCharge) return 0;
             if (value == 0) return 0;
 
             bountyManager_.NutritionCharge();
-            IsUsed = true;
+            IsCharge = false;
             icon_.SetActive(false);
             return value <= recoveryValue_ ? value : recoveryValue_;
         }
