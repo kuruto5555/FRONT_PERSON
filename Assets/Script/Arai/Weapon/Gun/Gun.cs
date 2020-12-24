@@ -100,11 +100,6 @@ namespace FrontPerson.Weapon
         protected void Update()
         {
             UpdateShotTime();
-
-            if (Input.GetKeyDown(KeyCode.N))
-            {
-                _animator.Play("Put");
-            }
         }
 
         private void UpdateShotTime()
