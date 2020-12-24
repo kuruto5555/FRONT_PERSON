@@ -23,7 +23,7 @@ namespace FrontPerson.Enemy.AI
 
         public float max_time = 1.0f;
 
-        protected override void OnStart()
+        public override void OnStart()
         {
             Owner.SetTarget(goal.position + offset);
 

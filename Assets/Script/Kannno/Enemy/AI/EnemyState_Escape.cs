@@ -10,7 +10,7 @@ namespace FrontPerson.Enemy.AI
 {
     public class EnemyState_Escape : EnemyState_AI
     {
-        protected override void OnStart()
+        public override void OnStart()
         {
             Set_AgentGoal();
         }

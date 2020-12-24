@@ -37,16 +37,14 @@ namespace FrontPerson.Enemy.AI
         /// </summary>
         protected List<Vector3> MovetList = new List<Vector3>();
 
-        public void Start()
+        private void Start()
         {
-            OnStart();
-
             Player = GameObject.FindGameObjectWithTag(Constants.TagName.PLAYER)?.GetComponent<Player>();
 
             SearchArea = GetComponentInChildren<SearchArea>();
         }
 
-        public void Update()
+        private void Update()
         {
             OnUpdate();
             OnChangeState();
@@ -56,7 +54,7 @@ namespace FrontPerson.Enemy.AI
         /// 抽象関数
         /// 継承者は宣言しないとエラー吐きますよ。
         /// </summary>
-        protected abstract void OnStart();
+        public abstract void OnStart();
         protected abstract void OnUpdate();
 
         /// <summary>

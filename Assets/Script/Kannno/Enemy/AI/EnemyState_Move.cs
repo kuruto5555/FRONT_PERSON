@@ -34,7 +34,7 @@ namespace FrontPerson.Enemy.AI
         /// </summary>
         private int MovePointIndex = 0;
 
-        protected override void OnStart()
+        public override void OnStart()
         {
             if (0 == MoveIndex)
             {
