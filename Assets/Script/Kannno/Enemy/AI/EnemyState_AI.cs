@@ -35,7 +35,7 @@ namespace FrontPerson.Enemy.AI
         /// <summary>
         /// 移動先の一覧をステートが変わっても保存する為の変数
         /// </summary>
-        protected List<Vector3> MovetList = new List<Vector3>();
+        protected List<Vector3> MoveList = new List<Vector3>();
 
         private void Start()
         {
@@ -95,12 +95,12 @@ namespace FrontPerson.Enemy.AI
             Owner.state_AI = Owner.gameObject.AddComponent<T>();
             Owner.state_AI.SetOwner(Owner);
 
-            Owner.state_AI.Save_MovePoint(MoveIndex, MovetList);
+            Owner.state_AI.Save_MovePoint(MoveIndex, MoveList);
 
             if(null != Owner.state_AI as EnemyState_Move)
             {
                 // EnemyState_Move なら MovetList を復元する
-                Owner.state_AI.Load_MovePoint(MoveIndex, MovetList);
+                Owner.state_AI.Load_MovePoint(MoveIndex, MoveList);
             }
 
 //デバッグ用
@@ -149,7 +149,7 @@ namespace FrontPerson.Enemy.AI
         {
             MoveIndex = MovePointIndex;
 
-            MovetList = MovePoint_List;
+            MoveList = MovePoint_List;
         }
 
         public void Load_MovePoint(int MovePointIndex, List<Vector3> MovePoint_List)
@@ -158,7 +158,7 @@ namespace FrontPerson.Enemy.AI
 
             ai.MoveIndex = MovePointIndex;
 
-            ai.MovetList = MovePoint_List;
+            ai.MoveList = MovePoint_List;
         }
     }
 }

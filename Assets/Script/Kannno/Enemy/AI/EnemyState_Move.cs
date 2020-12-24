@@ -53,9 +53,9 @@ namespace FrontPerson.Enemy.AI
             }
             else
             {
-                if (0 != MovetList.Count)
+                if (0 != MoveList.Count)
                 {
-                    MovePoint_List = MovetList;
+                    MovePoint_List = MoveList;
 
                     Owner.SetTarget(MovePoint_List[MovePointIndex]);
                 }
@@ -97,7 +97,7 @@ namespace FrontPerson.Enemy.AI
         {
             MoveIndex = MovePointIndex;
 
-            MovetList = MovePoint_List;
+            MoveList = MovePoint_List;
         }
 
         protected override void OnUpdate()
