@@ -30,6 +30,20 @@ namespace FrontPerson.Character
         [SerializeField]
         protected int insufficiency = 100;
 
+        [Header("移動ルート")]
+        [SerializeField]
+        public MovePattern MovePattern = null;
+
+        /// <summary>
+        /// 移動先の一覧
+        /// </summary>
+        public List<Vector3> MoveList { get; set; } = new List<Vector3>();
+
+        /// <summary>
+        /// 現在のMovePointのインデックス
+        //// </summary>
+        public int MoveIndex { get; set; } = 0;
+
         /// <summary>
         /// NavMeshAgent
         /// </summary>
