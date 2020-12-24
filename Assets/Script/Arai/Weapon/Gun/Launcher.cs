@@ -272,7 +272,7 @@ namespace FrontPerson.Weapon
             _lockOnTarget = null;
 
             //ロックオンの音ならす
-            _audioManager.Play3DSE(transform.position, SEPath.GAME_SE_LOCK_ON);
+            _audioManager.Play2DSE(gameObject, SEPath.GAME_SE_LOCK_ON);
         }
 
         private void EnemyListUpdate()
