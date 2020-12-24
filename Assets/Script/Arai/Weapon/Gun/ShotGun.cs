@@ -32,6 +32,7 @@ namespace FrontPerson.Weapon
         {
             if (shotTime_ > 0.0f) return;
             if (Ammo < 1) return;
+            if (_isAnimation) return;
 
             for(int i = 0; i < PelletNum; i++)
             { 
@@ -47,6 +48,7 @@ namespace FrontPerson.Weapon
             _bountyManager.FireCount();
             Instantiate(MuzzleFlash, Muzzle.transform);
             _audioManager.Play3DSE(transform.position, _shotSoundPath);
+            _animator.Play("Shot", 0, 0);
         }
     }
 }

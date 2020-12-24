@@ -138,6 +138,8 @@ namespace FrontPerson.Weapon
         // Update is called once per frame
         void Update()
         {
+            if (_isAnimation) return;
+
             base.Update();
             EnemyListUpdate();
             LockOnStart();
@@ -190,6 +192,7 @@ namespace FrontPerson.Weapon
             Instantiate(MuzzleFlash, Muzzle.transform);
 
             _audioManager.Play3DSE(transform.position, _shotSoundPath);
+            _animator.Play("Shot", 0, 0);
         }
 
         private void UpdateLockOn()
@@ -383,6 +386,16 @@ namespace FrontPerson.Weapon
 
                 Destroy(gameObject);
             }
+        }
+
+        public override void PutAnimation()
+        {
+            foreach (var it in _lockOnTargetList)
+            {
+                it.Value.GetCursor().SetDead();
+            }
+
+            Destroy(gameObject);
         }
 
         public override void WeaponForcedChange()

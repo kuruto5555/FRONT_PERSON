@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 4391293749263543517}
   - component: {fileID: 4391293749263543518}
   - component: {fileID: 4391293749263543519}
+  - component: {fileID: 2342570329845595066}
   m_Layer: 0
   m_Name: AssaultRifle
   m_TagString: Gun
@@ -101,6 +102,25 @@ MonoBehaviour:
     type: 3}
   MuzzleFlash: {fileID: 1120585243774102722, guid: cc95eeae6fc0c154d92ba823181516a3,
     type: 3}
+--- !u!95 &2342570329845595066
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4391293749263543521}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 67878c974d615654ca9c64685e4a39c7, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &4391293750179688789
 GameObject:
   m_ObjectHideFlags: 0

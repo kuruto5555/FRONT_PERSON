@@ -100,7 +100,7 @@ namespace FrontPerson.Character
         /// <summary>
         /// サーチ中かどうか
         /// </summary>
-        bool isSearch_ = false;
+        //bool isSearch_ = false;
 
         /// <summary>
         /// ジャンプしてるかどうか
@@ -217,7 +217,12 @@ namespace FrontPerson.Character
         /// </summary>
         Transform _canvas = null;
 
+        Animator _weaponAnim = null;
 
+        /// <summary>
+        /// 現在触れている補給ポイント
+        /// </summary>
+        NutrientsRecoveryPoint nutrientsRecoveryPoint_ = null;
 
         /*---- プロパティ ----*/
         /// <summary>
@@ -348,7 +353,7 @@ namespace FrontPerson.Character
 
             _weponManager = SpecialWeaponManager._instance;
 
-            _viewRotetaSpeed = RotationSpeed_;
+            //_viewRotetaSpeed = RotationSpeed_;
 
             _weaponList = new List<Gun>();
 
@@ -392,8 +397,10 @@ namespace FrontPerson.Character
             Move();
             Shot();
             Jump();
-            
-            
+            WeaponStatus();
+            WeaponChangeUpdate();
+
+            Reload(nutrientsRecoveryPoint_);
 
             transform.position = position_;
         }
@@ -403,8 +410,8 @@ namespace FrontPerson.Character
         /// </summary>
         private void ViewPointMove()
         {
-            float Y_Rotation = Input.GetAxis(Constants.InputName.VERTICAL2) * RotationSpeed_ * 30 * Time.deltaTime;
-            float X_Rotation = Input.GetAxis(Constants.InputName.HORIZONTAL2) * RotationSpeed_ * 30 * Time.deltaTime;
+            float Y_Rotation = Input.GetAxis(Constants.InputName.VERTICAL2)   * _viewRotetaSpeed * 30 * Time.deltaTime;
+            float X_Rotation = Input.GetAxis(Constants.InputName.HORIZONTAL2) * _viewRotetaSpeed * 30 * Time.deltaTime;
             
             transform.Rotate(0, X_Rotation, 0);
 
@@ -418,8 +425,8 @@ namespace FrontPerson.Character
                 cameraTransform_.localEulerAngles = _xAxiz;
             }
 
-            Cursor.lockState = CursorLockMode.Locked;
-            Cursor.visible = false;
+            //Cursor.visible = false;
+            //Cursor.lockState = CursorLockMode.Locked;
         }
 
         private void Move()
@@ -549,7 +556,7 @@ namespace FrontPerson.Character
         void Shot()
         {
             if (IsDash) return;
-            if (isSearch_) return;
+            if (searchArea.IsSearch) return;
             if (_isWeaponChangeAnimation) return;
 
             //左クリック
@@ -595,7 +602,7 @@ namespace FrontPerson.Character
         void Reload()
         {
             if (IsDash) return;
-            if (isSearch_) return;
+            if (searchArea.IsSearch) return;
 
             if (!Input.GetButton(Constants.InputName.RELOAD)) return;
 
@@ -613,8 +620,9 @@ namespace FrontPerson.Character
         {
             if (!Input.GetButtonDown(Constants.InputName.RELOAD)) return;
             if (IsDash) return;
-            if (isSearch_) return;
+            if (searchArea.IsSearch) return;
             if (IsSpecialWeapon) return;
+            if (!nutrientsRecoveryPoint_) return;
 
             switch (vrp.VitaminType)
             {
@@ -631,6 +639,8 @@ namespace FrontPerson.Character
                     gunR_.Reload(vrp.Charge(GunAmmoMAX_R - GunAmmoR));
                     break;
             }
+
+            nutrientsRecoveryPoint_ = null;
         }
 
 
@@ -643,20 +653,15 @@ namespace FrontPerson.Character
             if (IsDash) return;
 
             if (!Input.GetButtonDown(Constants.InputName.SCAN)) return;
-                
-            if(isSearch_ == false)
+
+            if (!searchArea.IsSearch)
             {
-                isSearch_ = true;
                 searchArea.Search();
-                _audioManager.Play3DSE(Position, SEPath.GAME_SE_SCAN);
             }
             else
             {
-                isSearch_ = false;
                 searchArea.Stop();
             }
-
-
         }
 
         /// <summary>
@@ -731,25 +736,73 @@ namespace FrontPerson.Character
             if (Weapon.Ammo <= 0 )
             {
                 //武器のアニメーションスタート
-                //Weapon.
+                WeaponChangeAnimationStart();
+                _weaponAnim = Weapon.GetComponent<Animator>();
+                Weapon.ChangeAnimationStart("Put");
             }
             
         }
 
         
 
-        private void OnTriggerStay(Collider other)
+        private void OnTriggerEnter(Collider other)
         {
             switch (other.tag)
             {
                 case TagName.RECOVERY_POINT:
-                    Reload(other.GetComponent<NutrientsRecoveryPoint>());
+                    if (nutrientsRecoveryPoint_ == null)
+                    {
+                        nutrientsRecoveryPoint_ = other.GetComponent<NutrientsRecoveryPoint>();
+                    }
                     break;
 
                 case TagName.ENEMY:
 
                     break;
             }
+        }
+
+        /// <summary>
+        /// 下の関数だけしか使わない
+        /// </summary>
+        private bool isOne = false;
+
+        private void WeaponChangeUpdate()
+        {
+            if (!_isWeaponChangeAnimation) return;
+            if (_weaponAnim == null) return;
+            //数フレーム待つ
+            if (!isOne)
+            {
+                isOne = true;
+                return;
+            }
+            if (_weaponAnim.GetCurrentAnimatorStateInfo(0).normalizedTime < 0.9f) return;
+
+            WeaponChangeAnimationFinish();
+
+            //弾切れでchangeした場合
+            if(Weapon == null)
+            {
+                SetWeapon();
+                
+            }
+            else
+            {
+                if (Weapon.Ammo <= 0)
+                {
+                    gunL_.gameObject.SetActive(true);
+                    gunR_.gameObject.SetActive(true);
+                }
+                else
+                {
+                    SetWeapon();
+                }
+            }
+            
+            isOne = false;
+            _weaponAnim = null;
+
         }
 
         /// <summary>
@@ -762,22 +815,28 @@ namespace FrontPerson.Character
             gunL_.Reload();
             gunR_.Reload();
 
+            WeaponChangeAnimationStart();
+
             if (IsSpecialWeapon)
             {
-                Weapon.WeaponForcedChange();
+                //Weapon.WeaponForcedChange();
                 //武器チェンジアニメーションスタート
+                Weapon.ChangeAnimationStart("Put");
+                _weaponAnim = Weapon.GetComponent<Animator>();
             }
             else
             {
                 //ハンドガンを下に下げるアニメーションを呼ぶ
-                //WeaponChangeAnimationStart();
+                gunL_.ChangeAnimationStart("Put");
+                gunR_.ChangeAnimationStart("Put");
+                _weaponAnim = gunL_.GetComponent<Animator>();
             }
 
             _weaponType = type;
 
             //下２行アニメーションが出来次第消す
-            Weapon = Instantiate(_weponManager.WeaponPrefabList[type], cameraTransform_).GetComponent<Weapon.SpecialWeapon>();
-            _weaponList[2] = Weapon;
+            //Weapon = Instantiate(_weponManager.WeaponPrefabList[type], cameraTransform_).GetComponent<Weapon.SpecialWeapon>();
+            //_weaponList[2] = Weapon;
         }
 
         /// <summary>

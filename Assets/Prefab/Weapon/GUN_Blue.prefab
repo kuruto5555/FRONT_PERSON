@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 3771635989819001788}
   - component: {fileID: 1419616548744429430}
   - component: {fileID: 8433129407407921846}
+  - component: {fileID: 289429415552035763}
   m_Layer: 0
   m_Name: GUN_Blue
   m_TagString: Untagged
@@ -103,6 +104,25 @@ MonoBehaviour:
     type: 3}
   MuzzleFlash: {fileID: 1120585243774102722, guid: cc95eeae6fc0c154d92ba823181516a3,
     type: 3}
+--- !u!95 &289429415552035763
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 626987482004774563}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 08b922068e78b1a4990b3c4ece4ccf17, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &4258496828413870813
 GameObject:
   m_ObjectHideFlags: 0
