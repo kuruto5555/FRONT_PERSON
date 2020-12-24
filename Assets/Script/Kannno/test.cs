@@ -7,7 +7,7 @@ public class test : MonoBehaviour
     [SerializeField]
     private GameObject obj = null;
 
-    private ParticleSystemRenderer renderer = null;
+    private ParticleSystemRenderer Renderer = null;
 
     private float time = 0f;
 
@@ -18,7 +18,7 @@ public class test : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        renderer = obj.GetComponent<ParticleSystemRenderer>();
+        Renderer = obj.GetComponent<ParticleSystemRenderer>();
     }
 
     // Update is called once per frame
@@ -32,7 +32,7 @@ public class test : MonoBehaviour
 
             ins = instanc.GetComponent<ParticleSystemRenderer>();
 
-            ins.material = renderer.sharedMaterial;
+            ins.material = Renderer.sharedMaterial;
 
             flag = true;
         }

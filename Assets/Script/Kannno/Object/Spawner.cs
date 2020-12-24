@@ -163,10 +163,6 @@ namespace FrontPerson.Enemy
                         Max_Yakuza++;
                         Sum_Yakuza++;
                         break;
-
-                    default:
-                        Debug.LogError("エネミーの Type の値が不正です");
-                        break;
                 }
             }
         }
@@ -263,7 +259,9 @@ namespace FrontPerson.Enemy
 
             ai.Set_MovePattern(OrdinaryPeople_MovePatternList[cnt]);
 
+#if UNITY_EDITOR
             Debug.Log("一般人の生成");
+#endif
         }
 
         /// <summary>
@@ -282,7 +280,9 @@ namespace FrontPerson.Enemy
 
             ai.Set_MovePattern(OldBattleaxe_MovePatternList[cnt]);
 
+#if UNITY_EDITOR
             Debug.Log("おばちゃんの生成");
+#endif
         }
 
         /// <summary>
@@ -301,7 +301,9 @@ namespace FrontPerson.Enemy
 
             ai.Set_MovePattern(Yakuza_MovePatternList[cnt]);
 
+#if UNITY_EDITOR
             Debug.Log("ヤクザの生成");
+#endif
         }
     }
 }

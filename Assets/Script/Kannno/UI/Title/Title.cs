@@ -95,6 +95,7 @@ namespace FrontPerson.UI
             StartButton.onClick.AddListener( () => {
                 if (ApplicationManager.IsInput)
                 {
+                    event_system.SetSelectedGameObject(null);
                     SceneManager.Instance.SceneChange(SceneName.GAME_SCENE, FadeTime);
                     DecisionSound();
                 }
@@ -103,6 +104,7 @@ namespace FrontPerson.UI
             RankingButton.onClick.AddListener(() => {
                 if (ApplicationManager.IsInput)
                 {
+                    event_system.SetSelectedGameObject(null);
                     SceneManager.Instance.SceneChange(SceneName.RESULT_SCENE, FadeTime);
                     DecisionSound();
                 }

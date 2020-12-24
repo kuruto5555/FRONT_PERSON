@@ -12,8 +12,6 @@ namespace FrontPerson.Enemy
         protected override void OnAwake()
         {
             Type = EnemyType.YAKUZA;
-
-            Set_LackVitamin();
         }
 
         protected override void OnStart()

@@ -136,9 +136,11 @@ namespace FrontPerson.Enemy.AI
                     OnChangeState_Yakuza();
                     break;
 
+#if UNITY_EDITOR
                 default:
                     Debug.LogError("Owner.Type : 不正な値です");
                     break;
+#endif
             }
         }
 
