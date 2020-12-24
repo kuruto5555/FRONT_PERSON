@@ -66,6 +66,10 @@ namespace FrontPerson.Character
         [SerializeField]
         GameObject StunEffect_ = null;
 
+        [Header("スタン音鳴らす間隔")]
+        [SerializeField, Range(0.0f, 1.0f)]
+        float StunSoundRate = 0.5f;
+
         /// <summary>
         /// スペシャル武器
         /// </summary>
@@ -180,6 +184,11 @@ namespace FrontPerson.Character
         /// 足音を鳴らす間隔
         /// </summary>
         float _nowDashSoundRate = 0.0f;
+
+        /// <summary>
+        /// スタン音を鳴らす間隔
+        /// </summary>
+        float _nowStunSoundRate = 0.0f;
 
         /// <summary>
         /// オーディオマネージャー参照
@@ -328,8 +337,6 @@ namespace FrontPerson.Character
 
             _appManager = GameObject.FindGameObjectWithTag(TagName.MANAGER).GetComponent<ApplicationManager>();
             if (_appManager == null) Debug.Log("GameSceneController");
-
-            _nowDashSoundRate = 1.0f;
 
             _audioManager = AudioManager.Instance;
 
@@ -627,6 +634,13 @@ namespace FrontPerson.Character
             if(stunTime > _nowStunTime)
             {
                 _nowStunTime += Time.deltaTime;
+                _nowStunSoundRate += Time.deltaTime;
+
+                if (_nowStunSoundRate > StunSoundRate)
+                {
+                    _audioManager.Play3DSE(position_, SEPath.GAME_SE_STUN);
+                    _nowStunSoundRate = 0;
+                }
             }
             else
             {
@@ -638,8 +652,6 @@ namespace FrontPerson.Character
                 IsInvincible = true;
 
                 Destroy(_stunEffect);
-
-                //ぴよぴよ音止める処理欲しい
             }
             
         }
@@ -656,6 +668,8 @@ namespace FrontPerson.Character
             _audioManager.Play3DSE(Position, SEPath.GAME_SE_STUN);
             _audioManager.Play3DSE(Position, SEPath.GAME_SE_DAMEGE);
             _comboManager.LostCombo();
+
+            _nowStunSoundRate = StunSoundRate;
 
             if(_stunEffect == null)
             {
