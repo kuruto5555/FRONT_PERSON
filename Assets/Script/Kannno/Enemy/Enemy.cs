@@ -67,6 +67,8 @@ namespace FrontPerson.Character
             OnAwake();
 
             Set_LackVitamin();
+
+            Set_LackVitamin_Text();
         }
 
         private void Start()
@@ -77,7 +79,7 @@ namespace FrontPerson.Character
 
             state_AI.SetOwner(this);
 
-            Set_LackVitamin_Text();
+            state_AI.OnStart();
 
             OnStart();
         }
