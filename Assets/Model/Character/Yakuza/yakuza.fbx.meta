@@ -5,6 +5,31 @@ ModelImporter:
   internalIDToNameTable: []
   externalObjects:
   - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: face_purt
+    second: {fileID: 2100000, guid: 1b58e8bb984c06e46b67740cd67cabcc, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: kutu
+    second: {fileID: 2100000, guid: cb9619d1321025f45b916299d7c58ef8, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: skin
+    second: {fileID: 2100000, guid: 21af0279514d68e48a9b55095904478c, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: uwagi
+    second: {fileID: 2100000, guid: 902a5607e5756a240a35d38f55d32d6e, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: zubon
+    second: {fileID: 2100000, guid: 3b44d932a360bd9408d4f9bf7441d62c, type: 2}
+  - first:
       type: UnityEngine:Texture2D
       assembly: UnityEngine.CoreModule
       name: yakuza_kutu_BaseColor
@@ -111,7 +136,7 @@ ModelImporter:
     armStretch: 0.05
     legStretch: 0.05
     feetSpacing: 0
-    globalScale: 0.03
+    globalScale: 3
     rootMotionBoneName: 
     hasTranslationDoF: 0
     hasExtraRoot: 0

@@ -3,7 +3,42 @@ guid: 5dcfc038cdd92cb4a83327ecceeaed32
 ModelImporter:
   serializedVersion: 19301
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: face_kuti
+    second: {fileID: 2100000, guid: 873f26d1be2095d42b46b2aafa75870d, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: face_purt
+    second: {fileID: 2100000, guid: bfc5c8094881a1c4a925f7718c8cf9ef, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: hair
+    second: {fileID: 2100000, guid: 1b1209a9bf28d4345bfb327f22b7eb7d, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: kutu
+    second: {fileID: 2100000, guid: ad86ea49352754d4e967b2380a54e055, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: skin
+    second: {fileID: 2100000, guid: 3d5ab1091e4452b40859322d8e81799b, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: uwagi
+    second: {fileID: 2100000, guid: fd84fe2643c76654f9c79934409a5e4f, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: zubon
+    second: {fileID: 2100000, guid: da98329d54838304d823eab13127f456, type: 2}
   materials:
     materialImportMode: 1
     materialName: 0
@@ -81,7 +116,7 @@ ModelImporter:
     armStretch: 0.05
     legStretch: 0.05
     feetSpacing: 0
-    globalScale: 0.04
+    globalScale: 4
     rootMotionBoneName: 
     hasTranslationDoF: 0
     hasExtraRoot: 0
