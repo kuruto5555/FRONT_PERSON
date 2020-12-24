@@ -10,7 +10,6 @@ namespace FrontPerson.Enemy.AI
 
         public override void OnStart()
         {
-            searchArea = GetComponentInChildren<SearchArea>();
         }
 
         protected override void OnUpdate()
