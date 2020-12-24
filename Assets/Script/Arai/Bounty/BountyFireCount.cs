@@ -12,7 +12,7 @@ namespace FrontPerson.Bounty
         private int _nowFireCount = 0;
 
         // Start is called before the first frame update
-        void Start()
+        new void Start()
         {
             base.Start();
 

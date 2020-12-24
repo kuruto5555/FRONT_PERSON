@@ -12,7 +12,7 @@ namespace FrontPerson.Bounty
         private bool _isComboStart = false;
 
         // Start is called before the first frame update
-        void Start()
+        new void Start()
         {
             base.Start();
 

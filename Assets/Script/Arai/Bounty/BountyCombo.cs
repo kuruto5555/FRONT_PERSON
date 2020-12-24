@@ -15,7 +15,7 @@ namespace FrontPerson.Bounty
         public int GetComboMax { get { return ComboMax; } }
 
         // Start is called before the first frame update
-        void Start()
+        new void Start()
         {
             base.Start();
 

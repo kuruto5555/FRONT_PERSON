@@ -35,12 +35,10 @@ namespace FrontPerson.Weapon
 
         private bool _isHoming = false;
 
-        private bool _isTargerLost = false;
-
         Vector3 newPos;
 
         // Start is called before the first frame update
-        void Start()
+        new void Start()
         {
             base.Start();
             _nowTime = 0.0f;
@@ -49,12 +47,10 @@ namespace FrontPerson.Weapon
 
             newPos = transform.position + transform.forward * 25.0f;
             newPos.y = StartHeight_;
-
-            _isTargerLost = false;
         }
 
         // Update is called once per frame
-        void Update()
+        new void Update()
         {
             base.Update();
 
@@ -76,11 +72,7 @@ namespace FrontPerson.Weapon
         /// </summary>
         private void Rise()
         {
-            //if (_nowTime < StarterSpeed_) return;
-            if (_isHoming) return;
-
-            //Vector3 newPos = new Vector3(_targetPos.x, StartHeight_, _targetPos.z);
-            
+            if (_isHoming) return;            
 
             //ターゲットの方向ベクトル
             Vector3 vec = (newPos - transform.position).normalized;
