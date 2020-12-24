@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
+using FrontPerson.Character;
+
 namespace FrontPerson.Enemy.AI
 {
     public class EnemyState_Close : EnemyState_AI
@@ -12,8 +14,9 @@ namespace FrontPerson.Enemy.AI
         private Transform goal = null;
         public Transform Goal { set { goal = value; } }
 
-        [Header("半径からの距離")]
-        [SerializeField]
+        /// <summary>
+        /// 半径からのオフセット距離
+        /// </summary>
         private float RadiusOffset = 0.3f;
 
         private Vector3 offset = new Vector3();
@@ -23,8 +26,16 @@ namespace FrontPerson.Enemy.AI
 
         public float max_time = 1.0f;
 
-        protected override void OnStart()
+        public override void OnStart()
         {
+            if (null == Player)
+            {
+                Player = GameObject.FindGameObjectWithTag(Constants.TagName.PLAYER).GetComponent<Player>();
+                goal = Player.transform;
+            }
+
+            ClalOffset();
+
             Owner.SetTarget(goal.position + offset);
 
             time = Time.timeSinceLevelLoad;

@@ -9,18 +9,15 @@ namespace FrontPerson.UI
     public class FirstTouchUI : MonoBehaviour
     {
         [SerializeField]
-        private GameObject first_touch_object_ = null;
+        private Selectable first_touch_object_ = null;
         private EventSystem event_system_;
 
         // Start is called before the first frame update
         void Start()
         {
             event_system_ = EventSystem.current;
-            event_system_.SetSelectedGameObject(first_touch_object_);
-            BaseEventData baseEventData = new BaseEventData(event_system_);
-            baseEventData.selectedObject = event_system_.currentSelectedGameObject;
-            first_touch_object_.GetComponent<Selectable>().OnSelect(baseEventData);
-            baseEventData.Reset();
+
+            FirstTouchSelectable.Select(event_system_, first_touch_object_);
         }
 
         private void OnEnable()
@@ -30,11 +27,7 @@ namespace FrontPerson.UI
                 event_system_ = EventSystem.current;
             }
 
-            event_system_.SetSelectedGameObject(first_touch_object_);
-            BaseEventData baseEventData = new BaseEventData(event_system_);
-            baseEventData.selectedObject = event_system_.currentSelectedGameObject;
-            first_touch_object_.GetComponent<Selectable>().OnSelect(baseEventData);
-            baseEventData.Reset();
+            FirstTouchSelectable.Select(event_system_, first_touch_object_);
         }
     }
 }

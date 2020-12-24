@@ -139,12 +139,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e317135de390d3d4ebc32cc546b1f323, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bullet_: {fileID: 0}
-  Muzzle: {fileID: 0}
-  rate_: 1
-  MaxAmmo_: 10
+  bullet_: {fileID: 1171001628440052897, guid: 60fc4f91e0d89c0459e0443e10a1a739, type: 3}
+  Muzzle: {fileID: 1262898632295698592}
+  rate_: 3
+  MaxAmmo_: 25
   Reticle_: {fileID: 0}
-  MuzzleFlash: {fileID: 0}
+  MuzzleFlash: {fileID: 1120585243774102722, guid: cc95eeae6fc0c154d92ba823181516a3,
+    type: 3}
 --- !u!95 &4242709607122305073
 Animator:
   serializedVersion: 3

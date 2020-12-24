@@ -64,20 +64,22 @@ namespace FrontPerson.Character
 
         private void Awake()
         {
-            agent = GetComponent<NavMeshAgent>();
-
-            if(null == state_AI) state_AI = GetComponent<EnemyState_AI>();
-
-            state_AI.SetOwner(this);
+            OnAwake();
 
             Set_LackVitamin();
 
-            OnAwake();
+            Set_LackVitamin_Text();
         }
 
         private void Start()
         {
-            Set_LackVitamin_Text();
+            agent = GetComponent<NavMeshAgent>();
+
+            if (null == state_AI) state_AI = GetComponent<EnemyState_AI>();
+
+            state_AI.SetOwner(this);
+
+            state_AI.OnStart();
 
             OnStart();
         }
@@ -94,7 +96,7 @@ namespace FrontPerson.Character
         /// <summary>
         /// 不足しているビタミンを設定
         /// </summary>
-        protected void Set_LackVitamin()
+        private void Set_LackVitamin()
         {
             if (EnemyType.YAKUZA == Type)
             {
@@ -107,7 +109,6 @@ namespace FrontPerson.Character
             List<NUTRIENTS_TYPE> vitamins = new List<NUTRIENTS_TYPE>() { NUTRIENTS_TYPE._A, NUTRIENTS_TYPE._B };
 
             lack_vitamins = vitamins[cnt];
-
         }
 
         /// <summary>
@@ -185,9 +186,6 @@ namespace FrontPerson.Character
                         score_manager.AddScore((int)EnemyScore.YAKUZA, Score.ADD_SCORE_TYPE.BASIC_SCORE);
                         comboManager.AddCombo(1, ADD_COMBO_TYPE.YAKUZA);
                         break;
-                
-                    default:
-                        break;
                 }
 
                 GetComponent<EnemyBelongings>().DropItem();
@@ -214,9 +212,6 @@ namespace FrontPerson.Character
 
                     case EnemyType.YAKUZA:
                         Spawner.Sub_Yakuza();
-                        break;
-
-                    default:
                         break;
                 }
 

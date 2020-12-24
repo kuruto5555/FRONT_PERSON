@@ -15,10 +15,6 @@ namespace FrontPerson.Enemy.AI
         [SerializeField]
         private MovePattern MovePattern  = null;
 
-        [Header("半径からの距離")]
-        [SerializeField]
-        private float RadiusOffset = 0.3f;
-
         public void Set_MovePattern(MovePattern move_pattern)
         {
             MovePattern = move_pattern;
@@ -34,7 +30,7 @@ namespace FrontPerson.Enemy.AI
         /// </summary>
         private int MovePointIndex = 0;
 
-        protected override void OnStart()
+        public override void OnStart()
         {
             if (0 == MoveIndex)
             {
@@ -53,9 +49,9 @@ namespace FrontPerson.Enemy.AI
             }
             else
             {
-                if (0 != MovetList.Count)
+                if (0 != MoveList.Count)
                 {
-                    MovePoint_List = MovetList;
+                    MovePoint_List = MoveList;
 
                     Owner.SetTarget(MovePoint_List[MovePointIndex]);
                 }
@@ -79,11 +75,13 @@ namespace FrontPerson.Enemy.AI
 
             list.Sort((a, b) => a.Index - b.Index);
 
+#if UNITY_EDITOR
             if (null == list)
             {
                 Debug.LogError("MovePoint が存在しません");
                 return;
             }
+#endif
 
             foreach (var obj in list)
             {
@@ -95,7 +93,7 @@ namespace FrontPerson.Enemy.AI
         {
             MoveIndex = MovePointIndex;
 
-            MovetList = MovePoint_List;
+            MoveList = MovePoint_List;
         }
 
         protected override void OnUpdate()
@@ -142,8 +140,6 @@ namespace FrontPerson.Enemy.AI
                 ChangeState<EnemyState_Close>();
 
                 var ai = Owner.state_AI as EnemyState_Close;
-
-                ClalPosition();
             }
         }
 
@@ -161,26 +157,8 @@ namespace FrontPerson.Enemy.AI
 
                 var ai = Owner.state_AI as EnemyState_Close;
 
-                ClalPosition();
-
                 AudioManager.Instance.Play3DSE(Owner.transform.position, SEPath.GAME_SE_VOICE_YAKUZA);
             }
-        }
-
-        /// <summary>
-        /// 半径(ナビゲーション)分のオフセットを計算
-        /// </summary>
-        private void ClalPosition()
-        {
-            var ai = Owner.state_AI as EnemyState_Close;
-
-            Vector3 vec_enemy = transform.position - Player.transform.position;
-            vec_enemy.y = 0f;
-
-            Vector3 vec_radius = Vector3.Normalize(vec_enemy) * (Player.GetComponent<NavMeshObstacle>().radius + RadiusOffset);
-
-            ai.Goal = Player.transform;
-            ai.Offset = vec_radius;
         }
     }
 }
