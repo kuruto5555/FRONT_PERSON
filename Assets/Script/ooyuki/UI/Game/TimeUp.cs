@@ -28,7 +28,7 @@ namespace FrontPerson.UI
             // ふぇーばータイムだったら終わらせてスコアに入れる
             ScoreManager.Instance.StopFeverTime();
             // コンボが続いてたら終わらせてスコアに入れる
-            ComboManager.Instance.LostCombo();
+            ComboManager.Instance.FinishGame();
         }
     }
 }
