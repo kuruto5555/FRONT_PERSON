@@ -7,13 +7,13 @@ namespace FrontPerson.Weapon
     public class SpecialWeapon : Gun
     {
         // Start is called before the first frame update
-        protected void Start()
+        protected new void Start()
         {
             base.Start();
         }
 
         // Update is called once per frame
-        protected void Update()
+        protected new void Update()
         {
             base.Update();
             //ChangeWeapon();

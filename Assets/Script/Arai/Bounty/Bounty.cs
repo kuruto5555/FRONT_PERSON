@@ -111,7 +111,7 @@ namespace FrontPerson.Bounty
         }
 
         // Update is called once per frame
-        protected void Update()
+        public virtual void CheckUpdate()
         {
             _nowTime -= Time.deltaTime;
 

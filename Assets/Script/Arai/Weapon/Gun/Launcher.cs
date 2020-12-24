@@ -113,7 +113,7 @@ namespace FrontPerson.Weapon
         /// </summary>
         private Camera _targetCamera = null;
 
-        private void Awake()
+        private new void Awake()
         {
             _enemyList = new List<Transform>();
 
@@ -123,7 +123,7 @@ namespace FrontPerson.Weapon
         }
 
         // Start is called before the first frame update
-        void Start()
+        new void Start()
         {
             base.Start();
 
@@ -140,7 +140,7 @@ namespace FrontPerson.Weapon
         }
 
         // Update is called once per frame
-        void Update()
+        new void Update()
         {
             if (_isAnimation) return;
 
@@ -193,7 +193,7 @@ namespace FrontPerson.Weapon
             _bountyManager.FireCount();
 
             _lockOnTargetList.Remove(_lockOnTargetList.FirstOrDefault().Key);
-            Instantiate(MuzzleFlash, Muzzle.transform);
+            Instantiate(MuzzleFlash, Muzzle.transform.position, Muzzle.transform.rotation);
 
             _audioManager.Play3DSE(transform.position, _shotSoundPath);
             _animator.Play("Shot", 0, 0);

@@ -22,7 +22,7 @@ namespace FrontPerson.Weapon
         private bool _isDead = false;
 
         // Start is called before the first frame update
-        void Start()
+        new void Start()
         {
             _targetCamera = Camera.main;
             _rect = GetComponent<RectTransform>();
@@ -35,7 +35,7 @@ namespace FrontPerson.Weapon
         }
 
         // Update is called once per frame
-        void Update()
+        new void Update()
         {
             TargetLost();
             DisplayDraw();

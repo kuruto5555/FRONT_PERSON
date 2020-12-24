@@ -23,9 +23,9 @@ namespace FrontPerson.Bounty
         }
 
         // Update is called once per frame
-        new void Update()
+        public override void CheckUpdate()
         {
-            base.Update();
+            base.CheckUpdate();
 
             _numCharge += _Bmanager.GetNumNutritionCharge();
             _progressString = _numCharge.ToString() + " / " + MaxCharge.ToString();

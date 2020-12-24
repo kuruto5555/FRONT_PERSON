@@ -98,11 +98,11 @@ namespace FrontPerson.Manager
 
             AllMissionChange();
 
-            MissionMonitoring();
         }
 
         private void LateUpdate()
         {
+            MissionMonitoring();
             //最後に初期化してほしい
             _numEnemyDeathA = 0;
             _numEnemyDeathB = 0;
@@ -221,6 +221,11 @@ namespace FrontPerson.Manager
         /// </summary>
         private void MissionMonitoring()
         {
+            foreach(var b in MissionList)
+            {
+                b.CheckUpdate();
+            }
+
             for(int i = 0 ; i<MissionList.Count; i++ )
             {
                 var mission = MissionList[i];

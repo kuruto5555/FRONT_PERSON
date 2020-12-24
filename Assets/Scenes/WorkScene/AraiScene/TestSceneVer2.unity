@@ -2311,6 +2311,12 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3400952845557951417, guid: 34dc7089d86a38047a11c22287ec03bc,
+        type: 3}
+      propertyPath: StunEffect_
+      value: 
+      objectReference: {fileID: 5774319323658694673, guid: cd9edc7087627fc4bbe2ba98eb9c9d48,
+        type: 3}
     - target: {fileID: 3400952845557951418, guid: 34dc7089d86a38047a11c22287ec03bc,
         type: 3}
       propertyPath: m_LocalPosition.x
