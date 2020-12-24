@@ -103,7 +103,7 @@ namespace FrontPerson.UI
             RankingButton.onClick.AddListener(() => {
                 if (ApplicationManager.IsInput)
                 {
-                    SceneManager.Instance.SceneChange(SceneName.RESULT_SCENE, FadeTime);
+                    SceneManager.Instance.SceneChange(SceneName.RANKING_SCENE, FadeTime);
                     DecisionSound();
                 }
             });
