@@ -177,7 +177,7 @@ namespace FrontPerson.Character.Skill
             IsSearch = true;
             eria_.enabled = true;
             mesh_.enabled = true;
-            skillIntervalTimeCount_ = skillIntervalTime_;
+            
             AudioManager.Instance.Play3DSE(transform.position, SEPath.GAME_SE_SCAN);
         }
 
@@ -194,6 +194,9 @@ namespace FrontPerson.Character.Skill
             eria_.enabled = false;
             mesh_.enabled = false;
             transform.localScale = new Vector3(0.001f, 0.001f, 0.001f);
+            
+            // スキルのインターバル設定
+            skillIntervalTimeCount_ = skillIntervalTime_;
 
             IsSearch = false;
 
