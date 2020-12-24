@@ -38,6 +38,13 @@ namespace FrontPerson.UI
         {
             return_option_scene_ += AllowsTheMenuClose;
 
+            return_to_title_button_.onClick.AddListener(
+                () =>
+                {
+                    Manager.SceneManager.Instance.SceneChange(Constants.SceneName.TITLE_SCENE, 0.5f);
+                }
+                );
+
             foreach (var ui in ui_controllers_)
             {
                 // ボタンを押した際にどのメニューを開くのかを設定
