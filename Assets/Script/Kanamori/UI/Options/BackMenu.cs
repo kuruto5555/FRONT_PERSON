@@ -11,7 +11,7 @@ namespace FrontPerson.UI
         private GameObject menu_ = null;
 
         [SerializeField]
-        private InGameOptionMenu menu_cs_ = null;
+        private OptionMenu menu_cs_ = null;
 
         // Update is called once per frame
         private void Update()
@@ -23,7 +23,7 @@ namespace FrontPerson.UI
 
                 if(menu_cs_ != null)
                 {
-                    menu_cs_.AllowsTheMenuClose();
+                    menu_cs_.ReturnOptionScene();
                 }
             }
         }
