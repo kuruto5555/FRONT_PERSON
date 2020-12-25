@@ -25,7 +25,6 @@ namespace FrontPerson.Weapon
         new void Start()
         {
             _targetCamera = Camera.main;
-            _rect = GetComponent<RectTransform>();
             
             _ui = GetComponent<Image>();
 
@@ -75,6 +74,8 @@ namespace FrontPerson.Weapon
             _canvas = canvas;
             _canvasRect = _canvas.GetComponent<RectTransform>();
             _target = pos;
+            _rect = GetComponent<RectTransform>();
+            _rect.position = RectTransformUtility.WorldToScreenPoint(Camera.main, _target.position);
             _enemyData = _target.gameObject.GetComponent<Character.Enemy>();
         }
 
