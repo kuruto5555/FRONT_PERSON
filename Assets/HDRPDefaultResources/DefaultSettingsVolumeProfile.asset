@@ -325,11 +325,11 @@ MonoBehaviour:
     m_OverrideState: 1
     m_Value: 1
   limitMin:
-    m_OverrideState: 0
-    m_Value: -10
+    m_OverrideState: 1
+    m_Value: 8
   limitMax:
-    m_OverrideState: 0
-    m_Value: 10
+    m_OverrideState: 1
+    m_Value: 8
   curveMap:
     m_OverrideState: 0
     m_Value:
@@ -550,10 +550,10 @@ MonoBehaviour:
     m_OverrideState: 0
     m_Value: 0.3
   cascadeShadowBorder0:
-    m_OverrideState: 1
+    m_OverrideState: 0
     m_Value: 0.13333334
   cascadeShadowBorder1:
-    m_OverrideState: 1
+    m_OverrideState: 0
     m_Value: 0.06666666
   cascadeShadowBorder2:
     m_OverrideState: 0
