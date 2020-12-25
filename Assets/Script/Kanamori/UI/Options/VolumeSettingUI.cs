@@ -27,9 +27,9 @@ namespace FrontPerson.UI
                 Debug.LogError("音量設定のスライダーが設定されてません。");
             }
 
-            volume_slider_.value = AudioManager.Instance.Volume;
-            bgm_volume_slider_.value = AudioManager.Instance.BGMVolume;
-            se_volume_slider_.value = AudioManager.Instance.SEVolume;
+            volume_slider_.value = AudioManager.Instance.Volume * 10;
+            bgm_volume_slider_.value = AudioManager.Instance.BGMVolume * 10;
+            se_volume_slider_.value = AudioManager.Instance.SEVolume * 10;
 
             volume_slider_.onValueChanged.AddListener((value) => { AudioManager.Instance.Volume = value; });
             bgm_volume_slider_.onValueChanged.AddListener((value) => { AudioManager.Instance.BGMVolume = value; });
