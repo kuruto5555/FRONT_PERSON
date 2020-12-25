@@ -4,9 +4,10 @@ using UnityEngine;
 using FrontPerson.Gimmick;
 using FrontPerson.Manager;
 using FrontPerson.Weapon;
+using System.Collections;
 using System.Collections.Generic;
 using System;
-
+using UnityEngine.UI;
 
 namespace FrontPerson.Character
 {
@@ -205,7 +206,7 @@ namespace FrontPerson.Character
         /// </summary>
         Transform _canvas = null;
 
-        Animator _weaponAnim = null;
+        List<Animator> _weaponAnims = null;
 
         /// <summary>
         /// 現在触れている補給ポイント
@@ -329,6 +330,7 @@ namespace FrontPerson.Character
 
             //_viewRotetaSpeed = RotationSpeed_;
 
+            _weaponAnims = new List<Animator>();
             _weaponList = new List<Gun>();
 
             _weaponList.Add(gunL_);
@@ -370,7 +372,6 @@ namespace FrontPerson.Character
             Shot();
             Jump();
             WeaponStatus();
-            WeaponChangeUpdate();
 
             Reload(nutrientsRecoveryPoint_);
 
@@ -428,12 +429,12 @@ namespace FrontPerson.Character
         void Dash()
         {
             if (_isJump) return;
+            if (searchArea.IsSearch) return;
             if (IsStop)
             {
                 moveSpeed_ = walkSpeed_;
                 return;
             }
-
 
             if (Input.GetButton(Constants.InputName.DASH))
             {
@@ -651,6 +652,12 @@ namespace FrontPerson.Character
                 //無敵開始
                 IsInvincible = true;
 
+                // アニメーション途中の武器があったら再生する
+                foreach (var weaponAnim in _weaponAnims)
+                {
+                    weaponAnim.speed = 1f;
+                }
+
                 Destroy(_stunEffect);
             }
             
@@ -671,7 +678,13 @@ namespace FrontPerson.Character
 
             _nowStunSoundRate = StunSoundRate;
 
-            if(_stunEffect == null)
+            // アニメーション途中の武器があったら一時停止する
+            foreach (var weaponAnim in _weaponAnims)
+            {
+                weaponAnim.speed = 0f;
+            }
+
+            if (_stunEffect == null)
             {
                 _stunEffect = Instantiate(StunEffect_, transform);
             }
@@ -712,9 +725,9 @@ namespace FrontPerson.Character
             if (Weapon.Ammo <= 0 )
             {
                 //武器のアニメーションスタート
-                WeaponChangeAnimationStart();
-                _weaponAnim = Weapon.GetComponent<Animator>();
                 Weapon.ChangeAnimationStart("Put");
+                _weaponAnims.Add(Weapon.gameObject.GetComponent<Animator>());
+                StartCoroutine(WeaponChangeUpdate());
             }
             
         }
@@ -776,42 +789,73 @@ namespace FrontPerson.Character
         private bool isOne = false;
 
 
-        private void WeaponChangeUpdate()
+        private IEnumerator WeaponChangeUpdate()
         {
-            if (!_isWeaponChangeAnimation) return;
-            if (_weaponAnim == null) return;
-            //数フレーム待つ
-            if (!isOne)
+            if (_weaponAnims.Count != 0 && _isWeaponChangeAnimation == false)
             {
-                isOne = true;
-                return;
-            }
-            if (_weaponAnim.GetCurrentAnimatorStateInfo(0).normalizedTime < 0.9f) return;
+                WeaponChangeAnimationStart();
 
-            WeaponChangeAnimationFinish();
-
-            //弾切れでchangeした場合
-            if(Weapon == null)
-            {
-                SetWeapon();
-                
-            }
-            else
-            {
-                if (Weapon.Ammo <= 0)
+                // 1フレーム待つ
+                if (!isOne)
                 {
-                    gunL_.gameObject.SetActive(true);
-                    gunR_.gameObject.SetActive(true);
+                    isOne = true;
+                    yield return null;
                 }
-                else
+
+
+                // アニメーション再生待ち
+                while (_weaponAnims[0].GetCurrentAnimatorStateInfo(0).normalizedTime < 0.9f)
+                {
+                    yield return null;
+                }
+                // 再生が終わったらリストをいったん空にする
+                _weaponAnims.Clear();
+                isOne = false;
+
+
+                // ハンドガンからスペシャルウェポンに切り替わるとき
+                if (Weapon == null)
                 {
                     SetWeapon();
+                    _weaponAnims.Add(Weapon.gameObject.GetComponent<Animator>());
                 }
-            }
-            
-            isOne = false;
-            _weaponAnim = null;
+                // スペシャルウェポンから切り替わるとき
+                else
+                {
+                    //弾切れでハンドガンに戻るとき
+                    if (Weapon.Ammo <= 0)
+                    {
+                        gunL_.gameObject.SetActive(true);
+                        gunR_.gameObject.SetActive(true);
+//                        gunL_.ChangeAnimationStart("have");
+//                        gunR_.ChangeAnimationStart("have");
+                        _weaponAnims.Add(gunL_.gameObject.GetComponent<Animator>());
+                        _weaponAnims.Add(gunR_.gameObject.GetComponent<Animator>());
+                    }
+                    // 新しいスペシャルウェポンの時
+                    else
+                    {
+                        SetWeapon();
+                        _weaponAnims.Add(Weapon.gameObject.GetComponent<Animator>());
+                    }
+                }
 
+                // 1フレーム待つ
+                if (!isOne)
+                {
+                    isOne = true;
+                    yield return null;
+                }
+
+
+                // アニメーション再生待ち
+                while (_weaponAnims[0].GetCurrentAnimatorStateInfo(0).normalizedTime < 0.9f) yield return null;
+
+                // 武器の切り替え完了
+                isOne = false;
+                _weaponAnims.Clear();
+                WeaponChangeAnimationFinish();
+            }
         }
 
 
@@ -825,23 +869,24 @@ namespace FrontPerson.Character
             gunL_.Reload();
             gunR_.Reload();
 
-            WeaponChangeAnimationStart();
 
             if (IsSpecialWeapon)
             {
                 //Weapon.WeaponForcedChange();
                 //武器チェンジアニメーションスタート
                 Weapon.ChangeAnimationStart("Put");
-                _weaponAnim = Weapon.GetComponent<Animator>();
+                _weaponAnims.Add(Weapon.GetComponent<Animator>());
             }
             else
             {
                 //ハンドガンを下に下げるアニメーションを呼ぶ
                 gunL_.ChangeAnimationStart("Put");
                 gunR_.ChangeAnimationStart("Put");
-                _weaponAnim = gunL_.GetComponent<Animator>();
+                _weaponAnims.Add(gunL_.GetComponent<Animator>());
+                _weaponAnims.Add(gunR_.GetComponent<Animator>());
             }
 
+            StartCoroutine(WeaponChangeUpdate());
             _weaponType = type;
 
             //下２行アニメーションが出来次第消す
