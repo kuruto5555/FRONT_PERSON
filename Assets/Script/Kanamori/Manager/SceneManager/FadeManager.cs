@@ -23,6 +23,14 @@ namespace FrontPerson.Manager
         /// </summary>
         private Color fade_color_ = Color.white;
 
+        /// <summary>
+        /// アプリケーションマネージャー
+        /// シーン遷移中は入力を受け付けないようにするため
+        /// </summary>
+        ApplicationManager appManager_ = null;
+        public void SetAppManager(ApplicationManager appManager) { appManager_ = appManager; }
+
+
         public void OnGUI()
         {
             if (is_fade_)
@@ -40,6 +48,10 @@ namespace FrontPerson.Manager
         /// <param name="interval_time"></param>
         public void LoadScene(string scene_name, float interval_time, Color fade_color = default)
         {
+
+            appManager_.SetIsInput(false);
+
+
             fade_color_ = fade_color;
             if (fade_color_ == default)
             {
@@ -79,6 +91,8 @@ namespace FrontPerson.Manager
                 yield return 0;
             }
 
+
+            appManager_.SetIsInput(true);
             is_fade_ = false;
         }
     }
