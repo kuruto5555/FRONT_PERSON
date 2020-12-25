@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-
+using UnityEngine.AI;
 
 using FrontPerson.Enemy;
 
@@ -10,6 +10,9 @@ namespace FrontPerson.Enemy.AI
 {
     public class EnemyState_Escape : EnemyState_AI
     {
+        private Vector3 Destination = new Vector3();
+        
+
         public override void OnStart()
         {
             Set_AgentGoal();
@@ -36,7 +39,7 @@ namespace FrontPerson.Enemy.AI
 
             foreach (var pos in spawners_position)
             {
-                float distance = (Owner.transform.position - pos).magnitude;
+                float distance = (Owner.transform.position - pos).sqrMagnitude;
 
                 if (distance < escape_distance || 0f == escape_distance)
                 {
@@ -45,11 +48,20 @@ namespace FrontPerson.Enemy.AI
                 }
             }
 
+            Destination = escape_pos;
+
             Owner.SetTarget(escape_pos);
         }
 
         protected override void OnUpdate()
         {
+            // 目的地がUnity側で変更されていたら
+            if (Destination != Owner.Agent.destination)
+            {
+                Owner.SetTarget(Destination);
+                return;
+            }
+
             // 経路探索中なら、調べない
             if (false == Owner.Agent.pathPending)
             {
