@@ -350,18 +350,25 @@ namespace FrontPerson.Character
         // Update is called once per frame
         void Update()
         {
+            // ゲーム中出ないなら更新しない
             if (!_appManager.IsGamePlay) return;
 
+            // フラグ初期化
             _isFireLHand = _isFireRHand = false;
 
+            // 空中にいるときの処理もあるので先に呼ぶ
+            position_ = transform.position;
+            Jump();
+
+            // スタン中だったら他の処理をせずにスタンの時間を更新して終わり
             if (IsStun)
             {
                 StunStatus();
-
+                transform.position = position_;
                 return;
             }
 
-            position_ = transform.position;
+            
             DebugUpdeta();
             ItemStatusUpdate();
             InvincibleStatus();
@@ -370,7 +377,6 @@ namespace FrontPerson.Character
             Dash();
             Move();
             Shot();
-            Jump();
             WeaponStatus();
 
             Reload(nutrientsRecoveryPoint_);
@@ -463,7 +469,7 @@ namespace FrontPerson.Character
 
             if (Input.GetButtonDown(Constants.InputName.JUMP))
             {
-                if(!_isJump) //ジャンプが始まる瞬間
+                if(!_isJump && !IsStun) //ジャンプが始まる瞬間
                 {
                     _isJump = true;
                     _jumpForce = jumpPower;
@@ -827,8 +833,6 @@ namespace FrontPerson.Character
                     {
                         gunL_.gameObject.SetActive(true);
                         gunR_.gameObject.SetActive(true);
-//                        gunL_.ChangeAnimationStart("have");
-//                        gunR_.ChangeAnimationStart("have");
                         _weaponAnims.Add(gunL_.gameObject.GetComponent<Animator>());
                         _weaponAnims.Add(gunR_.gameObject.GetComponent<Animator>());
                     }
@@ -872,7 +876,6 @@ namespace FrontPerson.Character
 
             if (IsSpecialWeapon)
             {
-                //Weapon.WeaponForcedChange();
                 //武器チェンジアニメーションスタート
                 Weapon.ChangeAnimationStart("Put");
                 _weaponAnims.Add(Weapon.GetComponent<Animator>());
