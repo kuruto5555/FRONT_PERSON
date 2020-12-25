@@ -92,36 +92,39 @@ namespace FrontPerson.UI
 
             TitleMenu.SetActive(true);
 
+            SetButtonActive(true);
+
             StartButton.onClick.AddListener( () => {
                 if (ApplicationManager.IsInput)
                 {
-                    event_system.SetSelectedGameObject(null);
                     SceneManager.Instance.SceneChange(SceneName.GAME_SCENE, FadeTime);
                     DecisionSound();
+                    SetButtonActive(false);
                 }
             });
 
             RankingButton.onClick.AddListener(() => {
                 if (ApplicationManager.IsInput)
                 {
-                    event_system.SetSelectedGameObject(null);
                     SceneManager.Instance.SceneChange(SceneName.RANKING_SCENE, FadeTime);
                     DecisionSound();
+                    SetButtonActive(false);
                 }
             });
 
             OptionButton.onClick.AddListener(() => {
                 if (ApplicationManager.IsInput)
                 {
-                    event_system.SetSelectedGameObject(null);
                     TitleMenu.SetActive(false);
                     menu.OpenMenu();
                     DecisionSound();
+                    SetButtonActive(false);
                 }
             });
 
             ExitButton.onClick.AddListener(() => {
                 DecisionSound();
+                SetButtonActive(false);
 #if UNITY_EDITOR
                 UnityEditor.EditorApplication.isPlaying = false;
 #elif UNITY_STANDALONE
@@ -162,8 +165,18 @@ namespace FrontPerson.UI
         {
             TitleMenu.SetActive(true);
 
+            SetButtonActive(true);
+
             event_system.SetSelectedGameObject(StartButton.gameObject);
             current_buttom = StartButton.gameObject;
+        }
+
+        private void SetButtonActive(bool flag)
+        {
+            StartButton.enabled = flag;
+            RankingButton.enabled = flag;
+            OptionButton.enabled = flag;
+            ExitButton.enabled = flag;
         }
     }
 }

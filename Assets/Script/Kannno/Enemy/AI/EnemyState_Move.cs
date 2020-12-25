@@ -62,7 +62,7 @@ namespace FrontPerson.Enemy.AI
             if (false == Owner.Agent.pathPending)
             {
                 // 目的地についていたら次の目的地の方に行く
-                if (Owner.Agent.remainingDistance <= 1f)
+                if (Owner.Agent.remainingDistance <= 2f)
                 {
                     Vector3 destination = Owner.MoveList[(Owner.MoveIndex + 1) % Owner.MoveList.Count];
 
