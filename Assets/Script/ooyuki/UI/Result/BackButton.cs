@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using FrontPerson.Manager;
 using FrontPerson.Constants;
-using UnityEngine.UI;
+using UnityEngine.EventSystems;
 
 namespace FrontPerson.UI
 {
@@ -16,7 +16,7 @@ namespace FrontPerson.UI
         {
             if (isCrick) return;
 
-            GetComponent<Button>().enabled = false;
+            EventSystem.current.enabled = false;
             AudioManager.Instance.Play2DSE(gameObject, SEPath.COMMON_SE_BACK);
             SceneManager.Instance.SceneChange(SceneName.TITLE_SCENE, 2.0f, Color.black);
             isCrick = true;

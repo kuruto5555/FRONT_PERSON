@@ -1,10 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 using FrontPerson.Manager;
 using FrontPerson.Constants;
-
+using UnityEngine.EventSystems;
 
 public class RankingButton : MonoBehaviour
 {
@@ -15,7 +14,7 @@ public class RankingButton : MonoBehaviour
     {
         if (isCrick) return;
 
-        GetComponent<Button>().enabled = false;
+        EventSystem.current.enabled = false;
         AudioManager.Instance.Play2DSE(gameObject, SEPath.COMMON_SE_BACK);
         SceneManager.Instance.SceneChange(SceneName.RANKING_SCENE, 1f, Color.black);
 
