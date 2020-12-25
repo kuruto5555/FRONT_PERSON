@@ -26,44 +26,6 @@ namespace FrontPerson.Manager
         [SerializeField, Range(0f, 1f)]
         public float se_volume_ = 1f;
 
-        //public float Volume
-        //{
-        //    set
-        //    {
-        //        volume_ = Mathf.Clamp01(value * 0.1f);
-        //        bgm_volume_ = bgm_volume_ * volume_;
-        //        se_volume_ = se_volume_ * volume_;
-        //    }
-        //    get
-        //    {
-        //        return volume_;
-        //    }
-        //}
-        //public float BGMVolume
-        //{
-        //    set
-        //    {
-        //        bgm_volume_ = Mathf.Clamp01(value * 0.1f);
-        //        bgm_volume_ = bgm_volume_ * volume_;
-        //    }
-        //    get
-        //    {
-        //        return bgm_volume_;
-        //    }
-        //}
-        //public float SEVolume
-        //{
-        //    set
-        //    {
-        //        se_volume_ = Mathf.Clamp01(value * 0.1f);
-        //        se_volume_ = se_volume_ * volume_;
-        //    }
-        //    get
-        //    {
-        //        return se_volume_;
-        //    }
-        //}
-
         /// <summary>
         /// セーブデータができるまで
         /// </summary>
@@ -93,11 +55,6 @@ namespace FrontPerson.Manager
         /// 同じSEの最大同時発生音数 
         /// </summary>
         private const int MAX_SAME_SE_COUNT = 4;
-
-        /// <summary>
-        /// 音声のデフォ音量
-        /// </summary>
-        private const float DEFAULT_SOUND_VOLUME = 1f;
 
         /// <summary>
         /// 音源一覧
@@ -188,7 +145,7 @@ namespace FrontPerson.Manager
             set
             {
                 audio_volume_.bgm_volume_ = Mathf.Clamp01(value * 0.1f);
-                bgm_audiosource.volume = BGMVolume *Volume;
+                bgm_audiosource.volume = audio_volume_.bgm_volume_ * Volume;
             }
             get
             {
@@ -200,7 +157,7 @@ namespace FrontPerson.Manager
             set
             {
                 audio_volume_.se_volume_ = Mathf.Clamp01(value * 0.1f);
-                se_volume = SEVolume *Volume;
+                se_volume = audio_volume_.se_volume_ * Volume;
             }
             get
             {
@@ -212,11 +169,8 @@ namespace FrontPerson.Manager
         {
             // セーブデータができたら修正
             audio_volume_ = new AudioVolume();
-        }
 
-        // Start is called before the first frame update
-        void Start()
-        {
+
             //オーディオファイルへのパスを抽出
             string directory_name = Path.GetFileName(AUDIO_DIRECTORY_PATH);
             var audio_path_dict = new Dictionary<string, string>();
@@ -230,21 +184,13 @@ namespace FrontPerson.Manager
             audio_3D_prefab = Resources.Load<GameObject>("3DAudio");
 
             mixer = Resources.Load<AudioMixer>("AudioMix");
-            mixer_master    = mixer.FindMatchingGroups("Master")[0];
-            mixer_se        = mixer.FindMatchingGroups("SE")[0];
-            mixer_bgm       = mixer.FindMatchingGroups("BGM")[0];
-
+            mixer_master = mixer.FindMatchingGroups("Master")[0];
+            mixer_se = mixer.FindMatchingGroups("SE")[0];
+            mixer_bgm = mixer.FindMatchingGroups("BGM")[0];
         }
 
         void LateUpdate()
         {
-            //if (bgm_audiosource != null)
-            //{
-                
-            //}
-
-            //bgm_audiosource.volume = DEFAULT_SOUND_VOLUME * BGMVolume;
-
             if (fade_out)
             {
                 if(fade_in)
@@ -279,7 +225,7 @@ namespace FrontPerson.Manager
             foreach (AudioInfo info in sound_info_list)
             {
                 {
-                    info.source.PlayOneShot(info.clip, DEFAULT_SOUND_VOLUME * se_volume);
+                    info.source.PlayOneShot(info.clip, audio_volume_.volume_ * se_volume);
                 }
             }
 
@@ -352,6 +298,8 @@ namespace FrontPerson.Manager
 
             bgm_audiosource.clip = SearchBGM(bgm_name);
 
+            bgm_audiosource.volume = Volume * BGMVolume;
+
             fade_time = fade_time_;
 
             bgm_audiosource.Play();
@@ -392,9 +340,7 @@ namespace FrontPerson.Manager
         {
             if (source == null)
             {
-                me.AddComponent<AudioSource>();
-
-                source = me.GetComponent<AudioSource>();
+                source = me.AddComponent<AudioSource>();
             }
             //2Dサウンド設定
             source.spatialBlend = 0;
@@ -402,7 +348,6 @@ namespace FrontPerson.Manager
 
             //起動時再生をfalseに
             source.playOnAwake = false;
-
 
             if (sound_se)
                 source.outputAudioMixerGroup = mixer_se;
