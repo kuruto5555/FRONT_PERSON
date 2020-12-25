@@ -245,12 +245,17 @@ namespace FrontPerson.Manager
                         _player.WeaponUpgrade(Random.Range(0, SpecialWeaponManager._instance._weaponNum));
                     }
                 }
-
-                // クリアしたミッションのところに新しいミッションを作成
-                MissionList[i] = Instantiate(MissionPrefabList[Random.Range(0, _missionNum)], transform).GetComponent<Bounty.Bounty>();
-                // クリアしたほうは消す
-                mission.ImDie();
             }
+        }
+
+
+        public void ClearMissionDelete(int index)
+        {
+            var mission = MissionList[index];
+            // クリアしたミッションのところに新しいミッションを作成
+            MissionList[index] = Instantiate(MissionPrefabList[Random.Range(0, _missionNum)], transform).GetComponent<Bounty.Bounty>();
+            // クリアしたほうは消す
+            mission.ImDie();
         }
     }
 }
