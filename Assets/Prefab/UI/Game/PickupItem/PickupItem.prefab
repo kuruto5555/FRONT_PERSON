@@ -131,9 +131,9 @@ MonoBehaviour:
   - {fileID: 5159724353712378986}
   - {fileID: 2710692540542443718}
   ItemSprites:
-  - {fileID: 21300000, guid: c6064d1cad1ba614d99c3ce0d2df57ee, type: 3}
-  - {fileID: 21300000, guid: 3c6bad43dede29047a0c7cabcf4d5525, type: 3}
-  - {fileID: 21300000, guid: f8f37d645bff64544af72f2e0589a38b, type: 3}
+  - {fileID: 21300000, guid: 3a85b7d72597c624b8eaf64a3bca354f, type: 3}
+  - {fileID: 21300000, guid: dac12f6b0729707439e51535ec080404, type: 3}
+  - {fileID: 21300000, guid: 0addf15c3d4c7cf48822c93d78dd6959, type: 3}
 --- !u!95 &6642804831391888911
 Animator:
   serializedVersion: 3
