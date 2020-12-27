@@ -27,26 +27,14 @@ namespace FrontPerson.Enemy.AI
         /// </summary>
         protected SearchArea SearchArea = null;
 
-        /// <summary>
-        /// MovePointIndexをステートが変わっても保存する為の変数
-        //// </summary>
-        protected int MoveIndex = 0;
-
-        /// <summary>
-        /// 移動先の一覧をステートが変わっても保存する為の変数
-        /// </summary>
-        protected List<Vector3> MovetList = new List<Vector3>();
-
-        public void Start()
+        private void Start()
         {
-            OnStart();
-
             Player = GameObject.FindGameObjectWithTag(Constants.TagName.PLAYER)?.GetComponent<Player>();
 
             SearchArea = GetComponentInChildren<SearchArea>();
         }
 
-        public void Update()
+        private void Update()
         {
             OnUpdate();
             OnChangeState();
@@ -56,7 +44,7 @@ namespace FrontPerson.Enemy.AI
         /// 抽象関数
         /// 継承者は宣言しないとエラー吐きますよ。
         /// </summary>
-        protected abstract void OnStart();
+        public abstract void OnStart();
         protected abstract void OnUpdate();
 
         /// <summary>
@@ -96,14 +84,7 @@ namespace FrontPerson.Enemy.AI
             Destroy(Owner.state_AI);
             Owner.state_AI = Owner.gameObject.AddComponent<T>();
             Owner.state_AI.SetOwner(Owner);
-
-            Owner.state_AI.Save_MovePoint(MoveIndex, MovetList);
-
-            if(null != Owner.state_AI as EnemyState_Move)
-            {
-                // EnemyState_Move なら MovetList を復元する
-                Owner.state_AI.Load_MovePoint(MoveIndex, MovetList);
-            }
+            Owner.state_AI.OnStart();
 
 //デバッグ用
 #if UNITY_EDITOR
@@ -135,32 +116,7 @@ namespace FrontPerson.Enemy.AI
                 case EnemyType.YAKUZA:
                     OnChangeState_Yakuza();
                     break;
-
-#if UNITY_EDITOR
-                default:
-                    Debug.LogError("Owner.Type : 不正な値です");
-                    break;
-#endif
             }
-        }
-
-        /// <summary>
-        /// MovePointをステートが変わっても保存する
-        /// </summary>
-        private void Save_MovePoint(int MovePointIndex, List<Vector3> MovePoint_List)
-        {
-            MoveIndex = MovePointIndex;
-
-            MovetList = MovePoint_List;
-        }
-
-        public void Load_MovePoint(int MovePointIndex, List<Vector3> MovePoint_List)
-        {
-            EnemyState_Move ai = this as EnemyState_Move;
-
-            ai.MoveIndex = MovePointIndex;
-
-            ai.MovetList = MovePoint_List;
         }
     }
 }

@@ -66,13 +66,13 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 9171952328373019990, guid: 5dcfc038cdd92cb4a83327ecceeaed32, type: 3}
-  - {fileID: -3644972105331941941, guid: 5dcfc038cdd92cb4a83327ecceeaed32, type: 3}
-  - {fileID: -4740866918696808673, guid: 5dcfc038cdd92cb4a83327ecceeaed32, type: 3}
-  - {fileID: 6390135900836002883, guid: 5dcfc038cdd92cb4a83327ecceeaed32, type: 3}
-  - {fileID: -3592343407582198811, guid: 5dcfc038cdd92cb4a83327ecceeaed32, type: 3}
-  - {fileID: -6323844964185410916, guid: 5dcfc038cdd92cb4a83327ecceeaed32, type: 3}
-  - {fileID: -4365414236465575212, guid: 5dcfc038cdd92cb4a83327ecceeaed32, type: 3}
+  - {fileID: 2100000, guid: 3d5ab1091e4452b40859322d8e81799b, type: 2}
+  - {fileID: 2100000, guid: ad86ea49352754d4e967b2380a54e055, type: 2}
+  - {fileID: 2100000, guid: 1b1209a9bf28d4345bfb327f22b7eb7d, type: 2}
+  - {fileID: 2100000, guid: bfc5c8094881a1c4a925f7718c8cf9ef, type: 2}
+  - {fileID: 2100000, guid: fd84fe2643c76654f9c79934409a5e4f, type: 2}
+  - {fileID: 2100000, guid: da98329d54838304d823eab13127f456, type: 2}
+  - {fileID: 2100000, guid: 873f26d1be2095d42b46b2aafa75870d, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -158,6 +158,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tetxMesh: {fileID: 7613980996502420136}
   insufficiency: 100
+  MovePattern: {fileID: 0}
   state_AI: {fileID: 8566340662139561610}
 --- !u!114 &8566340662139561610
 MonoBehaviour:
@@ -171,8 +172,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f38d331ad3c2c14cba4edfe7b5b4bff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MovePattern: {fileID: 0}
-  RadiusOffset: 0.3
 --- !u!114 &-6613755219490943438
 MonoBehaviour:
   m_ObjectHideFlags: 0

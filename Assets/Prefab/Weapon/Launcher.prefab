@@ -328,7 +328,7 @@ MonoBehaviour:
     type: 3}
   LockOnMax: 10
   LockOnTime: 0.4
-  TargerLostTime: 10
+  TargerLostTime: 5
   Cursor_: {fileID: 3163502147343172641, guid: 8e72371abbd26034e9b3af3d53b40146, type: 3}
   Angle: 10
 --- !u!65 &128926359991266315

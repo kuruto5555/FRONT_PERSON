@@ -71,7 +71,7 @@ MonoBehaviour:
   _range: 50
   Radius_: 5
   Blast_: {fileID: 3724696068791601323, guid: 5f6337f466ce305498337605832898a3, type: 3}
-  TurnSpeed_: 0.07
+  TurnSpeed_: 0.13
   StartHeight_: 50
   Particle_: {fileID: 3768628226506098523}
   _BlastEffect: {fileID: 7420113861134389894, guid: b4e8598914de95f4c8fd621ed546c9c8,

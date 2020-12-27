@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
+  m_IndirectSpecularColor: {r: 262.3371, g: 325.05005, b: 430.21954, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -197,6 +197,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1900577550}
     m_Modifications:
+    - target: {fileID: 1409689347560578096, guid: 3cb22b0dcae36544980f8628d54fc7f7,
+        type: 3}
+      propertyPath: MovePattern
+      value: 
+      objectReference: {fileID: 925852165}
     - target: {fileID: 1630501616957606417, guid: 3cb22b0dcae36544980f8628d54fc7f7,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1135,6 +1140,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2811532335922510156, guid: fac17614e55ef2347920bfef4d730f0d,
+        type: 3}
+      propertyPath: MovePattern
+      value: 
+      objectReference: {fileID: 925852165}
     - target: {fileID: 6058391280694767586, guid: fac17614e55ef2347920bfef4d730f0d,
         type: 3}
       propertyPath: m_Name
@@ -1953,6 +1963,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2811532335922510156, guid: fac17614e55ef2347920bfef4d730f0d,
+        type: 3}
+      propertyPath: MovePattern
+      value: 
+      objectReference: {fileID: 645142076}
     - target: {fileID: 6058391280694767586, guid: fac17614e55ef2347920bfef4d730f0d,
         type: 3}
       propertyPath: m_Name
@@ -1977,6 +1992,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Yakuza (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 7092531068719793735, guid: 2d8b76e7ce591474d86d0d2bf8e36e09,
+        type: 3}
+      propertyPath: MovePattern
+      value: 
+      objectReference: {fileID: 1599612299}
     - target: {fileID: 7092531068719793742, guid: 2d8b76e7ce591474d86d0d2bf8e36e09,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -2312,6 +2332,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1900577550}
     m_Modifications:
+    - target: {fileID: 1409689347560578096, guid: 3cb22b0dcae36544980f8628d54fc7f7,
+        type: 3}
+      propertyPath: MovePattern
+      value: 
+      objectReference: {fileID: 925852165}
     - target: {fileID: 1630501616957606417, guid: 3cb22b0dcae36544980f8628d54fc7f7,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -3130,6 +3155,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Yakuza (3)
       objectReference: {fileID: 0}
+    - target: {fileID: 7092531068719793735, guid: 2d8b76e7ce591474d86d0d2bf8e36e09,
+        type: 3}
+      propertyPath: MovePattern
+      value: 
+      objectReference: {fileID: 1599612299}
     - target: {fileID: 7092531068719793742, guid: 2d8b76e7ce591474d86d0d2bf8e36e09,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -3204,6 +3234,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Yakuza
       objectReference: {fileID: 0}
+    - target: {fileID: 7092531068719793735, guid: 2d8b76e7ce591474d86d0d2bf8e36e09,
+        type: 3}
+      propertyPath: MovePattern
+      value: 
+      objectReference: {fileID: 1599612299}
     - target: {fileID: 7092531068719793742, guid: 2d8b76e7ce591474d86d0d2bf8e36e09,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -3361,6 +3396,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1900577550}
     m_Modifications:
+    - target: {fileID: 1409689347560578096, guid: 3cb22b0dcae36544980f8628d54fc7f7,
+        type: 3}
+      propertyPath: MovePattern
+      value: 
+      objectReference: {fileID: 645142076}
     - target: {fileID: 1630501616957606417, guid: 3cb22b0dcae36544980f8628d54fc7f7,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -3981,6 +4021,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2811532335922510156, guid: fac17614e55ef2347920bfef4d730f0d,
+        type: 3}
+      propertyPath: MovePattern
+      value: 
+      objectReference: {fileID: 925852165}
     - target: {fileID: 6058391280694767586, guid: fac17614e55ef2347920bfef4d730f0d,
         type: 3}
       propertyPath: m_Name
@@ -4094,6 +4139,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1900577550}
     m_Modifications:
+    - target: {fileID: 1409689347560578096, guid: 3cb22b0dcae36544980f8628d54fc7f7,
+        type: 3}
+      propertyPath: MovePattern
+      value: 
+      objectReference: {fileID: 645142076}
     - target: {fileID: 1630501616957606417, guid: 3cb22b0dcae36544980f8628d54fc7f7,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -4341,6 +4391,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1900577550}
     m_Modifications:
+    - target: {fileID: 1409689347560578096, guid: 3cb22b0dcae36544980f8628d54fc7f7,
+        type: 3}
+      propertyPath: MovePattern
+      value: 
+      objectReference: {fileID: 645142076}
     - target: {fileID: 1630501616957606417, guid: 3cb22b0dcae36544980f8628d54fc7f7,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -4474,6 +4529,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2811532335922510156, guid: fac17614e55ef2347920bfef4d730f0d,
+        type: 3}
+      propertyPath: MovePattern
+      value: 
+      objectReference: {fileID: 925852165}
     - target: {fileID: 6058391280694767586, guid: fac17614e55ef2347920bfef4d730f0d,
         type: 3}
       propertyPath: m_Name
@@ -4680,6 +4740,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Yakuza (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 7092531068719793735, guid: 2d8b76e7ce591474d86d0d2bf8e36e09,
+        type: 3}
+      propertyPath: MovePattern
+      value: 
+      objectReference: {fileID: 1599612299}
     - target: {fileID: 7092531068719793742, guid: 2d8b76e7ce591474d86d0d2bf8e36e09,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -5952,6 +6017,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2811532335922510156, guid: fac17614e55ef2347920bfef4d730f0d,
+        type: 3}
+      propertyPath: MovePattern
+      value: 
+      objectReference: {fileID: 645142076}
     - target: {fileID: 6058391280694767586, guid: fac17614e55ef2347920bfef4d730f0d,
         type: 3}
       propertyPath: m_Name
@@ -6289,6 +6359,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2811532335922510156, guid: fac17614e55ef2347920bfef4d730f0d,
+        type: 3}
+      propertyPath: MovePattern
+      value: 
+      objectReference: {fileID: 645142076}
     - target: {fileID: 6058391280694767586, guid: fac17614e55ef2347920bfef4d730f0d,
         type: 3}
       propertyPath: m_Name

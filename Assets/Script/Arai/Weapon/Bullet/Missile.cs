@@ -45,7 +45,7 @@ namespace FrontPerson.Weapon
             _isHoming = false;
             _targetPos = _target.position;
 
-            newPos = transform.position + transform.forward * 25.0f;
+            newPos = transform.position + transform.forward * 10.0f;
             newPos.y = StartHeight_;
         }
 

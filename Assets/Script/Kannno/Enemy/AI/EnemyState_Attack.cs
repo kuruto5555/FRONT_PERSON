@@ -6,12 +6,12 @@ namespace FrontPerson.Enemy.AI
 {
     public class EnemyState_Attack : EnemyState_AI
     {
-        private SearchArea searchArea = null;
+        //private SearchArea searchArea = null;
 
-        protected override void OnStart()
+        public override void OnStart()
         {
-            searchArea = GetComponentInChildren<SearchArea>();
         }
+
 
         protected override void OnUpdate()
         {
@@ -23,7 +23,7 @@ namespace FrontPerson.Enemy.AI
 
         protected override void OnChangeState_OldBattleaxe()
         {
-            if (!searchArea.IsFound || Player.IsStun || Player.IsTransparent)
+            if (!SearchArea.IsFound || Player.IsStun || Player.IsTransparent)
             {
                 ChangeState<EnemyState_Move>();
 
@@ -38,7 +38,7 @@ namespace FrontPerson.Enemy.AI
 
         protected override void OnChangeState_Yakuza()
         {
-            if (!searchArea.IsFound || Player.IsStun || Player.IsTransparent)
+            if (!SearchArea.IsFound || Player.IsStun || Player.IsTransparent)
             {
                 ChangeState<EnemyState_Move>();
                 return;

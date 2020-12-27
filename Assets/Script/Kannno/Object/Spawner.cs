@@ -255,9 +255,7 @@ namespace FrontPerson.Enemy
             // 移動パターンの設定
             int cnt = Random.Range(0, OrdinaryPeople_MovePatternList.Count);
 
-            EnemyState_Move ai = enemy.state_AI as EnemyState_Move;
-
-            ai.Set_MovePattern(OrdinaryPeople_MovePatternList[cnt]);
+            enemy.MovePattern = OrdinaryPeople_MovePatternList[cnt];
 
 #if UNITY_EDITOR
             Debug.Log("一般人の生成");
@@ -278,7 +276,7 @@ namespace FrontPerson.Enemy
 
             EnemyState_Move ai = enemy.state_AI as EnemyState_Move;
 
-            ai.Set_MovePattern(OldBattleaxe_MovePatternList[cnt]);
+            enemy.MovePattern = OldBattleaxe_MovePatternList[cnt];
 
 #if UNITY_EDITOR
             Debug.Log("おばちゃんの生成");
@@ -299,7 +297,7 @@ namespace FrontPerson.Enemy
 
             EnemyState_Move ai = enemy.state_AI as EnemyState_Move;
 
-            ai.Set_MovePattern(Yakuza_MovePatternList[cnt]);
+            enemy.MovePattern = Yakuza_MovePatternList[cnt];
 
 #if UNITY_EDITOR
             Debug.Log("ヤクザの生成");

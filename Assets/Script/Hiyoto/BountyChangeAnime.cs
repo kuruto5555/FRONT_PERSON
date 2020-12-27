@@ -50,6 +50,7 @@ namespace FrontPerson.Anim
                     animator_.Play(changeBounty_FailedAnimHash);
                 }
 
+                bountyManager.ClearMissionDelete(number);
             }
         }
     }

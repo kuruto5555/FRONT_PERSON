@@ -50,6 +50,7 @@ namespace FrontPerson.Manager
         static void RuntimeInit()
         {
             var go = new GameObject("ApplicationManager", typeof(ApplicationManager));
+            var appm = go.GetComponent<ApplicationManager>(); 
 
             go.tag = FrontPerson.Constants.TagName.MANAGER;
 
@@ -59,7 +60,9 @@ namespace FrontPerson.Manager
                 am.Init();
 
                 go.AddComponent<SceneManager>();
-                go.AddComponent<FadeManager>();
+                
+                var fm = go.AddComponent<FadeManager>();
+                fm.SetAppManager(appm);
             }
 
             DontDestroyOnLoad(go);
@@ -72,6 +75,7 @@ namespace FrontPerson.Manager
         /// </summary>
         private void OnApplicationQuit()
         {
+            Save();
         }
 
         /// <summary>

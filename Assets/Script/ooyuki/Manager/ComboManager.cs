@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using FrontPerson.common;
 using FrontPerson.Enemy;
-using System.ComponentModel;
 using FrontPerson.Constants;
 using FrontPerson.UI;
 
@@ -295,20 +294,18 @@ namespace FrontPerson.Manager
         /// <returns>コンボ途切れボーナス</returns>
         private void LostComboBonus()
         {
-            if(IsComboInsurance)
-
             // コンボ数が0なのにどうやってここに来るんだよ
             // 正解は、0コンボで間違った敵を撃った時だよ
             if (ComboNum == 0) return;
 
 
             // コンボ途切れボーナススコアの計算
-            var lostComboBonus = (int)(50 * ComboNum
+            var lostComboBonus = (50f * ComboNum
                 * (1f + ((1f - spawner_.ProbabilityOrdinaryPeople) * ordinaryPeopleNum_))
                 * (1f + ((1f - spawner_.ProbabilityOldBattleaxe) * oldBattleaxeNum_))
                 * (1f + ((1f - spawner_.ProbabilityYakuza) * yakuzaNum_)));
             // スコア加算
-            scoreManager_.AddScore(lostComboBonus, Score.ADD_SCORE_TYPE.COMBO_SCORE);
+            scoreManager_.AddScore((int)lostComboBonus, Score.ADD_SCORE_TYPE.COMBO_SCORE);
         }
 
 

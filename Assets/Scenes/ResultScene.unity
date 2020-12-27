@@ -121,12 +121,18 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!1 &50809542 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 6027212255266759654, guid: d6230c432fce9334c83ab85b8cff9c24,
+--- !u!114 &50809543 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4502084916609956053, guid: d6230c432fce9334c83ab85b8cff9c24,
     type: 3}
   m_PrefabInstance: {fileID: 1488756713}
   m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &170680196 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 1383285351850141527, guid: d6230c432fce9334c83ab85b8cff9c24,
@@ -172,8 +178,8 @@ MonoBehaviour:
   comboNumGraph_: {fileID: 170680196}
   missionClearNumGraph_: {fileID: 1430366604}
   totalScore_: {fileID: 1715519043}
-  backButton_: {fileID: 1036791991}
-  rabkingButton_: {fileID: 50809542}
+  backButton_: {fileID: 1036791993}
+  rabkingButton_: {fileID: 50809543}
   totalScoreGuideline_: a086010020a1070040420f00
 --- !u!4 &323177212
 Transform:
@@ -399,6 +405,18 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 1488756713}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1036791993 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5190486413065763720, guid: d6230c432fce9334c83ab85b8cff9c24,
+    type: 3}
+  m_PrefabInstance: {fileID: 1488756713}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1036791991}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &1430366604 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 1597533013769123875, guid: d6230c432fce9334c83ab85b8cff9c24,
