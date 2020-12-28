@@ -45,7 +45,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   OrdinaryPeople: {fileID: 6058391280694767586, guid: fac17614e55ef2347920bfef4d730f0d,
     type: 3}
-  OldBattleaxe: {fileID: 2059869559280428493, guid: 3cb22b0dcae36544980f8628d54fc7f7,
+  OldBattleaxe: {fileID: 8192698400311268398, guid: 3cb22b0dcae36544980f8628d54fc7f7,
     type: 3}
   Yakuza: {fileID: 7092531068719793732, guid: 2d8b76e7ce591474d86d0d2bf8e36e09, type: 3}
   Probability_OrdinaryPeople: 0.6
