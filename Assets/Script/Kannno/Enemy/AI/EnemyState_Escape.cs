@@ -66,7 +66,7 @@ namespace FrontPerson.Enemy.AI
             if (false == Owner.Agent.pathPending)
             {
                 // 目的地についていたら敵の消す
-                if (Owner.Agent.remainingDistance <= 5f)
+                if (Owner.Agent.remainingDistance <= 10f)
                 {
                     Owner.SetDead();
                 }

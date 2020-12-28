@@ -32,6 +32,11 @@ namespace FrontPerson.Enemy.AI
             Player = GameObject.FindGameObjectWithTag(Constants.TagName.PLAYER)?.GetComponent<Player>();
 
             SearchArea = GetComponentInChildren<SearchArea>();
+
+            if(null == Owner)
+            {
+                Owner = GetComponent<Character.Enemy>();
+            }
         }
 
         private void Update()

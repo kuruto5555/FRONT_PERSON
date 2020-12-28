@@ -61,6 +61,13 @@ namespace FrontPerson.Character
         /// </summary>
         public EnemyState_AI state_AI = null;
 
+        public Animator Animator { get; private set; } = null;
+
+        /// <summary>
+        /// 健康かを表すアニメーションフラグ
+        /// </summary>
+        protected bool isFine_anime = false;
+
         /// <summary>
         /// 倒れていることを判断するフラグ(true = 倒れている)
         /// </summary>
@@ -88,6 +95,8 @@ namespace FrontPerson.Character
         private void Start()
         {
             agent = GetComponent<NavMeshAgent>();
+
+            Animator = GetComponent<Animator>();
 
             if (null == state_AI) state_AI = GetComponent<EnemyState_AI>();
 
