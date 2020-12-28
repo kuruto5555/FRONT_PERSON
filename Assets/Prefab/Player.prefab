@@ -410,8 +410,8 @@ MonoBehaviour:
   areaSizeMAX_: 50
   skillIntervalTime_: 15
   skillEffectTime_: 10
-  vitaminCMat_: {fileID: 2100000, guid: 17af22a233c316d4db89c88321f27f89, type: 2}
-  vitaminDMat_: {fileID: 2100000, guid: 9c48cc0c8c718114ab97ee1c9030d8e7, type: 2}
+  vitaminCMat_: {fileID: 2100000, guid: e6a824d90017eb84fafce58a2db7a27b, type: 2}
+  vitaminDMat_: {fileID: 2100000, guid: af4c69ab99abf5b4c9c470a56a166b3f, type: 2}
 --- !u!1001 &6599615601196812583
 PrefabInstance:
   m_ObjectHideFlags: 0
