@@ -19,8 +19,10 @@ namespace FrontPerson.Bounty
         }
 
         // Update is called once per frame
-        void LateUpdate()
+        public override void CheckUpdate()
         {
+            base.CheckUpdate();
+
             _progressString = "残り " + _nowTime.ToString("00") + "秒";
 
             if (_Bmanager.GetIsPlayerDamage()) 
