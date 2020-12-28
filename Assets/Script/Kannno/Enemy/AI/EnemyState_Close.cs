@@ -63,12 +63,20 @@ namespace FrontPerson.Enemy.AI
             {
                 ChangeState<EnemyState_Move>();
 
+                OldBattleaxe enemy = Owner as OldBattleaxe;
+
+                enemy.isAngry = false;
+
                 return;
             }
 
             if (Mathf.Abs((Owner.transform.position - goal.position).magnitude) <= 3.0f)
             {
                 ChangeState<EnemyState_Attack>();
+
+                OldBattleaxe enemy = Owner as OldBattleaxe;
+
+                enemy.AttackTriggrr();
 
                 return;
             }

@@ -23,28 +23,29 @@ namespace FrontPerson.Enemy.AI
 
         protected override void OnChangeState_OldBattleaxe()
         {
-            if (!SearchArea.IsFound || Player.IsStun || Player.IsTransparent)
-            {
-                ChangeState<EnemyState_Move>();
+            OldBattleaxe enemy = Owner as OldBattleaxe;
 
-                OldBattleaxe enemy = Owner as OldBattleaxe;
-
-                enemy.isHit = false;
-                return;
-            }
+            enemy.isHit = false;
+            enemy.isAngry = false;
 
             Player.Stun();
+
+            //if (!SearchArea.IsFound || Player.IsStun || Player.IsTransparent)
+            {
+                ChangeState<EnemyState_Move>();
+            }
+
+            enemy.ResetAttackTriggrr();
         }
 
         protected override void OnChangeState_Yakuza()
         {
-            if (!SearchArea.IsFound || Player.IsStun || Player.IsTransparent)
+            Player.Stun();
+
+            //if (!SearchArea.IsFound || Player.IsStun || Player.IsTransparent)
             {
                 ChangeState<EnemyState_Move>();
-                return;
             }
-
-            Player.Stun();
         }
     }
 }
