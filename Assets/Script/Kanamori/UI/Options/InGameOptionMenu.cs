@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
+using FrontPerson.Manager;
 
 namespace FrontPerson.UI
 {
@@ -14,7 +15,24 @@ namespace FrontPerson.UI
         /// </summary>
         private bool is_opened_and_closed_ = true;
 
+        /// <summary>
+        /// 現在開いているかどうか
+        /// true -> メニューを開いている
+        /// float -> メニューを閉じている
+        /// </summary>
         public bool IsOpen { get; private set; } = false;
+
+        /// <summary>
+        /// タイトルへ戻るが押されたかどうか
+        /// true -> タイトルへ戻るが押された
+        /// false -> タイトルへ戻るがまだ押されていない
+        /// </summary>
+        public bool IsGoToTitle { get; private set; } = false;
+
+        /// <summary>
+        /// アプリケーションマネージャー
+        /// </summary>
+        ApplicationManager appManager_ = null;
 
         /// <summary>
         /// メニューを閉じれるようにする
@@ -36,12 +54,16 @@ namespace FrontPerson.UI
 
         protected override void OnStart()
         {
+            appManager_ = FindObjectOfType<ApplicationManager>();
+
             return_option_scene_ += AllowsTheMenuClose;
 
             return_to_title_button_.onClick.AddListener(
                 () =>
                 {
                     Time.timeScale = 1f;
+                    appManager_.SetIsInput(false);
+                    IsGoToTitle = true;
                     Manager.SceneManager.Instance.SceneChange(Constants.SceneName.TITLE_SCENE, 0.5f);
                 }
                 );
@@ -61,6 +83,10 @@ namespace FrontPerson.UI
 
         protected override void OnUpdate()
         {
+            // タイトルへが押されていたら処理しない
+            if (!appManager_.IsInput) return;
+            if (IsGoToTitle) return;
+
             // メニュー開閉
             if (Input.GetButtonDown(Constants.InputName.PAUSE) && is_opened_and_closed_)
             {

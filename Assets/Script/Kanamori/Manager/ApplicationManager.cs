@@ -35,6 +35,11 @@ namespace FrontPerson.Manager
         /// false -> 受け付けない
         /// </summary>
         public bool IsInput { get; private set; } = true;
+        /// <summary>
+        /// 入力を受け付けるかどうかのセット
+        /// true -> 受け付ける
+        /// false -> 受け付けない
+        /// </summary>
         public void SetIsInput(bool value) { IsInput = value; }
 
         /// <summary>
@@ -43,6 +48,11 @@ namespace FrontPerson.Manager
         /// false -> ゲームプレイ外
         /// </summary>
         public bool IsGamePlay { get; private set; } = false;
+        /// <summary>
+        /// ゲーム開始フラグのセット
+        /// true -> ゲームプレイ中
+        /// false -> ゲームプレイ外
+        /// </summary>
         public void SetIsGamePlay(bool value) { IsGamePlay = value; }
 
 
