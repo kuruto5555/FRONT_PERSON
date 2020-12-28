@@ -146,6 +146,9 @@ namespace FrontPerson.Manager
                 case GAME_SCENE_STATE.TRANSITION:
                     TransitionUpdate();
                     break;
+
+                case GAME_SCENE_STATE.FINISH:
+                    break;
             }
         }
 
@@ -243,8 +246,19 @@ namespace FrontPerson.Manager
 
         void OpenMenuUpdate()
         {
+            if (optionMenu_.IsGoToTitle)
+            {
+                // ゲーム中をトゥルー
+                applicationManager_.SetIsGamePlay(false);
+                applicationManager_.SetIsInput(false);
+                // カーソルをロック
+                CursorManager.CursorUnlock();
+                // ステートをプレイにする
+                state_ = GAME_SCENE_STATE.TRANSITION;
+            }
+
             // メニューが閉じたら
-            if (!optionMenu_.IsOpen)
+            else if (!optionMenu_.IsOpen)
             {
                 // ゲーム中をトゥルー
                 applicationManager_.SetIsGamePlay(true);
@@ -285,7 +299,7 @@ namespace FrontPerson.Manager
 
         void TransitionUpdate()
         {
-            applicationManager_.SetIsInput(true);
+            applicationManager_.SetIsInput(false);
             state_ = GAME_SCENE_STATE.FINISH;
         }
     }
