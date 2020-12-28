@@ -239,7 +239,7 @@ namespace FrontPerson.Manager
                     _missionCnt++;
 
                     //ミッションクリア数が３つになったら
-                    if (_missionCnt % GET_WEAPON_MISSON_NUM > 0)
+                    if (_missionCnt % GET_WEAPON_MISSON_NUM == 0)
                     {
                         //武器を出す
                         _player.WeaponUpgrade(Random.Range(0, SpecialWeaponManager._instance._weaponNum));
