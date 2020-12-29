@@ -4,6 +4,7 @@ using UnityEngine;
 using FrontPerson.Manager;
 using FrontPerson.Constants;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 namespace FrontPerson.UI
 {
@@ -11,6 +12,8 @@ namespace FrontPerson.UI
     {
         bool isCrick = false;
 
+        [SerializeField]
+        private Button button = null;
 
         public void OnCrick()
         {
@@ -20,6 +23,8 @@ namespace FrontPerson.UI
             AudioManager.Instance.Play2DSE(gameObject, SEPath.COMMON_SE_BACK);
             SceneManager.Instance.SceneChange(SceneName.TITLE_SCENE, 2.0f, Color.black);
             isCrick = true;
+
+            button.enabled = false;
         }
     }
 }
