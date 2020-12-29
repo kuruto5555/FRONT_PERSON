@@ -23,7 +23,7 @@ namespace FrontPerson.Enemy
         /// <summary>
         /// 撃退を表すアニメーションフラグ
         /// </summary>
-        protected bool isRepel_anime = false;
+        private bool isRepel_anime = false;
 
         protected override void OnAwake()
         {

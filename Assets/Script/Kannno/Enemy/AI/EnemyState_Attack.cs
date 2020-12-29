@@ -42,6 +42,9 @@ namespace FrontPerson.Enemy.AI
 
             //if (!SearchArea.IsFound || Player.IsStun || Player.IsTransparent)
             {
+                var enemy = Owner as Yakuza;
+                enemy.isDiscovery_anime = false;
+
                 ChangeState<EnemyState_Move>();
             }
         }

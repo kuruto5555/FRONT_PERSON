@@ -78,8 +78,6 @@ namespace FrontPerson.Enemy.AI
 
                 OldBattleaxe enemy = Owner as OldBattleaxe;
 
-                //enemy.Attack();
-
                 enemy.Animator.Play(ATTACK);
 
                 return;
@@ -88,9 +86,13 @@ namespace FrontPerson.Enemy.AI
 
         protected override void OnChangeState_Yakuza()
         {
+            var enemy = Owner as Yakuza;
+
             if (Player.IsStun || Player.IsInvincible || Player.IsTransparent)
             {
                 ChangeState<EnemyState_Move>();
+
+                enemy.isDiscovery_anime = false;
 
                 return;
             }
@@ -98,6 +100,8 @@ namespace FrontPerson.Enemy.AI
             if (Mathf.Abs((Owner.transform.position - goal.position).magnitude) <= 3.0f)
             {
                 ChangeState<EnemyState_Attack>();
+
+                enemy.Animator.Play(ATTACK);
 
                 return;
             }
