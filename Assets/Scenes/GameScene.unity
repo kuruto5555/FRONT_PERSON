@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
+  m_IndirectSpecularColor: {r: 156.82774, g: 308.6633, b: 539.91345, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -6416,6 +6416,12 @@ PrefabInstance:
       propertyPath: OrdinaryPeople_MovePatternList.Array.data[1]
       value: 
       objectReference: {fileID: 1840290339}
+    - target: {fileID: 7869129166089239699, guid: b83719008a53ace48bf3a8eb74b3f348,
+        type: 3}
+      propertyPath: OldBattleaxe
+      value: 
+      objectReference: {fileID: 8192698400311268398, guid: 3cb22b0dcae36544980f8628d54fc7f7,
+        type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b83719008a53ace48bf3a8eb74b3f348, type: 3}
 --- !u!4 &744739511 stripped
@@ -17092,6 +17098,12 @@ PrefabInstance:
       propertyPath: OrdinaryPeople_MovePatternList.Array.data[1]
       value: 
       objectReference: {fileID: 1840290339}
+    - target: {fileID: 7869129166089239699, guid: b83719008a53ace48bf3a8eb74b3f348,
+        type: 3}
+      propertyPath: OldBattleaxe
+      value: 
+      objectReference: {fileID: 8192698400311268398, guid: 3cb22b0dcae36544980f8628d54fc7f7,
+        type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b83719008a53ace48bf3a8eb74b3f348, type: 3}
 --- !u!1001 &1970745897
