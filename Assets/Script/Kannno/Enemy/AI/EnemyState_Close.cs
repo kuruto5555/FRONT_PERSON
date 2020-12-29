@@ -76,7 +76,7 @@ namespace FrontPerson.Enemy.AI
 
                 OldBattleaxe enemy = Owner as OldBattleaxe;
 
-                enemy.AttackTriggrr();
+                enemy.Attack();
 
                 return;
             }

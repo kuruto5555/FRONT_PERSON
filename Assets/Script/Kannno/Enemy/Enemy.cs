@@ -69,6 +69,11 @@ namespace FrontPerson.Character
         protected bool isFine_anime = false;
 
         /// <summary>
+        /// 攻撃するを表すアニメーションフラグ
+        /// </summary>
+        protected bool isAttack_anime = false;
+
+        /// <summary>
         /// 倒れていることを判断するフラグ(true = 倒れている)
         /// </summary>
         public bool isDown { get; private set; } = false;

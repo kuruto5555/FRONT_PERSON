@@ -34,8 +34,6 @@ namespace FrontPerson.Enemy.AI
             {
                 ChangeState<EnemyState_Move>();
             }
-
-            enemy.ResetAttackTriggrr();
         }
 
         protected override void OnChangeState_Yakuza()

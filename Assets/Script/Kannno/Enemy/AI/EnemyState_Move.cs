@@ -83,6 +83,8 @@ namespace FrontPerson.Enemy.AI
 
             OldBattleaxe enemy = Owner as OldBattleaxe;
 
+            enemy.ResetAttack();
+
             if (Player.IsStun || Player.IsInvincible || Player.IsTransparent)
             {
                 if (enemy.isHit) enemy.isHit = false;

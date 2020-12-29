@@ -75,14 +75,14 @@ namespace FrontPerson.Enemy
             }
         }
 
-        public void AttackTriggrr()
+        public void Attack()
         {
-            Animator.SetTrigger("Attack");
+            isAttack_anime = true;
         }
 
-        public void ResetAttackTriggrr()
+        public void ResetAttack()
         {
-            Animator.ResetTrigger("Attack");
+            isAttack_anime = false;
         }
 
         private void Angry()
@@ -101,6 +101,7 @@ namespace FrontPerson.Enemy
         private void Animation()
         {
             Animator.SetBool("isFine", isFine_anime);
+            Animator.SetBool("isAttack", isAttack_anime);
 
             Animator.SetBool("isAngry", isAngry);
             Animator.SetBool("isRepel", isRepel_anime);
