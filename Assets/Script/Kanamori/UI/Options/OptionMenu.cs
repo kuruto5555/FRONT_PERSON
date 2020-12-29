@@ -41,6 +41,18 @@ namespace FrontPerson.UI
         [SerializeField]
         protected Button return_to_title_button_ = null;
 
+        [Tooltip("オーディオ設定ボタン")]
+        [SerializeField]
+        protected Button audioSetting_button_ = null;
+
+        [Tooltip("感度設定ボタン")]
+        [SerializeField]
+        protected Button sensivity_button_ = null;
+
+        [Tooltip("操作設定ボタン")]
+        [SerializeField]
+        protected Button operationSettings_button_ = null;
+
         protected EventSystem event_system_;
 
         protected UnityAction return_option_scene_;

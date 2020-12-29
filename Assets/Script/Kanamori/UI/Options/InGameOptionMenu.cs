@@ -29,6 +29,8 @@ namespace FrontPerson.UI
         /// </summary>
         public bool IsGoToTitle { get; private set; } = false;
 
+
+
         /// <summary>
         /// アプリケーションマネージャー
         /// </summary>
@@ -63,7 +65,8 @@ namespace FrontPerson.UI
                 {
                     Time.timeScale = 1f;
                     appManager_.SetIsInput(false);
-                    IsGoToTitle = true;
+                    //IsGoToTitle = true;
+                    SetButtonActive(false);
                     Manager.SceneManager.Instance.SceneChange(Constants.SceneName.TITLE_SCENE, 0.5f);
                 }
                 );
@@ -79,13 +82,15 @@ namespace FrontPerson.UI
                     }
                     );
             }
+
+            SetButtonActive(true);
         }
 
         protected override void OnUpdate()
         {
             // タイトルへが押されていたら処理しない
             if (!appManager_.IsInput) return;
-            if (IsGoToTitle) return;
+            //if (IsGoToTitle) return;
 
             // メニュー開閉
             if (Input.GetButtonDown(Constants.InputName.PAUSE) && is_opened_and_closed_)
@@ -101,8 +106,18 @@ namespace FrontPerson.UI
                     IsOpen = menu.activeSelf;
                 }
 
+                SetButtonActive(true);
+
                 FirstTouchSelectable.Select(event_system_, ui_controllers_[0].button_to_open_the_menu_);
             }
+        }
+
+        private void SetButtonActive(bool flag)
+        {
+            return_to_title_button_.enabled = flag;
+            audioSetting_button_.enabled = flag;
+            sensivity_button_.enabled = flag;
+            operationSettings_button_.enabled = flag;
         }
     }
 }
