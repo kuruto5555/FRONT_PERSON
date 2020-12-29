@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 9139538498654915040}
   - component: {fileID: 3470105820480278964}
   - component: {fileID: 7875608417927531805}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Benti
   m_TagString: Untagged
   m_Icon: {fileID: 0}
