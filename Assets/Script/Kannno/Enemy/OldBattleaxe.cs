@@ -74,6 +74,7 @@ namespace FrontPerson.Enemy
             else
             {
                 isHit = false;
+                isAngry = false;
             }
         }
 
