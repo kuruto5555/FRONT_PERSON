@@ -56,7 +56,7 @@ namespace FrontPerson.Enemy.AI
         protected override void OnUpdate()
         {
             // 目的地がUnity側で変更されていたら
-            if (Destination != Owner.Agent.destination)
+            if (false == CheckDestination())
             {
                 Owner.SetTarget(Destination);
                 return;
@@ -83,6 +83,23 @@ namespace FrontPerson.Enemy.AI
 
         protected override void OnChangeState_Yakuza()
         {
+        }
+
+        private bool CheckDestination()
+        {
+            var dest = Owner.Agent.destination;
+
+            if (Destination.x != dest.x)
+            {
+                return false;
+            }
+
+            if (Destination.z != dest.z)
+            {
+                return false;
+            }
+
+            return true;
         }
     }
 }
