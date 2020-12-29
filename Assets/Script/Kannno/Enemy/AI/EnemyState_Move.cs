@@ -88,6 +88,7 @@ namespace FrontPerson.Enemy.AI
             if (Player.IsStun || Player.IsInvincible || Player.IsTransparent)
             {
                 if (enemy.isHit) enemy.isHit = false;
+                enemy.isAngry = false;
                 return;
             }
 
