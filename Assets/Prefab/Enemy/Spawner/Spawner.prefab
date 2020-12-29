@@ -47,7 +47,7 @@ MonoBehaviour:
     type: 3}
   OldBattleaxe: {fileID: 8192698400311268398, guid: 3cb22b0dcae36544980f8628d54fc7f7,
     type: 3}
-  Yakuza: {fileID: 7092531068719793732, guid: 2d8b76e7ce591474d86d0d2bf8e36e09, type: 3}
+  Yakuza: {fileID: 1966432663834502527, guid: 2d8b76e7ce591474d86d0d2bf8e36e09, type: 3}
   Probability_OrdinaryPeople: 0.6
   Probability_OldBattleaxe: 0.25
   Probability_Yakuza: 0.15

@@ -23,7 +23,7 @@ namespace FrontPerson.Enemy
         /// <summary>
         /// 撃退を表すアニメーションフラグ
         /// </summary>
-        protected bool isRepel_anime = false;
+        private bool isRepel_anime = false;
 
         protected override void OnAwake()
         {
@@ -75,13 +75,15 @@ namespace FrontPerson.Enemy
             }
         }
 
-        public void AttackTriggrr()
+        public void Attack()
         {
+            //isAttack_anime = true;
             Animator.SetTrigger("Attack");
         }
 
-        public void ResetAttackTriggrr()
+        public void ResetAttack()
         {
+            //isAttack_anime = false;
             Animator.ResetTrigger("Attack");
         }
 
@@ -101,6 +103,7 @@ namespace FrontPerson.Enemy
         private void Animation()
         {
             Animator.SetBool("isFine", isFine_anime);
+            //Animator.SetBool("isAttack", isAttack_anime);
 
             Animator.SetBool("isAngry", isAngry);
             Animator.SetBool("isRepel", isRepel_anime);

@@ -83,6 +83,8 @@ namespace FrontPerson.Enemy.AI
 
             OldBattleaxe enemy = Owner as OldBattleaxe;
 
+            //enemy.ResetAttack();
+
             if (Player.IsStun || Player.IsInvincible || Player.IsTransparent)
             {
                 if (enemy.isHit) enemy.isHit = false;
@@ -99,15 +101,21 @@ namespace FrontPerson.Enemy.AI
 
         protected override void OnChangeState_Yakuza()
         {
+            var enemy = Owner as Yakuza;
+
             if (null == Player) return;
 
-            if (Player.IsStun || Player.IsInvincible || Player.IsTransparent) return;
+            if (Player.IsStun || Player.IsInvincible || Player.IsTransparent)
+            {
+                enemy.isDiscovery_anime = false;
+                return;
+            }
 
             if (SearchArea.IsFound)
             {
                 ChangeState<EnemyState_Close>();
 
-                var ai = Owner.state_AI as EnemyState_Close;
+                enemy.isDiscovery_anime = true;
 
                 AudioManager.Instance.Play3DSE(Owner.transform.position, SEPath.GAME_SE_VOICE_YAKUZA);
             }
