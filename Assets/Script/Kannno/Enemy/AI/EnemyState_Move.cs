@@ -96,6 +96,8 @@ namespace FrontPerson.Enemy.AI
             {
                 ChangeState<EnemyState_Close>();
 
+                enemy.isAngry = true;
+
                 var ai = Owner.state_AI as EnemyState_Close;
             }
         }

@@ -64,8 +64,6 @@ namespace FrontPerson.Enemy
                 // 弾の種類と足りないビタミンが違う
                 isHit = true;
 
-                isAngry = true;
-
                 // コンボの終了
                 ComboManager.Instance.LostCombo();
 
@@ -74,7 +72,6 @@ namespace FrontPerson.Enemy
             else
             {
                 isHit = false;
-                isAngry = false;
             }
         }
 
