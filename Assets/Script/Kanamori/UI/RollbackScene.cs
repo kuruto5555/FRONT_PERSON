@@ -19,6 +19,7 @@ namespace FrontPerson.UI
                     () =>
                     {
                         Manager.SceneManager.Instance.SceneChange(Constants.SceneName.TITLE_SCENE, 0.5f);
+                        back_button_.enabled = false;
                     }
                     );
             }
