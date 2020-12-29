@@ -1490,6 +1490,9 @@ MonoBehaviour:
   - {fileID: 2078812727398108735}
   - {fileID: 2078812727146474558}
   return_to_title_button_: {fileID: 2078812727094118454}
+  audioSetting_button_: {fileID: 0}
+  sensivity_button_: {fileID: 0}
+  operationSettings_button_: {fileID: 0}
   TitleMenu: {fileID: 0}
 --- !u!1 &2078812726568909921
 GameObject:

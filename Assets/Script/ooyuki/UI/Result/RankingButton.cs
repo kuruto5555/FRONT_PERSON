@@ -4,11 +4,14 @@ using UnityEngine;
 using FrontPerson.Manager;
 using FrontPerson.Constants;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 public class RankingButton : MonoBehaviour
 {
     bool isCrick = false;
 
+    [SerializeField]
+    private Button button = null;
 
     public void OnCrick()
     {
@@ -19,5 +22,7 @@ public class RankingButton : MonoBehaviour
         SceneManager.Instance.SceneChange(SceneName.RANKING_SCENE, 1f, Color.black);
 
         isCrick = true;
+
+        button.enabled = false;
     }
 }
