@@ -26,6 +26,8 @@ namespace FrontPerson.Enemy.AI
 
         public float max_time = 1.0f;
 
+        private readonly int ATTACK = Animator.StringToHash("Attack");
+
         public override void OnStart()
         {
             if (null == Player)
@@ -76,7 +78,9 @@ namespace FrontPerson.Enemy.AI
 
                 OldBattleaxe enemy = Owner as OldBattleaxe;
 
-                enemy.Attack();
+                //enemy.Attack();
+
+                enemy.Animator.Play(ATTACK);
 
                 return;
             }
