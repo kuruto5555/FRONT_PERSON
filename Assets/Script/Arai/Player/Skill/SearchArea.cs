@@ -59,6 +59,11 @@ namespace FrontPerson.Character.Skill
         MeshRenderer mesh_ = null;
 
         /// <summary>
+        /// スキルのUI
+        /// </summary>
+        UI_Skill skillDraw_ = null;
+
+        /// <summary>
         /// エリアに入ったやつのマテリアル情報を保存。
         /// Searchをやめたときに戻して、リセットする
         /// </summary>
@@ -77,7 +82,12 @@ namespace FrontPerson.Character.Skill
         /// <summary>
         /// スキルのインターバルの計測用変数
         /// </summary>
-        float skillIntervalTimeCount_ = 0f;
+        public float SkillIntervalTimeCount_ { get; private set; } = 0f;
+        
+        /// <summary>
+        /// スキルのインターバル定数
+        /// </summary>
+        public float SkillIntervalTime { get { return skillIntervalTime_; } }
 
 
         // Start is called before the first frame update
@@ -96,16 +106,18 @@ namespace FrontPerson.Character.Skill
             mesh_ = GetComponent<MeshRenderer>();
             mesh_.enabled = false;
 
+            skillDraw_ = FindObjectOfType<UI_Skill>();
+
         }
 
         // Update is called once per frame
         void Update()
         {
             // スキルのインターバル更新
-            if(skillIntervalTimeCount_ > 0)
+            if(SkillIntervalTimeCount_ > 0)
             {
-                skillIntervalTimeCount_ -= Time.deltaTime;
-                if (skillIntervalTimeCount_ <= 0)
+                SkillIntervalTimeCount_ -= Time.deltaTime;
+                if (SkillIntervalTimeCount_ <= 0)
                     IsUse = true;
             }
 
@@ -165,7 +177,7 @@ namespace FrontPerson.Character.Skill
         public void Search()
         {
             // スキルのインターバルが回復していなけらば帰る
-            if (skillIntervalTimeCount_ > 0 || !IsUse)
+            if (SkillIntervalTimeCount_ > 0 || !IsUse)
             {
                 AudioManager.Instance.Play3DSE(transform.position, SEPath.GAME_SE_SCAN_ERROR);
                 return;
@@ -196,8 +208,12 @@ namespace FrontPerson.Character.Skill
             transform.localScale = new Vector3(0.001f, 0.001f, 0.001f);
             
             // スキルのインターバル設定
-            skillIntervalTimeCount_ = skillIntervalTime_;
+            SkillIntervalTimeCount_ = skillIntervalTime_;
 
+            // UIにサーチがクールタイムになったことを知らせる
+            skillDraw_.StartCoolTime();
+
+            // サーチ中フラグを無効化
             IsSearch = false;
 
             // スキル効果時間の設定
