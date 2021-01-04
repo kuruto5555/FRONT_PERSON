@@ -10,7 +10,7 @@ namespace FrontPerson.Enemy.AI
 
         public override void OnStart()
         {
-            PlayAnimation(EnemyAnimation.Attack, 0.5f);
+            PlayAnimation(EnemyAnimation.Attack, 0.2f);
         }
 
 

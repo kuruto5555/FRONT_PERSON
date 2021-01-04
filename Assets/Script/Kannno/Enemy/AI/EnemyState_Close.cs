@@ -42,7 +42,7 @@ namespace FrontPerson.Enemy.AI
 
             time = Time.timeSinceLevelLoad;
 
-            PlayAnimation(EnemyAnimation.Angry, 0.5f);
+            Animation();
         }
 
         protected override void OnUpdate()
@@ -119,6 +119,21 @@ namespace FrontPerson.Enemy.AI
             vec_radius.y = 0f;
 
             Offset = vec_radius;
+        }
+
+        private void Animation()
+        {
+            if (EnemyType.OLD_BATTLEAXE == Owner.Type)
+            {
+                PlayAnimation(EnemyAnimation.Angry, 0.5f);
+                return;
+            }
+
+            if (EnemyType.YAKUZA == Owner.Type)
+            {
+                PlayAnimation(EnemyAnimation.Run, 0.5f);
+                return;
+            }
         }
     }
 }

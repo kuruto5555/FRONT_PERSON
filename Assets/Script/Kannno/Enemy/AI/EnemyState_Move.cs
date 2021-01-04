@@ -26,7 +26,7 @@ namespace FrontPerson.Enemy.AI
             }
 #endif
 
-            if(EnemyType.ORDINATY_PEOPLE != Owner.Type) PlayAnimation(EnemyAnimation.Walk, 0f);
+            if(EnemyType.ORDINATY_PEOPLE != Owner.Type) PlayAnimation(EnemyAnimation.Walk, 8.0f);
         }
 
         /// <summary>

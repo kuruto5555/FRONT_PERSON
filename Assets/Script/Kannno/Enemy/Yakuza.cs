@@ -38,7 +38,7 @@ namespace FrontPerson.Enemy
 
         private void Animation()
         {
-            Animator.CrossFadeInFixedTime(EnemyAnimation.Repel, 0.5f);
+            Animator.CrossFadeInFixedTime(EnemyAnimation.Escape, 0.5f);
         }
     }
 }

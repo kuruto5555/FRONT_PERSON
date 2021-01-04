@@ -124,9 +124,9 @@ namespace FrontPerson.Enemy.AI
             }
         }
 
-        protected void PlayAnimation(int animationHash, float fixedTransitionDuration)
+        protected void PlayAnimation(int animationHash, float fixedTransitionDuration, int layer = 0, float fixedTimeOffset = 0f, float normalizedTransitionTime = 0f)
         {
-            Owner.Animator.CrossFadeInFixedTime(animationHash, fixedTransitionDuration);
+            Owner.Animator.CrossFadeInFixedTime(animationHash, fixedTransitionDuration, layer, fixedTimeOffset, normalizedTransitionTime);
         }
     }
 }
