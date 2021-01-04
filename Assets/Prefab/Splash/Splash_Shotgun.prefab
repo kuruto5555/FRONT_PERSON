@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1771293724065146219}
   - component: {fileID: 1771293724065146216}
   - component: {fileID: 1771293724065146217}
-  m_Layer: 11
+  m_Layer: 15
   m_Name: Splash_Shotgun
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 8539761214703523531}
   - component: {fileID: 8539761214703523528}
   - component: {fileID: 8539761214703523529}
-  m_Layer: 11
+  m_Layer: 15
   m_Name: Splash_MachineGun
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -14,6 +14,7 @@ public static class LayerNumber
 	public const int ITEM             =13;
 	public const int PLAYER           =8;
 	public const int RECOVERY_POPINT  =10;
+	public const int SPLASH           =15;
 	public const int TRANSPARENT_FX   =1;
 	public const int UI               =5;
 	public const int WATER            =4;
