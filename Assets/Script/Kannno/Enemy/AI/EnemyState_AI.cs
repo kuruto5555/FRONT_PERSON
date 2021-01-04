@@ -123,5 +123,10 @@ namespace FrontPerson.Enemy.AI
                     break;
             }
         }
+
+        protected void PlayAnimation(int animationHash, float fixedTransitionDuration)
+        {
+            Owner.Animator.CrossFadeInFixedTime(animationHash, fixedTransitionDuration);
+        }
     }
 }

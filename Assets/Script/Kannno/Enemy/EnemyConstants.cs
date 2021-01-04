@@ -47,4 +47,42 @@ namespace FrontPerson.Enemy
         /// </summary>
         YAKUZA = 200
     };
+
+    public class EnemyAnimation
+    {
+        /// <summary>
+        /// 歩きアニメーション
+        /// </summary>
+        static public readonly int Walk = Animator.StringToHash("Walk");
+
+        /// <summary>
+        /// 追いかけてくるアニメーション
+        /// </summary>
+        static public readonly int Run = Animator.StringToHash("Run");
+
+        /// <summary>
+        /// 怒るアニメーション
+        /// </summary>
+        static public readonly int Angry = Animator.StringToHash("Angry");
+
+        /// <summary>
+        /// 攻撃アニメーション
+        /// </summary>
+        static public readonly int Attack = Animator.StringToHash("Attack");
+
+        /// <summary>
+        /// 撃退アニメーション
+        /// </summary>
+        static public readonly int Repel = Animator.StringToHash("Repel");
+
+        /// <summary>
+        /// 元気アニメーション
+        /// </summary>
+        static public readonly int Fine = Animator.StringToHash("Fine");
+
+        /// <summary>
+        /// 逃げるアニメーション
+        /// </summary>
+        static public readonly int Escape = Animator.StringToHash("Escape");
+    }
 }

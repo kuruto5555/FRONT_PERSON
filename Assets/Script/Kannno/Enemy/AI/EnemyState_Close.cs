@@ -41,6 +41,8 @@ namespace FrontPerson.Enemy.AI
             Owner.SetTarget(goal.position + offset);
 
             time = Time.timeSinceLevelLoad;
+
+            PlayAnimation(EnemyAnimation.Angry, 0.5f);
         }
 
         protected override void OnUpdate()
@@ -89,8 +91,6 @@ namespace FrontPerson.Enemy.AI
             if (Player.IsStun || Player.IsInvincible || Player.IsTransparent)
             {
                 ChangeState<EnemyState_Move>();
-
-                enemy.isDiscovery_anime = false;
 
                 return;
             }
