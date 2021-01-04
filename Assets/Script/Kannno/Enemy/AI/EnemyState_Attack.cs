@@ -10,6 +10,7 @@ namespace FrontPerson.Enemy.AI
 
         public override void OnStart()
         {
+            PlayAnimation(EnemyAnimation.Attack, 0.2f);
         }
 
 
@@ -43,7 +44,6 @@ namespace FrontPerson.Enemy.AI
             //if (!SearchArea.IsFound || Player.IsStun || Player.IsTransparent)
             {
                 var enemy = Owner as Yakuza;
-                enemy.isDiscovery_anime = false;
 
                 ChangeState<EnemyState_Move>();
             }
