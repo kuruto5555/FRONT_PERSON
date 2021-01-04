@@ -41,6 +41,8 @@ namespace FrontPerson.Enemy.AI
             Owner.SetTarget(goal.position + offset);
 
             time = Time.timeSinceLevelLoad;
+
+            Animation();
         }
 
         protected override void OnUpdate()
@@ -61,11 +63,11 @@ namespace FrontPerson.Enemy.AI
 
         protected override void OnChangeState_OldBattleaxe()
         {
+            OldBattleaxe enemy = Owner as OldBattleaxe;
+
             if (Player.IsStun || Player.IsInvincible || Player.IsTransparent)
             {
                 ChangeState<EnemyState_Move>();
-
-                OldBattleaxe enemy = Owner as OldBattleaxe;
 
                 enemy.isAngry = false;
 
@@ -75,8 +77,6 @@ namespace FrontPerson.Enemy.AI
             if (Mathf.Abs((Owner.transform.position - goal.position).magnitude) <= 3.0f)
             {
                 ChangeState<EnemyState_Attack>();
-
-                OldBattleaxe enemy = Owner as OldBattleaxe;
 
                 enemy.Animator.Play(ATTACK);
 
@@ -91,8 +91,6 @@ namespace FrontPerson.Enemy.AI
             if (Player.IsStun || Player.IsInvincible || Player.IsTransparent)
             {
                 ChangeState<EnemyState_Move>();
-
-                enemy.isDiscovery_anime = false;
 
                 return;
             }
@@ -121,6 +119,21 @@ namespace FrontPerson.Enemy.AI
             vec_radius.y = 0f;
 
             Offset = vec_radius;
+        }
+
+        private void Animation()
+        {
+            if (EnemyType.OLD_BATTLEAXE == Owner.Type)
+            {
+                PlayAnimation(EnemyAnimation.Angry, 0.5f);
+                return;
+            }
+
+            if (EnemyType.YAKUZA == Owner.Type)
+            {
+                PlayAnimation(EnemyAnimation.Run, 0.5f);
+                return;
+            }
         }
     }
 }

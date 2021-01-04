@@ -25,6 +25,8 @@ namespace FrontPerson.Enemy.AI
                 Debug.LogError("MovePattern が設定されていません");
             }
 #endif
+
+            if(EnemyType.ORDINATY_PEOPLE != Owner.Type) PlayAnimation(EnemyAnimation.Walk, 8.0f);
         }
 
         /// <summary>
@@ -88,11 +90,14 @@ namespace FrontPerson.Enemy.AI
             if (Player.IsStun || Player.IsInvincible || Player.IsTransparent)
             {
                 if (enemy.isHit) enemy.isHit = false;
+                enemy.isAngry = false;
                 return;
             }
 
             if (enemy.isHit)
             {
+                enemy.isAngry = true;
+
                 ChangeState<EnemyState_Close>();
 
                 var ai = Owner.state_AI as EnemyState_Close;
@@ -107,15 +112,12 @@ namespace FrontPerson.Enemy.AI
 
             if (Player.IsStun || Player.IsInvincible || Player.IsTransparent)
             {
-                enemy.isDiscovery_anime = false;
                 return;
             }
 
             if (SearchArea.IsFound)
             {
                 ChangeState<EnemyState_Close>();
-
-                enemy.isDiscovery_anime = true;
 
                 AudioManager.Instance.Play3DSE(Owner.transform.position, SEPath.GAME_SE_VOICE_YAKUZA);
             }

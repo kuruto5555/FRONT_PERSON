@@ -20,11 +20,6 @@ namespace FrontPerson.Enemy
         /// </summary>
         public bool isAngry { get; set; } = false;
 
-        /// <summary>
-        /// 撃退を表すアニメーションフラグ
-        /// </summary>
-        private bool isRepel_anime = false;
-
         protected override void OnAwake()
         {
             Type = EnemyType.OLD_BATTLEAXE;
@@ -36,7 +31,6 @@ namespace FrontPerson.Enemy
 
         protected override void OnUpdate()
         {
-            Animation();
         }
 
         public override void HitBullet(Bullet bullet)
@@ -49,20 +43,20 @@ namespace FrontPerson.Enemy
             {
                 SetDown();
 
-                Angry();
-
                 // バウンティの処理
                 var bounty_manager = GameObject.FindGameObjectWithTag(Constants.TagName.BOUNTY_MANAGER).GetComponent<BountyManager>();
 
                 bounty_manager.EnemyDeath((int)lack_vitamins);
+
+                Animation();
+
+                return;
             }
 
             if (lack_vitamins != bullet.BulletType && Constants.NUTRIENTS_TYPE._ALL != bullet.BulletType)
             {
                 // 弾の種類と足りないビタミンが違う
                 isHit = true;
-
-                isAngry = true;
 
                 // コンボの終了
                 ComboManager.Instance.LostCombo();
@@ -75,38 +69,16 @@ namespace FrontPerson.Enemy
             }
         }
 
-        public void Attack()
+        private void Animation()
         {
-            //isAttack_anime = true;
-            Animator.SetTrigger("Attack");
-        }
-
-        public void ResetAttack()
-        {
-            //isAttack_anime = false;
-            Animator.ResetTrigger("Attack");
-        }
-
-        private void Angry()
-        {
-            if (isAngry)
+            if(isAngry)
             {
-                isRepel_anime = true;
+                Animator.CrossFadeInFixedTime(EnemyAnimation.Repel, 0.5f);
             }
             else
             {
-                isRepel_anime = false;
-                isFine_anime = true;
+                Animator.CrossFadeInFixedTime(EnemyAnimation.Fine, 0.5f);
             }
-        }
-
-        private void Animation()
-        {
-            Animator.SetBool("isFine", isFine_anime);
-            //Animator.SetBool("isAttack", isAttack_anime);
-
-            Animator.SetBool("isAngry", isAngry);
-            Animator.SetBool("isRepel", isRepel_anime);
         }
     }
 }
