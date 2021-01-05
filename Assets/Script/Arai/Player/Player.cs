@@ -797,7 +797,7 @@ namespace FrontPerson.Character
 
         private int animCnt = 0;
 
-        private bool newWeapon = false;
+        private bool _isNewWeapon = false;
 
         private IEnumerator WeaponChangeUpdate()
         {
@@ -809,7 +809,7 @@ namespace FrontPerson.Character
                 if (!isOne)
                 {
                     animCnt = _weaponAnims.Count;
-                    newWeapon = false;
+                    _isNewWeapon = false;
                     isOne = true;
                     yield return null;
                 }
@@ -824,7 +824,7 @@ namespace FrontPerson.Character
                 {
                     if(animCnt != _weaponAnims.Count)
                     {
-                        newWeapon = true;
+                        _isNewWeapon = true;
                     }
 
                     yield return null;
@@ -844,7 +844,7 @@ namespace FrontPerson.Character
                 else
                 {
                     //弾切れでハンドガンに戻るとき
-                    if (Weapon.Ammo <= 0 && !newWeapon)
+                    if (Weapon.Ammo <= 0 && !_isNewWeapon)
                     {
                         gunL_.gameObject.SetActive(true);
                         gunR_.gameObject.SetActive(true);
