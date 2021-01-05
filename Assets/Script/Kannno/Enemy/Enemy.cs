@@ -206,7 +206,7 @@ namespace FrontPerson.Character
                         break;
                 }
 
-                GetComponent<EnemyBelongings>().DropItem();
+                GetComponent<EnemyBelongings>().DropItem(new Vector3(0f, 0.5f, 0f));
 
                 state_AI.ChangeState<EnemyState_Escape>();
 
