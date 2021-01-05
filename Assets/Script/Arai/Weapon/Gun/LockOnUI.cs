@@ -7,6 +7,9 @@ namespace FrontPerson.Weapon
 {
     public class LockOnUI : MonoBehaviour
     {
+        [Header("オフセット")]
+        [SerializeField, Range(0.0f, 10.0f)] float Offset_ = 5.0f;
+
         private Transform _target = null;
         private RectTransform _rect;
         private Canvas _canvas = null;
@@ -54,7 +57,9 @@ namespace FrontPerson.Weapon
         {
             if (_target == null) return;
 
-            _rect.position = RectTransformUtility.WorldToScreenPoint(Camera.main, _target.position);
+            var pos = new Vector3(_target.position.x, _target.position.y + Offset_, _target.position.z);
+
+            _rect.position = RectTransformUtility.WorldToScreenPoint(Camera.main, pos);
 
             Vector3 targetToCameraDirection_N = (_targetCamera.transform.position - _target.position).normalized;
             //正規化したベクトルの内積が一定以下なら見たことにする
