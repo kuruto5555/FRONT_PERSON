@@ -167,10 +167,6 @@ namespace FrontPerson.Manager
 
         public void Init()
         {
-            // セーブデータができたら修正
-            audio_volume_ = new AudioVolume();
-
-
             //オーディオファイルへのパスを抽出
             string directory_name = Path.GetFileName(AUDIO_DIRECTORY_PATH);
             var audio_path_dict = new Dictionary<string, string>();

@@ -37,10 +37,12 @@ namespace FrontPerson.Gimmick
             if (!IsCharge)
             {
                 time_ -= Time.deltaTime;
-                if (IsCharge)
+                if (time_ <= 0f)
                 {
                     chargeNum_ = 2; // ハンドガンが二丁あるから
                     icon_.SetActive(true);
+                    IsCharge = true;
+                    time_ = 0f;
                 }
             }
         }
@@ -56,10 +58,22 @@ namespace FrontPerson.Gimmick
             if (!IsCharge) return 0;
             if (value == 0) return 0;
 
-            //bountyManager_.NutritionCharge();
-            time_ = interval_;
-            chargeNum_--;
-            icon_.SetActive(false);
+            // インターバル時間が設定されていた場合
+            if (interval_ > 0f)
+            { 
+                // ハンドガン二丁分の計測
+                chargeNum_--;
+
+                // 二丁分補給したら使えなくする
+                if (chargeNum_ <= 0)
+                {
+                    time_ = interval_;
+                    IsCharge = false;
+                    icon_.SetActive(false);
+                }
+            }
+
+            // 補充量を返す
             return value;
         }
 

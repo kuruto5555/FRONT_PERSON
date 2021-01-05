@@ -34,6 +34,21 @@ namespace FrontPerson.Item
                 item.AddComponent<PickupDeadline>();
             }
         }
+        /// <summary>
+        /// アイテムを落とす
+        /// </summary>
+        /// <param name="offset_pos"></param>
+        public void DropItem(Vector3 offset_pos)
+        {
+            // アイテムを確率で落とす
+            if (UnityEngine.Random.Range(1, 100) <= probability_of_dropping_item_)
+            {
+                // ランダムでアイテムを落とす
+                int pickup_item_num = UnityEngine.Random.Range(0, item_prefabs_.Count);
+                var item = Instantiate(item_prefabs_[pickup_item_num], transform.position + offset_pos, transform.rotation);
+                item.AddComponent<PickupDeadline>();
+            }
+        }
 
     }
 }
