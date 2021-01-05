@@ -126,7 +126,7 @@ namespace FrontPerson.Character.Skill
             for (int i = 0; i < rendererList_.Count; i++)
             {
                 // 元気だったら
-                if (rendererList_[i].gameObject.GetComponent<Enemy>().isDown)
+                if (rendererList_[i].transform.root.gameObject.GetComponent<Enemy>().isDown)
                 {
                     // マテリアル戻してリストから削除
                     ReleaseMaterial(i);
@@ -242,6 +242,8 @@ namespace FrontPerson.Character.Skill
             Enemy enemy = other.GetComponent<Enemy>();
             // エネミーがすでに元気になっていたら帰る
             if (enemy.isDown) return;
+            // ヤクザは色を変える必要が無いので帰る
+            if (enemy.Type == FrontPerson.Enemy.EnemyType.YAKUZA) return;
             
             
             //同じオブジェクトがもしあった場合効果時間を更新して帰る
@@ -255,14 +257,24 @@ namespace FrontPerson.Character.Skill
             }
 
             // リストになかったので追加
-            initMaterialsList_.Add(other.GetComponent<Renderer>().materials);
-            rendererList_.Add(other.GetComponent<Renderer>());
+            Renderer renderer = other.GetComponent<Renderer>();
+            if (renderer == null)
+            {
+                // 見つからなかったから子供の方も探す
+                renderer = other.GetComponentInChildren<Renderer>();
+                if (renderer == null)
+                {
+                    Debug.LogError("サーチエリアに入ったオブジェクトにRendererが見つかりません。\nオブジェクト名:" + other.gameObject.name);
+                    return;
+                }
+            }
+            initMaterialsList_.Add(renderer.materials);
+            rendererList_.Add(renderer);
             skillEffectTime_of_Enemys_.Add(0f);
 
             // エネミーの足りないビタミンの種類によってセットするMaterialを変える
-            Renderer renderer = other.GetComponent<Renderer>();
-            Material[] materials = renderer.materials;
-            for (int i=0; i < other.GetComponent<Renderer>().materials.Length; i++)
+            Material[] materials = new Material[renderer.materials.Length];
+            for (int i=0; i < materials.Length; i++)
             {                
                 if(enemy.LackVitamins == NUTRIENTS_TYPE._A)
                 {
