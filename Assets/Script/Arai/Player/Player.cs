@@ -8,6 +8,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System;
 using UnityEngine.UI;
+using System.Linq;
 
 namespace FrontPerson.Character
 {
@@ -794,6 +795,9 @@ namespace FrontPerson.Character
         /// </summary>
         private bool isOne = false;
 
+        private int animCnt = 0;
+
+        private bool _isNewWeapon = false;
 
         private IEnumerator WeaponChangeUpdate()
         {
@@ -804,14 +808,25 @@ namespace FrontPerson.Character
                 // 1フレーム待つ
                 if (!isOne)
                 {
+                    animCnt = _weaponAnims.Count;
+                    _isNewWeapon = false;
                     isOne = true;
                     yield return null;
                 }
 
+                //if(_weaponAnims[0] == null)
+                //{
+                //    int a = 0;
+                //}
 
                 // アニメーション再生待ち
                 while (_weaponAnims[0].GetCurrentAnimatorStateInfo(0).normalizedTime < 0.9f)
                 {
+                    if(animCnt != _weaponAnims.Count)
+                    {
+                        _isNewWeapon = true;
+                    }
+
                     yield return null;
                 }
                 // 再生が終わったらリストをいったん空にする
@@ -829,7 +844,7 @@ namespace FrontPerson.Character
                 else
                 {
                     //弾切れでハンドガンに戻るとき
-                    if (Weapon.Ammo <= 0)
+                    if (Weapon.Ammo <= 0 && !_isNewWeapon)
                     {
                         gunL_.gameObject.SetActive(true);
                         gunR_.gameObject.SetActive(true);
@@ -844,16 +859,19 @@ namespace FrontPerson.Character
                     }
                 }
 
-                // 1フレーム待つ
-                if (!isOne)
-                {
-                    isOne = true;
-                    yield return null;
-                }
-
-
-                // アニメーション再生待ち
-                while (_weaponAnims[0].GetCurrentAnimatorStateInfo(0).normalizedTime < 0.9f) yield return null;
+                //// 1フレーム待つ
+                //if (!isOne)
+                //{
+                //    isOne = true;
+                //    yield return null;
+                //}
+                //
+                //
+                //// アニメーション再生待ち
+                //while (_weaponAnims[0].GetCurrentAnimatorStateInfo(0).normalizedTime < 0.9f) {
+                //    yield return null;
+                //}
+                
 
                 // 武器の切り替え完了
                 isOne = false;
@@ -870,6 +888,8 @@ namespace FrontPerson.Character
         /// <param name="type">乱数</param>
         public void WeaponUpgrade(int type)
         {
+            //if (_isWeaponChangeAnimation) return;
+
             gunL_.Reload();
             gunR_.Reload();
 
@@ -891,10 +911,6 @@ namespace FrontPerson.Character
 
             StartCoroutine(WeaponChangeUpdate());
             _weaponType = type;
-
-            //下２行アニメーションが出来次第消す
-            //Weapon = Instantiate(_weponManager.WeaponPrefabList[type], cameraTransform_).GetComponent<Weapon.SpecialWeapon>();
-            //_weaponList[2] = Weapon;
         }
 
         /// <summary>
@@ -1030,8 +1046,15 @@ namespace FrontPerson.Character
                 PickUpTransparent(10.0f);
             }
 
-            if (Input.GetKeyDown(KeyCode.Alpha1)) WeaponUpgrade(0);
-            if (Input.GetKeyDown(KeyCode.Alpha2)) WeaponUpgrade(1);
+            if (Input.GetKeyDown(KeyCode.Alpha1))
+            {
+                WeaponUpgrade(0);
+            }
+            if (Input.GetKeyDown(KeyCode.Alpha2))
+            {
+                WeaponUpgrade(1);
+
+            } 
             if (Input.GetKeyDown(KeyCode.Alpha3)) WeaponUpgrade(2);
 
 #endif
