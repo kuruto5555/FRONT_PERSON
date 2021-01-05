@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 156.82774, g: 308.6633, b: 539.91345, a: 1}
+  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -3109,20 +3109,17 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 99759049}
-  - component: {fileID: 99759056}
-  - component: {fileID: 99759055}
-  - component: {fileID: 99759054}
   - component: {fileID: 99759053}
   - component: {fileID: 99759052}
   - component: {fileID: 99759051}
   - component: {fileID: 99759050}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Area
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &99759049
 Transform:
   m_ObjectHideFlags: 0
@@ -3148,8 +3145,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 12, y: 16, z: 16}
-  m_Center: {x: -14, y: 8, z: 32}
+  m_Size: {x: 130, y: 10, z: 1}
+  m_Center: {x: 0, y: 5, z: 60}
 --- !u!65 &99759051
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -3161,8 +3158,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 8, y: 16, z: 32}
-  m_Center: {x: -28, y: 8, z: 36}
+  m_Size: {x: 130, y: 10, z: 1}
+  m_Center: {x: 0, y: 5, z: -60}
 --- !u!65 &99759052
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -3174,8 +3171,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 20, y: 16, z: 8}
-  m_Center: {x: -34, y: 8, z: 48}
+  m_Size: {x: 1, y: 10, z: 130}
+  m_Center: {x: -56, y: 5, z: 0}
 --- !u!65 &99759053
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -3187,47 +3184,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 8, y: 16, z: 4}
-  m_Center: {x: -52, y: 8, z: 50}
---- !u!65 &99759054
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 99759048}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 20, y: 16, z: 8}
-  m_Center: {x: -46, y: 8, z: 36}
---- !u!65 &99759055
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 99759048}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 4, y: 16, z: 40}
-  m_Center: {x: -54, y: 8, z: 40}
---- !u!65 &99759056
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 99759048}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 56, y: 16, z: 4}
-  m_Center: {x: -28, y: 8, z: 58}
+  m_Size: {x: 1, y: 10, z: 130}
+  m_Center: {x: 56, y: 5, z: 0}
 --- !u!1001 &105350828
 PrefabInstance:
   m_ObjectHideFlags: 0
