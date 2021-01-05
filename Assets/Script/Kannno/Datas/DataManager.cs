@@ -111,7 +111,9 @@ namespace FrontPerson.Manager
                 // 指定ファイルをオブジェクトにシリアライズ
                 data = (T)bf.Deserialize(file);
 
+#if UNITY_EDITOR
                 Debug.Log("読み込んだデータ" + data);
+#endif
             }
             finally
             {
