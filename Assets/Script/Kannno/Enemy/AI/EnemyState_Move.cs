@@ -11,8 +11,12 @@ namespace FrontPerson.Enemy.AI
 {
     public class EnemyState_Move : EnemyState_AI
     {
+        private ApplicationManager ApplicationManager = null;
+
         public override void OnStart()
         {
+            ApplicationManager = ApplicationManager.Instance;
+
             if (Owner.MovePattern)
             {
                 Set_MovePoint();
@@ -110,7 +114,7 @@ namespace FrontPerson.Enemy.AI
 
             if (null == Player) return;
 
-            if (Player.IsStun || Player.IsInvincible || Player.IsTransparent)
+            if (Player.IsStun || Player.IsInvincible || Player.IsTransparent || !ApplicationManager.IsGamePlay)
             {
                 return;
             }
