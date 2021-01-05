@@ -16,10 +16,8 @@ namespace FrontPerson.Data
     {
         static public readonly string SAVE_DATA_NAME = "SaveData";
 
-        //public SoundVolumeData SoundData;
-
-        // サウンド設定（リリースした後もリソースフォルダから取得できるか分からないので後で確認）
-        //public SoundManagerSetting SoundSetting;
+        // サウンド設定
+        public AudioVolume SoundData;
 
         /// <summary>
         /// 初回起動かどうかを判断するフラグ(初回起動 = true)

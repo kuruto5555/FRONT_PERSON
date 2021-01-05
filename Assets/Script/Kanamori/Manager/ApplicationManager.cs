@@ -77,7 +77,7 @@ namespace FrontPerson.Manager
 
             DontDestroyOnLoad(go);
 
-            go.GetComponent<ApplicationManager>().Load();
+            appm.Load();
         }
 
         /// <summary>
@@ -93,7 +93,7 @@ namespace FrontPerson.Manager
         /// </summary>
         public void Save()
         {
-            //save_data_.sound_data_ = SoundManagerSetting.Instance.GetSoundVolumeData();
+            save_data_.SoundData = GetComponent<AudioManager>().audio_volume_;
 		    DataManager.Save(save_data_, SaveDatas.SAVE_DATA_NAME);
         }
 
@@ -107,15 +107,14 @@ namespace FrontPerson.Manager
                 // ２回目以降のプレイ
                 save_data_ = DataManager.Load<SaveDatas>(SaveDatas.SAVE_DATA_NAME);
 
-                //SoundManagerSetting.Instance.ValueSetting(save_data_.sound_data_);
+                GetComponent<AudioManager>().audio_volume_ = save_data_.SoundData;
             }
             catch (System.Exception)
             {
                 // 初プレイ時はロードするデータが無いため生成
                 save_data_ = new SaveDatas();
 
-                //save_data_.sound_data_ = new SoundVolumeData();
-                //SoundManagerSetting.Instance.ValueSetting(save_data_.sound_data_);
+                GetComponent<AudioManager>().audio_volume_ = new AudioVolume();
             }
         }
     }
