@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!64 &429602997454708717
+--- !u!64 &6277077496416099540
 MeshCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -13,7 +13,7 @@ MeshCollider:
   serializedVersion: 4
   m_Convex: 0
   m_CookingOptions: 30
-  m_Mesh: {fileID: -1140631857857707310, guid: a96b7b52c41ae9a4cb4bda22829c66ae, type: 3}
+  m_Mesh: {fileID: 0}
 --- !u!1 &7161029032352084588
 GameObject:
   m_ObjectHideFlags: 0
@@ -87,22 +87,22 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: a96b7b52c41ae9a4cb4bda22829c66ae,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0.7071067
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: a96b7b52c41ae9a4cb4bda22829c66ae,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0.000000030908616
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: a96b7b52c41ae9a4cb4bda22829c66ae,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0.000000030908623
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: a96b7b52c41ae9a4cb4bda22829c66ae,
         type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.7071068
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: a96b7b52c41ae9a4cb4bda22829c66ae,
         type: 3}
