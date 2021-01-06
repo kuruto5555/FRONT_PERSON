@@ -1863,6 +1863,7 @@ MonoBehaviour:
   insufficiency: 100
   MovePattern: {fileID: 0}
   state_AI: {fileID: 6913149201170359260}
+  isStoppingAnimation: 0
 --- !u!114 &6913149201170359260
 MonoBehaviour:
   m_ObjectHideFlags: 0

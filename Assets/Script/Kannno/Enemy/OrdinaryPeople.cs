@@ -40,6 +40,10 @@ namespace FrontPerson.Enemy
                     var bounty_manager = GameObject.FindGameObjectWithTag(Constants.TagName.BOUNTY_MANAGER).GetComponent<BountyManager>();
 
                     bounty_manager.EnemyDeath((int)lack_vitamins);
+
+                    Animator.CrossFadeInFixedTime(EnemyAnimation.Fine, 0.5f);
+
+                    isStoppingAnimation = true;
                 }
             }
             else
@@ -48,6 +52,10 @@ namespace FrontPerson.Enemy
                 ComboManager.Instance.LostCombo();
 
                 AudioManager.Instance.Play3DSE(transform.position, SEPath.GAME_SE_VOICE_MAN);
+
+                Animator.CrossFadeInFixedTime(EnemyAnimation.Angry, 0.5f);
+
+                isStoppingAnimation = true;
             }
         }
     }

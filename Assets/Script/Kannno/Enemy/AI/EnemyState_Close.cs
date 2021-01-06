@@ -43,17 +43,26 @@ namespace FrontPerson.Enemy.AI
             time = Time.timeSinceLevelLoad;
 
             Animation();
+
+            if (EnemyType.OLD_BATTLEAXE == Owner.Type)
+            {
+                Owner.isStoppingAnimation = true;
+
+                Invoke("StoppingAnimation", 1.0f);
+            }
         }
 
         protected override void OnUpdate()
         {
-            if(max_time <= (Time.timeSinceLevelLoad - time))
             {
-                time = Time.timeSinceLevelLoad;
+                if (max_time <= (Time.timeSinceLevelLoad - time))
+                {
+                    time = Time.timeSinceLevelLoad;
 
-                ClalOffset();
+                    ClalOffset();
 
-                Owner.SetTarget(goal.position + offset);
+                    Owner.SetTarget(goal.position + offset);
+                }
             }
         }
 
@@ -125,6 +134,7 @@ namespace FrontPerson.Enemy.AI
         {
             if (EnemyType.OLD_BATTLEAXE == Owner.Type)
             {
+                Owner.isStoppingAnimation = true;
                 PlayAnimation(EnemyAnimation.Angry, 0.5f);
                 return;
             }
@@ -134,6 +144,11 @@ namespace FrontPerson.Enemy.AI
                 PlayAnimation(EnemyAnimation.Run, 0.5f);
                 return;
             }
+        }
+
+        private void StoppingAnimation()
+        {
+            Owner.isStoppingAnimation = false;
         }
     }
 }

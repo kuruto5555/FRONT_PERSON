@@ -43,7 +43,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 08d0635f298fd4145bb78aff3d31d951, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  OrdinaryPeople: {fileID: 6058391280694767586, guid: fac17614e55ef2347920bfef4d730f0d,
+  OrdinaryPeople: {fileID: 6818695770472878206, guid: fac17614e55ef2347920bfef4d730f0d,
     type: 3}
   OldBattleaxe: {fileID: 8192698400311268398, guid: 3cb22b0dcae36544980f8628d54fc7f7,
     type: 3}

@@ -13,6 +13,11 @@ namespace FrontPerson.Enemy.AI
     {
         private ApplicationManager ApplicationManager = null;
 
+        /// <summary>
+        /// 1回しか実行させない為の変数
+        /// </summary>
+        private bool Eneble = false;
+
         public override void OnStart()
         {
             ApplicationManager = ApplicationManager.Instance;
@@ -30,7 +35,7 @@ namespace FrontPerson.Enemy.AI
             }
 #endif
 
-            if(EnemyType.ORDINATY_PEOPLE != Owner.Type) PlayAnimation(EnemyAnimation.Walk, 8.0f);
+            PlayAnimation(EnemyAnimation.Walk, 8.0f);
         }
 
         /// <summary>
@@ -76,6 +81,13 @@ namespace FrontPerson.Enemy.AI
 
                     Owner.MoveIndex = (Owner.MoveIndex + 1) % Owner.MoveList.Count;
                 }
+            }
+
+            if(Owner.isStoppingAnimation && false == Eneble)
+            {
+                Eneble = true;
+
+                Invoke("StoppingAnimation", 1.5f);
             }
         }
 
@@ -125,6 +137,12 @@ namespace FrontPerson.Enemy.AI
 
                 AudioManager.Instance.Play3DSE(Owner.transform.position, SEPath.GAME_SE_VOICE_YAKUZA);
             }
+        }
+        private void StoppingAnimation()
+        {
+            Eneble = false;
+
+            Owner.isStoppingAnimation = false;
         }
     }
 }
