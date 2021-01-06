@@ -92,7 +92,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &2078812726198995325
 RectTransform:
   m_ObjectHideFlags: 0
@@ -214,7 +214,6 @@ MonoBehaviour:
   opened_menu_:
   - {fileID: 2078812726198995324}
   - {fileID: 4520781204456341753}
-  - {fileID: 2078812727146474558}
   return_to_title_button_: {fileID: 4520781204689225456}
   audioSetting_button_: {fileID: 4520781204261424516}
   sensivity_button_: {fileID: 4520781205211331604}
@@ -310,7 +309,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &2078812727146474559
 RectTransform:
   m_ObjectHideFlags: 0
