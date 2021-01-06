@@ -17,7 +17,7 @@ namespace FrontPerson.Enemy.AI
         {
             Set_AgentGoal();
 
-            Invoke("StoppingAnimation", 0.5f);
+            if(EnemyType.YAKUZA != Owner.Type) Invoke("StoppingAnimation", 1.0f);
         }
 
         /// <summary>

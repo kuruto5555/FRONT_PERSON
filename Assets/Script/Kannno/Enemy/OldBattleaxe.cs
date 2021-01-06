@@ -71,6 +71,8 @@ namespace FrontPerson.Enemy
 
         private void Animation()
         {
+            isStoppingAnimation = true;
+
             if (isAngry)
             {
                 Animator.CrossFadeInFixedTime(EnemyAnimation.Repel, 0.5f);
@@ -78,8 +80,6 @@ namespace FrontPerson.Enemy
             else
             {
                 Animator.CrossFadeInFixedTime(EnemyAnimation.Fine, 0.5f);
-
-                isStoppingAnimation = true;
             }
         }
     }

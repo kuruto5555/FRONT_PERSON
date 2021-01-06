@@ -44,7 +44,12 @@ namespace FrontPerson.Enemy.AI
 
             Animation();
 
-            Invoke("StoppingAnimation", 0.5f);
+            if (EnemyType.OLD_BATTLEAXE == Owner.Type)
+            {
+                Owner.isStoppingAnimation = true;
+
+                Invoke("StoppingAnimation", 1.0f);
+            }
         }
 
         protected override void OnUpdate()
