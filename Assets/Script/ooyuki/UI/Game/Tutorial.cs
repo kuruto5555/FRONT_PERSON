@@ -32,6 +32,11 @@ namespace FrontPerson.UI
         /// </summary>
         int tutorialIndex_ = 0;
 
+        /// <summary>
+        /// 表示するパネルの枚数
+        /// </summary>
+        int panelNum_ = 4;
+
 
         // Start is called before the first frame update
         void Start()
@@ -99,7 +104,7 @@ namespace FrontPerson.UI
         void PushRight()
         {
             // 今一番左にいるなら動かさない
-            if (tutorialIndex_ >= 3) return;
+            if (tutorialIndex_ >= panelNum_) return;
 
             animator_.SetBool("IsInputRight", true);
             isInputWait_ = false;

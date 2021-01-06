@@ -4,6 +4,7 @@ using System.Linq;
 using UnityEngine;
 using FrontPerson.Constants;
 using FrontPerson.Manager;
+using FrontPerson.UI;
 
 
 namespace FrontPerson.Character.Skill
@@ -211,6 +212,10 @@ namespace FrontPerson.Character.Skill
             SkillIntervalTimeCount_ = skillIntervalTime_;
 
             // UIにサーチがクールタイムになったことを知らせる
+            if(skillDraw_ == null)
+            {
+                skillDraw_ = FindObjectOfType<UI_Skill>();
+            }
             skillDraw_.StartCoolTime();
 
             // サーチ中フラグを無効化

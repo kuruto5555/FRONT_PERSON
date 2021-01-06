@@ -53,9 +53,14 @@ namespace FrontPerson.Manager
         [SerializeField]
         RemainingBulletGauge remainingBulletGauge_ = null;
 
+        [Header("スキルUI")]
+        [SerializeField]
+        UI_Skill skillUI_ = null;
+
         [Header("オプションメニュー")]
         [SerializeField]
-        InGameOptionMenu optionMenu_ = null; 
+        InGameOptionMenu optionMenu_ = null;
+
 
         /// <summary>
         /// アプリケーションマネージャー
@@ -103,6 +108,7 @@ namespace FrontPerson.Manager
             bountyManager_.gameObject.SetActive(false);
             remainingBulletGauge_.gameObject.SetActive(false);
             optionMenu_.gameObject.SetActive(false);
+            skillUI_.gameObject.SetActive(false);
 
             // タイマーを止めておく
             timer_.TimerStop();
@@ -159,6 +165,8 @@ namespace FrontPerson.Manager
             {
                 // 無効にするObject
                 tutorial_.gameObject.SetActive(false);
+
+                // カウントダウン中は入力フラグを無効にする
                 applicationManager_.SetIsInput(false);
 
                 // 有効にするObject
@@ -167,11 +175,13 @@ namespace FrontPerson.Manager
                 scoreManager_.gameObject.SetActive(true);
                 missionDrawUI_.gameObject.SetActive(true);
                 remainingBulletGauge_.gameObject.SetActive(true);
+                skillUI_.gameObject.SetActive(true);
 
                 // UI登場アニメーション再生
                 timer_.gameObject.GetComponent<Animator>().Play("TimerUI_IN");
                 scoreManager_.gameObject.GetComponent<Animator>().Play("ScoreUI_IN");
                 missionDrawUI_.gameObject.GetComponent<Animator>().Play("BountyManagerUI_IN");
+                skillUI_.gameObject.GetComponent<Animator>().Play("SkillUI_IN");
                 remainingBulletGauge_.transform.GetChild(0).gameObject.GetComponent<Animator>().Play("HandGunGageStart");
 
                 // カーソルを消して画面中央にロック
@@ -217,6 +227,8 @@ namespace FrontPerson.Manager
                 applicationManager_.SetIsGamePlay(false);
                 // カーソルをアンロック
                 CursorManager.CursorUnlock();
+                //ポーズのSE再生
+                AudioManager.Instance.Play2DSE(gameObject, SEPath.GAME_SE_PAUSE);
                 // ステートをメニューにする
                 state_ = GAME_SCENE_STATE.OPEN_GAME_MENU;
             }
@@ -264,6 +276,8 @@ namespace FrontPerson.Manager
                 applicationManager_.SetIsGamePlay(true);
                 // カーソルをロック
                 CursorManager.CursorLock();
+                //ポーズのSE再生
+                AudioManager.Instance.Play2DSE(gameObject, SEPath.COMMON_SE_BACK);
                 // ステートをプレイにする
                 state_ = GAME_SCENE_STATE.PLAY;
             }
@@ -287,6 +301,7 @@ namespace FrontPerson.Manager
                 timer_.gameObject.GetComponent<Animator>().Play("TimerUI_OUT");
                 scoreManager_.gameObject.GetComponent<Animator>().Play("ScoreUI_OUT");
                 missionDrawUI_.gameObject.GetComponent<Animator>().Play("BountyManagerUI_OUT");
+                skillUI_.gameObject.GetComponent<Animator>().Play("SkillUI_OUT");
                 
                 // BGM停止
                 AudioManager.Instance.StopBGM(3f);
