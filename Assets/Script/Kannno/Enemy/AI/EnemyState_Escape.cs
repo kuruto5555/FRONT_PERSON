@@ -16,6 +16,8 @@ namespace FrontPerson.Enemy.AI
         public override void OnStart()
         {
             Set_AgentGoal();
+
+            if(EnemyType.YAKUZA != Owner.Type) Invoke("StoppingAnimation", 1.0f);
         }
 
         /// <summary>
@@ -100,6 +102,11 @@ namespace FrontPerson.Enemy.AI
             }
 
             return true;
+        }
+
+        private void StoppingAnimation()
+        {
+            Owner.isStoppingAnimation = false;
         }
     }
 }

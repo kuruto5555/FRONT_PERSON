@@ -11,11 +11,16 @@ namespace FrontPerson.Enemy.AI
         public override void OnStart()
         {
             PlayAnimation(EnemyAnimation.Attack, 0.2f);
-        }
 
+            Owner.isStoppingAnimation = true;
+        }
 
         protected override void OnUpdate()
         {
+            if (1f <= Owner.Animator.GetCurrentAnimatorStateInfo(0).normalizedTime)
+            {
+                Owner.isStoppingAnimation = false;
+            }
         }
 
         protected override void OnChangeState_OrdinaryPeople()
@@ -31,22 +36,16 @@ namespace FrontPerson.Enemy.AI
 
             Player.Stun();
 
-            //if (!SearchArea.IsFound || Player.IsStun || Player.IsTransparent)
-            {
-                ChangeState<EnemyState_Move>();
-            }
+            ChangeState<EnemyState_Move>();
         }
 
         protected override void OnChangeState_Yakuza()
         {
             Player.Stun();
 
-            //if (!SearchArea.IsFound || Player.IsStun || Player.IsTransparent)
-            {
-                var enemy = Owner as Yakuza;
+            var enemy = Owner as Yakuza;
 
-                ChangeState<EnemyState_Move>();
-            }
+            ChangeState<EnemyState_Move>();
         }
     }
 }

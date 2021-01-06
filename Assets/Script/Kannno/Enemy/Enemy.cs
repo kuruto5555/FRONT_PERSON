@@ -74,9 +74,14 @@ namespace FrontPerson.Character
         public bool isDead { get; private set; } = false;
 
         /// <summary>
+        /// 止まってするアニメーション中かどうか(true = アニメーションしている)
+        /// </summary>
+        public bool isStoppingAnimation = false;
+
+        /// <summary>
         /// 1回しか実行させない為の変数
         /// </summary>
-        private bool Eneble = false; 
+        private bool Eneble = false;
 
         private void Awake()
         {
@@ -105,6 +110,8 @@ namespace FrontPerson.Character
         private void Update()
         {
             OnUpdate();
+
+            Animation();
 
             Down();
 
@@ -234,6 +241,21 @@ namespace FrontPerson.Character
                 }
 
                 Destroy(gameObject);
+            }
+        }
+
+        private void Animation()
+        {
+            if (isStoppingAnimation)
+            {
+                agent.isStopped = true;
+            }
+            else
+            {
+                if (agent.isStopped)
+                {
+                    agent.isStopped = false;
+                }
             }
         }
 
