@@ -1,4 +1,6 @@
-﻿using System.Collections;
+﻿using FrontPerson.Constants;
+using FrontPerson.Manager;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -18,7 +20,7 @@ namespace FrontPerson.UI
             sensi_slider_.value = Character.Player.ViewRotetaSpeed;
 
             // スライダーの値を変更したらセンシも変更する
-            sensi_slider_.onValueChanged.AddListener((value) => Character.Player.ViewRotetaSpeed =(int)value);
+            sensi_slider_.onValueChanged.AddListener((value) => { Character.Player.ViewRotetaSpeed = (int)value; AudioManager.Instance.Play2DSE(gameObject, SEPath.COMMON_SE_CURSOR); });
         }
     }
 }

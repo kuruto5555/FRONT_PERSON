@@ -227,8 +227,6 @@ namespace FrontPerson.Manager
                 applicationManager_.SetIsGamePlay(false);
                 // カーソルをアンロック
                 CursorManager.CursorUnlock();
-                //ポーズのSE再生
-                AudioManager.Instance.Play2DSE(gameObject, SEPath.GAME_SE_PAUSE);
                 // ステートをメニューにする
                 state_ = GAME_SCENE_STATE.OPEN_GAME_MENU;
             }
@@ -276,8 +274,6 @@ namespace FrontPerson.Manager
                 applicationManager_.SetIsGamePlay(true);
                 // カーソルをロック
                 CursorManager.CursorLock();
-                //ポーズのSE再生
-                AudioManager.Instance.Play2DSE(gameObject, SEPath.COMMON_SE_BACK);
                 // ステートをプレイにする
                 state_ = GAME_SCENE_STATE.PLAY;
             }

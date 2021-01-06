@@ -1,4 +1,6 @@
-﻿using System.Collections;
+﻿using FrontPerson.Constants;
+using FrontPerson.Manager;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -21,7 +23,10 @@ namespace FrontPerson.UI
                 gameObject.SetActive(false);
                 menu_.SetActive(true);
 
-                if(menu_cs_ != null)
+                // 戻るSE再生
+                AudioManager.Instance.Play2DSE(menu_, SEPath.COMMON_SE_BACK);
+
+                if (menu_cs_ != null)
                 {
                     menu_cs_.ReturnOptionScene();
                 }

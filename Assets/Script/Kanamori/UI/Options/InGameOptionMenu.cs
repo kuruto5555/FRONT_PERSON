@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using FrontPerson.Manager;
+using FrontPerson.Constants;
 
 namespace FrontPerson.UI
 {
@@ -67,7 +68,8 @@ namespace FrontPerson.UI
                     appManager_.SetIsInput(false);
                     //IsGoToTitle = true;
                     SetButtonActive(false);
-                    Manager.SceneManager.Instance.SceneChange(Constants.SceneName.TITLE_SCENE, 0.5f);
+                    AudioManager.Instance.Play2DSE(gameObject, SEPath.COMMON_SE_BACK);
+                    SceneManager.Instance.SceneChange(SceneName.TITLE_SCENE, 0.5f);
                 }
                 );
 
@@ -77,6 +79,7 @@ namespace FrontPerson.UI
                 ui.button_to_open_the_menu_.onClick.AddListener(
                     () =>
                     {
+                        AudioManager.Instance.Play2DSE(gameObject, SEPath.COMMON_SE_DECISION);
                         // ポーズボタンとBボタンでメニュー画面を閉じれなくする
                         PreventMenusClosing();
                     }
@@ -98,6 +101,18 @@ namespace FrontPerson.UI
                 // メニュー画面を開いている間、時間を止める
                 Time.timeScale = (opened_menu_[0].activeSelf) ? 1f : 0f;
                 print(Time.timeScale);
+
+                if (opened_menu_[0].activeSelf)
+                {
+                    // 開いているならバックのSE再生
+                    AudioManager.Instance.Play2DSE(gameObject, SEPath.COMMON_SE_BACK);
+                }
+                else
+                {
+                    // 閉じてるならポーズのSE再生
+                    AudioManager.Instance.Play2DSE(gameObject, SEPath.GAME_SE_PAUSE);
+                }
+
 
                 // メニューを開いている場合は閉じる、閉じている場合は開く
                 foreach (var menu in opened_menu_)

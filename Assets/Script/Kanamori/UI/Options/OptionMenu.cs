@@ -5,6 +5,8 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using UnityEngine.Events;
+using FrontPerson.Manager;
+using FrontPerson.Constants;
 
 namespace FrontPerson.UI
 {
@@ -57,14 +59,22 @@ namespace FrontPerson.UI
 
         protected UnityAction return_option_scene_;
 
+        private ApplicationManager appManager_ = null;
+
+        private GameObject current_buttom = null;
+
         // Start is called before the first frame update
         private void Start()
         {
             event_system_ = EventSystem.current;
 
+            current_buttom = event_system_.currentSelectedGameObject;
+
             SelectedOptionButtonSettings();
 
             return_option_scene_ += ()=> { FirstTouchSelectable.Select(event_system_, ui_controllers_[0].button_to_open_the_menu_); };
+
+            appManager_ = FindObjectOfType<ApplicationManager>();
 
             OnStart();
         }
@@ -73,6 +83,17 @@ namespace FrontPerson.UI
         private void Update()
         {
             OnUpdate();
+
+            if (appManager_.IsInput)
+            {
+                // 選択しているものが違う
+                if (event_system_.currentSelectedGameObject != current_buttom)
+                {
+                    current_buttom = event_system_.currentSelectedGameObject;
+
+                    AudioManager.Instance.Play2DSE(gameObject, SEPath.COMMON_SE_CURSOR);
+                }
+            }
         }
 
         /// <summary>

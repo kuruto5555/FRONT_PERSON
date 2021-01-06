@@ -1,4 +1,5 @@
-﻿using FrontPerson.Manager;
+﻿using FrontPerson.Constants;
+using FrontPerson.Manager;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -31,9 +32,10 @@ namespace FrontPerson.UI
             bgm_volume_slider_.value = AudioManager.Instance.BGMVolume * 10;
             se_volume_slider_.value = AudioManager.Instance.SEVolume * 10;
 
-            volume_slider_.onValueChanged.AddListener((value) => { AudioManager.Instance.Volume = value; });
-            bgm_volume_slider_.onValueChanged.AddListener((value) => { AudioManager.Instance.BGMVolume = value; });
-            se_volume_slider_.onValueChanged.AddListener((value) => { AudioManager.Instance.SEVolume = value; });
+            volume_slider_.onValueChanged.AddListener((value) => { AudioManager.Instance.Volume = value;        AudioManager.Instance.Play2DSE(gameObject, SEPath.COMMON_SE_CURSOR); });
+            bgm_volume_slider_.onValueChanged.AddListener((value) => { AudioManager.Instance.BGMVolume = value; AudioManager.Instance.Play2DSE(gameObject, SEPath.COMMON_SE_CURSOR); });
+            se_volume_slider_.onValueChanged.AddListener((value) => { AudioManager.Instance.SEVolume = value;   AudioManager.Instance.Play2DSE(gameObject, SEPath.COMMON_SE_CURSOR); });
         }
+
     }
 }
