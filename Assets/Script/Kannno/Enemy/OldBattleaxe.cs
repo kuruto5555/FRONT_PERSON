@@ -71,13 +71,15 @@ namespace FrontPerson.Enemy
 
         private void Animation()
         {
-            if(isAngry)
+            if (isAngry)
             {
                 Animator.CrossFadeInFixedTime(EnemyAnimation.Repel, 0.5f);
             }
             else
             {
                 Animator.CrossFadeInFixedTime(EnemyAnimation.Fine, 0.5f);
+
+                isStoppingAnimation = true;
             }
         }
     }

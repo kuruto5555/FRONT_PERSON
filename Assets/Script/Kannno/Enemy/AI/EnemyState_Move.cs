@@ -30,7 +30,7 @@ namespace FrontPerson.Enemy.AI
             }
 #endif
 
-            if(EnemyType.ORDINATY_PEOPLE != Owner.Type) PlayAnimation(EnemyAnimation.Walk, 8.0f);
+            PlayAnimation(EnemyAnimation.Walk, 8.0f);
         }
 
         /// <summary>
@@ -75,6 +75,13 @@ namespace FrontPerson.Enemy.AI
                     Owner.SetTarget(destination);
 
                     Owner.MoveIndex = (Owner.MoveIndex + 1) % Owner.MoveList.Count;
+                }
+            }
+
+            {
+                if (1f <= Owner.Animator.GetCurrentAnimatorStateInfo(0).normalizedTime)
+                {
+                    Owner.isStoppingAnimation = false;
                 }
             }
         }
