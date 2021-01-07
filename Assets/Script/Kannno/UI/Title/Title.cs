@@ -39,6 +39,10 @@ namespace FrontPerson.UI
         [SerializeField]
         private float FadeTime = 0f;
 
+        [Header("AudioSouceのオブジェクト")]
+        [SerializeField]
+        private GameObject AudioSouce = null;
+
         [Tooltip("オーディオソースの為")]
         [Header("キャンバス")]
         [SerializeField]
@@ -78,6 +82,12 @@ namespace FrontPerson.UI
             if(null == Canvas)
             {
                 Debug.LogError("キャンバスオブジェクトが設定されていません");
+                return;
+            }
+
+            if (null == AudioSouce)
+            {
+                Debug.LogError("AudioSouceのオブジェクトが設定されていません");
                 return;
             }
 #endif
@@ -158,7 +168,7 @@ namespace FrontPerson.UI
         /// </summary>
         private void DecisionSound()
         {
-            audio_manager.Play2DSE(gameObject, SEPath.COMMON_SE_DECISION);
+            audio_manager.Play2DSE(AudioSouce, SEPath.COMMON_SE_DECISION);
         }
 
         public void OpenMenu()
