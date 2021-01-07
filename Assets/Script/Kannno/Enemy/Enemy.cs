@@ -34,6 +34,8 @@ namespace FrontPerson.Character
         [SerializeField]
         public MovePattern MovePattern = null;
 
+        public BoxCollider BoxCollider = null;
+
         /// <summary>
         /// 移動先の一覧
         /// </summary>
@@ -97,6 +99,8 @@ namespace FrontPerson.Character
             agent = GetComponent<NavMeshAgent>();
 
             Animator = GetComponent<Animator>();
+
+            BoxCollider = GetComponent<BoxCollider>();
 
             if (null == state_AI) state_AI = GetComponent<EnemyState_AI>();
 
@@ -216,6 +220,8 @@ namespace FrontPerson.Character
                 GetComponent<EnemyBelongings>().DropItem(new Vector3(0f, 0.5f, 0f));
 
                 state_AI.ChangeState<EnemyState_Escape>();
+
+                BoxCollider.enabled = false;
 
                 Eneble = true;
             }

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 using FrontPerson.Data;
+using FrontPerson.Character;
 
 namespace FrontPerson.Manager
 {
@@ -94,7 +95,9 @@ namespace FrontPerson.Manager
         public void Save()
         {
             save_data_.SoundData = GetComponent<AudioManager>().audio_volume_;
-		    DataManager.Save(save_data_, SaveDatas.SAVE_DATA_NAME);
+            save_data_.RotetaSpeed = Player.ViewRotetaSpeed;
+
+            DataManager.Save(save_data_, SaveDatas.SAVE_DATA_NAME);
         }
 
         /// <summary>
@@ -108,6 +111,8 @@ namespace FrontPerson.Manager
                 save_data_ = DataManager.Load<SaveDatas>(SaveDatas.SAVE_DATA_NAME);
 
                 GetComponent<AudioManager>().audio_volume_ = save_data_.SoundData;
+
+                Player.ViewRotetaSpeed = save_data_.RotetaSpeed;
             }
             catch (System.Exception)
             {
