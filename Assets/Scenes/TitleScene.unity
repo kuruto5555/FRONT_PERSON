@@ -13513,12 +13513,6 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 524221310}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &524428385 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 8750458411418432489, guid: 18bba964e210b694dbe3940027b58f42,
-    type: 3}
-  m_PrefabInstance: {fileID: 8750458411330475912}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &524813549
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -20880,18 +20874,6 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 874538905}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &882703435 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 8750458411038031780, guid: 18bba964e210b694dbe3940027b58f42,
-    type: 3}
-  m_PrefabInstance: {fileID: 8750458411330475912}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f31e32261f7cf9b478f6c127ed0c7dfb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &883757968
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -37606,6 +37588,18 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1701685438}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1705924699 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2842707448003847152, guid: 18bba964e210b694dbe3940027b58f42,
+    type: 3}
+  m_PrefabInstance: {fileID: 8750458411330475912}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f31e32261f7cf9b478f6c127ed0c7dfb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1706521681
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -43222,7 +43216,7 @@ PrefabInstance:
         type: 3}
       propertyPath: TitleMenu
       value: 
-      objectReference: {fileID: 882703435}
+      objectReference: {fileID: 1705924699}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 69875924013616f4f98af15ba30854d5, type: 3}
 --- !u!1001 &1871571698
@@ -43777,6 +43771,18 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 6335651740488407165, guid: 64f90fe49cbf901418542e6ab20b8a3e,
     type: 3}
   m_PrefabInstance: {fileID: 1890640307}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1893078868 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1630832936171156528, guid: 18bba964e210b694dbe3940027b58f42,
+    type: 3}
+  m_PrefabInstance: {fileID: 8750458411330475912}
+  m_PrefabAsset: {fileID: 0}
+--- !u!224 &1893078869 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 5308250153355960010, guid: 18bba964e210b694dbe3940027b58f42,
+    type: 3}
+  m_PrefabInstance: {fileID: 8750458411330475912}
   m_PrefabAsset: {fileID: 0}
 --- !u!4 &1897064947 stripped
 Transform:
@@ -49589,7 +49595,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76c392e42b5098c458856cdf6ecaaaa1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_FirstSelected: {fileID: 524428385}
+  m_FirstSelected: {fileID: 0}
   m_sendNavigationEvents: 1
   m_DragThreshold: 10
 --- !u!4 &2119880733
@@ -50491,7 +50497,7 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_Children:
-  - {fileID: 463623972661520508}
+  - {fileID: 1893078869}
   - {fileID: 872973018}
   m_Father: {fileID: 0}
   m_RootOrder: 5
@@ -50596,12 +50602,6 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 2146719769}
   m_PrefabAsset: {fileID: 0}
---- !u!224 &463623972661520508 stripped
-RectTransform:
-  m_CorrespondingSourceObject: {fileID: 9151525668687118324, guid: 18bba964e210b694dbe3940027b58f42,
-    type: 3}
-  m_PrefabInstance: {fileID: 8750458411330475912}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &8750458411330475912
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -50619,6 +50619,16 @@ PrefabInstance:
       propertyPath: m_Colors.m_HighlightedColor.b
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2842707448003847152, guid: 18bba964e210b694dbe3940027b58f42,
+        type: 3}
+      propertyPath: Canvas
+      value: 
+      objectReference: {fileID: 1893078868}
+    - target: {fileID: 2842707448003847152, guid: 18bba964e210b694dbe3940027b58f42,
+        type: 3}
+      propertyPath: OptionMenu
+      value: 
+      objectReference: {fileID: 872973017}
     - target: {fileID: 8621702534377625718, guid: 18bba964e210b694dbe3940027b58f42,
         type: 3}
       propertyPath: m_Name
