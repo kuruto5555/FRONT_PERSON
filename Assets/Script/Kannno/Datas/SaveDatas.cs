@@ -38,5 +38,10 @@ namespace FrontPerson.Data
         /// ランキングに表示するミッションクリア数(上位5位分)
         /// </summary>
         public List<int> RankingClearMissionNum = new List<int>() { 10, 8, 6, 4, 2 };
+
+        /// <summary>
+        /// エイム感度
+        /// </summary>
+        public int RotetaSpeed = 5;
     }
 }
