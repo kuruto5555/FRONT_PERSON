@@ -34,6 +34,8 @@ namespace FrontPerson.Enemy.AI
             enemy.isHit = false;
             enemy.isAngry = false;
 
+            enemy.isDiscover = false;
+
             Player.Stun();
 
             ChangeState<EnemyState_Move>();
@@ -44,6 +46,8 @@ namespace FrontPerson.Enemy.AI
             Player.Stun();
 
             var enemy = Owner as Yakuza;
+
+            enemy.isDiscover = false;
 
             ChangeState<EnemyState_Move>();
         }

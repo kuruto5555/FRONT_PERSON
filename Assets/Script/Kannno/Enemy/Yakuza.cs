@@ -9,6 +9,11 @@ namespace FrontPerson.Enemy
 {
     public class Yakuza : Character.Enemy
     {
+        /// <summary>
+        /// プレイヤーを追っかけている
+        /// </summary>
+        public bool isDiscover { get; set; } = false;
+
         protected override void OnAwake()
         {
             Type = EnemyType.YAKUZA;

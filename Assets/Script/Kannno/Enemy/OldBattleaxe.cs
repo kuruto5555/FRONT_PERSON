@@ -20,6 +20,11 @@ namespace FrontPerson.Enemy
         /// </summary>
         public bool isAngry { get; set; } = false;
 
+        /// <summary>
+        /// プレイヤーを追っかけている
+        /// </summary>
+        public bool isDiscover { get; set; } = false;
+
         protected override void OnAwake()
         {
             Type = EnemyType.OLD_BATTLEAXE;

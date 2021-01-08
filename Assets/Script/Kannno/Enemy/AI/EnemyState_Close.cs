@@ -80,6 +80,10 @@ namespace FrontPerson.Enemy.AI
 
                 enemy.isAngry = false;
 
+                enemy.isDiscover = false;
+
+                //Player.Alart(false);
+
                 return;
             }
 
@@ -100,6 +104,10 @@ namespace FrontPerson.Enemy.AI
             if (Player.IsStun || Player.IsInvincible || Player.IsTransparent)
             {
                 ChangeState<EnemyState_Move>();
+
+                //Player.Alart(false);
+
+                enemy.isDiscover = false;
 
                 return;
             }
