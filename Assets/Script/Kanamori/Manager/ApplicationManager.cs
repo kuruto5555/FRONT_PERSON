@@ -95,7 +95,8 @@ namespace FrontPerson.Manager
         public void Save()
         {
             save_data_.SoundData = GetComponent<AudioManager>().audio_volume_;
-            save_data_.RotetaSpeed = Player.ViewRotetaSpeed;
+            save_data_.VerticalRotationSpeed = Player.VerticalRotetaSpeed;
+            save_data_.HorizontalRotationSpeed = Player.HorizontalRotetaSpeed;
 
             DataManager.Save(save_data_, SaveDatas.SAVE_DATA_NAME);
         }
@@ -112,7 +113,8 @@ namespace FrontPerson.Manager
 
                 GetComponent<AudioManager>().audio_volume_ = save_data_.SoundData;
 
-                Player.ViewRotetaSpeed = save_data_.RotetaSpeed;
+                Player.HorizontalRotetaSpeed = save_data_.HorizontalRotationSpeed;
+                Player.VerticalRotetaSpeed = save_data_.VerticalRotationSpeed;
             }
             catch (System.Exception)
             {
