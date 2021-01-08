@@ -287,6 +287,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: OldBattleaxe
       objectReference: {fileID: 0}
+    - target: {fileID: 8861288999390973588, guid: 3cb22b0dcae36544980f8628d54fc7f7,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3cb22b0dcae36544980f8628d54fc7f7, type: 3}
 --- !u!114 &93273975 stripped
@@ -4791,7 +4796,7 @@ PrefabInstance:
     - target: {fileID: 1769703140783546586, guid: 2f91c9c7e7f8f30408b54c2c342652dd,
         type: 3}
       propertyPath: m_RootOrder
-      value: 0
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 1769703140783546586, guid: 2f91c9c7e7f8f30408b54c2c342652dd,
         type: 3}
@@ -5688,7 +5693,7 @@ PrefabInstance:
     - target: {fileID: 5008039636571061990, guid: fdae484d2cfb5bf4ba20052d502c5ebb,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5677896911954420828, guid: fdae484d2cfb5bf4ba20052d502c5ebb,
         type: 3}
@@ -6326,6 +6331,7 @@ MonoBehaviour:
   missionDrawUI_: {fileID: 1451080149}
   timeUp_: {fileID: 0}
   remainingBulletGauge_: {fileID: 1580964763}
+  skillUI_: {fileID: 0}
   optionMenu_: {fileID: 0}
 --- !u!4 &2015289604
 Transform:
