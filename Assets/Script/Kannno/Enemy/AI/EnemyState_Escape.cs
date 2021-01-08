@@ -17,7 +17,16 @@ namespace FrontPerson.Enemy.AI
         {
             Set_AgentGoal();
 
-            if(EnemyType.YAKUZA != Owner.Type) Invoke("StoppingAnimation", 1.0f);
+            if (EnemyType.YAKUZA != Owner.Type)
+            {
+                Invoke("StoppingAnimation", 1.0f);
+            }
+            else
+            {
+                Invoke("StoppingAnimation", 0.3f);
+            }
+
+            Invoke("Dead", 30f);
         }
 
         /// <summary>
@@ -107,6 +116,11 @@ namespace FrontPerson.Enemy.AI
         private void StoppingAnimation()
         {
             Owner.isStoppingAnimation = false;
+        }
+
+        private void Dead()
+        {
+            Owner.SetDead();
         }
     }
 }
