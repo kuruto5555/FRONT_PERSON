@@ -13,6 +13,7 @@ namespace FrontPerson.Manager
         enum RESULT_SCENE_STATE
         {
             FADE_IN = 0,
+            OPEN_SCREEN,
             DRAW_SCORE,
             DRAW_COMBO_NUM,
             DRAW_MISSION_CLEAR_NUM,
@@ -46,6 +47,13 @@ namespace FrontPerson.Manager
         [SerializeField]
         Button rabkingButton_ = null;
 
+        [Header("アニメーションさせるスクリーン")]
+        [SerializeField]
+        FrontPerson.UI.Screen screen_ = null;
+
+        [Header("最初に隠れていてほしいUI")]
+        [SerializeField]
+        List<GameObject> initUnActiveObjects_ = null;
 
         [Header("トータルスコアの目安")]
         [Tooltip("上から、B、A、S、\nBより小さければC")]
@@ -122,6 +130,11 @@ namespace FrontPerson.Manager
             // BGM再生して一回ポーズ
             AudioManager.Instance.PlayBGM(gameObject, BGMPath.RESULT_BGM_MAIN, 2.0f);
             AudioManager.Instance.PauseBGM();
+
+            foreach(var gameObject in initUnActiveObjects_)
+            {
+                gameObject.SetActive(false);
+            }
         }
 
         // Update is called once per frame
@@ -131,6 +144,10 @@ namespace FrontPerson.Manager
             {
                 case RESULT_SCENE_STATE.FADE_IN:
                     FadeInUpdate();
+                    break;
+
+                case RESULT_SCENE_STATE.OPEN_SCREEN:
+                    OpenScreenUpdate();
                     break;
 
                 case RESULT_SCENE_STATE.DRAW_SCORE:
@@ -168,6 +185,19 @@ namespace FrontPerson.Manager
         void FadeInUpdate()
         {
             if(!FadeManager.Instance.IsFade)
+            {
+                screen_.ScreenOpen();
+                state_ = RESULT_SCENE_STATE.OPEN_SCREEN;
+            }
+        }
+
+
+        /// <summary>
+        /// 
+        /// </summary>
+        void OpenScreenUpdate()
+        {
+            if (screen_.IsScreenOpenAnimFinish)
             {
                 //scoreGraph_.StartAnimation(youScore, 5000, 20000);
                 scoreGraph_.StartAnimation(youScore, averageScore, numberOneScore);
