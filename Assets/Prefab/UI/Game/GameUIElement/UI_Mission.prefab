@@ -455,6 +455,7 @@ GameObject:
   - component: {fileID: 7240465482094776095}
   - component: {fileID: 7240465482094776081}
   - component: {fileID: 7240465482094776094}
+  - component: {fileID: 3026731150891792009}
   m_Layer: 5
   m_Name: Progress
   m_TagString: Untagged
@@ -522,6 +523,21 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: 00 / 10
+--- !u!114 &3026731150891792009
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7240465482094776092}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e19747de3f5aca642ab2be37e372fb86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EffectColor: {r: 0, g: 0, b: 0, a: 0.5019608}
+  m_EffectDistance: {x: 2, y: -2}
+  m_UseGraphicAlpha: 1
 --- !u!1 &7240465482296167541
 GameObject:
   m_ObjectHideFlags: 0
@@ -779,6 +795,7 @@ GameObject:
   - component: {fileID: 7240465483917893600}
   - component: {fileID: 7240465483917893601}
   - component: {fileID: 1842291141414034818}
+  - component: {fileID: 1314449127520042949}
   m_Layer: 5
   m_Name: MissionName
   m_TagString: Untagged
@@ -865,3 +882,18 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &1314449127520042949
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7240465483917893615}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e19747de3f5aca642ab2be37e372fb86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EffectColor: {r: 0, g: 0, b: 0, a: 0.5019608}
+  m_EffectDistance: {x: 2, y: -2}
+  m_UseGraphicAlpha: 1
