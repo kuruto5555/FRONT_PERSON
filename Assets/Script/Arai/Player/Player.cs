@@ -603,16 +603,28 @@ namespace FrontPerson.Character
             switch (vrp.VitaminType)
             {
                 case NUTRIENTS_TYPE._A:
-                    gunL_.Reload(vrp.Charge(GunAmmoMAX_L - GunAmmoL));
+                    {
+                        //gunL_.Reload(vrp.Charge(GunAmmoMAX_L - GunAmmoL));
+                        Gun[] guns = new Gun[] { gunL_ };
+                        vrp.Charge(guns);
+                    }
                     break;
 
                 case NUTRIENTS_TYPE._B:
-                    gunR_.Reload(vrp.Charge(GunAmmoMAX_R - GunAmmoR));
+                    {
+                        //gunR_.Reload(vrp.Charge(GunAmmoMAX_R - GunAmmoR));
+                        Gun[] guns = new Gun[] { gunR_ };
+                        vrp.Charge(guns);
+                    }
                     break;
 
                 case NUTRIENTS_TYPE._ALL:
-                    gunL_.Reload(vrp.Charge(GunAmmoMAX_L - GunAmmoL));
-                    gunR_.Reload(vrp.Charge(GunAmmoMAX_R - GunAmmoR));
+                    {
+                        //gunL_.Reload(vrp.Charge(GunAmmoMAX_L - GunAmmoL));
+                        //gunR_.Reload(vrp.Charge(GunAmmoMAX_R - GunAmmoR));
+                        Gun[] guns = new Gun[] { gunL_, gunR_ };
+                        vrp.Charge(guns);
+                    }
                     break;
             }
 
