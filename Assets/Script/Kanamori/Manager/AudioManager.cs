@@ -110,7 +110,7 @@ namespace FrontPerson.Manager
         /// オーディオミキサーの最高音量(db表示)
         /// ここ変えれば100％時の音量上限が変わる
         /// </summary>
-        private float bgm_mixer_max_volume = 10f;
+        private const float bgm_mixer_max_volume = 10f;
 
         /// <summary>
         /// オーディオミキサーの最低音量(db表示)
@@ -192,11 +192,16 @@ namespace FrontPerson.Manager
                 if(fade_in)
                     fade_in = false;
                 
-                mixer_bgm.audioMixer.GetFloat("BGM", out float i);
+                mixer_bgm.audioMixer.GetFloat("BGM", out float get_mixer_bgm_volume);
 
-                mixer.SetFloat("BGM", i + ((bgm_mixer_min_volume - bgm_mixer_max_volume) / fade_time) * Time.deltaTime);
+                float set_mixer_bgm_volume = get_mixer_bgm_volume + ((bgm_mixer_min_volume - bgm_mixer_max_volume) / fade_time) * Time.deltaTime;
 
-                if (i >= -bgm_mixer_max_volume)
+                if (set_mixer_bgm_volume > -bgm_mixer_max_volume)
+                    set_mixer_bgm_volume = -bgm_mixer_max_volume;
+
+                mixer.SetFloat("BGM", set_mixer_bgm_volume);
+
+                if (get_mixer_bgm_volume > -bgm_mixer_max_volume)
                 {
                     fade_out = false;
                 }
@@ -204,11 +209,11 @@ namespace FrontPerson.Manager
 
             if (fade_in)
             {
-                mixer_bgm.audioMixer.GetFloat("BGM", out float i);
+                mixer_bgm.audioMixer.GetFloat("BGM", out float get_mixer_bgm_volume);
 
-                mixer.SetFloat("BGM", i + ((bgm_mixer_max_volume - bgm_mixer_min_volume) / fade_time) * Time.deltaTime);
+                mixer.SetFloat("BGM", get_mixer_bgm_volume + ((bgm_mixer_max_volume - bgm_mixer_min_volume) / fade_time) * Time.deltaTime);
 
-                if (i < -bgm_mixer_min_volume)
+                if (get_mixer_bgm_volume < -bgm_mixer_min_volume)
                 {
                     bgm_audiosource.Stop();
                     fade_in = false;
