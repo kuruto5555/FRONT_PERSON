@@ -14176,17 +14176,17 @@ PrefabInstance:
     - target: {fileID: 7869129166089239699, guid: b83719008a53ace48bf3a8eb74b3f348,
         type: 3}
       propertyPath: Max_OrdinaryPeople
-      value: 25
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 7869129166089239699, guid: b83719008a53ace48bf3a8eb74b3f348,
         type: 3}
       propertyPath: Max_OldBattleaxe
-      value: 15
+      value: 30
       objectReference: {fileID: 0}
     - target: {fileID: 7869129166089239699, guid: b83719008a53ace48bf3a8eb74b3f348,
         type: 3}
       propertyPath: Max_Yakuza
-      value: 10
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7869129166089239699, guid: b83719008a53ace48bf3a8eb74b3f348,
         type: 3}
@@ -38439,17 +38439,17 @@ PrefabInstance:
     - target: {fileID: 7869129166089239699, guid: b83719008a53ace48bf3a8eb74b3f348,
         type: 3}
       propertyPath: Max_OrdinaryPeople
-      value: 25
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 7869129166089239699, guid: b83719008a53ace48bf3a8eb74b3f348,
         type: 3}
       propertyPath: Max_OldBattleaxe
-      value: 15
+      value: 30
       objectReference: {fileID: 0}
     - target: {fileID: 7869129166089239699, guid: b83719008a53ace48bf3a8eb74b3f348,
         type: 3}
       propertyPath: Max_Yakuza
-      value: 10
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7869129166089239699, guid: b83719008a53ace48bf3a8eb74b3f348,
         type: 3}
@@ -44302,17 +44302,17 @@ PrefabInstance:
     - target: {fileID: 7869129166089239699, guid: b83719008a53ace48bf3a8eb74b3f348,
         type: 3}
       propertyPath: Max_OrdinaryPeople
-      value: 25
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 7869129166089239699, guid: b83719008a53ace48bf3a8eb74b3f348,
         type: 3}
       propertyPath: Max_OldBattleaxe
-      value: 15
+      value: 30
       objectReference: {fileID: 0}
     - target: {fileID: 7869129166089239699, guid: b83719008a53ace48bf3a8eb74b3f348,
         type: 3}
       propertyPath: Max_Yakuza
-      value: 10
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7869129166089239699, guid: b83719008a53ace48bf3a8eb74b3f348,
         type: 3}
@@ -50997,17 +50997,17 @@ PrefabInstance:
     - target: {fileID: 7869129166089239699, guid: b83719008a53ace48bf3a8eb74b3f348,
         type: 3}
       propertyPath: Max_OrdinaryPeople
-      value: 25
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 7869129166089239699, guid: b83719008a53ace48bf3a8eb74b3f348,
         type: 3}
       propertyPath: Max_OldBattleaxe
-      value: 15
+      value: 30
       objectReference: {fileID: 0}
     - target: {fileID: 7869129166089239699, guid: b83719008a53ace48bf3a8eb74b3f348,
         type: 3}
       propertyPath: Max_Yakuza
-      value: 10
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7869129166089239699, guid: b83719008a53ace48bf3a8eb74b3f348,
         type: 3}
@@ -65290,17 +65290,17 @@ PrefabInstance:
     - target: {fileID: 7869129166089239699, guid: b83719008a53ace48bf3a8eb74b3f348,
         type: 3}
       propertyPath: Max_OrdinaryPeople
-      value: 25
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 7869129166089239699, guid: b83719008a53ace48bf3a8eb74b3f348,
         type: 3}
       propertyPath: Max_OldBattleaxe
-      value: 15
+      value: 30
       objectReference: {fileID: 0}
     - target: {fileID: 7869129166089239699, guid: b83719008a53ace48bf3a8eb74b3f348,
         type: 3}
       propertyPath: Max_Yakuza
-      value: 10
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7869129166089239699, guid: b83719008a53ace48bf3a8eb74b3f348,
         type: 3}
@@ -67437,7 +67437,7 @@ PrefabInstance:
     - target: {fileID: 3869926295788525940, guid: 34dc7089d86a38047a11c22287ec03bc,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4539467735936746446, guid: 34dc7089d86a38047a11c22287ec03bc,
         type: 3}
@@ -67477,7 +67477,7 @@ PrefabInstance:
     - target: {fileID: 5991206590403090308, guid: 34dc7089d86a38047a11c22287ec03bc,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6372270260036619582, guid: 34dc7089d86a38047a11c22287ec03bc,
         type: 3}

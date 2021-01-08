@@ -798,12 +798,6 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 30639237}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &32682037 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3228870202108139142, guid: 4ac8071099f43f6428587e37f24d8295,
-    type: 3}
-  m_PrefabInstance: {fileID: 601291184}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &34175784
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -16941,12 +16935,6 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 519658486}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &521343173 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 8620303492717370626, guid: 4ac8071099f43f6428587e37f24d8295,
-    type: 3}
-  m_PrefabInstance: {fileID: 601291184}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &526737720
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -19543,6 +19531,26 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 381396661095972454, guid: 4ac8071099f43f6428587e37f24d8295,
+        type: 3}
+      propertyPath: m_Text
+      value: START!!
+      objectReference: {fileID: 0}
+    - target: {fileID: 381396661095972457, guid: 4ac8071099f43f6428587e37f24d8295,
+        type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 1920
+      objectReference: {fileID: 0}
+    - target: {fileID: 381396662027577974, guid: 4ac8071099f43f6428587e37f24d8295,
+        type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 381396662027577974, guid: 4ac8071099f43f6428587e37f24d8295,
+        type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 460152241441757922, guid: 4ac8071099f43f6428587e37f24d8295,
         type: 3}
       propertyPath: m_AnchorMin.y
@@ -20292,31 +20300,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_SizeDelta.y
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6715395263618748808, guid: 4ac8071099f43f6428587e37f24d8295,
-        type: 3}
-      propertyPath: pageIcons_
-      value: 
-      objectReference: {fileID: 521343173}
-    - target: {fileID: 6715395263618748808, guid: 4ac8071099f43f6428587e37f24d8295,
-        type: 3}
-      propertyPath: images_
-      value: 
-      objectReference: {fileID: 32682037}
-    - target: {fileID: 6715395263618748808, guid: 4ac8071099f43f6428587e37f24d8295,
-        type: 3}
-      propertyPath: selectIconColor_.r
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6715395263618748808, guid: 4ac8071099f43f6428587e37f24d8295,
-        type: 3}
-      propertyPath: selectIconColor_.g
-      value: 0.5019608
-      objectReference: {fileID: 0}
-    - target: {fileID: 6715395263618748808, guid: 4ac8071099f43f6428587e37f24d8295,
-        type: 3}
-      propertyPath: selectIconColor_.a
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6959011645337699844, guid: 4ac8071099f43f6428587e37f24d8295,
         type: 3}
