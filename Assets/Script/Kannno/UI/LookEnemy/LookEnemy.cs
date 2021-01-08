@@ -52,7 +52,7 @@ namespace FrontPerson.UI
         {
             Vector3 player_pos = Player.transform.position;
 
-            Vector3 front = Player.transform.rotation * Vector3.forward;
+            Vector3 front = Player.transform.forward;
             front.y = 0f;
 
             for (int i = 0; i < Images.Count; i++)
