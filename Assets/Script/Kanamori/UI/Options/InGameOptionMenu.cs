@@ -33,11 +33,6 @@ namespace FrontPerson.UI
 
 
         /// <summary>
-        /// アプリケーションマネージャー
-        /// </summary>
-        ApplicationManager appManager_ = null;
-
-        /// <summary>
         /// メニューを閉じれるようにする
         /// </summary>
         public void AllowsTheMenuClose()
