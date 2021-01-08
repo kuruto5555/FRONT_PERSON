@@ -95,7 +95,8 @@ namespace FrontPerson.Enemy.AI
             if (enemy.isDiscover)
             {
                 enemy.isDiscover = false;
-                //Player.Alart(false);
+                Player.Alart(false);
+                LookEnemy?.DeleteEnemy(Owner.transform);
             }
         }
 
@@ -106,7 +107,8 @@ namespace FrontPerson.Enemy.AI
             if (enemy.isDiscover)
             {
                 enemy.isDiscover = false;
-                //Player.Alart(false);
+                Player.Alart(false);
+                LookEnemy?.DeleteEnemy(Owner.transform);
             }
         }
 

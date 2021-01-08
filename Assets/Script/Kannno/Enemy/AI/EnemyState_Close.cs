@@ -82,7 +82,9 @@ namespace FrontPerson.Enemy.AI
 
                 enemy.isDiscover = false;
 
-                //Player.Alart(false);
+                Player.Alart(false);
+
+                LookEnemy?.DeleteEnemy(Owner.transform);
 
                 return;
             }
@@ -105,9 +107,11 @@ namespace FrontPerson.Enemy.AI
             {
                 ChangeState<EnemyState_Move>();
 
-                //Player.Alart(false);
-
                 enemy.isDiscover = false;
+
+                Player.Alart(false);
+
+                LookEnemy?.DeleteEnemy(Owner.transform);
 
                 return;
             }

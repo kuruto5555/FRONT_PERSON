@@ -94,6 +94,8 @@ MonoBehaviour:
   StunEffect_: {fileID: 5774319323658694673, guid: cd9edc7087627fc4bbe2ba98eb9c9d48,
     type: 3}
   StunSoundRate: 0.3
+  AlartEffect_: {fileID: 5161912945698808647, guid: b6cfa0d05efbbd8468a0ae5f5dfc114f,
+    type: 3}
 --- !u!208 &2393630823986044895
 NavMeshObstacle:
   m_ObjectHideFlags: 0

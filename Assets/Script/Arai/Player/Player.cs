@@ -77,6 +77,12 @@ namespace FrontPerson.Character
         [SerializeField, Range(0.0f, 1.0f)]
         float StunSoundRate = 0.5f;
 
+        [Header("追いかけられているエフェクト")]
+        [SerializeField]
+        GameObject AlartEffect_ = null;
+
+        private GameObject AlartObj = null;
+
         /// <summary>
         /// スペシャル武器
         /// </summary>
@@ -239,6 +245,15 @@ namespace FrontPerson.Character
         /// </summary>
         private GameObject _stunEffect = null;
 
+        /// <summary>
+        /// おばちゃん、ヤクザに追いかけられている数
+        /// </summary>
+        private int AlartCnt = 0;
+
+        /// <summary>
+        /// 追いかけられているかを表すフラグ(true = 追いかけられている)
+        /// </summary>
+        public bool isAlart { get; private set; } = false;
 
         /*---- プロパティ ----*/
         /// <summary>
@@ -393,6 +408,11 @@ namespace FrontPerson.Character
             Reload(nutrientsRecoveryPoint_);
 
             transform.position = position_;
+        }
+
+        private void LateUpdate()
+        {
+            Alart();
         }
 
         /// <summary>
@@ -705,7 +725,8 @@ namespace FrontPerson.Character
             {
                 _stunEffect = Instantiate(StunEffect_, transform);
             }
-            
+
+            ResetAlart();
         }
 
 
@@ -1040,6 +1061,8 @@ namespace FrontPerson.Character
                 _invisibleObject = Instantiate(InvisibleEffect_, _canvas.transform);
                 _invisibleObject.transform.SetAsFirstSibling();
             }
+
+            ResetAlart();
         }
 
         private void DebugUpdeta()
@@ -1070,6 +1093,52 @@ namespace FrontPerson.Character
 #endif
         }
 
+        /// <summary>
+        /// 追いかけられている数を増減
+        /// </summary>
+        /// <param name="enable"></param>
+        public void Alart(bool enable)
+        {
+            if (enable)
+            {
+                AlartCnt++;
+            }
+            else
+            {
+                AlartCnt--;
+
+                AlartCnt = Math.Max(AlartCnt, 0);
+            }
+        }
+
+        /// <summary>
+        /// アラートエフェクトの生成と破棄
+        /// </summary>
+        private void Alart()
+        {
+            if (0 < AlartCnt && !isAlart)
+            {
+                AlartObj = Instantiate(AlartEffect_, _canvas.transform);
+                AlartObj.transform.SetAsFirstSibling();
+
+                isAlart = true;
+            }
+
+            if (0 == AlartCnt && (null != AlartObj))
+            {
+                Destroy(AlartObj);
+
+                isAlart = false;
+            }
+        }
+
+        /// <summary>
+        /// 追いかけられている数をリセットする
+        /// </summary>
+        private void ResetAlart()
+        {
+            AlartCnt = 0;
+        }
     }
 
 };
