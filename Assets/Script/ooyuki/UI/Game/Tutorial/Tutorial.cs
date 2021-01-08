@@ -215,7 +215,7 @@ namespace FrontPerson.UI
         public void PushRight()
         {
             // 今一番右にいるなら終了
-            if (tutorialIndex_ >= panelNum_)
+            if (tutorialIndex_ >= panelNum_-1)
             {
                 animator_.SetBool("Finish", true);
                 
