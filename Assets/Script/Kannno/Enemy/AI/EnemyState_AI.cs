@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 using FrontPerson.Character;
+using FrontPerson.UI;
+
 
 namespace FrontPerson.Enemy.AI
 {
@@ -27,13 +29,17 @@ namespace FrontPerson.Enemy.AI
         /// </summary>
         protected SearchArea SearchArea = null;
 
+        protected LookEnemy LookEnemy = null;
+
         private void Start()
         {
             Player = GameObject.FindGameObjectWithTag(Constants.TagName.PLAYER)?.GetComponent<Player>();
 
             SearchArea = GetComponentInChildren<SearchArea>();
 
-            if(null == Owner)
+            LookEnemy = FindObjectOfType<LookEnemy>();
+
+            if (null == Owner)
             {
                 Owner = GetComponent<Character.Enemy>();
             }
