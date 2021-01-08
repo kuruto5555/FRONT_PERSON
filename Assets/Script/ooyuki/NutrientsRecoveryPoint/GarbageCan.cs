@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using FrontPerson.Manager;
+using FrontPerson.Weapon;
 
 namespace FrontPerson.Gimmick
 {
@@ -38,6 +39,27 @@ namespace FrontPerson.Gimmick
             IsCharge = false;
             icon_.SetActive(false);
             return value <= recoveryValue_ ? value : recoveryValue_;
+        }
+
+
+        /// <summary>
+        /// 弾の補給
+        /// </summary>
+        /// <param name="guns">補充する銃</param>
+        /// <returns></returns>
+        public override void Charge(Gun[] guns)
+        {
+            // チャージできるフラグがfalseなら補給できない
+            if (!IsCharge) return;
+            // 補給量が0なら帰る
+            var value = guns[0].MaxAmmo_ - guns[0].Ammo;
+            if (value <= 0) return;
+
+
+            bountyManager_.NutritionCharge();
+            IsCharge = false;
+            icon_.SetActive(false);
+            guns[0].Reload(value <= recoveryValue_ ? value : recoveryValue_);
         }
     }
 }
