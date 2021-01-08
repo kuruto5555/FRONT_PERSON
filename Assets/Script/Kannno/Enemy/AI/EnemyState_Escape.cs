@@ -90,10 +90,24 @@ namespace FrontPerson.Enemy.AI
 
         protected override void OnChangeState_OldBattleaxe()
         {
+            OldBattleaxe enemy = Owner as OldBattleaxe;
+
+            if (enemy.isDiscover)
+            {
+                enemy.isDiscover = false;
+                //Player.Alart(false);
+            }
         }
 
         protected override void OnChangeState_Yakuza()
         {
+            var enemy = Owner as Yakuza;
+
+            if (enemy.isDiscover)
+            {
+                enemy.isDiscover = false;
+                //Player.Alart(false);
+            }
         }
 
         private bool CheckDestination()

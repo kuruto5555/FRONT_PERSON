@@ -114,9 +114,13 @@ namespace FrontPerson.Enemy.AI
             {
                 enemy.isAngry = true;
 
+                enemy.isDiscover = true;
+
                 ChangeState<EnemyState_Close>();
 
                 var ai = Owner.state_AI as EnemyState_Close;
+
+                //Player.Alart(true);
             }
         }
 
@@ -133,9 +137,13 @@ namespace FrontPerson.Enemy.AI
 
             if (SearchArea.IsFound)
             {
+                enemy.isDiscover = true;
+
                 ChangeState<EnemyState_Close>();
 
                 AudioManager.Instance.Play3DSE(Owner.transform.position, SEPath.GAME_SE_VOICE_YAKUZA);
+
+                //Player.Alart(true);
             }
         }
         private void StoppingAnimation()
