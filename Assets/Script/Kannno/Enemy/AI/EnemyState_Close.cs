@@ -80,6 +80,12 @@ namespace FrontPerson.Enemy.AI
 
                 enemy.isAngry = false;
 
+                enemy.isDiscover = false;
+
+                Player.Alart(false);
+
+                LookEnemy?.DeleteEnemy(Owner.transform);
+
                 return;
             }
 
@@ -100,6 +106,12 @@ namespace FrontPerson.Enemy.AI
             if (Player.IsStun || Player.IsInvincible || Player.IsTransparent)
             {
                 ChangeState<EnemyState_Move>();
+
+                enemy.isDiscover = false;
+
+                Player.Alart(false);
+
+                LookEnemy?.DeleteEnemy(Owner.transform);
 
                 return;
             }

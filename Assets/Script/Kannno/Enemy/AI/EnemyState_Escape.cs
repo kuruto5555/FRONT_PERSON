@@ -17,7 +17,16 @@ namespace FrontPerson.Enemy.AI
         {
             Set_AgentGoal();
 
-            if(EnemyType.YAKUZA != Owner.Type) Invoke("StoppingAnimation", 1.0f);
+            if (EnemyType.YAKUZA != Owner.Type)
+            {
+                Invoke("StoppingAnimation", 1.0f);
+            }
+            else
+            {
+                Invoke("StoppingAnimation", 0.3f);
+            }
+
+            Invoke("Dead", 30f);
         }
 
         /// <summary>
@@ -81,10 +90,26 @@ namespace FrontPerson.Enemy.AI
 
         protected override void OnChangeState_OldBattleaxe()
         {
+            OldBattleaxe enemy = Owner as OldBattleaxe;
+
+            if (enemy.isDiscover)
+            {
+                enemy.isDiscover = false;
+                Player.Alart(false);
+                LookEnemy?.DeleteEnemy(Owner.transform);
+            }
         }
 
         protected override void OnChangeState_Yakuza()
         {
+            var enemy = Owner as Yakuza;
+
+            if (enemy.isDiscover)
+            {
+                enemy.isDiscover = false;
+                Player.Alart(false);
+                LookEnemy?.DeleteEnemy(Owner.transform);
+            }
         }
 
         private bool CheckDestination()
@@ -107,6 +132,11 @@ namespace FrontPerson.Enemy.AI
         private void StoppingAnimation()
         {
             Owner.isStoppingAnimation = false;
+        }
+
+        private void Dead()
+        {
+            Owner.SetDead();
         }
     }
 }

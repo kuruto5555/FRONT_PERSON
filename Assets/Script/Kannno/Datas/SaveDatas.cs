@@ -40,8 +40,13 @@ namespace FrontPerson.Data
         public List<int> RankingClearMissionNum = new List<int>() { 10, 8, 6, 4, 2 };
 
         /// <summary>
-        /// エイム感度
+        /// 上下の視点感度
         /// </summary>
-        public int RotetaSpeed = 5;
+        public int VerticalRotationSpeed = 5;
+
+        /// <summary>
+        /// 上下の視点感度
+        /// </summary>
+        public int HorizontalRotationSpeed = 5;
     }
 }

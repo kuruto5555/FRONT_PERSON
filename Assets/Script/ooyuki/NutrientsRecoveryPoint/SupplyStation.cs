@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SocialPlatforms;
 using FrontPerson.Manager;
+using FrontPerson.Weapon;
 
 namespace FrontPerson.Gimmick
 {
@@ -75,6 +76,26 @@ namespace FrontPerson.Gimmick
 
             // 補充量を返す
             return value;
+        }
+
+
+        /// <summary>
+        /// 弾の補給
+        /// </summary>
+        /// <param name="value">補充する銃</param>
+        /// <returns></returns>
+        public override void Charge(Gun[] guns)
+        {
+            if (!IsCharge) return;
+
+            foreach(var gun in guns)
+            {
+                gun.Reload();
+            }
+
+            time_ = interval_;
+            IsCharge = false;
+            icon_.SetActive(false);
         }
 
     }

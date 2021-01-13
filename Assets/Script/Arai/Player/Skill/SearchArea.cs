@@ -11,6 +11,37 @@ namespace FrontPerson.Character.Skill
 {
     public class SearchArea : MonoBehaviour
     {
+        /// <summary>
+        /// エリアに入った敵の情報
+        /// </summary>
+        class SearchInfo
+        {
+            /// <summary>
+            /// サーチエリア内かどうか
+            /// </summary>
+            public bool isInSearchArea = false;
+
+            /// <summary>
+            /// 敵
+            /// </summary>
+            public Enemy enemy_ = null;
+
+            /// <summary>
+            /// サーチエリアに入った敵の初期のマテリアル保存用
+            /// </summary>
+            public Material[] initMaterials_ = null;
+
+            /// <summary>
+            /// Areaに入ったやつのマテリアル
+            /// </summary>
+            public Renderer renderer = null;
+
+            /// <summary>
+            /// 敵ごとのスキル効果時間
+            /// </summary>
+            public float skillEffectTime_ = 0f;
+        }
+
         [Header("エリアの広がる速度")]
         [SerializeField, Range(0f, 100f)]
         float speed_ = 1f;
@@ -65,20 +96,10 @@ namespace FrontPerson.Character.Skill
         UI_Skill skillDraw_ = null;
 
         /// <summary>
-        /// エリアに入ったやつのマテリアル情報を保存。
-        /// Searchをやめたときに戻して、リセットする
+        /// エリアにはいいた敵の情報のリスト
         /// </summary>
-        List<Material[]> initMaterialsList_;
+        List<SearchInfo> enemySearchInfo_ = new List<SearchInfo>();
 
-        /// <summary>
-        /// Areaに入ったやつのマテリアル
-        /// </summary>
-        List<Renderer> rendererList_;
-
-        /// <summary>
-        /// 敵ごとのスキル効果時間
-        /// </summary>
-        List<float> skillEffectTime_of_Enemys_;
 
         /// <summary>
         /// スキルのインターバルの計測用変数
@@ -96,10 +117,6 @@ namespace FrontPerson.Character.Skill
         {
             IsSearch = false;
             IsUse = true;
-
-            initMaterialsList_ = new List<Material[]>();
-            rendererList_ = new List<Renderer>();
-            skillEffectTime_of_Enemys_ = new List<float>();
 
             eria_ = GetComponent<SphereCollider>();
             eria_.enabled = false;
@@ -124,24 +141,24 @@ namespace FrontPerson.Character.Skill
 
 
             // リストのやつの状態を確認
-            for (int i = 0; i < rendererList_.Count; i++)
+            for (int i = 0; i < enemySearchInfo_.Count; i++)
             {
                 // 元気だったら
-                if (rendererList_[i].transform.root.gameObject.GetComponent<Enemy>().isDown)
+                if (enemySearchInfo_[i].enemy_.isDown)
                 {
                     // マテリアル戻してリストから削除
                     ReleaseMaterial(i);
                     continue;
                 }
 
-                // スキル効果時間が０より大きかったら更新する
-                else if(skillEffectTime_of_Enemys_[i] > 0f)
+                // サーチエリア外だったら効果時間を減らす
+                else if(!enemySearchInfo_[i].isInSearchArea)
                 {
                     // 効果時間を減らす
-                    skillEffectTime_of_Enemys_[i] -= Time.deltaTime;
+                    enemySearchInfo_[i].skillEffectTime_ -= Time.deltaTime;
 
                     // 効果時間が切れたら
-                    if(skillEffectTime_of_Enemys_[i] <= 0f)
+                    if(enemySearchInfo_[i].skillEffectTime_ <= 0f)
                     {
                         // マテリアル戻してリストから削除
                         ReleaseMaterial(i);
@@ -222,14 +239,15 @@ namespace FrontPerson.Character.Skill
             IsSearch = false;
 
             // スキル効果時間の設定
-            for(int i=0;i< rendererList_.Count; i++)
+            for(int i=0;i< enemySearchInfo_.Count; i++)
             {
                 // 既に効果時間が設定されているものはパス
-                if (skillEffectTime_of_Enemys_[i] > 0f)
+                if (enemySearchInfo_[i].skillEffectTime_ > 0f)
                     continue;
 
                 // そうでなければスキル効果時間を設定
-                skillEffectTime_of_Enemys_[i] = skillEffectTime_;
+                enemySearchInfo_[i].isInSearchArea = false;
+                enemySearchInfo_[i].skillEffectTime_ = skillEffectTime_;
             }
         }
 
@@ -252,11 +270,14 @@ namespace FrontPerson.Character.Skill
             
             
             //同じオブジェクトがもしあった場合効果時間を更新して帰る
-            for (int i = 0; i < rendererList_.Count;i++)
+            for (int i = 0; i < enemySearchInfo_.Count;i++)
             {
-                if (rendererList_[i].gameObject == other.gameObject)
+                if (enemySearchInfo_[i].enemy_.gameObject == other.gameObject)
                 {
-                    skillEffectTime_of_Enemys_[i] = skillEffectTime_;
+                    // エリア内フラグをtrueに戻す
+                    enemySearchInfo_[i].isInSearchArea = true;
+                    //効果時間を０にリセット
+                    enemySearchInfo_[i].skillEffectTime_ = 0f;
                     return;
                 }
             }
@@ -273,9 +294,13 @@ namespace FrontPerson.Character.Skill
                     return;
                 }
             }
-            initMaterialsList_.Add(renderer.materials);
-            rendererList_.Add(renderer);
-            skillEffectTime_of_Enemys_.Add(0f);
+            SearchInfo newSearchInfo = new SearchInfo();
+            newSearchInfo.enemy_ = enemy;
+            newSearchInfo.isInSearchArea = true;
+            newSearchInfo.initMaterials_ = (renderer.materials);
+            newSearchInfo.renderer = renderer;
+            newSearchInfo.skillEffectTime_ = 0f;
+            enemySearchInfo_.Add(newSearchInfo);
 
             // エネミーの足りないビタミンの種類によってセットするMaterialを変える
             Material[] materials = new Material[renderer.materials.Length];
@@ -302,14 +327,15 @@ namespace FrontPerson.Character.Skill
         /// <param name="other">エリアから出たやつ</param>
         private void OnTriggerExit(Collider other)
         {
-            for (int i = 0; i < rendererList_.Count; i++)
+            for (int i = 0; i < enemySearchInfo_.Count; i++)
             {
                 // 違ったらコンティニュー
-                if (rendererList_[i].gameObject != other.gameObject)
+                if (enemySearchInfo_[i].enemy_.gameObject != other.gameObject)
                     continue;
 
-                // 一緒だったらスキルの効果時間を設定
-                skillEffectTime_of_Enemys_[i] = skillEffectTime_;
+                // 一緒だったらエリア内フラグをfalseにしてスキルの効果時間を設定
+                enemySearchInfo_[i].isInSearchArea = false;
+                enemySearchInfo_[i].skillEffectTime_ = skillEffectTime_;
                 break;
             }
         }
@@ -318,34 +344,11 @@ namespace FrontPerson.Character.Skill
         void ReleaseMaterial(int index)
         {
             // マテリアル戻してリストから削除
-            rendererList_[index].materials = initMaterialsList_[index];
-            rendererList_.RemoveAt(index);
-            initMaterialsList_.RemoveAt(index);
-            skillEffectTime_of_Enemys_.RemoveAt(index);
+            enemySearchInfo_[index].renderer.materials = enemySearchInfo_[index].initMaterials_;
+            enemySearchInfo_.RemoveAt(index);
         }
 
 
-        private IEnumerator ReleaseMaterials(float skillEfectTime)
-        {
-            while (skillEfectTime <= 0)
-            {
-                yield return null;
-                skillEfectTime -= Time.deltaTime;
-            }
 
-            //マテリアルを戻す
-            if (initMaterialsList_.Count != 0)
-            {
-                for (int i = 0; i < initMaterialsList_.Count; i++)
-                {
-                    if (rendererList_[i].gameObject.GetComponent<Enemy>().isDown) continue;
-                    rendererList_[i].materials = initMaterialsList_[i];
-                }
-
-                rendererList_.Clear();
-                initMaterialsList_.Clear();
-                skillEffectTime_of_Enemys_.Clear();
-            }
-        }
     }
 }

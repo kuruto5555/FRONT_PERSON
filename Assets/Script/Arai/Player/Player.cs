@@ -40,7 +40,12 @@ namespace FrontPerson.Character
 
         [Header("視点感度")]
         [SerializeField, Range(1, 14)]
-        static int RotationSpeed_ = 5;
+        [Tooltip("上下の視点感度")]
+        static int verticalRotationSpeed_ = 5;
+        [SerializeField, Range(1, 14)]
+        [Tooltip("左右の視点感度")]
+        static int horizontalRotationSpeed_ = 5;
+
 
         [Header("視点角度制限")]
         [SerializeField, Range(30.0f, 90.0f)]
@@ -71,6 +76,12 @@ namespace FrontPerson.Character
         [Header("スタン音鳴らす間隔")]
         [SerializeField, Range(0.0f, 1.0f)]
         float StunSoundRate = 0.5f;
+
+        [Header("追いかけられているエフェクト")]
+        [SerializeField]
+        GameObject AlartEffect_ = null;
+
+        private GameObject AlartObj = null;
 
         /// <summary>
         /// スペシャル武器
@@ -234,6 +245,15 @@ namespace FrontPerson.Character
         /// </summary>
         private GameObject _stunEffect = null;
 
+        /// <summary>
+        /// おばちゃん、ヤクザに追いかけられている数
+        /// </summary>
+        private int AlartCnt = 0;
+
+        /// <summary>
+        /// 追いかけられているかを表すフラグ(true = 追いかけられている)
+        /// </summary>
+        public bool isAlart { get; private set; } = false;
 
         /*---- プロパティ ----*/
         /// <summary>
@@ -297,10 +317,15 @@ namespace FrontPerson.Character
         public bool IsSpecialWeapon { get { return Weapon != null; } }
 
         /// <summary>
-        /// 視点感度
+        /// 左右の視点感度
         /// </summary>
-        static public int ViewRotetaSpeed { get { return RotationSpeed_; } set { RotationSpeed_ = Mathf.Clamp(value, 1, 14); } }
+        static public int HorizontalRotetaSpeed { get { return horizontalRotationSpeed_; } set { horizontalRotationSpeed_ = Mathf.Clamp(value, 1, 14); } }
 
+
+        /// <summary>
+        /// 上下の視点感度
+        /// </summary>
+        static public int VerticalRotetaSpeed { get { return verticalRotationSpeed_; } set { verticalRotationSpeed_ = Mathf.Clamp(value, 1, 14); } }
 
 
 
@@ -385,13 +410,18 @@ namespace FrontPerson.Character
             transform.position = position_;
         }
 
+        private void LateUpdate()
+        {
+            Alart();
+        }
+
         /// <summary>
         /// 視点移動
         /// </summary>
         private void ViewPointMove()
         {
-            float Y_Rotation = Input.GetAxis(Constants.InputName.VERTICAL2)   * ViewRotetaSpeed * 30 * Time.deltaTime;
-            float X_Rotation = Input.GetAxis(Constants.InputName.HORIZONTAL2) * ViewRotetaSpeed * 30 * Time.deltaTime;
+            float Y_Rotation = Input.GetAxis(Constants.InputName.VERTICAL2)   * VerticalRotetaSpeed * 20 * Time.deltaTime;
+            float X_Rotation = Input.GetAxis(Constants.InputName.HORIZONTAL2) * HorizontalRotetaSpeed * 30 * Time.deltaTime;
             
             transform.Rotate(0, X_Rotation, 0);
 
@@ -593,16 +623,28 @@ namespace FrontPerson.Character
             switch (vrp.VitaminType)
             {
                 case NUTRIENTS_TYPE._A:
-                    gunL_.Reload(vrp.Charge(GunAmmoMAX_L - GunAmmoL));
+                    {
+                        //gunL_.Reload(vrp.Charge(GunAmmoMAX_L - GunAmmoL));
+                        Gun[] guns = new Gun[] { gunL_ };
+                        vrp.Charge(guns);
+                    }
                     break;
 
                 case NUTRIENTS_TYPE._B:
-                    gunR_.Reload(vrp.Charge(GunAmmoMAX_R - GunAmmoR));
+                    {
+                        //gunR_.Reload(vrp.Charge(GunAmmoMAX_R - GunAmmoR));
+                        Gun[] guns = new Gun[] { gunR_ };
+                        vrp.Charge(guns);
+                    }
                     break;
 
                 case NUTRIENTS_TYPE._ALL:
-                    gunL_.Reload(vrp.Charge(GunAmmoMAX_L - GunAmmoL));
-                    gunR_.Reload(vrp.Charge(GunAmmoMAX_R - GunAmmoR));
+                    {
+                        //gunL_.Reload(vrp.Charge(GunAmmoMAX_L - GunAmmoL));
+                        //gunR_.Reload(vrp.Charge(GunAmmoMAX_R - GunAmmoR));
+                        Gun[] guns = new Gun[] { gunL_, gunR_ };
+                        vrp.Charge(guns);
+                    }
                     break;
             }
 
@@ -695,7 +737,8 @@ namespace FrontPerson.Character
             {
                 _stunEffect = Instantiate(StunEffect_, transform);
             }
-            
+
+            ResetAlart();
         }
 
 
@@ -1030,6 +1073,8 @@ namespace FrontPerson.Character
                 _invisibleObject = Instantiate(InvisibleEffect_, _canvas.transform);
                 _invisibleObject.transform.SetAsFirstSibling();
             }
+
+            ResetAlart();
         }
 
         private void DebugUpdeta()
@@ -1060,6 +1105,52 @@ namespace FrontPerson.Character
 #endif
         }
 
+        /// <summary>
+        /// 追いかけられている数を増減
+        /// </summary>
+        /// <param name="enable"></param>
+        public void Alart(bool enable)
+        {
+            if (enable)
+            {
+                AlartCnt++;
+            }
+            else
+            {
+                AlartCnt--;
+
+                AlartCnt = Math.Max(AlartCnt, 0);
+            }
+        }
+
+        /// <summary>
+        /// アラートエフェクトの生成と破棄
+        /// </summary>
+        private void Alart()
+        {
+            if (0 < AlartCnt && !isAlart)
+            {
+                AlartObj = Instantiate(AlartEffect_, _canvas.transform);
+                AlartObj.transform.SetAsFirstSibling();
+
+                isAlart = true;
+            }
+
+            if (0 == AlartCnt && (null != AlartObj))
+            {
+                Destroy(AlartObj);
+
+                isAlart = false;
+            }
+        }
+
+        /// <summary>
+        /// 追いかけられている数をリセットする
+        /// </summary>
+        private void ResetAlart()
+        {
+            AlartCnt = 0;
+        }
     }
 
 };

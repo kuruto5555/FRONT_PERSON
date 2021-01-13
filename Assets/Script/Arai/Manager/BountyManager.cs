@@ -4,6 +4,7 @@ using UnityEngine;
 using FrontPerson.common;
 using FrontPerson.Bounty;
 using System.Security.Cryptography;
+using FrontPerson.UI;
 
 namespace FrontPerson.Manager
 {
@@ -19,8 +20,36 @@ namespace FrontPerson.Manager
             get;
             private set;
         }
+        
 
-        [SerializeField] List<GameObject> MissionPrefabList;
+        [Header("ミッションのプレハブリスト")]
+        [Tooltip("簡単なミッションのPrefabリスト")]
+        [SerializeField] 
+        List<GameObject> easyMissionPrefabList = null;
+
+        [Tooltip("普通のミッションのPrefabリスト")]
+        [SerializeField]
+        List<GameObject> normalMissionPrefabList_ = null;
+
+        [Tooltip("難しいミッションのPrefabリスト")]
+        [SerializeField]
+        List<GameObject> hardMissionPrefabList_ = null;
+
+        [Header("ミッションの難易度が変わるコンボ数")]
+        [SerializeField, Range(10, 50)]
+        [Tooltip("この値を超えるとミッションがnormalMissionPrefabList_から抽選されるようになる")]
+        int normalLine_ = 30;
+
+        [SerializeField, Range(10, 50)]
+        [Tooltip("この値を超えるとミッションがhardMissionPrefabList_から抽選されるようになる")]
+        int hardLine_ = 30;
+
+
+
+        [Header("スペシャル武器UI")]
+        [SerializeField]
+        [Tooltip("UI_SP_Weaponコンポ―ネント")]
+        UI_SP_Weapon spWeaponUI = null;
 
         private const int ACTIV_MISSION = 3;
 
@@ -71,10 +100,10 @@ namespace FrontPerson.Manager
             if(_instance == null) _instance = this;
 
             MissionList = new List<Bounty.Bounty>();
-            _missionNum = MissionPrefabList.Count;
+            _missionNum = easyMissionPrefabList.Count;
             for (int i = 0; i < ACTIV_MISSION; i++)
             {
-                MissionList.Add(Instantiate(MissionPrefabList[Random.Range(0, _missionNum)].GetComponent<Bounty.Bounty>(), transform)) ;
+                MissionList.Add(Instantiate(easyMissionPrefabList[Random.Range(0, _missionNum)].GetComponent<Bounty.Bounty>(), transform)) ;
             }
         }
 
@@ -237,23 +266,29 @@ namespace FrontPerson.Manager
                     ScoreManager.Instance.AddScore((int)mission.GetScore, Score.ADD_SCORE_TYPE.BOUNTY_SCORE);
 
                     _missionCnt++;
+                    spWeaponUI.clearMission();
 
                     //ミッションクリア数が３つになったら
                     if (_missionCnt % GET_WEAPON_MISSON_NUM == 0)
                     {
                         //武器を出す
-                        _player.WeaponUpgrade(Random.Range(0, SpecialWeaponManager._instance._weaponNum));
+                        var num = Random.Range(0, SpecialWeaponManager._instance._weaponNum);
+                        _player.WeaponUpgrade(num);
+                        spWeaponUI?.GetSPWeapon(num);
                     }
                 }
             }
         }
 
-
+        /// <summary>
+        /// 新しいMissionの生成&クリアしたミッションの削除
+        /// </summary>
+        /// <param name="index">クリアしたミッションのインデックス</param>
         public void ClearMissionDelete(int index)
         {
             var mission = MissionList[index];
             // クリアしたミッションのところに新しいミッションを作成
-            MissionList[index] = Instantiate(MissionPrefabList[Random.Range(0, _missionNum)], transform).GetComponent<Bounty.Bounty>();
+            MissionList[index] = Instantiate(easyMissionPrefabList[Random.Range(0, _missionNum)], transform).GetComponent<Bounty.Bounty>();
             // クリアしたほうは消す
             mission.ImDie();
         }

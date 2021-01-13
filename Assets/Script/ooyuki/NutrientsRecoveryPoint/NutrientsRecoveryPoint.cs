@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using FrontPerson.Constants;
+using FrontPerson.Weapon;
 
 namespace FrontPerson.Gimmick
 {
@@ -34,5 +35,12 @@ namespace FrontPerson.Gimmick
         /// <param name="value">欲しい弾の量</param>
         /// <returns>もらえる弾の量</returns>
         public abstract int Charge(int value);
+
+        /// <summary>
+        /// 弾の補給
+        /// </summary>
+        /// <param name="guns">補充する銃</param>
+        /// <returns></returns>
+        public abstract void Charge(Gun[] guns);
     }
 }

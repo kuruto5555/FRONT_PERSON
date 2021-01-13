@@ -59,7 +59,7 @@ namespace FrontPerson.UI
 
         protected UnityAction return_option_scene_;
 
-        private ApplicationManager appManager_ = null;
+        protected ApplicationManager appManager_ = null;
 
         private GameObject current_buttom = null;
 
