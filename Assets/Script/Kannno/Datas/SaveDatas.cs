@@ -16,7 +16,9 @@ namespace FrontPerson.Data
     {
         static public readonly string SAVE_DATA_NAME = "SaveData";
 
-        // サウンド設定
+        /// <summary>
+        /// サウンド設定
+        /// </summary>
         public AudioVolume SoundData;
 
         /// <summary>
