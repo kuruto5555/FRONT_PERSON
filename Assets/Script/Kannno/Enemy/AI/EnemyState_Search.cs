@@ -25,7 +25,7 @@ namespace FrontPerson.Enemy.AI
 
             if (enemy.isHit)
             {
-                ChangeState<EnemyState_Close>();
+                ChangeState<EnemyState_Close>(EmotionEmitter_);
 
                 var ai = Owner.state_AI as EnemyState_Close;
 
@@ -37,7 +37,7 @@ namespace FrontPerson.Enemy.AI
         {
             if (SearchArea.IsFound && (!Player.IsInvincible && !Player.IsStun) )
             {
-                ChangeState<EnemyState_Close>();
+                ChangeState<EnemyState_Close>(EmotionEmitter_);
 
                 var ai = Owner.state_AI as EnemyState_Close;
 

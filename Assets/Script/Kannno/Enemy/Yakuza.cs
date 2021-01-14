@@ -4,6 +4,7 @@ using UnityEngine;
 
 using FrontPerson.Weapon;
 using FrontPerson.Manager;
+using FrontPerson.Constants;
 
 namespace FrontPerson.Enemy
 {
@@ -38,6 +39,8 @@ namespace FrontPerson.Enemy
                 SetDown();
 
                 Animation();
+
+                EmotionEmitter_.OpentFire(EMOTION_INDEX.SAD, 0.5f);
             }
         }
 

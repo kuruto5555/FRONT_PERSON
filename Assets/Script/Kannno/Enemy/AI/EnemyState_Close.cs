@@ -76,7 +76,7 @@ namespace FrontPerson.Enemy.AI
 
             if (Player.IsStun || Player.IsInvincible || Player.IsTransparent)
             {
-                ChangeState<EnemyState_Move>();
+                ChangeState<EnemyState_Move>(EmotionEmitter_);
 
                 enemy.isAngry = false;
 
@@ -91,7 +91,7 @@ namespace FrontPerson.Enemy.AI
 
             if (Mathf.Abs((Owner.transform.position - goal.position).magnitude) <= 3.0f)
             {
-                ChangeState<EnemyState_Attack>();
+                ChangeState<EnemyState_Attack>(EmotionEmitter_);
 
                 enemy.Animator.Play(ATTACK);
 
@@ -105,7 +105,7 @@ namespace FrontPerson.Enemy.AI
 
             if (Player.IsStun || Player.IsInvincible || Player.IsTransparent)
             {
-                ChangeState<EnemyState_Move>();
+                ChangeState<EnemyState_Move>(EmotionEmitter_);
 
                 enemy.isDiscover = false;
 
@@ -113,12 +113,14 @@ namespace FrontPerson.Enemy.AI
 
                 LookEnemy?.DeleteEnemy(Owner.transform);
 
+                EmotionEmitter_.CloseFire();
+
                 return;
             }
 
             if (Mathf.Abs((Owner.transform.position - goal.position).magnitude) <= 3.0f)
             {
-                ChangeState<EnemyState_Attack>();
+                ChangeState<EnemyState_Attack>(EmotionEmitter_);
 
                 enemy.Animator.Play(ATTACK);
 
