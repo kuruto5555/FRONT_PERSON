@@ -32,6 +32,7 @@ public static class SEPath
 	public const string GAME_SE_SCAN_ERROR      ="SE/Game_SE_ScanError";
 	public const string GAME_SE_SCORE           ="SE/Game_SE_Score";
 	public const string GAME_SE_STUN            ="SE/Game_SE_Stun";
+	public const string GAME_SE_SUPPLY          ="SE/Game_SE_Supply";
 	public const string GAME_SE_SUPPLY_STATION  ="SE/Game_SE_SupplyStation";
 	public const string GAME_SE_TIME_UP         ="SE/Game_SE_TimeUp";
 	public const string GAME_SE_VOICE_MAN       ="SE/Game_SE_VoiceMan";
