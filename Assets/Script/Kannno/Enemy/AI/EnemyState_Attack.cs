@@ -40,7 +40,9 @@ namespace FrontPerson.Enemy.AI
 
             LookEnemy?.DeleteEnemy(Owner.transform);
 
-            ChangeState<EnemyState_Move>();
+            ChangeState<EnemyState_Move>(EmotionEmitter_);
+
+            EmotionEmitter_.CloseFire();
         }
 
         protected override void OnChangeState_Yakuza()
@@ -53,7 +55,9 @@ namespace FrontPerson.Enemy.AI
 
             LookEnemy?.DeleteEnemy(Owner.transform);
 
-            ChangeState<EnemyState_Move>();
+            ChangeState<EnemyState_Move>(EmotionEmitter_);
+
+            EmotionEmitter_.CloseFire();
         }
     }
 }

@@ -66,6 +66,8 @@ namespace FrontPerson.Enemy
                 // コンボの終了
                 ComboManager.Instance.LostCombo();
 
+                EmotionEmitter_.OpentFire(EMOTION_INDEX.ANGRY, 0.8f);
+
                 AudioManager.Instance.Play3DSE(transform.position, SEPath.GAME_SE_VOICE_WOMAN);
             }
             else
@@ -80,10 +82,12 @@ namespace FrontPerson.Enemy
 
             if (isAngry)
             {
+                EmotionEmitter_.OpentFire(EMOTION_INDEX.SAD, 0.5f);
                 Animator.CrossFadeInFixedTime(EnemyAnimation.Repel, 0.5f);
             }
             else
             {
+                EmotionEmitter_.OpentFire(EMOTION_INDEX.HAPPY, 1.0f);
                 Animator.CrossFadeInFixedTime(EnemyAnimation.Fine, 0.5f);
             }
         }

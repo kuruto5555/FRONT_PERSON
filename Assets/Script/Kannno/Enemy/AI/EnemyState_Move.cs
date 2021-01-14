@@ -116,7 +116,7 @@ namespace FrontPerson.Enemy.AI
 
                 enemy.isDiscover = true;
 
-                ChangeState<EnemyState_Close>();
+                ChangeState<EnemyState_Close>(EmotionEmitter_);
 
                 var ai = Owner.state_AI as EnemyState_Close;
 
@@ -139,9 +139,12 @@ namespace FrontPerson.Enemy.AI
 
             if (SearchArea.IsFound)
             {
+                //見つかった瞬間
+                EmotionEmitter_.OpentFire(EMOTION_INDEX.ANGRY, 1.0f);
+
                 enemy.isDiscover = true;
 
-                ChangeState<EnemyState_Close>();
+                ChangeState<EnemyState_Close>(EmotionEmitter_);
 
                 AudioManager.Instance.Play3DSE(Owner.transform.position, SEPath.GAME_SE_VOICE_YAKUZA);
 

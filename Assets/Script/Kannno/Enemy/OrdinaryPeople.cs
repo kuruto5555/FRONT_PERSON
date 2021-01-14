@@ -44,6 +44,8 @@ namespace FrontPerson.Enemy
                     Animator.CrossFadeInFixedTime(EnemyAnimation.Fine, 0.5f);
 
                     isStoppingAnimation = true;
+
+                    EmotionEmitter_.OpentFire(EMOTION_INDEX.HAPPY, 1.0f);
                 }
             }
             else
@@ -56,6 +58,8 @@ namespace FrontPerson.Enemy
                 Animator.CrossFadeInFixedTime(EnemyAnimation.Angry, 0.5f);
 
                 isStoppingAnimation = true;
+
+                EmotionEmitter_.OpentFire(EMOTION_INDEX.SAD, 0.3f, 3);
             }
         }
     }

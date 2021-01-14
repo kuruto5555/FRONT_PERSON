@@ -31,6 +31,8 @@ namespace FrontPerson.Enemy.AI
 
         protected LookEnemy LookEnemy = null;
 
+        protected EmotionEffectEmitter EmotionEmitter_ = null;
+
         private void Start()
         {
             Player = GameObject.FindGameObjectWithTag(Constants.TagName.PLAYER)?.GetComponent<Player>();
@@ -73,16 +75,17 @@ namespace FrontPerson.Enemy.AI
         /// </summary>
         protected abstract void OnChangeState_Yakuza();
 
-        public void SetOwner(Character.Enemy enemy)
+        public void SetOwner(Character.Enemy enemy, EmotionEffectEmitter emitter)
         {
             Owner = enemy;
+            EmotionEmitter_ = emitter;
         }
 
         /// <summary>
         /// 敵AIのステートをT型に変更する
         /// </summary>
         /// <typeparam name="T"></typeparam>
-        public void ChangeState<T>() where T : EnemyState_AI
+        public void ChangeState<T>(EmotionEffectEmitter emitter) where T : EnemyState_AI
         {
 //デバッグ用
 #if UNITY_EDITOR
@@ -94,8 +97,9 @@ namespace FrontPerson.Enemy.AI
 
             Destroy(Owner.state_AI);
             Owner.state_AI = Owner.gameObject.AddComponent<T>();
-            Owner.state_AI.SetOwner(Owner);
+            Owner.state_AI.SetOwner(Owner, emitter);
             Owner.state_AI.OnStart();
+            
 
 //デバッグ用
 #if UNITY_EDITOR

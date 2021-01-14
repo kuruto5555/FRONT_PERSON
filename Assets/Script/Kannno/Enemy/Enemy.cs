@@ -34,6 +34,10 @@ namespace FrontPerson.Character
         [SerializeField]
         public MovePattern MovePattern = null;
 
+        [Header("エモーションエミッター")]
+        [SerializeField]
+        protected EmotionEffectEmitter EmotionEmitter_ = null;
+
         public BoxCollider BoxCollider = null;
 
         /// <summary>
@@ -104,7 +108,7 @@ namespace FrontPerson.Character
 
             if (null == state_AI) state_AI = GetComponent<EnemyState_AI>();
 
-            state_AI.SetOwner(this);
+            state_AI.SetOwner(this, EmotionEmitter_);
 
             state_AI.OnStart();
 
@@ -187,7 +191,7 @@ namespace FrontPerson.Character
 
                     GetComponent<EnemyBelongings>().DropItem();
 
-                    state_AI.ChangeState<EnemyState_Escape>();
+                    state_AI.ChangeState<EnemyState_Escape>(EmotionEmitter_);
 
                     Eneble = true;
 
@@ -219,7 +223,7 @@ namespace FrontPerson.Character
 
                 GetComponent<EnemyBelongings>().DropItem(new Vector3(0f, 0.5f, 0f));
 
-                state_AI.ChangeState<EnemyState_Escape>();
+                state_AI.ChangeState<EnemyState_Escape>(EmotionEmitter_);
 
                 BoxCollider.enabled = false;
 
