@@ -167,7 +167,6 @@ namespace FrontPerson.Manager
                     break;
 
                 case RESULT_SCENE_STATE.PLAYER_INPUT:
-
                     break;
 
                 case RESULT_SCENE_STATE.TRANSITION:
