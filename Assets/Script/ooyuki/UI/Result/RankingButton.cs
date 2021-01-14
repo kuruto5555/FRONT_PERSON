@@ -6,23 +6,45 @@ using FrontPerson.Constants;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class RankingButton : MonoBehaviour
+
+namespace FrontPerson.UI
 {
-    bool isCrick = false;
-
-    [SerializeField]
-    private Button button = null;
-
-    public void OnCrick()
+    public class RankingButton : MonoBehaviour
     {
-        if (isCrick) return;
+        bool isCrick = false;
 
-        EventSystem.current.enabled = false;
-        AudioManager.Instance.Play2DSE(gameObject, SEPath.COMMON_SE_BACK);
-        SceneManager.Instance.SceneChange(SceneName.RANKING_SCENE, 1f, Color.black);
+        [SerializeField]
+        private Button button = null;
 
-        isCrick = true;
+        private void Start()
+        {
+            // イベントトリガーの取得
+            var trigger = gameObject.AddComponent<EventTrigger>();
 
-        button.enabled = false;
+            // 登録するイベントを設定する
+            var entry = new EventTrigger.Entry();
+            entry.eventID = EventTriggerType.PointerEnter;
+            entry.callback.AddListener((data) => {
+                if (EventSystem.current == null) return;
+                if (EventSystem.current.currentSelectedGameObject == gameObject) return;
+                EventSystem.current.SetSelectedGameObject(gameObject); });
+
+            // イベントを登録する
+            trigger.triggers.Add(entry);
+        }
+
+        public void OnCrick()
+        {
+            if (isCrick) return;
+
+            EventSystem.current.enabled = false;
+            AudioManager.Instance.Play2DSE(gameObject, SEPath.COMMON_SE_BACK);
+            SceneManager.Instance.SceneChange(SceneName.RANKING_SCENE, 1f, Color.black);
+
+            isCrick = true;
+
+            button.enabled = false;
+        }
     }
 }
+

@@ -6,6 +6,7 @@ using FrontPerson.Constants;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
+
 namespace FrontPerson.UI
 {
     public class BackButton : MonoBehaviour
@@ -14,6 +15,23 @@ namespace FrontPerson.UI
 
         [SerializeField]
         private Button button = null;
+
+        private void Start()
+        {
+            // イベントトリガーの取得
+            var trigger = gameObject.AddComponent<EventTrigger>();
+
+            // 登録するイベントを設定する
+            var entry = new EventTrigger.Entry();
+            entry.eventID = EventTriggerType.PointerEnter;
+            entry.callback.AddListener((data) => {
+                if (EventSystem.current == null) return;
+                if (EventSystem.current.currentSelectedGameObject == gameObject) return;
+                EventSystem.current.SetSelectedGameObject(gameObject); });
+
+            // イベントを登録する
+            trigger.triggers.Add(entry);
+        }
 
         public void OnCrick()
         {
@@ -26,5 +44,9 @@ namespace FrontPerson.UI
 
             button.enabled = false;
         }
+
+
+
     }
+
 }
