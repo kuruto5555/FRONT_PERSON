@@ -48,7 +48,7 @@ namespace FrontPerson.Bounty
         /// <summary>
         /// クリアしてるかどうか取得
         /// </summary>
-        public bool IsCrear { get { return _isClear; } }
+        public bool IsClear { get { return _isClear; } }
 
         
 

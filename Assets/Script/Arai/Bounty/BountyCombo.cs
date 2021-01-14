@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using FrontPerson.Manager;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -14,12 +15,19 @@ namespace FrontPerson.Bounty
 
         public int GetComboMax { get { return ComboMax; } }
 
+        /// <summary>
+        /// ミッション開始時のコンボ数
+        /// </summary>
+        int startCombo = 0;
+
         // Start is called before the first frame update
         new void Start()
         {
             base.Start();
 
             _progressString = _Bmanager.GetNowCombo().ToString() + " / " + ComboMax.ToString();
+
+            startCombo = _Bmanager.GetNowCombo();
 
             //_isStart = false;
             _missionName = MissionNames;
@@ -32,9 +40,16 @@ namespace FrontPerson.Bounty
 
             int nowCombo = _Bmanager.GetNowCombo();
 
-            _progressString = _Bmanager.GetNowCombo().ToString() + " / " + ComboMax.ToString();
+            // ミッション開始時のコンボ数より今のコンボのほうが小さかったら、
+            // それはコンボが途切れたはずだからミッション開始時のコンボ数を0に初期化
+            if (startCombo > nowCombo)
+            {
+                startCombo = 0;
+            }
 
-            if (nowCombo >= ComboMax)
+            _progressString = (nowCombo - startCombo).ToString() + " / " + ComboMax.ToString();
+
+            if (nowCombo >= startCombo + ComboMax)
             {
                 MissionClear();
             }

@@ -71,9 +71,9 @@ namespace FrontPerson.UI
             //if (a <= 0) a = 1f;
 
 
-            Bounty.Bounty bounty1 = bountyManager_.GetBountyList[0];
-            Bounty.Bounty bounty2 = bountyManager_.GetBountyList[1];
-            Bounty.Bounty bounty3 = bountyManager_.GetBountyList[2];
+            Bounty.Bounty bounty1 = bountyManager_.MissionInfoList[0].mission;
+            Bounty.Bounty bounty2 = bountyManager_.MissionInfoList[1].mission;
+            Bounty.Bounty bounty3 = bountyManager_.MissionInfoList[2].mission;
 
             if (bounty1 != null)
             {

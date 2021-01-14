@@ -49,7 +49,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   GET_WEAPON_MISSON_NUM: 3
-  easyMissionPrefabList:
+  easyMissionPrefabList_:
   - {fileID: 7152460719995171007, guid: 7d406e590fa93d5488cc9cc83ab2dc06, type: 3}
   - {fileID: 7610999355592709465, guid: b8c5e82c044c25b40925dec4147c179f, type: 3}
   - {fileID: 506457082887024265, guid: b4ab2f30dd86b344ca1e013762da09ea, type: 3}

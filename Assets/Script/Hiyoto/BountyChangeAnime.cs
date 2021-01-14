@@ -37,9 +37,11 @@ namespace FrontPerson.Anim
         // Update is called once per frame
         void Update()
         {
-            if (bountyManager.GetBountyList[number].IsFinish)
+            if (bountyManager.MissionInfoList[number].mission == null) return;
+
+            if (bountyManager.MissionInfoList[number].mission.IsFinish)
             {
-                if (bountyManager.GetBountyList[number].IsCrear)
+                if (bountyManager.MissionInfoList[number].mission.IsClear)
                 {
                     //クリア時のアニメーション
                     animator_.Play(changeBounty_CLearAnimHash);

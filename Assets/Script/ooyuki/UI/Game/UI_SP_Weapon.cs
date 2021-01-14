@@ -88,18 +88,13 @@ namespace FrontPerson.UI
                 {
                     gauge_[i].SetActive(true);
                 }
-                meterNum_ = 0;
-
-
-                // アイコンをNone以外フォルス
-                noneText_.SetActive(true);
-                machineGunIcon_.SetActive(false);
-                shotgunIcon_.SetActive(false);
-                launcherIcon_.SetActive(false);
-
             }
         }
 
+
+        /// <summary>
+        /// ミッションクリア時に呼んでほしい
+        /// </summary>
         public void clearMission()
         {
             if (!isGetWeaponEffect_)
@@ -111,6 +106,11 @@ namespace FrontPerson.UI
             meterNum_++;
         }
 
+
+        /// <summary>
+        /// SP武器獲得時に呼んでほしい
+        /// </summary>
+        /// <param name="weponType"></param>
         public void GetSPWeapon(int weponType)
         {
             gauge_[2].SetActive(true);
@@ -143,6 +143,16 @@ namespace FrontPerson.UI
                     launcherIcon_.SetActive(true);
                     break;
             }
+        }
+
+
+        public void WeaponChange()
+        {
+            // いったんアイコンを全部フォルス
+            noneText_.SetActive(true);
+            machineGunIcon_.SetActive(false);
+            shotgunIcon_.SetActive(false);
+            launcherIcon_.SetActive(false);
         }
     }
 }

@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 769051643422623618}
   - component: {fileID: 8888350541373929861}
+  - component: {fileID: 1152744939650154280}
   m_Layer: 5
   m_Name: SP_Weapon
   m_TagString: Untagged
@@ -58,6 +59,25 @@ MonoBehaviour:
   - {fileID: 8613592525459621385}
   - {fileID: 2617574495534209598}
   - {fileID: 4501625612364393295}
+--- !u!95 &1152744939650154280
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1091457203691963110}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 689777f67fc8848458ca36647b5a9698, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &2505615939857014923
 GameObject:
   m_ObjectHideFlags: 0

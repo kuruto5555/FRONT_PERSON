@@ -57,6 +57,10 @@ namespace FrontPerson.Manager
         [SerializeField]
         UI_Skill skillUI_ = null;
 
+        [Header("スペシャル武器のUI")]
+        [SerializeField]
+        UI_SP_Weapon spWeaponUI_ = null;
+
         [Header("オプションメニュー")]
         [SerializeField]
         InGameOptionMenu optionMenu_ = null;
@@ -109,6 +113,7 @@ namespace FrontPerson.Manager
             remainingBulletGauge_.gameObject.SetActive(false);
             optionMenu_.gameObject.SetActive(false);
             skillUI_.gameObject.SetActive(false);
+            spWeaponUI_.gameObject.SetActive(false);
 
             // タイマーを止めておく
             timer_.TimerStop();
@@ -176,12 +181,14 @@ namespace FrontPerson.Manager
                 missionDrawUI_.gameObject.SetActive(true);
                 remainingBulletGauge_.gameObject.SetActive(true);
                 skillUI_.gameObject.SetActive(true);
+                spWeaponUI_.gameObject.SetActive(true);
 
                 // UI登場アニメーション再生
                 timer_.gameObject.GetComponent<Animator>().Play("TimerUI_IN");
                 scoreManager_.gameObject.GetComponent<Animator>().Play("ScoreUI_IN");
                 missionDrawUI_.gameObject.GetComponent<Animator>().Play("BountyManagerUI_IN");
                 skillUI_.gameObject.GetComponent<Animator>().Play("SkillUI_IN");
+                spWeaponUI_.gameObject.GetComponent<Animator>().Play("In");
                 remainingBulletGauge_.transform.GetChild(0).gameObject.GetComponent<Animator>().Play("HandGunGageStart");
 
                 // カーソルを消して画面中央にロック
@@ -286,7 +293,7 @@ namespace FrontPerson.Manager
             if (timeUp_.IsFinissh)
             {
                 // スコア等を保存
-                applicationManager_.ClearMissionNum = bountyManager_._missionCnt;
+                applicationManager_.ClearMissionNum = bountyManager_._clearMissionCnt;
                 applicationManager_.Score = scoreManager_.CurrentScore;
                 applicationManager_.ComboNum = comboManager_.ComboNumMax;
 
@@ -298,7 +305,8 @@ namespace FrontPerson.Manager
                 scoreManager_.gameObject.GetComponent<Animator>().Play("ScoreUI_OUT");
                 missionDrawUI_.gameObject.GetComponent<Animator>().Play("BountyManagerUI_OUT");
                 skillUI_.gameObject.GetComponent<Animator>().Play("SkillUI_OUT");
-                
+                spWeaponUI_.gameObject.GetComponent<Animator>().Play("Out");
+
                 // BGM停止
                 AudioManager.Instance.StopBGM(3f);
 

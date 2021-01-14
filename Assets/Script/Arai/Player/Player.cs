@@ -83,10 +83,24 @@ namespace FrontPerson.Character
 
         private GameObject AlartObj = null;
 
+
+        /// <summary>
+        /// 所持してる武器のList
+        /// 1左拳銃,2右拳銃,3持ってれば特殊武器
+        /// </summary>
+        public List<Gun> WeaponList { get; private set; }
+
         /// <summary>
         /// スペシャル武器
         /// </summary>
-        Weapon.SpecialWeapon Weapon = null;
+        SpecialWeapon Weapon = null;
+
+        /// <summary>
+        /// スペシャル武器のUI
+        /// </summary>
+        UI.UI_SP_Weapon spWeaponUI_ = null;
+
+
 
         /// <summary>
         /// カメラのトランスフォーム
@@ -230,10 +244,6 @@ namespace FrontPerson.Character
         /// </summary>
         private ApplicationManager _appManager = null;
 
-        /// <summary>
-        /// 所持してる武器一覧
-        /// </summary>
-        private List<Gun> _weaponList;
 
         /// <summary>
         /// 入手した武器の番号
@@ -329,11 +339,6 @@ namespace FrontPerson.Character
 
 
 
-        /// <summary>
-        /// 所持してる武器のList
-        /// 1左拳銃,2右拳銃,3持ってれば特殊武器
-        /// </summary>
-        public List<Gun> GetWeaponList { get { return _weaponList; } }
 
 
         // Start is called before the first frame update
@@ -357,11 +362,7 @@ namespace FrontPerson.Character
             //_viewRotetaSpeed = RotationSpeed_;
 
             _weaponAnims = new List<Animator>();
-            _weaponList = new List<Gun>();
-
-            _weaponList.Add(gunL_);
-            _weaponList.Add(gunR_);
-            _weaponList.Add(null);
+            WeaponList = new List<Gun> { gunL_, gunR_, null };
 
             _appManager = GameObject.FindGameObjectWithTag(TagName.MANAGER).GetComponent<ApplicationManager>();
             if (_appManager == null) Debug.Log("GameSceneController");
@@ -370,13 +371,15 @@ namespace FrontPerson.Character
 
             _canvas = GameObject.Find("GameUI_Canvas").transform;
 
+            spWeaponUI_ = FindObjectOfType<UI.UI_SP_Weapon>();
+
             _comboManager = ComboManager.Instance;
         }
 
         // Update is called once per frame
         void Update()
         {
-            // ゲーム中出ないなら更新しない
+            // ゲーム中でないなら更新しない
             if (!_appManager.IsGamePlay) return;
 
             // フラグ初期化
@@ -402,6 +405,7 @@ namespace FrontPerson.Character
             Search();
             Dash();
             Move();
+            WeaponChange();
             Shot();
             WeaponStatus();
 
@@ -624,26 +628,33 @@ namespace FrontPerson.Character
             {
                 case NUTRIENTS_TYPE._A:
                     {
+                        if (gunL_.Ammo == gunL_.MaxAmmo_) return;
                         //gunL_.Reload(vrp.Charge(GunAmmoMAX_L - GunAmmoL));
                         Gun[] guns = new Gun[] { gunL_ };
                         vrp.Charge(guns);
+                        _audioManager.Play3DSE(position_, SEPath.GAME_SE_SUPPLY);
                     }
                     break;
 
                 case NUTRIENTS_TYPE._B:
                     {
+                        if (gunR_.Ammo == gunR_.MaxAmmo_) return;
                         //gunR_.Reload(vrp.Charge(GunAmmoMAX_R - GunAmmoR));
                         Gun[] guns = new Gun[] { gunR_ };
                         vrp.Charge(guns);
+                        _audioManager.Play3DSE(position_, SEPath.GAME_SE_SUPPLY);
                     }
                     break;
 
                 case NUTRIENTS_TYPE._ALL:
                     {
+                        if (gunL_.Ammo == gunL_.MaxAmmo_) return;
+                        if (gunR_.Ammo == gunR_.MaxAmmo_) return;
                         //gunL_.Reload(vrp.Charge(GunAmmoMAX_L - GunAmmoL));
                         //gunR_.Reload(vrp.Charge(GunAmmoMAX_R - GunAmmoR));
                         Gun[] guns = new Gun[] { gunL_, gunR_ };
                         vrp.Charge(guns);
+                        _audioManager.Play3DSE(position_, SEPath.GAME_SE_SUPPLY);
                     }
                     break;
             }
@@ -882,6 +893,8 @@ namespace FrontPerson.Character
                 {
                     SetWeapon();
                     _weaponAnims.Add(Weapon.gameObject.GetComponent<Animator>());
+                    // 武器タイプをハンドガンにして何回も武器チェンできるのを防ぐ
+                    _weaponType = (int)WEAPON_TYPE.HANDGUN;
                 }
                 // スペシャルウェポンから切り替わるとき
                 else
@@ -932,37 +945,59 @@ namespace FrontPerson.Character
         public void WeaponUpgrade(int type)
         {
             //if (_isWeaponChangeAnimation) return;
-
-            gunL_.Reload();
-            gunR_.Reload();
-
-
-            if (IsSpecialWeapon)
-            {
-                //武器チェンジアニメーションスタート
-                Weapon.ChangeAnimationStart("Put");
-                _weaponAnims.Add(Weapon.GetComponent<Animator>());
-            }
-            else
-            {
-                //ハンドガンを下に下げるアニメーションを呼ぶ
-                gunL_.ChangeAnimationStart("Put");
-                gunR_.ChangeAnimationStart("Put");
-                _weaponAnims.Add(gunL_.GetComponent<Animator>());
-                _weaponAnims.Add(gunR_.GetComponent<Animator>());
-            }
-
-            StartCoroutine(WeaponChangeUpdate());
             _weaponType = type;
+
+
         }
+
+
+        /// <summary>
+        /// 武器切り替え
+        /// </summary>
+        void WeaponChange()
+        {
+            if (IsDash) return;
+            if (_weaponType == (int)WEAPON_TYPE.HANDGUN || _weaponType == (int)WEAPON_TYPE.NONE) return;
+
+            if (Input.GetButtonDown(InputName.WEAPON_CHANGE))
+            {
+                // UI_SP_Weaponに武器チェンしたことを教える
+                if (spWeaponUI_ == null) spWeaponUI_ = FindObjectOfType<UI.UI_SP_Weapon>();
+                spWeaponUI_.WeaponChange();
+
+                gunL_.Reload();
+                gunR_.Reload();
+
+
+                if (IsSpecialWeapon)
+                {
+                    //武器チェンジアニメーションスタート
+                    Weapon.ChangeAnimationStart("Put");
+                    _weaponAnims.Add(Weapon.GetComponent<Animator>());
+                }
+                else
+                {
+                    //ハンドガンを下に下げるアニメーションを呼ぶ
+                    gunL_.ChangeAnimationStart("Put");
+                    gunR_.ChangeAnimationStart("Put");
+                    _weaponAnims.Add(gunL_.GetComponent<Animator>());
+                    _weaponAnims.Add(gunR_.GetComponent<Animator>());
+                }
+
+                StartCoroutine(WeaponChangeUpdate());
+            }
+        }
+
 
         /// <summary>
         /// 武器チェンジアニメーションが終わった時に呼ぶ
         /// </summary>
         public void SetWeapon()
         {
+            if (_weaponType == (int)WEAPON_TYPE.HANDGUN || _weaponType == (int)WEAPON_TYPE.NONE) return;
+
             Weapon = Instantiate(_weponManager.WeaponPrefabList[_weaponType], cameraTransform_).GetComponent<Weapon.SpecialWeapon>();
-            _weaponList[2] = Weapon;
+            WeaponList[2] = Weapon;
         }
 
         private void ItemStatusUpdate()
@@ -1011,6 +1046,7 @@ namespace FrontPerson.Character
             }
         }
 
+
         /// <summary>
         /// 武器のアニメーションが始まったとき呼ぶ関数
         /// </summary>
@@ -1019,6 +1055,7 @@ namespace FrontPerson.Character
             _isWeaponChangeAnimation = true;
         }
 
+
         /// <summary>
         /// 武器のアニメーションが終わったとき呼ぶ関数
         /// </summary>
@@ -1026,6 +1063,7 @@ namespace FrontPerson.Character
         {
             _isWeaponChangeAnimation = false;
         }
+
 
         public void PickUpItem(ITEM_STATUS type, int time, float value)
         {
@@ -1057,6 +1095,7 @@ namespace FrontPerson.Character
             _itemStatusFlag |= ITEM_STATUS.SPEED_UP;
         }
 
+
         /// <summary>
         /// 透明化アイテムを取得した時呼ぶ
         /// </summary>
@@ -1077,6 +1116,7 @@ namespace FrontPerson.Character
             ResetAlart();
         }
 
+
         private void DebugUpdeta()
         {
 #if UNITY_EDITOR
@@ -1094,13 +1134,22 @@ namespace FrontPerson.Character
             if (Input.GetKeyDown(KeyCode.Alpha1))
             {
                 WeaponUpgrade(0);
+                if (spWeaponUI_ == null) spWeaponUI_ = FindObjectOfType<UI.UI_SP_Weapon>();
+                spWeaponUI_.GetSPWeapon(0);
             }
             if (Input.GetKeyDown(KeyCode.Alpha2))
             {
                 WeaponUpgrade(1);
+                if (spWeaponUI_ == null) spWeaponUI_ = FindObjectOfType<UI.UI_SP_Weapon>();
+                spWeaponUI_.GetSPWeapon(1);
 
-            } 
-            if (Input.GetKeyDown(KeyCode.Alpha3)) WeaponUpgrade(2);
+            }
+            if (Input.GetKeyDown(KeyCode.Alpha3))
+            {
+                WeaponUpgrade(2);
+                if (spWeaponUI_ == null) spWeaponUI_ = FindObjectOfType<UI.UI_SP_Weapon>();
+                spWeaponUI_.GetSPWeapon(2);
+            }
 
 #endif
         }

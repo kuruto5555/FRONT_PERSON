@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
+  m_IndirectSpecularColor: {r: 156.82774, g: 308.6633, b: 539.91345, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -52060,7 +52060,7 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 74b77dea5bac2af4a8b97eb3efc08f94,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 28.93
+      value: 31.776
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 74b77dea5bac2af4a8b97eb3efc08f94,
         type: 3}
@@ -67699,6 +67699,11 @@ PrefabInstance:
       propertyPath: skillUI_
       value: 
       objectReference: {fileID: 399561578}
+    - target: {fileID: 5821984749368128695, guid: 9d062880485f60244af53061c20039d7,
+        type: 3}
+      propertyPath: spWeaponUI_
+      value: 
+      objectReference: {fileID: 909758904}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9d062880485f60244af53061c20039d7, type: 3}
 --- !u!1001 &7933009199278616323

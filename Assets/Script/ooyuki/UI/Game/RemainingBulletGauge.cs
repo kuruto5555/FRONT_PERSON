@@ -202,9 +202,9 @@ namespace FrontPerson.UI {
 
             if (player_.IsSpecialWeapon)
             {
-                xl_scale = (float)player_.GetWeaponList[2].Ammo / player_.GetWeaponList[2].MaxAmmo_;
+                xl_scale = (float)player_.WeaponList[2].Ammo / player_.WeaponList[2].MaxAmmo_;
 
-                switch (player_.GetWeaponList[2].GetWeaponType)
+                switch (player_.WeaponList[2].GetWeaponType)
                 {
                     case WEAPON_TYPE.ASSAULT_RIFLE:
                         machineGunBulletGauge_.rectTransform.localScale = new Vector2(xl_scale, 1.0f);
@@ -264,7 +264,7 @@ namespace FrontPerson.UI {
 
             if (player_.IsSpecialWeapon)
             {
-                weaponType_ = player_.GetWeaponList[2].GetWeaponType;
+                weaponType_ = player_.WeaponList[2].GetWeaponType;
             }
             else
             {
