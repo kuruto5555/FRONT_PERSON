@@ -38,6 +38,8 @@ namespace FrontPerson.Enemy.AI
 
             Player.Stun();
 
+            LookEnemy?.DeleteEnemy(Owner.transform);
+
             ChangeState<EnemyState_Move>();
         }
 
@@ -48,6 +50,8 @@ namespace FrontPerson.Enemy.AI
             var enemy = Owner as Yakuza;
 
             enemy.isDiscover = false;
+
+            LookEnemy?.DeleteEnemy(Owner.transform);
 
             ChangeState<EnemyState_Move>();
         }

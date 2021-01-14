@@ -16,6 +16,9 @@ namespace FrontPerson.UI
 
         private List<Transform> EnemiesTransform = new List<Transform>();
 
+        private bool Enable = true;
+        private bool Flag = true;
+
         void Start()
         {
             Player = GameObject.FindGameObjectWithTag(Constants.TagName.PLAYER).GetComponent<Player>();
@@ -37,13 +40,28 @@ namespace FrontPerson.UI
         {
             if(Player.isAlart)
             {
-                Look();
+                if (Flag)
+                {
+                    Look();
+
+                    Flag = false;
+                }
+                else
+                {
+                    Flag = true;
+                }
+
+                Enable = true;
             }
             else
             {
-                for (int i = 0; i < Images.Count; i++)
+                if (Enable)
                 {
-                    Images[i].gameObject.SetActive(false);
+                    for (int i = 0; i < Images.Count; i++)
+                    {
+                        Images[i].gameObject.SetActive(false);
+                    }
+                    Enable = false;
                 }
             }
         }
@@ -84,7 +102,7 @@ namespace FrontPerson.UI
                 }
 
                 //背面に敵がいる
-                if (-180f <= angle && angle < -140f || 140f < angle && angle <= 180f)
+                if ((-180f <= angle && angle < -140f) || (140f < angle && angle <= 180f))
                 {
                     Images[2].gameObject.SetActive(true);
                     continue;
