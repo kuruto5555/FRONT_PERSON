@@ -31,7 +31,7 @@ namespace FrontPerson.Enemy.AI
         {
             OldBattleaxe enemy = Owner as OldBattleaxe;
 
-            enemy.isHit = false;
+            //enemy.isHit = false;
             enemy.isAngry = false;
 
             enemy.isDiscover = false;

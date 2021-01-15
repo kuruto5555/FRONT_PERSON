@@ -11,11 +11,6 @@ namespace FrontPerson.Enemy
     public class OldBattleaxe : Character.Enemy
     {
         /// <summary>
-        /// 違うビタミンを当てられたかのフラグ(true = 当てられた)
-        /// </summary>
-        public bool isHit { get; set; } = false;
-
-        /// <summary>
         /// 怒っているかのフラグ(true = 怒っている)
         /// </summary>
         public bool isAngry { get; set; } = false;
@@ -25,6 +20,13 @@ namespace FrontPerson.Enemy
         /// </summary>
         public bool isDiscover { get; set; } = false;
 
+        /// <summary>
+        /// 1回しか実行させない為の変数
+        /// </summary>
+        private bool Enable = true;
+
+        private int insufficiency_ = 0;
+
         protected override void OnAwake()
         {
             Type = EnemyType.OLD_BATTLEAXE;
@@ -32,6 +34,7 @@ namespace FrontPerson.Enemy
 
         protected override void OnStart()
         {
+            insufficiency_ = insufficiency;
         }
 
         protected override void OnUpdate()
@@ -42,37 +45,41 @@ namespace FrontPerson.Enemy
         {
             if (isDown) return;
 
-            AddVitamins(bullet.Power);
-
-            if (insufficiency <= 0)
+            if (isAngry)
             {
-                SetDown();
+                if(Enable)
+                {
+                    Enable = false;
 
-                // バウンティの処理
-                var bounty_manager = GameObject.FindGameObjectWithTag(Constants.TagName.BOUNTY_MANAGER).GetComponent<BountyManager>();
+                    insufficiency = insufficiency_;
+                }
 
-                bounty_manager.EnemyDeath((int)lack_vitamins);
+                AddVitamins(bullet.Power);
 
-                Animation();
-
-                return;
-            }
-
-            if (lack_vitamins != bullet.BulletType && Constants.NUTRIENTS_TYPE._ALL != bullet.BulletType)
-            {
-                // 弾の種類と足りないビタミンが違う
-                isHit = true;
-
-                // コンボの終了
-                ComboManager.Instance.LostCombo();
-
-                EmotionEmitter_.OpentFire(EMOTION_INDEX.ANGRY, 0.8f);
-
-                AudioManager.Instance.Play3DSE(transform.position, SEPath.GAME_SE_VOICE_WOMAN);
+                Down();
             }
             else
             {
-                isHit = false;
+                if (lack_vitamins == bullet.BulletType || Constants.NUTRIENTS_TYPE._ALL == bullet.BulletType)
+                {
+                    AddVitamins(bullet.Power);
+
+                    Down();
+                }
+                else
+                {
+                    // 弾の種類と足りないビタミンが違う
+                    isAngry = true;
+
+                    Enable = true;
+
+                    // コンボの終了
+                    ComboManager.Instance.LostCombo();
+
+                    EmotionEmitter_.OpentFire(EMOTION_INDEX.ANGRY, 0.8f);
+
+                    AudioManager.Instance.Play3DSE(transform.position, SEPath.GAME_SE_VOICE_WOMAN);
+                }
             }
         }
 
@@ -89,6 +96,21 @@ namespace FrontPerson.Enemy
             {
                 EmotionEmitter_.OpentFire(EMOTION_INDEX.HAPPY, 1.0f);
                 Animator.CrossFadeInFixedTime(EnemyAnimation.Fine, 0.5f);
+            }
+        }
+
+        private void Down()
+        {
+            if (insufficiency <= 0)
+            {
+                SetDown();
+
+                // バウンティの処理
+                var bounty_manager = GameObject.FindGameObjectWithTag(Constants.TagName.BOUNTY_MANAGER).GetComponent<BountyManager>();
+
+                bounty_manager.EnemyDeath((int)lack_vitamins);
+
+                Animation();
             }
         }
     }
