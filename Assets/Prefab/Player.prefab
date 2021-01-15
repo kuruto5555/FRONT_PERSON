@@ -83,7 +83,7 @@ MonoBehaviour:
   jumpPower: 4
   jumpGravity: 10
   stunTime: 2
-  invincibleTime: 4
+  invincibleTime: 2
   LimitVerticalAngle_: 80
   gunR_: {fileID: 3359392782031868817}
   gunL_: {fileID: 5652042479663759200}
