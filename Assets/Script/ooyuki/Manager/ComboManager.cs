@@ -300,10 +300,10 @@ namespace FrontPerson.Manager
 
 
             // コンボ途切れボーナススコアの計算
-            var lostComboBonus = (50f * ComboNum
-                * (1f + ((1f - spawner_.ProbabilityOrdinaryPeople) * ordinaryPeopleNum_))
-                * (1f + ((1f - spawner_.ProbabilityOldBattleaxe) * oldBattleaxeNum_))
-                * (1f + ((1f - spawner_.ProbabilityYakuza) * yakuzaNum_)));
+            var lostComboBonus = (ComboNum * (50f +
+                + ((1f - spawner_.ProbabilityOrdinaryPeople) * ordinaryPeopleNum_)
+                + ((1f - spawner_.ProbabilityOldBattleaxe) * oldBattleaxeNum_)
+                + ((1f - spawner_.ProbabilityYakuza) * yakuzaNum_)));
             // スコア加算
             scoreManager_.AddScore((int)lostComboBonus, Score.ADD_SCORE_TYPE.COMBO_SCORE);
         }
