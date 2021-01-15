@@ -248,7 +248,7 @@ namespace FrontPerson.Character
         /// <summary>
         /// 入手した武器の番号
         /// </summary>
-        private int _weaponType = 0;
+        private int _weaponType = (int)WEAPON_TYPE.HANDGUN;
 
         /// <summary>
         /// 生成したスタン
@@ -374,6 +374,8 @@ namespace FrontPerson.Character
             spWeaponUI_ = FindObjectOfType<UI.UI_SP_Weapon>();
 
             _comboManager = ComboManager.Instance;
+
+            _weaponType = (int)WEAPON_TYPE.HANDGUN;
         }
 
         // Update is called once per frame
