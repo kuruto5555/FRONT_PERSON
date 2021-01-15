@@ -143,7 +143,7 @@ namespace FrontPerson.UI
             });
 
             current_buttom = StartButton.gameObject;
-            event_system.SetSelectedGameObject(StartButton.gameObject);
+            //event_system.SetSelectedGameObject(StartButton.gameObject);
 
             // BGMの再生
             audio_manager.PlayBGM(Canvas, BGMPath.TITLE_BGM_MAIN, 1f);
@@ -157,9 +157,10 @@ namespace FrontPerson.UI
                 if (event_system.currentSelectedGameObject != current_buttom)
                 {
                     current_buttom = event_system.currentSelectedGameObject;
-
-                    audio_manager.Play2DSE(gameObject, SEPath.COMMON_SE_CURSOR);
+                
+                    //audio_manager.Play2DSE(gameObject, SEPath.COMMON_SE_CURSOR);
                 }
+
             }
         }
 

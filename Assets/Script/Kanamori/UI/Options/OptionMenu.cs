@@ -68,7 +68,7 @@ namespace FrontPerson.UI
         {
             event_system_ = EventSystem.current;
 
-            current_buttom = event_system_.currentSelectedGameObject;
+            current_buttom = event_system_.firstSelectedGameObject;
 
             SelectedOptionButtonSettings();
 
@@ -83,17 +83,6 @@ namespace FrontPerson.UI
         private void Update()
         {
             OnUpdate();
-
-            if (appManager_.IsInput)
-            {
-                // 選択しているものが違う
-                if (event_system_.currentSelectedGameObject != current_buttom)
-                {
-                    current_buttom = event_system_.currentSelectedGameObject;
-
-                    AudioManager.Instance.Play2DSE(gameObject, SEPath.COMMON_SE_CURSOR);
-                }
-            }
         }
 
         /// <summary>
@@ -130,6 +119,8 @@ namespace FrontPerson.UI
                 ui.button_to_open_the_menu_.onClick.AddListener(
                     () =>
                     {
+                        // SE再生
+                        AudioManager.Instance.Play2DSE(gameObject, SEPath.COMMON_SE_DECISION);
                         // メニューを閉じる
                         active_menu_.SetActive(false);
 

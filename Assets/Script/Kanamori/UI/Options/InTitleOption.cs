@@ -1,4 +1,6 @@
-﻿using System.Collections;
+﻿using FrontPerson.Constants;
+using FrontPerson.Manager;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -27,6 +29,8 @@ namespace FrontPerson.UI
             return_to_title_button_.onClick.AddListener(
                    () =>
                    {
+                       // 再生
+                       AudioManager.Instance.Play2DSE(gameObject, SEPath.COMMON_SE_BACK);
                        // メニューを閉じる
                        foreach (var menu in opened_menu_)
                        {
