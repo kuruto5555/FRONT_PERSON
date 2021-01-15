@@ -706,8 +706,7 @@ namespace FrontPerson.Character
 
                 case NUTRIENTS_TYPE._ALL:
                     {
-                        if (gunL_.Ammo == gunL_.MaxAmmo_) return;
-                        if (gunR_.Ammo == gunR_.MaxAmmo_) return;
+                        if (gunL_.Ammo == gunL_.MaxAmmo_ && gunR_.Ammo == gunR_.MaxAmmo_) return;
                         //gunL_.Reload(vrp.Charge(GunAmmoMAX_L - GunAmmoL));
                         //gunR_.Reload(vrp.Charge(GunAmmoMAX_R - GunAmmoR));
                         Gun[] guns = new Gun[] { gunL_, gunR_ };
