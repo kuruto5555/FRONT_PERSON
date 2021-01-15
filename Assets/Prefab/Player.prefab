@@ -47,9 +47,9 @@ CapsuleCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   m_Radius: 0.5
-  m_Height: 2
+  m_Height: 2.5
   m_Direction: 1
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Center: {x: 0, y: 0.25, z: 0}
 --- !u!54 &4960959425819538176
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -80,11 +80,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   walkSpeed_: 5
   runSpeed_: 8
-  jumpPower: 2
-  jumpGravity: 5
-  stunTime: 1
-  invincibleTime: 1
-  LimitVerticalAngle_: 89
+  jumpPower: 4
+  jumpGravity: 10
+  stunTime: 2
+  invincibleTime: 4
+  LimitVerticalAngle_: 80
   gunR_: {fileID: 3359392782031868817}
   gunL_: {fileID: 5652042479663759200}
   searchArea: {fileID: 4960959426141481895}
@@ -106,12 +106,12 @@ NavMeshObstacle:
   m_Enabled: 1
   serializedVersion: 3
   m_Shape: 0
-  m_Extents: {x: 1, y: 1.75, z: 1}
-  m_MoveThreshold: 0
+  m_Extents: {x: 1, y: 0.5, z: 1}
+  m_MoveThreshold: 0.5
   m_Carve: 1
   m_CarveOnlyStationary: 1
   m_Center: {x: 0, y: -0.5, z: 0}
-  m_TimeToStationary: 0
+  m_TimeToStationary: 0.5
 --- !u!1 &3400952847268517105
 GameObject:
   m_ObjectHideFlags: 0
