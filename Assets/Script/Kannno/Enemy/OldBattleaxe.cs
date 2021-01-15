@@ -81,41 +81,6 @@ namespace FrontPerson.Enemy
                     AudioManager.Instance.Play3DSE(transform.position, SEPath.GAME_SE_VOICE_WOMAN);
                 }
             }
-
-            /////
-
-            //AddVitamins(bullet.Power);
-
-            //if (insufficiency <= 0)
-            //{
-            //    SetDown();
-
-            //    // バウンティの処理
-            //    var bounty_manager = GameObject.FindGameObjectWithTag(Constants.TagName.BOUNTY_MANAGER).GetComponent<BountyManager>();
-
-            //    bounty_manager.EnemyDeath((int)lack_vitamins);
-
-            //    Animation();
-
-            //    return;
-            //}
-
-            //if (lack_vitamins != bullet.BulletType && Constants.NUTRIENTS_TYPE._ALL != bullet.BulletType)
-            //{
-            //    // 弾の種類と足りないビタミンが違う
-            //    isAngry = true;
-
-            //    // コンボの終了
-            //    ComboManager.Instance.LostCombo();
-
-            //    EmotionEmitter_.OpentFire(EMOTION_INDEX.ANGRY, 0.8f);
-
-            //    AudioManager.Instance.Play3DSE(transform.position, SEPath.GAME_SE_VOICE_WOMAN);
-            //}
-            //else
-            //{
-            //    isAngry = false;
-            //}
         }
 
         private void Animation()
