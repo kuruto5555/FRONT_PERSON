@@ -473,12 +473,35 @@ namespace FrontPerson.Character
             if (searchArea.IsSearch) return;
             if (IsStop)
             {
+                if (IsDash)
+                {
+                    // 武器にダッシュアニメーションを止めさせる
+                    foreach (var weapon in WeaponList)
+                    {
+                        if (weapon == null) continue;
+                        if (!weapon.gameObject.activeSelf) continue;
+                        weapon.GetComponent<Animator>()?.SetBool("Dash", false);
+                    }
+                }
+                
                 moveSpeed_ = walkSpeed_;
+
                 return;
             }
 
             if (Input.GetButton(Constants.InputName.DASH))
             {
+                if (IsWalk)
+                {
+                    // 武器にダッシュアニメーションを止めさせる
+                    foreach (var weapon in WeaponList)
+                    {
+                        if (weapon == null) continue;
+                        if (!weapon.gameObject.activeSelf) continue;
+                        weapon.GetComponent<Animator>()?.SetBool("Dash", true);
+                    }
+                }
+
                 moveSpeed_ = runSpeed_;
 
                 _nowDashSoundRate += Time.deltaTime;
@@ -491,6 +514,17 @@ namespace FrontPerson.Character
             }
             else
             {
+                if (IsDash)
+                {
+                    // 武器にダッシュアニメーションを止めさせる
+                    foreach (var weapon in WeaponList)
+                    {
+                        if (weapon == null) continue;
+                        if (!weapon.gameObject.activeSelf) continue;
+                        weapon.GetComponent<Animator>()?.SetBool("Dash", false);
+                    }
+                }
+
                 moveSpeed_ = walkSpeed_;
             }
         }
@@ -506,6 +540,17 @@ namespace FrontPerson.Character
             {
                 if(!_isJump && !IsStun) //ジャンプが始まる瞬間
                 {
+                    if (IsDash)
+                    {
+                        // 武器にダッシュアニメーションを止めさせる
+                        foreach (var weapon in WeaponList)
+                        {
+                            if (weapon == null) continue;
+                            if (!weapon.gameObject.activeSelf) continue;
+                            weapon.GetComponent<Animator>()?.SetBool("Dash", false);
+                        }
+                    }
+
                     _isJump = true;
                     _jumpForce = jumpPower;
                     position_ += transform.up * _jumpForce * Time.deltaTime;
@@ -525,6 +570,17 @@ namespace FrontPerson.Character
             //地面にいるとき
             else
             {
+                if (IsDash)
+                {
+                    // 武器にダッシュアニメーションを止めさせる
+                    foreach (var weapon in WeaponList)
+                    {
+                        if (weapon == null) continue;
+                        if (!weapon.gameObject.activeSelf) continue;
+                        weapon.GetComponent<Animator>()?.SetBool("Dash", true);
+                    }
+                }
+
                 //着地後力が残ってしまうので初期化
                 _jumpForce = 0.0f;
 
