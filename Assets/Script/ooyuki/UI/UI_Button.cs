@@ -43,6 +43,7 @@ namespace FrontPerson.UI
         // Update is called once per frame
         void Update()
         {
+            if (!ApplicationManager.Instance.IsInput) return; 
             if (EventSystem.current == null) return;
 
             
