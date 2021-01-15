@@ -226,7 +226,7 @@ namespace FrontPerson.Manager
             foreach (AudioInfo info in sound_info_list)
             {
                 {
-                    info.source.PlayOneShot(info.clip, audio_volume_.volume_ * se_volume);
+                    info.source.PlayOneShot(info.clip, Volume * SEVolume);
                 }
             }
 
