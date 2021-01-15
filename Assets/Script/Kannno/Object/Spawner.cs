@@ -150,17 +150,17 @@ namespace FrontPerson.Enemy
                 switch (enemy.Type)
                 {
                     case EnemyType.ORDINATY_PEOPLE:
-                        Max_OrdinaryPeople++;
+                        //Max_OrdinaryPeople++;
                         Sum_OrdinaryPeople++;
                         break;
 
                     case EnemyType.OLD_BATTLEAXE:
-                        Max_OldBattleaxe++;
+                        //Max_OldBattleaxe++;
                         Sum_OldBattleaxe++;
                         break;
 
                     case EnemyType.YAKUZA:
-                        Max_Yakuza++;
+                        //Max_Yakuza++;
                         Sum_Yakuza++;
                         break;
                 }

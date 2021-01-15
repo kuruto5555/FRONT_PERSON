@@ -14,7 +14,7 @@ namespace FrontPerson.Item
         float feverTimeduration_ = 15f;
 
         [Header("フィーバー時のスコア倍率")]
-        [SerializeField, Range(1.1f, 2.0f)]
+        [SerializeField, Range(1.1f, 10.0f)]
         float scoreMagnification_ = 1.5f;
 
         private Pickup pickup_;

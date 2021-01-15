@@ -174,7 +174,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   feverTimeduration_: 15
-  scoreMagnification_: 1.5
+  scoreMagnification_: 3
 --- !u!1 &3169769486165128005
 GameObject:
   m_ObjectHideFlags: 0

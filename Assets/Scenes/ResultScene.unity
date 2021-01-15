@@ -182,7 +182,7 @@ MonoBehaviour:
   rabkingButton_: {fileID: 50809543}
   screen_: {fileID: 1488756717}
   initUnActiveObjects_: []
-  totalScoreGuideline_: a086010020a1070040420f00
+  totalScoreGuideline_: a861000060ea0000a0860100
 --- !u!4 &323177212
 Transform:
   m_ObjectHideFlags: 0
