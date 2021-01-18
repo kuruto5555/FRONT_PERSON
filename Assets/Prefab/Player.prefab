@@ -408,9 +408,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a3a87105848af2640a2c6feb51ff0690, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed_: 30
-  areaSizeMAX_: 50
-  skillIntervalTime_: 15
+  areaMaxTime_: 1
+  cancelTime_: 1
+  areaSizeMAX_: 100
+  skillIntervalTime_: 12.5
   skillEffectTime_: 10
   vitaminCMat_: {fileID: 2100000, guid: e6a824d90017eb84fafce58a2db7a27b, type: 2}
   vitaminDMat_: {fileID: 2100000, guid: af4c69ab99abf5b4c9c470a56a166b3f, type: 2}

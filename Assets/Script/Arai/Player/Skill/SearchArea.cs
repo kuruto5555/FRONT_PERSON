@@ -42,9 +42,13 @@ namespace FrontPerson.Character.Skill
             public float skillEffectTime_ = 0f;
         }
 
-        [Header("エリアの広がる速度")]
-        [SerializeField, Range(0f, 100f)]
-        float speed_ = 1f;
+        [Header("エリアが最大になる時間(s)")]
+        [SerializeField, Range(0f, 5f)]
+        float areaMaxTime_ = 1f;
+
+        [Header("サーチをキャンセルできるまでの時間")]
+        [SerializeField, Range(0f, 5f)]
+        float cancelTime_ = 1f;
 
         [Header("エリアの広がる最大距離")]
         [SerializeField, Range(1f, 100f)]
@@ -100,6 +104,15 @@ namespace FrontPerson.Character.Skill
         /// </summary>
         List<SearchInfo> enemySearchInfo_ = new List<SearchInfo>();
 
+        /// <summary>
+        /// エリアサイズを更新する大きさ
+        /// </summary>
+        float updateAreaSize_ = 0f;
+
+        /// <summary>
+        /// キャンセル可能のサイズ
+        /// </summary>
+        float canselSize_ = 0f;
 
         /// <summary>
         /// スキルのインターバルの計測用変数
@@ -110,6 +123,8 @@ namespace FrontPerson.Character.Skill
         /// スキルのインターバル定数
         /// </summary>
         public float SkillIntervalTime { get { return skillIntervalTime_; } }
+
+
 
 
         // Start is called before the first frame update
@@ -126,6 +141,8 @@ namespace FrontPerson.Character.Skill
 
             skillDraw_ = FindObjectOfType<UI_Skill>();
 
+            updateAreaSize_ = areaSizeMAX_ / areaMaxTime_;
+            canselSize_ = areaSizeMAX_ / (areaMaxTime_ / cancelTime_);
         }
 
         // Update is called once per frame
@@ -176,14 +193,15 @@ namespace FrontPerson.Character.Skill
 
             // エリアサイズ更新
             Vector3 scl = Vector3.zero;
-            scl.x = scl.y = scl.z = speed_ * Time.deltaTime;
+            scl.x = scl.y = scl.z = updateAreaSize_ * Time.deltaTime;
             transform.localScale += scl;
 
-            // エリアサイズが最大値を超えたら最大値に矯正
+            // エリアサイズが最大値を超えたらスキャン終了
             if(transform.localScale.x >= areaSizeMAX_)
             {
                 scl.x = scl.y = scl.z = areaSizeMAX_;
                 transform.localScale = scl;
+                Stop();
             }
 
         }
@@ -219,6 +237,7 @@ namespace FrontPerson.Character.Skill
         {
             if (IsUse) return;
             if (!IsSearch) return;
+            if (canselSize_ > transform.localScale.x) return;
 
             //コライダーを無効にする
             eria_.enabled = false;
