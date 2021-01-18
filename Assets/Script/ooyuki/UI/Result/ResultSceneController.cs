@@ -65,7 +65,7 @@ namespace FrontPerson.Manager
         /// </summary>
         ApplicationManager appManager_ = null;
 
-        int youScore = 95000000;
+        int youScore = 0;
         int averageScore = 0;
         int numberOneScore = 0;
 
