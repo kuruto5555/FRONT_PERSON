@@ -50,28 +50,26 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   GET_WEAPON_MISSON_NUM: 3
   easyMissionPrefabList_:
-  - {fileID: 7152460719995171007, guid: 7d406e590fa93d5488cc9cc83ab2dc06, type: 3}
-  - {fileID: 7610999355592709465, guid: b8c5e82c044c25b40925dec4147c179f, type: 3}
-  - {fileID: 506457082887024265, guid: b4ab2f30dd86b344ca1e013762da09ea, type: 3}
-  - {fileID: 5858580786497838508, guid: 82b138741025fe54293d1f53062af6a1, type: 3}
-  - {fileID: 1194486133635037157, guid: f9e5e9277ca70db439bdda70abcc33fc, type: 3}
-  - {fileID: 3949934640569500591, guid: 6f35c827bf95a5449aaa850e901cd7ed, type: 3}
+  - {fileID: 6902440658852337707, guid: 13d795621a8198845bbb59977dda8201, type: 3}
+  - {fileID: 8942237139146411406, guid: 10c0de70f82818c42a6bba648c3857d2, type: 3}
+  - {fileID: 2065999753668061396, guid: 141e4d035cfa54a4b93b892826abdf01, type: 3}
+  - {fileID: 6208694056351152071, guid: 04bf5a2e887725a4e9a18a30136ac097, type: 3}
+  - {fileID: 3086713826107550018, guid: 2c7755ed35685ab438465c90502fcd1c, type: 3}
   normalMissionPrefabList_:
-  - {fileID: 7152460719995171007, guid: 7d406e590fa93d5488cc9cc83ab2dc06, type: 3}
-  - {fileID: 9011910422994990176, guid: 21338d146c05e5c4f94e882c0bb29000, type: 3}
-  - {fileID: 7610999355592709465, guid: b8c5e82c044c25b40925dec4147c179f, type: 3}
-  - {fileID: 2429126974047594970, guid: 88133b26e5b8eca40a0d61de66152f94, type: 3}
-  - {fileID: 506457082887024265, guid: b4ab2f30dd86b344ca1e013762da09ea, type: 3}
-  - {fileID: 5858580786497838508, guid: 82b138741025fe54293d1f53062af6a1, type: 3}
-  - {fileID: 4646178514019155445, guid: 855a9a4edc7db4f4ca3bbbf359938cbd, type: 3}
+  - {fileID: 4534637445478246947, guid: 56f1e7542e61fae4a90095d4b482652a, type: 3}
+  - {fileID: 624350549716034676, guid: 8c39d11f4dcab9e44bad3686dace6d85, type: 3}
+  - {fileID: 4955711171801324291, guid: 19953ceb798e49748a1af07994eed3f6, type: 3}
+  - {fileID: 3815652951985034754, guid: c2b1296023efbcf45ab3686118a0af5b, type: 3}
+  - {fileID: 2440483812120979005, guid: 1fdad9f90602c6a4a9f7f528ca11b4d0, type: 3}
+  - {fileID: 8862498584897234564, guid: 2ed0fe78b7b25c148a8dace73462db73, type: 3}
+  - {fileID: 6165077219589460303, guid: 956982f2f5382e541a8ae9f2244b7450, type: 3}
   hardMissionPrefabList_:
-  - {fileID: 9011910422994990176, guid: 21338d146c05e5c4f94e882c0bb29000, type: 3}
+  - {fileID: 2649200518619025867, guid: 48e9004f277a63d45965cfaa2ec46ee0, type: 3}
   - {fileID: 2429126974047594970, guid: 88133b26e5b8eca40a0d61de66152f94, type: 3}
-  - {fileID: 669452373402229478, guid: 5bedc5b2084012d4c988c0f74ee60cf5, type: 3}
-  - {fileID: 4646178514019155445, guid: 855a9a4edc7db4f4ca3bbbf359938cbd, type: 3}
-  - {fileID: 7511613019739664733, guid: f0cc415043a1fa2439011ad925e8d94e, type: 3}
-  - {fileID: 506457082887024265, guid: b4ab2f30dd86b344ca1e013762da09ea, type: 3}
-  - {fileID: 5858580786497838508, guid: 82b138741025fe54293d1f53062af6a1, type: 3}
+  - {fileID: 2326003256699393451, guid: d400f5c9256be2f498dd21c692894c4a, type: 3}
+  - {fileID: 1184996623870101877, guid: e4f85d9efc5028f4a856cfc738cc3ff7, type: 3}
+  - {fileID: 6821367768010765253, guid: 531c5c652d0f80e47beb66ea1c539887, type: 3}
+  - {fileID: 2352713860100220894, guid: 355f9cd3a90b38d4ba21bcf3faa8e579, type: 3}
   normalLine_: 25
   hardLine_: 40
   spWeaponUI: {fileID: 0}

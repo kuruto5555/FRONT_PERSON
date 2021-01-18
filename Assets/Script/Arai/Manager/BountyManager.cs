@@ -179,7 +179,10 @@ namespace FrontPerson.Manager
         {
             // 他のインスタンスの取得
             _player = GameObject.FindGameObjectWithTag("Player").GetComponent<Character.Player>();
-
+            if (spWeaponUI == null)
+            {
+                spWeaponUI = FindObjectOfType<UI_SP_Weapon>();
+            }
         }
 
         // Update is called once per frame

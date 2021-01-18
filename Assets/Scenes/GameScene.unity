@@ -12876,52 +12876,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1320749166092626202, guid: ad254301988cda34d802bd0a165ee76d,
-        type: 3}
-      propertyPath: easyMissionPrefabList_.Array.size
-      value: 6
-      objectReference: {fileID: 0}
-    - target: {fileID: 1320749166092626202, guid: ad254301988cda34d802bd0a165ee76d,
-        type: 3}
-      propertyPath: spWeaponUI
-      value: 
-      objectReference: {fileID: 601291192}
-    - target: {fileID: 1320749166092626202, guid: ad254301988cda34d802bd0a165ee76d,
-        type: 3}
-      propertyPath: easyMissionPrefabList_.Array.data[0]
-      value: 
-      objectReference: {fileID: 7152460719995171007, guid: 7d406e590fa93d5488cc9cc83ab2dc06,
-        type: 3}
-    - target: {fileID: 1320749166092626202, guid: ad254301988cda34d802bd0a165ee76d,
-        type: 3}
-      propertyPath: easyMissionPrefabList_.Array.data[1]
-      value: 
-      objectReference: {fileID: 7610999355592709465, guid: b8c5e82c044c25b40925dec4147c179f,
-        type: 3}
-    - target: {fileID: 1320749166092626202, guid: ad254301988cda34d802bd0a165ee76d,
-        type: 3}
-      propertyPath: easyMissionPrefabList_.Array.data[2]
-      value: 
-      objectReference: {fileID: 506457082887024265, guid: b4ab2f30dd86b344ca1e013762da09ea,
-        type: 3}
-    - target: {fileID: 1320749166092626202, guid: ad254301988cda34d802bd0a165ee76d,
-        type: 3}
-      propertyPath: easyMissionPrefabList_.Array.data[3]
-      value: 
-      objectReference: {fileID: 5858580786497838508, guid: 82b138741025fe54293d1f53062af6a1,
-        type: 3}
-    - target: {fileID: 1320749166092626202, guid: ad254301988cda34d802bd0a165ee76d,
-        type: 3}
-      propertyPath: easyMissionPrefabList_.Array.data[4]
-      value: 
-      objectReference: {fileID: 1194486133635037157, guid: f9e5e9277ca70db439bdda70abcc33fc,
-        type: 3}
-    - target: {fileID: 1320749166092626202, guid: ad254301988cda34d802bd0a165ee76d,
-        type: 3}
-      propertyPath: easyMissionPrefabList_.Array.data[5]
-      value: 
-      objectReference: {fileID: 3949934640569500591, guid: 6f35c827bf95a5449aaa850e901cd7ed,
-        type: 3}
     - target: {fileID: 1320749166092626203, guid: ad254301988cda34d802bd0a165ee76d,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -33333,6 +33287,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_StaticEditorFlags
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4960959426141481895, guid: 34dc7089d86a38047a11c22287ec03bc,
+        type: 3}
+      propertyPath: maxTime_
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4960959426141481945, guid: 34dc7089d86a38047a11c22287ec03bc,
         type: 3}
