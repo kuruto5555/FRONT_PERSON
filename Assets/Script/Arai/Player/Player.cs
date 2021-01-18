@@ -950,8 +950,7 @@ namespace FrontPerson.Character
                 {
                     SetWeapon();
                     _weaponAnims.Add(Weapon.gameObject.GetComponent<Animator>());
-                    // 武器タイプをハンドガンにして何回も武器チェンできるのを防ぐ
-                    _weaponType = (int)WEAPON_TYPE.HANDGUN;
+                    
                 }
                 // スペシャルウェポンから切り替わるとき
                 else
@@ -1055,6 +1054,9 @@ namespace FrontPerson.Character
 
             Weapon = Instantiate(_weponManager.WeaponPrefabList[_weaponType], cameraTransform_).GetComponent<Weapon.SpecialWeapon>();
             WeaponList[2] = Weapon;
+
+            // 武器タイプをハンドガンにして何回も武器チェンできるのを防ぐ
+            _weaponType = (int)WEAPON_TYPE.HANDGUN;
         }
 
         private void ItemStatusUpdate()
