@@ -182,7 +182,7 @@ MonoBehaviour:
   rabkingButton_: {fileID: 50809543}
   screen_: {fileID: 1488756717}
   initUnActiveObjects_: []
-  totalScoreGuideline_: a861000060ea0000a0860100
+  totalScoreGuideline_: 204e000050c30000a0860100
 --- !u!4 &323177212
 Transform:
   m_ObjectHideFlags: 0
@@ -784,21 +784,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_AnchorMin.y
       value: 0.1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8208322776952166954, guid: d6230c432fce9334c83ab85b8cff9c24,
-        type: 3}
-      propertyPath: m_SizeDelta.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8208322776952166954, guid: d6230c432fce9334c83ab85b8cff9c24,
-        type: 3}
-      propertyPath: m_AnchorMin.x
-      value: 0.02
-      objectReference: {fileID: 0}
-    - target: {fileID: 8208322776952166954, guid: d6230c432fce9334c83ab85b8cff9c24,
-        type: 3}
-      propertyPath: m_AnchorMax.x
-      value: 0.98
       objectReference: {fileID: 0}
     - target: {fileID: 8208322776952166955, guid: d6230c432fce9334c83ab85b8cff9c24,
         type: 3}
