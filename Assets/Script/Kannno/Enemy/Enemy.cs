@@ -218,6 +218,17 @@ namespace FrontPerson.Character
                     case EnemyType.YAKUZA:
                         score_manager.AddScore((int)EnemyScore.YAKUZA, Score.ADD_SCORE_TYPE.BASIC_SCORE);
                         comboManager.AddCombo(1, ADD_COMBO_TYPE.YAKUZA);
+
+                        if (Random.Range(0, 100) == 0)
+                        {
+                            AudioManager.Instance.Play3DSE(transform.position, SEPath.GAME_SE_VOICE_YAKUZA_DOWN2);
+                        }
+                        else
+                        {
+                            AudioManager.Instance.Play3DSE(transform.position, SEPath.GAME_SE_VOICE_YAKUZA_DOWN);
+                        }
+
+
                         break;
                 }
 
