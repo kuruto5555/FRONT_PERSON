@@ -389,7 +389,7 @@ namespace FrontPerson.Character
 
             // 空中にいるときの処理もあるので先に呼ぶ
             position_ = transform.position;
-            Jump();
+            //Jump();
 
             // スタン中だったら他の処理をせずにスタンの時間を更新して終わり
             if (IsStun)
