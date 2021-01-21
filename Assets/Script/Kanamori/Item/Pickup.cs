@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 using FrontPerson.Character;
+using FrontPerson.Manager;
+using FrontPerson.Constants;
 
 namespace FrontPerson.Item
 {
@@ -71,6 +73,8 @@ namespace FrontPerson.Item
 
         public void PlayPickupFeedback()
         {
+
+            AudioManager.Instance.Play3DSE(transform.position, SEPath.GAME_SE_GET_ITEM);
             if (particle_)
             {
                 Instantiate(particle_, transform_.position, Quaternion.identity);

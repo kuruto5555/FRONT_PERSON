@@ -69,7 +69,7 @@ namespace FrontPerson.UI
             if (gauge_.fillAmount <= 0)
             {
                 gauge_.fillAmount = 0f;
-                coolTime_.text = "0.00";
+                coolTime_.text = "0.0";
                 coolTime_.gameObject.SetActive(false);
                 isUpdate = false;
             }

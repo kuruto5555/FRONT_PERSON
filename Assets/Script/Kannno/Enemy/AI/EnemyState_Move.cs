@@ -123,6 +123,8 @@ namespace FrontPerson.Enemy.AI
                 Player.Alart(true);
 
                 LookEnemy?.AddEnemy(Owner.transform);
+
+                EmotionEmitter_.OpentFire(EMOTION_INDEX.ANGRY, 0.8f);
             }
         }
 

@@ -471,6 +471,7 @@ namespace FrontPerson.Character
         /// </summary>
         void Dash()
         {
+            if (IsStun) return;
             if (_isJump) return;
             if (searchArea.IsSearch) return;
             if (IsStop)
@@ -792,6 +793,15 @@ namespace FrontPerson.Character
             _audioManager.Play3DSE(Position, SEPath.GAME_SE_STUN);
             _audioManager.Play3DSE(Position, SEPath.GAME_SE_DAMEGE);
             _comboManager.LostCombo();
+            
+            // 武器にダッシュアニメーションを止めさせる
+            foreach (var weapon in WeaponList)
+            {
+                if (weapon == null) continue;
+                if (!weapon.gameObject.activeSelf) continue;
+                weapon.GetComponent<Animator>()?.SetBool("Dash", false);
+            }
+            moveSpeed_ = walkSpeed_;
 
             _nowStunSoundRate = StunSoundRate;
 
@@ -979,10 +989,10 @@ namespace FrontPerson.Character
                 //}
                 //
                 //
-                //// アニメーション再生待ち
-                //while (_weaponAnims[0].GetCurrentAnimatorStateInfo(0).normalizedTime < 0.9f) {
-                //    yield return null;
-                //}
+                // アニメーション再生待ち
+                while (_weaponAnims[0].GetCurrentAnimatorStateInfo(0).normalizedTime < 0.9f) {
+                    yield return null;
+                }
                 
 
                 // 武器の切り替え完了
@@ -1014,6 +1024,7 @@ namespace FrontPerson.Character
         {
             if (IsDash) return;
             if (_weaponType == (int)WEAPON_TYPE.HANDGUN || _weaponType == (int)WEAPON_TYPE.NONE) return;
+            if (_weaponAnims.Count != 0) return;
 
             if (Input.GetButtonDown(InputName.WEAPON_CHANGE))
             {
@@ -1262,3 +1273,4 @@ namespace FrontPerson.Character
     }
 
 };
+

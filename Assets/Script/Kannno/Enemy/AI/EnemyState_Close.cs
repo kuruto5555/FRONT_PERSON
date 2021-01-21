@@ -86,6 +86,8 @@ namespace FrontPerson.Enemy.AI
 
                 LookEnemy?.DeleteEnemy(Owner.transform);
 
+                EmotionEmitter_.CloseFire();
+
                 return;
             }
 

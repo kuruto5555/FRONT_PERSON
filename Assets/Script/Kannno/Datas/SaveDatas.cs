@@ -29,7 +29,7 @@ namespace FrontPerson.Data
         /// <summary>
         /// ランキングに表示するスコア(上位5位分)
         /// </summary>
-        public List<int> RankingScore = new List<int>() { 100000, 50000, 25000, 10000, 5000 };
+        public List<int> RankingScore = new List<int>() { 100000, 50000, 20000, 10000, 5000 };
 
         /// <summary>
         /// ランキングに表示する最大コンボ数(上位5位分)
@@ -39,7 +39,7 @@ namespace FrontPerson.Data
         /// <summary>
         /// ランキングに表示するミッションクリア数(上位5位分)
         /// </summary>
-        public List<int> RankingClearMissionNum = new List<int>() { 20, 16, 12, 8, 4 };
+        public List<int> RankingClearMissionNum = new List<int>() { 30, 20, 15, 10, 5 };
 
         /// <summary>
         /// 上下の視点感度

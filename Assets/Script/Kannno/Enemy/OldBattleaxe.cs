@@ -76,8 +76,6 @@ namespace FrontPerson.Enemy
                     // コンボの終了
                     ComboManager.Instance.LostCombo();
 
-                    EmotionEmitter_.OpentFire(EMOTION_INDEX.ANGRY, 0.8f);
-
                     AudioManager.Instance.Play3DSE(transform.position, SEPath.GAME_SE_VOICE_WOMAN);
                 }
             }
