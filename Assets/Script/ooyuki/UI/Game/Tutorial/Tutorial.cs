@@ -264,6 +264,33 @@ namespace FrontPerson.UI
             oldTutorialIndex_ = tutorialIndex_;
             tutorialIndex_ = clickIconNumber;
 
+
+            // 左の矢印が出てないなら出す
+            if (!left_.activeSelf)
+            {
+                left_.SetActive(true);
+            }
+            // 最後のパネルなら右の矢印の文字を変える
+            if (tutorialIndex_ >= panelNum_ - 1)
+            {
+                right_.transform.GetChild(0).gameObject.SetActive(false);
+                right_.transform.GetChild(1).gameObject.SetActive(true);
+            }
+
+
+            // 移動して一番左に行ったら左の矢印を消す
+            if (tutorialIndex_ <= 0)
+            {
+                left_.SetActive(false);
+            }
+            // 最後のパネルなら右の矢印の文字を変える
+            if (tutorialIndex_ < panelNum_ - 1)
+            {
+                right_.transform.GetChild(0).gameObject.SetActive(true);
+                right_.transform.GetChild(1).gameObject.SetActive(false);
+            }
+
+
             // SE再生
             AudioManager.Instance.Play2DSE(gameObject, SEPath.COMMON_SE_CURSOR);
         }

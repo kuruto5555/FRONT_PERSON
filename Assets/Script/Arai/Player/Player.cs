@@ -855,7 +855,7 @@ namespace FrontPerson.Character
                 //武器のアニメーションスタート
                 Weapon.ChangeAnimationStart("Put");
                 _weaponAnims.Add(Weapon.gameObject.GetComponent<Animator>());
-                StartCoroutine(WeaponChangeUpdate());
+                StartCoroutine(WeaponChangeUpdate(_weaponType));
             }
             
         }
@@ -920,7 +920,7 @@ namespace FrontPerson.Character
 
         private bool _isNewWeapon = false;
 
-        private IEnumerator WeaponChangeUpdate()
+        private IEnumerator WeaponChangeUpdate(int weaponType)
         {
             if (_weaponAnims.Count != 0 && _isWeaponChangeAnimation == false)
             {
@@ -958,7 +958,7 @@ namespace FrontPerson.Character
                 // ハンドガンからスペシャルウェポンに切り替わるとき
                 if (Weapon == null)
                 {
-                    SetWeapon();
+                    SetWeapon(weaponType);
                     _weaponAnims.Add(Weapon.gameObject.GetComponent<Animator>());
                     
                 }
@@ -976,7 +976,7 @@ namespace FrontPerson.Character
                     // 新しいスペシャルウェポンの時
                     else
                     {
-                        SetWeapon();
+                        SetWeapon(weaponType);
                         _weaponAnims.Add(Weapon.gameObject.GetComponent<Animator>());
                     }
                 }
@@ -990,7 +990,7 @@ namespace FrontPerson.Character
                 //
                 //
                 // アニメーション再生待ち
-                while (_weaponAnims[0].GetCurrentAnimatorStateInfo(0).normalizedTime < 0.9f) {
+                while (_weaponAnims[0].GetCurrentAnimatorStateInfo(0).normalizedTime < 0.90f) {
                     yield return null;
                 }
                 
@@ -1051,7 +1051,9 @@ namespace FrontPerson.Character
                     _weaponAnims.Add(gunR_.GetComponent<Animator>());
                 }
 
-                StartCoroutine(WeaponChangeUpdate());
+                StartCoroutine(WeaponChangeUpdate(_weaponType));
+                // 武器タイプをハンドガンにして何回も武器チェンできるのを防ぐ
+                _weaponType = (int)WEAPON_TYPE.HANDGUN;
             }
         }
 
@@ -1059,15 +1061,14 @@ namespace FrontPerson.Character
         /// <summary>
         /// 武器チェンジアニメーションが終わった時に呼ぶ
         /// </summary>
-        public void SetWeapon()
+        public void SetWeapon(int weaponType)
         {
-            if (_weaponType == (int)WEAPON_TYPE.HANDGUN || _weaponType == (int)WEAPON_TYPE.NONE) return;
+            if (weaponType == (int)WEAPON_TYPE.HANDGUN || weaponType == (int)WEAPON_TYPE.NONE) return;
 
-            Weapon = Instantiate(_weponManager.WeaponPrefabList[_weaponType], cameraTransform_).GetComponent<Weapon.SpecialWeapon>();
+            Weapon = Instantiate(_weponManager.WeaponPrefabList[weaponType], cameraTransform_).GetComponent<Weapon.SpecialWeapon>();
             WeaponList[2] = Weapon;
 
-            // 武器タイプをハンドガンにして何回も武器チェンできるのを防ぐ
-            _weaponType = (int)WEAPON_TYPE.HANDGUN;
+            
         }
 
         private void ItemStatusUpdate()
